@@ -60,4 +60,30 @@ public class Range {
             return null;
         }
     }
+
+    public double[] getUnionRange (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
+
+        int firstArrayLength = (int)(firstLineEnd - firstLineBegan);
+        double[] firstArray = new double[firstArrayLength];
+
+        int secondArrayLength = (int)(secondLineEnd - secondLineBegan);
+        double[] secondArray = new double[secondArrayLength];
+
+        int arrayCount = 0;
+
+        for (double i = firstLineBegan; i < firstLineEnd; ++i) {
+            firstArray[arrayCount] = i;
+            arrayCount++;
+        }
+        arrayCount = 0;
+        for (double i = secondLineBegan; i < secondLineEnd; ++i) {
+            secondArray[arrayCount] = i;
+        }
+
+        for (int i = 0; i < firstArray.length; ++i) {
+            for (int j = i; j < secondArray.length; ++j) {
+                if (firstArray[])
+            }
+        }
+    }
 }
