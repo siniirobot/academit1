@@ -22,7 +22,7 @@ public class FindRange {
 
         Range range = new Range(firstLineBegan, firstLineEnd);
 
-        System.out.printf("Числовой диапозон чисел равен %f %n", range.getLength());
+        System.out.printf("Числовой диапозон чисел равен: %f %n", range.getLength());
 
         if (range.isInRange(inRange)) {
             System.out.println("Число в диапозоне.");
@@ -35,7 +35,7 @@ public class FindRange {
         if (intersection == null) {
             System.out.println("Нет пересечения");
         }else {
-            System.out.println("Пересечение происходит в числах:");
+            System.out.print("Пересечение происходит в числах:");
             for (double e:intersection) {
                 System.out.printf(" %f",e);
             }
@@ -44,15 +44,20 @@ public class FindRange {
         double[] unionRange = range.getUnionRange(firstLineBegan, firstLineEnd, secondLineBegan, secondLineEnd);
 
         if (unionRange.length == 2) {
-            System.out.println("Обьеденение делает новый отрезок с диапозонм:");
+            System.out.printf("%nОбьеденение делает новый отрезок с диапозонм:");
             for (double e:unionRange) {
                 System.out.printf(" %f",e);
             }
         }else {
-            System.out.println("Обьеденение делает два отрезка:");
+            System.out.printf("%nОбьеденение делает два отрезка:");
             for (double e:unionRange) {
                 System.out.printf(" %f",e);
             }
+        }
+
+        System.out.printf("%nРазность двух отрезков равна:");
+        for (double e:range.getDifference(firstLineBegan, firstLineEnd, secondLineBegan, secondLineEnd)) {
+            System.out.print(e + " ");
         }
     }
 }

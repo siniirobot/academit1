@@ -68,4 +68,42 @@ public class Range {
         }
         return new double[] {firstLineBegan,firstLineEnd,secondLineBegan,secondLineEnd};
     }
+
+    public double[] getDifference (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
+
+        int arraySize = 0;
+
+        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
+            boolean intersection = false;
+            for (double j = secondLineBegan; j <= secondLineEnd; ++j) {
+                if ( i == j) {
+                    intersection = true;
+                    break;
+                }
+            }
+            if (!intersection) {
+                arraySize++;
+            }
+        }
+
+        double[] newRange = new double[arraySize];
+
+        int arrayCount = 0;
+
+        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
+            boolean intersection = false;
+            for (double j = secondLineBegan; j <= secondLineEnd; ++j) {
+                if ( i == j) {
+                    intersection = true;
+                    break;
+                }
+            }
+            if (!intersection) {
+                newRange[arrayCount] = i;
+                arrayCount++;
+            }
+        }
+
+        return newRange;
+    }
 }
