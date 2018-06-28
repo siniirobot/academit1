@@ -31,11 +31,26 @@ public class FindRange {
         }
 
         double[] intersection = range.getNewRange(firstLineBegan, firstLineEnd, secondLineBegan, secondLineEnd);
+
         if (intersection == null) {
             System.out.println("Нет пересечения");
         }else {
-            System.out.print("Пересечение происходит в числах:");
+            System.out.println("Пересечение происходит в числах:");
             for (double e:intersection) {
+                System.out.printf(" %f",e);
+            }
+        }
+
+        double[] unionRange = range.getUnionRange(firstLineBegan, firstLineEnd, secondLineBegan, secondLineEnd);
+
+        if (unionRange.length == 2) {
+            System.out.println("Обьеденение делает новый отрезок с диапозонм:");
+            for (double e:unionRange) {
+                System.out.printf(" %f",e);
+            }
+        }else {
+            System.out.println("Обьеденение делает два отрезка:");
+            for (double e:unionRange) {
                 System.out.printf(" %f",e);
             }
         }

@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class Range {
     private double from;
@@ -52,10 +52,8 @@ public class Range {
             }
         }
 
-        double[] newLine = {intersectionPointOpen, intersectionPointClose};
-
         if (intersection) {
-            return newLine;
+            return new double[] {intersectionPointOpen, intersectionPointClose};
         }else {
             return null;
         }
@@ -63,30 +61,11 @@ public class Range {
 
     public double[] getUnionRange (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
 
-        int firstArrayLength = (int)(firstLineEnd - firstLineBegan);
-        double[] firstArray = new double[firstArrayLength];
-
-        int secondArrayLength = (int)(secondLineEnd - secondLineBegan);
-        double[] secondArray = new double[secondArrayLength];
-
-        double[] newArray = new double[]
-        int arrayCount = 0;
-
-        for (double i = firstLineBegan; i < firstLineEnd; ++i) {
-            firstArray[arrayCount] = i;
-            arrayCount++;
-        }
-        arrayCount = 0;
-        for (double i = secondLineBegan; i < secondLineEnd; ++i) {
-            secondArray[arrayCount] = i;
-        }
-
-        for (int i = 0; i < firstArray.length; ++i) {
-            for (int j = i; j < secondArray.length; ++j) {
-                if (firstArray[i] == secondArray[j]) {
-
-                }
+        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
+            if (i == secondLineBegan){
+                return new double[] {secondLineBegan,secondLineEnd};
             }
         }
+        return new double[] {firstLineBegan,firstLineEnd,secondLineBegan,secondLineEnd};
     }
 }
