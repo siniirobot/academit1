@@ -69,6 +69,7 @@ public class Range {
         int secondArrayLength = (int)(secondLineEnd - secondLineBegan);
         double[] secondArray = new double[secondArrayLength];
 
+        double[] newArray = new double[]
         int arrayCount = 0;
 
         for (double i = firstLineBegan; i < firstLineEnd; ++i) {
@@ -82,7 +83,9 @@ public class Range {
 
         for (int i = 0; i < firstArray.length; ++i) {
             for (int j = i; j < secondArray.length; ++j) {
-                if (firstArray[])
+                if (firstArray[i] == secondArray[j]) {
+
+                }
             }
         }
     }
