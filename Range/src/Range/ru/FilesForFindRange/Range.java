@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package Range.ru.FilesForFindRange;
 
 public class Range {
     private double from;

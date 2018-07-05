@@ -1,6 +1,9 @@
-package Range;
+package Range.ru.mainThisFindFiles;
+
+import Range.ru.FilesForFindRange.Range;
 
 import java.util.Scanner;
+
 
 public class FindRange {
     public static void main(String[] args) {
@@ -22,7 +25,7 @@ public class FindRange {
         System.out.println("Введите число для проверки диапозона.");
         double inRange = scanner.nextDouble();
 
-        Range range = new Range(firstLineBegan, firstLineEnd);
+        Range range = new Range(firstLineBegan,firstLineEnd);
 
         System.out.printf("Числовой диапозон первого отрезка равен: %f %n", range.getLength());
 
