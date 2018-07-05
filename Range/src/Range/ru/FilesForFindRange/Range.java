@@ -33,77 +33,66 @@ public class Range {
         return from <= tryNumber && tryNumber <= to;
     }
 
-    public double[] getNewRange (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
+    public double[] getNewRange(double secondLineBegan, double secondLineEnd) {
 
-        boolean intersection = false;
-        double intersectionPointOpen = 0;
-        double intersectionPointClose = 0;
-
-        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
-            for (double j = secondLineBegan; j <= secondLineEnd; ++j) {
-                if (!intersection) {
-                    intersectionPointOpen = j;
-                }
-                if (i == j) {
-                    intersection = true;
-                    intersectionPointClose = j;
-                    break;
-                }
-            }
-        }
-
-        if (intersection) {
-            return new double[] {intersectionPointOpen, intersectionPointClose};
-        }else {
+        if (secondLineEnd <= this.from || secondLineBegan >= this.to) {
             return null;
+        } else {
+            if (secondLineBegan >= this.from && secondLineBegan <= this.to) {
+                if (secondLineEnd < this.to) {
+                    return new double[]{secondLineBegan, secondLineEnd};
+                } else {
+                    return new double[]{secondLineBegan, this.to};
+                }
+            } else {
+                if (secondLineEnd < this.to) {
+                    return new double[]{this.from, secondLineEnd};
+                } else {
+                    return new double[]{this.from, this.to};
+                }
+            }
         }
     }
 
-    public double[] getUnionRange (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
+    public double[] getUnionRange(double secondLineBegan, double secondLineEnd) {
 
-        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
-            if (i == secondLineBegan){
-                return new double[] {secondLineBegan,secondLineEnd};
+        if (secondLineEnd < this.from || secondLineBegan > this.to) {
+            return new double[]{this.from, this.to, secondLineBegan, secondLineEnd};
+        } else {
+            if (secondLineBegan >= this.from && secondLineBegan <= this.to) {
+                if (secondLineEnd < this.to) {
+                    return new double[]{this.from, this.to};
+                } else {
+                    return new double[]{this.from, secondLineEnd};
+                }
+            } else {
+                if (secondLineEnd < this.to) {
+                    return new double[]{secondLineBegan, this.to};
+                } else {
+                    return new double[]{secondLineBegan, secondLineEnd};
+                }
             }
         }
-        return new double[] {firstLineBegan,firstLineEnd,secondLineBegan,secondLineEnd};
     }
 
-    public double[] getDifference (double firstLineBegan, double firstLineEnd, double secondLineBegan,double secondLineEnd) {
+    public double[] getDifference(double secondLineBegan, double secondLineEnd) {
 
-        int arraySize = 0;
-
-        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
-            boolean intersection = false;
-            for (double j = secondLineBegan; j <= secondLineEnd; ++j) {
-                if ( i == j) {
-                    intersection = true;
-                    break;
+        if (secondLineEnd < this.from || secondLineBegan > this.to) {
+            return new double[]{this.from, this.to};
+        } else {
+            if (secondLineBegan > this.from && secondLineBegan < this.to) {
+                if (secondLineEnd < this.to) {
+                    return new double[]{this.from, secondLineBegan, secondLineEnd, this.to};
+                } else {
+                    return new double[]{this.from, secondLineBegan};
+                }
+            } else {
+                if (secondLineEnd < this.to) {
+                    return new double[]{secondLineEnd, this.to};
+                } else {
+                    return new double[]{};
                 }
             }
-            if (!intersection) {
-                arraySize++;
-            }
         }
-
-        double[] newRange = new double[arraySize];
-
-        int arrayCount = 0;
-
-        for (double i = firstLineBegan; i <= firstLineEnd; ++i) {
-            boolean intersection = false;
-            for (double j = secondLineBegan; j <= secondLineEnd; ++j) {
-                if ( i == j) {
-                    intersection = true;
-                    break;
-                }
-            }
-            if (!intersection) {
-                newRange[arrayCount] = i;
-                arrayCount++;
-            }
-        }
-
-        return newRange;
     }
 }
