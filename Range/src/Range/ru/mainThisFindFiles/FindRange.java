@@ -26,40 +26,39 @@ public class FindRange {
         double inRange = scanner.nextDouble();
 
         Range range = new Range(firstLineBegan, firstLineEnd);
+        Range range2 = new Range(secondLineBegan, secondLineEnd);
 
         System.out.printf("Числовой диапозон первого отрезка равен: %f %n", range.getLength());
 
-        double[] intersection = range.getNewRange(secondLineBegan, secondLineEnd);
+        Range intersection = range.getNewRange(range2);
 
         if (intersection == null) {
             System.out.print("Нет пересечения");
         } else {
-            System.out.print("Пересечение происходит в числах:");
-            for (double e : intersection) {
-                System.out.printf(" %f", e);
-            }
+            System.out.print("Пересечение происходит в числах: ");
+            System.out.print(intersection);
         }
 
-        double[] unionRange = range.getUnionRange(secondLineBegan, secondLineEnd);
+        Range[] unionRange = range.getUnionRange(range2);
 
         if (unionRange.length == 2) {
-            System.out.printf("%nОбьеденение делает новый отрезок с диапозонм:");
-            for (double e : unionRange) {
-                System.out.printf(" %f", e);
+            System.out.printf("%nОбьеденение делает два отрезка:");
+            for (Range e : unionRange) {
+                System.out.print(e + " ");
             }
         } else {
-            System.out.printf("%nОбьеденение делает два отрезка:");
-            for (double e : unionRange) {
-                System.out.printf(" %f", e);
+            System.out.printf("%nОбьеденение делает новый отрезок с диапозонм:");
+            for (Range e : unionRange) {
+                System.out.print(e);
             }
         }
 
-        double[] difference = range.getDifference(secondLineBegan, secondLineEnd);
+        Range[] difference = range.getDifference(range2);
         if (difference.length == 0) {
-            System.out.printf("%nВторой оитрезок больше первого.");
+            System.out.printf("%nВторой отрезок больше первого.");
         } else {
             System.out.printf("%nРазность двух отрезков равна:");
-            for (double e : difference) {
+            for (Range e : difference) {
                 System.out.print(e + " ");
             }
         }

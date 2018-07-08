@@ -33,66 +33,70 @@ public class Range {
         return from <= tryNumber && tryNumber <= to;
     }
 
-    public double[] getNewRange(double secondLineBegan, double secondLineEnd) {
+    public Range getNewRange(Range range) {
 
-        if (secondLineEnd <= this.from || secondLineBegan >= this.to) {
+        if (range.to <= this.from || range.from >= this.to) {
             return null;
         } else {
-            if (secondLineBegan >= this.from && secondLineBegan <= this.to) {
-                if (secondLineEnd < this.to) {
-                    return new double[]{secondLineBegan, secondLineEnd};
+            if (range.from >= this.from && range.from <= this.to) {
+                if (range.to < this.to) {
+                    return new Range(range.from, range.to);
                 } else {
-                    return new double[]{secondLineBegan, this.to};
+                    return new Range(range.from, this.to);
                 }
             } else {
-                if (secondLineEnd < this.to) {
-                    return new double[]{this.from, secondLineEnd};
+                if (range.to < this.to) {
+                    return new Range(this.from, range.to);
                 } else {
-                    return new double[]{this.from, this.to};
+                    return new Range(this.from, this.to);
                 }
             }
         }
     }
 
-    public double[] getUnionRange(double secondLineBegan, double secondLineEnd) {
+    public Range[] getUnionRange(Range range) {
 
-        if (secondLineEnd < this.from || secondLineBegan > this.to) {
-            return new double[]{this.from, this.to, secondLineBegan, secondLineEnd};
+        if (range.to < this.from || range.from > this.to) {
+            return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
         } else {
-            if (secondLineBegan >= this.from && secondLineBegan <= this.to) {
-                if (secondLineEnd < this.to) {
-                    return new double[]{this.from, this.to};
+            if (range.from >= this.from && range.from <= this.to) {
+                if (range.to < this.to) {
+                    return new Range[]{new Range(this.from, this.to)};
                 } else {
-                    return new double[]{this.from, secondLineEnd};
+                    return new Range[]{new Range(this.from, range.to)};
                 }
             } else {
-                if (secondLineEnd < this.to) {
-                    return new double[]{secondLineBegan, this.to};
+                if (range.to < this.to) {
+                    return new Range[]{new Range(range.from, this.to)};
                 } else {
-                    return new double[]{secondLineBegan, secondLineEnd};
+                    return new Range[]{new Range(range.from, range.to)};
                 }
             }
         }
     }
 
-    public double[] getDifference(double secondLineBegan, double secondLineEnd) {
+    public Range[] getDifference(Range range) {
 
-        if (secondLineEnd < this.from || secondLineBegan > this.to) {
-            return new double[]{this.from, this.to};
+        if (range.to < this.from || range.from > this.to) {
+            return new Range[]{new Range(this.from, this.to)};
         } else {
-            if (secondLineBegan > this.from && secondLineBegan < this.to) {
-                if (secondLineEnd < this.to) {
-                    return new double[]{this.from, secondLineBegan, secondLineEnd, this.to};
+            if (range.from > this.from && range.from < this.to) {
+                if (range.to < this.to) {
+                    return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
                 } else {
-                    return new double[]{this.from, secondLineBegan};
+                    return new Range[]{new Range(this.from, range.from)};
                 }
             } else {
-                if (secondLineEnd < this.to) {
-                    return new double[]{secondLineEnd, this.to};
+                if (range.to < this.to) {
+                    return new Range[]{new Range(range.to, this.to)};
                 } else {
-                    return new double[]{};
+                    return new Range[]{};
                 }
             }
         }
+    }
+
+    public String toString() {
+        return (from + " " + to);
     }
 }
