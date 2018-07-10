@@ -34,11 +34,10 @@ public class Range {
     }
 
     public Range intersection(Range range) {
-
-        if (range.to <= this.from || range.from >= this.to) {
+        if (range.to < this.from || range.from > this.to) {
             return null;
         } else {
-            if (range.from >= this.from && range.from <= this.to) {
+            if (range.from > this.from && range.from < this.to) {
                 if (range.to < this.to) {
                     return new Range(range.from, range.to);
                 } else {
@@ -55,11 +54,10 @@ public class Range {
     }
 
     public Range[] getUnionRange(Range range) {
-
         if (range.to < this.from || range.from > this.to) {
             return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
         } else {
-            if (range.from >= this.from && range.from <= this.to) {
+            if (range.from > this.from && range.from < this.to) {
                 if (range.to < this.to) {
                     return new Range[]{new Range(this.from, this.to)};
                 } else {
@@ -76,8 +74,7 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-
-        if (range.to < this.from || range.from > this.to) {
+        if (range.to <= this.from || range.from >= this.to) {
             return new Range[]{new Range(this.from, this.to)};
         } else {
             if (range.from > this.from && range.from < this.to) {
