@@ -2,10 +2,10 @@ package ru.academItSchool.gorbunov.shapes;
 
 import ru.academItSchool.gorbunov.interfaces.Shapes;
 
-public class Sqare implements Shapes {
-    private double a;
+public class Square implements Shapes {
+    public double a;
 
-    public Sqare(double a) {
+    public Square(double a) {
         this.a = a;
     }
 
@@ -38,7 +38,7 @@ public class Sqare implements Shapes {
     }
 
     public String toString() {
-        return ("квадрат" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+        return ("квадрат" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его ширина равна - " + getHeight()
                 + System.lineSeparator() + "Его периметр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
                 + getArea());
     }
@@ -63,8 +63,8 @@ public class Sqare implements Shapes {
             return false;
         }
 
-        Sqare sqare = (Sqare) obj;
+        Square square = (Square) obj;
 
-        return a != sqare.a;
+        return a != square.a;
     }
 }

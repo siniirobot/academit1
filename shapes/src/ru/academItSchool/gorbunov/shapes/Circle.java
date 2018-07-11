@@ -39,7 +39,7 @@ public class Circle implements Shapes {
     }
 
     public String toString() {
-        return ("круг" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+        return ("круг" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его ширина равна - " + getHeight()
                 + System.lineSeparator() + "Его периметр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
                 + getArea());
     }
@@ -66,9 +66,6 @@ public class Circle implements Shapes {
 
         Circle circle = (Circle) obj;
 
-        if (r != circle.r) {
-            return false;
-        }
         return r != circle.r;
     }
 }
