@@ -9,7 +9,7 @@ import ru.academItSchool.gorbunov.shapes.Triangle;
 import java.util.Arrays;
 
 
-public class Realize {
+public class Realization {
     public static void main(String[] args) {
         Sqare sqare1 = new Sqare(5.4);
         Sqare sqare2 = new Sqare(88080);
