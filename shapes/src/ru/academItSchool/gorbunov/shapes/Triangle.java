@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.shapes;
+import ru.academItSchool.gorbunov.interfaces.Shapes;
 
-public class Triangle implements shapes {
+public class Triangle implements Shapes {
     public double x1;
     public double x2;
     public double x3;
@@ -67,7 +67,7 @@ public class Triangle implements shapes {
         this.y3 = y3;
     }
 
-    private double[] sides() {
+    private double[] getSides() {
         double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
         double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
         double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
@@ -86,14 +86,20 @@ public class Triangle implements shapes {
 
     @Override
     public double getPerimeter() {
-        double[] perimeter = sides();
-        return perimeter[1] + perimeter[2] + perimeter[3];
+        double[] sides = getSides();
+        return sides[0] + sides[1] + sides[2];
     }
 
     @Override
     public double getArea() {
         double halfPerimeter = getPerimeter() / 2;
-        double[] sides = sides();
-        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]) * (halfPerimeter - sides[2]));
+        double[] sides = getSides();
+        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[0]) * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]));
+    }
+
+    public String toString() {
+        return ("триугольник" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+                + getArea());
     }
 }

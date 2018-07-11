@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.shapes;
+import ru.academItSchool.gorbunov.interfaces.Shapes;
 
-public class Rectangle implements shapes {
+public class Rectangle implements Shapes {
     public double a;
     public double b;
 
@@ -45,5 +45,11 @@ public class Rectangle implements shapes {
     @Override
     public double getArea() {
         return this.a * this.b;
+    }
+
+    public String toString() {
+        return ("прямоугольник" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+                + getArea());
     }
 }

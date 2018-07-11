@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.shapes;
+import ru.academItSchool.gorbunov.interfaces.Shapes;
 
-public class Circle implements shapes {
+public class Circle implements Shapes {
     public double r;
     private final double PI = 3.1415;
 
@@ -36,5 +36,11 @@ public class Circle implements shapes {
     @Override
     public double getArea() {
         return PI * (this.r * this.r);
+    }
+
+    public String toString() {
+        return ("круг" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+                + getArea());
     }
 }

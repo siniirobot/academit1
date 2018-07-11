@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.shapes;
+import ru.academItSchool.gorbunov.interfaces.Shapes;
 
-public class Sqare implements shapes {
+public class Sqare implements Shapes {
     private double a;
 
     public Sqare(double a) {
@@ -35,6 +35,12 @@ public class Sqare implements shapes {
     @Override
     public double getPerimeter() {
         return this.a * 4;
+    }
+
+    public String toString() {
+        return ("квадрат" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+        + getArea());
     }
 
 }

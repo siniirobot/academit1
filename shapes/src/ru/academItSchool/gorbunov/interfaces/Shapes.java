@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.interfaces;
 
-public interface shapes {
+public interface Shapes {
     double getWidth();
 
     double getHeight();
@@ -8,4 +8,5 @@ public interface shapes {
     double getArea();
 
     double getPerimeter();
+
 }
