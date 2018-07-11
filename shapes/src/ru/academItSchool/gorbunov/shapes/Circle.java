@@ -40,7 +40,33 @@ public class Circle implements Shapes {
 
     public String toString() {
         return ("круг" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
-                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+                + System.lineSeparator() + "Его периметр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
                 + getArea());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        return prime * result + (int) r;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Circle circle = (Circle) obj;
+
+
+        return r != circle.r;
     }
 }

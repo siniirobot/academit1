@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class SortedByArea implements Comparator<Shapes> {
 
     public int compare(Shapes shape, Shapes shapes1) {
-        return Double.compare(shape.getArea(),shapes1.getArea());
+        return Double.compare(shape.getArea(), shapes1.getArea());
     }
 }

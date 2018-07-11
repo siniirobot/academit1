@@ -67,13 +67,6 @@ public class Triangle implements Shapes {
         this.y3 = y3;
     }
 
-    private double[] getSides() {
-        double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
-        double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
-        double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
-        return new double[]{a, b, c};
-    }
-
     @Override
     public double getHeight() {
         return Math.max(this.y1, Math.max(this.y2, this.y3)) - Math.min(this.y1, Math.min(this.y2, this.y3));
@@ -86,20 +79,75 @@ public class Triangle implements Shapes {
 
     @Override
     public double getPerimeter() {
-        double[] sides = getSides();
-        return sides[0] + sides[1] + sides[2];
+        double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
+        double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
+        double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
+        return a + b + c;
     }
 
     @Override
     public double getArea() {
-        double halfPerimeter = getPerimeter() / 2;
-        double[] sides = getSides();
-        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[0]) * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]));
+        double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
+        double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
+        double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
+        double halfPerimeter = (a + b + c) / 2;
+        return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
     }
 
     public String toString() {
-        return ("триугольник" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
-                + System.lineSeparator() + "Его перемитр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
+        return ("треугольник" + System.lineSeparator() + "Его высота равна - " + getHeight() + System.lineSeparator() + "Его длина равна - " + getHeight()
+                + System.lineSeparator() + "Его периметр равен  - " + getPerimeter() + System.lineSeparator() + "Его площадь равна - "
                 + getArea());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) x1;
+        result = prime * result + (int) x2;
+        result = prime * result + (int) x3;
+        result = prime * result + (int) y1;
+        result = prime * result + (int) y2;
+        result = prime * result + (int) y3;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Triangle triangle = (Triangle) obj;
+
+        if (x1 != triangle.x1) {
+            return false;
+        }
+
+        if (x2 != triangle.x2) {
+            return false;
+        }
+
+        if (x3 != triangle.x3) {
+            return false;
+        }
+
+        if (y1 != triangle.y1) {
+            return false;
+        }
+
+        if (y2 != triangle.y2) {
+            return false;
+        }
+
+        return y3 != triangle.y3;
     }
 }
