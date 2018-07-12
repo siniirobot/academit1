@@ -1,41 +1,40 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 
-public class Circle implements Shapes {
-    public double r;
-    private final double PI = 3.1415;
+public class Circle implements Shape {
+    public double radius;
 
-    public Circle(double r) {
-        this.r = r;
+    public Circle(double radius) {
+        this.radius = radius;
     }
 
-    public double getR() {
-        return r;
+    public double getRadius() {
+        return radius;
     }
 
-    public void setR(double r) {
-        this.r = r;
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     @Override
     public double getHeight() {
-        return this.r * 2;
+        return this.radius * 2;
     }
 
     @Override
     public double getWidth() {
-        return this.r * 2;
+        return this.radius * 2;
     }
 
     @Override
     public double getPerimeter() {
-        return 2 * PI * this.r;
+        return 2 * Math.PI * this.radius;
     }
 
     @Override
     public double getArea() {
-        return PI * (this.r * this.r);
+        return Math.PI * (this.radius * this.radius);
     }
 
     public String toString() {
@@ -48,7 +47,7 @@ public class Circle implements Shapes {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        return prime * result + (int)r;
+        return prime * result + (int) radius;
     }
 
     @Override
@@ -56,16 +55,12 @@ public class Circle implements Shapes {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() == obj.getClass()) {
             return false;
         }
 
         Circle circle = (Circle) obj;
 
-        return r != circle.r;
+        return radius == circle.radius;
     }
 }

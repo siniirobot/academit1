@@ -1,50 +1,50 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 
-public class Rectangle implements Shapes {
-    public double a;
-    public double b;
+public class Rectangle implements Shape {
+    public double side;
+    public double side1;
 
-    public Rectangle(double a, double b) {
-        this.a = a;
-        this.b = b;
+    public Rectangle(double side, double side1) {
+        this.side = side;
+        this.side1 = side1;
     }
 
-    public double getA() {
-        return a;
+    public double getSide() {
+        return side;
     }
 
-    public void setA(double a) {
-        this.a = a;
+    public void setSide(double side) {
+        this.side = side;
     }
 
-    public double getB() {
-        return b;
+    public double getSide1() {
+        return side1;
     }
 
-    public void setB(double b) {
-        this.b = b;
+    public void setSide1(double side1) {
+        this.side1 = side1;
     }
 
     @Override
     public double getWidth() {
-        return this.a;
+        return this.side;
     }
 
     @Override
     public double getHeight() {
-        return this.b;
+        return this.side1;
     }
 
     @Override
     public double getPerimeter() {
-        return (this.a + this.b) * 2;
+        return (this.side + this.side1) * 2;
     }
 
     @Override
     public double getArea() {
-        return this.a * this.b;
+        return this.side * this.side1;
     }
 
     public String toString() {
@@ -57,8 +57,8 @@ public class Rectangle implements Shapes {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) a;
-        result = prime * result + (int) b;
+        result = prime * result + (int) side;
+        result = prime * result + (int) side1;
         return result;
     }
 
@@ -67,20 +67,16 @@ public class Rectangle implements Shapes {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() == obj.getClass()) {
             return false;
         }
 
         Rectangle rectangle = (Rectangle) obj;
 
-        if (a != rectangle.a) {
-            return false;
+        if (side == rectangle.side) {
+            return true;
         }
 
-        return b != rectangle.b;
+        return side1 == rectangle.side1;
     }
 }

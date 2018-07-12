@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 
-public class Triangle implements Shapes {
+public class Triangle implements Shape {
     public double x1;
     public double x2;
     public double x3;
@@ -67,6 +67,13 @@ public class Triangle implements Shapes {
         this.y3 = y3;
     }
 
+    private double[] getSide() {
+        double side = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
+        double side1 = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
+        double side2 = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
+        return new double[] {side,side1,side2};
+    }
+
     @Override
     public double getHeight() {
         return Math.max(this.y1, Math.max(this.y2, this.y3)) - Math.min(this.y1, Math.min(this.y2, this.y3));
@@ -79,19 +86,15 @@ public class Triangle implements Shapes {
 
     @Override
     public double getPerimeter() {
-        double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
-        double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
-        double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
-        return a + b + c;
+        double[] sides = getSide();
+        return sides[0] + sides[1] + sides[2];
     }
 
     @Override
     public double getArea() {
-        double a = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
-        double b = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
-        double c = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
-        double halfPerimeter = (a + b + c) / 2;
-        return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
+        double[] sides = getSide();
+        double halfPerimeter = (sides[0] + sides[1] + sides[2]) / 2;
+        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[0]) * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]));
     }
 
     public String toString() {
@@ -118,36 +121,32 @@ public class Triangle implements Shapes {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() == obj.getClass()) {
             return false;
         }
 
         Triangle triangle = (Triangle) obj;
 
-        if (x1 != triangle.x1) {
-            return false;
+        if (x1 == triangle.x1) {
+            return true;
         }
 
-        if (x2 != triangle.x2) {
-            return false;
+        if (x2 == triangle.x2) {
+            return true;
         }
 
-        if (x3 != triangle.x3) {
-            return false;
+        if (x3 == triangle.x3) {
+            return true;
         }
 
-        if (y1 != triangle.y1) {
-            return false;
+        if (y1 == triangle.y1) {
+            return true;
         }
 
-        if (y2 != triangle.y2) {
-            return false;
+        if (y2 == triangle.y2) {
+            return true;
         }
 
-        return y3 != triangle.y3;
+        return y3 == triangle.y3;
     }
 }

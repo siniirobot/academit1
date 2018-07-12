@@ -1,12 +1,11 @@
 package ru.academItSchool.gorbunov.main;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 
 import java.util.Comparator;
 
-public class SortedByPerimeter implements Comparator<Shapes> {
-
-    public int compare(Shapes shape, Shapes shapes1) {
-        return Double.compare(shape.getPerimeter(), shapes1.getPerimeter());
+public class SortedByPerimeter implements Comparator<Shape> {
+    public int compare(Shape shape, Shape shape1) {
+        return Double.compare(shape.getPerimeter(), shape1.getPerimeter());
     }
 }

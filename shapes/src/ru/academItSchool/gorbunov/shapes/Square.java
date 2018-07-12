@@ -1,40 +1,40 @@
 package ru.academItSchool.gorbunov.shapes;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 
-public class Square implements Shapes {
-    public double a;
+public class Square implements Shape {
+    public double side;
 
-    public Square(double a) {
-        this.a = a;
+    public Square(double side) {
+        this.side = side;
     }
 
-    public double getA() {
-        return this.a;
+    public double getSide() {
+        return this.side;
     }
 
-    public void setA(double a) {
-        this.a = a;
+    public void setSide(double side) {
+        this.side = side;
     }
 
     @Override
     public double getWidth() {
-        return this.a;
+        return this.side;
     }
 
     @Override
     public double getHeight() {
-        return this.a;
+        return this.side;
     }
 
     @Override
     public double getArea() {
-        return this.a * this.a;
+        return this.side * this.side;
     }
 
     @Override
     public double getPerimeter() {
-        return this.a * 4;
+        return this.side * 4;
     }
 
     public String toString() {
@@ -47,7 +47,7 @@ public class Square implements Shapes {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        return prime * result + (int) a;
+        return prime * result + (int) side;
     }
 
     @Override
@@ -55,16 +55,12 @@ public class Square implements Shapes {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() == obj.getClass()) {
             return false;
         }
 
         Square square = (Square) obj;
 
-        return a != square.a;
+        return side == square.side;
     }
 }

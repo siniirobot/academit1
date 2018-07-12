@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.main;
 
-import ru.academItSchool.gorbunov.interfaces.Shapes;
+import ru.academItSchool.gorbunov.interfaces.Shape;
 import ru.academItSchool.gorbunov.shapes.Circle;
 import ru.academItSchool.gorbunov.shapes.Rectangle;
 import ru.academItSchool.gorbunov.shapes.Square;
@@ -25,18 +25,18 @@ public class Realization {
         Circle circle2 = new Circle(45);
         Circle circle3 = new Circle(45);
 
-        Shapes[] shape = {square1, square2, triangle1, triangle2, triangle3, rectangle1, rectangle2, circle1, circle2, circle3};
+        Shape[] shape = {square1, square2, triangle1, triangle2, triangle3, rectangle1, rectangle2, circle1, circle2, circle3};
 
         System.out.println("Фигура с максимальной площадью это " + getMaxArea(shape).toString());
         System.out.println("Фигура со вторым по величине периметром это " + getSecondMaxPerimeter(shape).toString());
     }
 
-    private static Shapes getMaxArea(Shapes[] shape) {
+    private static Shape getMaxArea(Shape[] shape) {
         Arrays.sort(shape, new SortedByArea());
         return shape[shape.length - 1];
     }
 
-    private static Shapes getSecondMaxPerimeter(Shapes[] shape) {
+    private static Shape getSecondMaxPerimeter(Shape[] shape) {
         Arrays.sort(shape, new SortedByPerimeter());
         return shape[shape.length - 2];
     }
