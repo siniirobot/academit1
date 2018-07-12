@@ -3,12 +3,12 @@ package ru.academItSchool.gorbunov.shapes;
 import ru.academItSchool.gorbunov.interfaces.Shape;
 
 public class Triangle implements Shape {
-    public double x1;
-    public double x2;
-    public double x3;
-    public double y1;
-    public double y2;
-    public double y3;
+    private double x1;
+    private double x2;
+    private double x3;
+    private double y1;
+    private double y2;
+    private double y3;
 
     public Triangle(double x1, double x2, double x3, double y1, double y2, double y3) {
         this.x1 = x1;
@@ -67,11 +67,9 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    private double[] getSide() {
-        double side = Math.sqrt(Math.pow((this.x1 - this.x2), 2) + Math.pow((this.y1 - this.y2), 2));
-        double side1 = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2));
-        double side2 = Math.sqrt(Math.pow((this.x2 - this.x3), 2) + Math.pow((this.y2 - this.y3), 2));
-        return new double[] {side,side1,side2};
+    private double getSideLength(double x1, double x2, double y1, double y2) {
+        return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+
     }
 
     @Override
@@ -86,15 +84,15 @@ public class Triangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        double[] sides = getSide();
-        return sides[0] + sides[1] + sides[2];
+        return getSideLength(this.x1, this.x2, this.y1, this.y2) + getSideLength(this.x1, this.x3, this.y1, this.y3) + getSideLength(this.x2, this.x3, this.y2, this.y3);
     }
 
     @Override
     public double getArea() {
-        double[] sides = getSide();
-        double halfPerimeter = (sides[0] + sides[1] + sides[2]) / 2;
-        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[0]) * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]));
+        double halfPerimeter = getPerimeter() / 2;
+        return Math.sqrt(halfPerimeter * (halfPerimeter - getSideLength(this.x1, this.x2, this.y1, this.y2)) *
+                (halfPerimeter - getSideLength(this.x1, this.x3, this.y1, this.y3)) *
+                (halfPerimeter - getSideLength(this.x2, this.x3, this.y2, this.y3)));
     }
 
     public String toString() {
@@ -107,12 +105,12 @@ public class Triangle implements Shape {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) x1;
-        result = prime * result + (int) x2;
-        result = prime * result + (int) x3;
-        result = prime * result + (int) y1;
-        result = prime * result + (int) y2;
-        result = prime * result + (int) y3;
+        result = prime * result + Double.hashCode(x1);
+        result = prime * result + Double.hashCode(x2);
+        result = prime * result + Double.hashCode(x3);
+        result = prime * result + Double.hashCode(y1);
+        result = prime * result + Double.hashCode(y2);
+        result = prime * result + Double.hashCode(y3);
         return result;
     }
 
@@ -121,7 +119,7 @@ public class Triangle implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() == obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 

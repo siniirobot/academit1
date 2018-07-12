@@ -1,6 +1,6 @@
 package ru.academItScholl.gorbunov.main;
 
-import ru.academItScholl.gorbunov.range.Range;
+import ru.academItScholl.gorbunov.vector.Range;
 
 import java.util.Scanner;
 

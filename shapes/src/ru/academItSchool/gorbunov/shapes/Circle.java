@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.shapes;
 import ru.academItSchool.gorbunov.interfaces.Shape;
 
 public class Circle implements Shape {
-    public double radius;
+    private double radius;
 
     public Circle(double radius) {
         this.radius = radius;
@@ -47,7 +47,7 @@ public class Circle implements Shape {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        return prime * result + (int) radius;
+        return prime * result +  Double.hashCode(radius);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Circle implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() == obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
@@ -63,4 +63,6 @@ public class Circle implements Shape {
 
         return radius == circle.radius;
     }
+
+
 }

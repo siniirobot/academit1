@@ -1,4 +1,4 @@
-package ru.academItScholl.gorbunov.range;
+package ru.academItScholl.gorbunov.vector;
 
 public class Range {
     private double from;

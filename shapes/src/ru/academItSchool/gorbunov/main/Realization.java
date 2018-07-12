@@ -32,12 +32,12 @@ public class Realization {
     }
 
     private static Shape getMaxArea(Shape[] shape) {
-        Arrays.sort(shape, new SortedByArea());
+        Arrays.sort(shape, new SortedByAreaComparator());
         return shape[shape.length - 1];
     }
 
     private static Shape getSecondMaxPerimeter(Shape[] shape) {
-        Arrays.sort(shape, new SortedByPerimeter());
+        Arrays.sort(shape, new SortedByPerimeterComparator());
         return shape[shape.length - 2];
     }
 }

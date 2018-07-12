@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.shapes;
 import ru.academItSchool.gorbunov.interfaces.Shape;
 
 public class Square implements Shape {
-    public double side;
+    private double side;
 
     public Square(double side) {
         this.side = side;
@@ -47,7 +47,8 @@ public class Square implements Shape {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        return prime * result + (int) side;
+        result = prime * result + Double.hashCode(side);
+        return result;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class Square implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() == obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
