@@ -37,7 +37,7 @@ public class Range {
         if (range.to < this.from || range.from > this.to) {
             return null;
         } else {
-            return new Range(Math.min(range.from, this.from), Math.max(range.to, this.to));
+            return new Range(Math.max(range.from, this.from), Math.min(range.to, this.to));
         }
     }
 
