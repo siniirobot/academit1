@@ -67,16 +67,12 @@ public class Rectangle implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
 
         Rectangle rectangle = (Rectangle) obj;
 
-        if (side1 == rectangle.side1) {
-            return true;
-        }
-
-        return side2 == rectangle.side2;
+        return side1 == rectangle.side1 || side2 == rectangle.side2;
     }
 }

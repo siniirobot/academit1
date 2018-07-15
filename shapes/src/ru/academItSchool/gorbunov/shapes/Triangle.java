@@ -119,32 +119,12 @@ public class Triangle implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
 
         Triangle triangle = (Triangle) obj;
 
-        if (x1 == triangle.x1) {
-            return true;
-        }
-
-        if (x2 == triangle.x2) {
-            return true;
-        }
-
-        if (x3 == triangle.x3) {
-            return true;
-        }
-
-        if (y1 == triangle.y1) {
-            return true;
-        }
-
-        if (y2 == triangle.y2) {
-            return true;
-        }
-
-        return y3 == triangle.y3;
+        return x1 == triangle.x1 || x2 == triangle.x2 || x3 == triangle.x3 || y1 == triangle.y1 || y2 == triangle.y2 || y3 == triangle.y3;
     }
 }

@@ -47,7 +47,7 @@ public class Circle implements Shape {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        return prime * result +  Double.hashCode(radius);
+        return prime * result + Double.hashCode(radius);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Circle implements Shape {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
 
