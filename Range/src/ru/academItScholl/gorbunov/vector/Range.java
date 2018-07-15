@@ -37,19 +37,7 @@ public class Range {
         if (range.to < this.from || range.from > this.to) {
             return null;
         } else {
-            if (range.from > this.from && range.from < this.to) {
-                if (range.to < this.to) {
-                    return new Range(range.from, range.to);
-                } else {
-                    return new Range(range.from, this.to);
-                }
-            } else {
-                if (range.to < this.to) {
-                    return new Range(this.from, range.to);
-                } else {
-                    return new Range(this.from, this.to);
-                }
-            }
+            return new Range(Math.min(range.from, this.from), Math.max(range.to, this.to));
         }
     }
 
@@ -57,19 +45,7 @@ public class Range {
         if (range.to < this.from || range.from > this.to) {
             return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
         } else {
-            if (range.from > this.from && range.from < this.to) {
-                if (range.to < this.to) {
-                    return new Range[]{new Range(this.from, this.to)};
-                } else {
-                    return new Range[]{new Range(this.from, range.to)};
-                }
-            } else {
-                if (range.to < this.to) {
-                    return new Range[]{new Range(range.from, this.to)};
-                } else {
-                    return new Range[]{new Range(range.from, range.to)};
-                }
-            }
+            return new Range[]{new Range(Math.min(range.from, this.from), Math.max(range.to, this.to))};
         }
     }
 
