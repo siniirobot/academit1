@@ -64,15 +64,15 @@ public class Rectangle implements Shape {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (obj == this) {
             return true;
         }
-        if (obj == null || this.getClass() != obj.getClass()) {
+        if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
 
         Rectangle rectangle = (Rectangle) obj;
 
-        return side1 == rectangle.side1 || side2 == rectangle.side2;
+        return side1 == rectangle.side1 && side2 == rectangle.side2;
     }
 }

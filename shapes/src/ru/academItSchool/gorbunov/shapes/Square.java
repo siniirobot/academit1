@@ -53,10 +53,10 @@ public class Square implements Shape {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (obj == this) {
             return true;
         }
-        if (obj == null || this.getClass() != obj.getClass()) {
+        if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
 
