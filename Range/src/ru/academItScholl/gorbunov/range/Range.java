@@ -1,4 +1,4 @@
-package ru.academItScholl.gorbunov.vector;
+package ru.academItScholl.gorbunov.range;
 
 public class Range {
     private double from;
@@ -36,17 +36,17 @@ public class Range {
     public Range intersection(Range range) {
         if (range.to < this.from || range.from > this.to) {
             return null;
-        } else {
-            return new Range(Math.max(range.from, this.from), Math.min(range.to, this.to));
         }
+            return new Range(Math.max(range.from, this.from), Math.min(range.to, this.to));
+
     }
 
     public Range[] getUnionRange(Range range) {
         if (range.to < this.from || range.from > this.to) {
             return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
-        } else {
-            return new Range[]{new Range(Math.min(range.from, this.from), Math.max(range.to, this.to))};
         }
+            return new Range[]{new Range(Math.min(range.from, this.from), Math.max(range.to, this.to))};
+
     }
 
     public Range[] getDifference(Range range) {
