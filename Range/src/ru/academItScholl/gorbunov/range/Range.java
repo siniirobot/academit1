@@ -37,7 +37,7 @@ public class Range {
         if (range.to < this.from || range.from > this.to) {
             return null;
         }
-            return new Range(Math.max(range.from, this.from), Math.min(range.to, this.to));
+        return new Range(Math.max(range.from, this.from), Math.min(range.to, this.to));
 
     }
 
@@ -45,27 +45,21 @@ public class Range {
         if (range.to < this.from || range.from > this.to) {
             return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
         }
-            return new Range[]{new Range(Math.min(range.from, this.from), Math.max(range.to, this.to))};
+        return new Range[]{new Range(Math.min(range.from, this.from), Math.max(range.to, this.to))};
 
     }
 
     public Range[] getDifference(Range range) {
-        if (range.to <= this.from || range.from >= this.to) {
+        if (this.from >= range.to || this.to <= range.from) {
             return new Range[]{new Range(this.from, this.to)};
+        } else if (this.from < range.from && this.to > range.to) {
+            return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
+        } else if (this.from < range.from) {
+            return new Range[]{new Range(this.from, range.from)};
+        } else if (this.to > range.to) {
+            return new Range[]{new Range(range.to, this.to)};
         } else {
-            if (range.from > this.from && range.from < this.to) {
-                if (range.to < this.to) {
-                    return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
-                } else {
-                    return new Range[]{new Range(this.from, range.from)};
-                }
-            } else {
-                if (range.to < this.to) {
-                    return new Range[]{new Range(range.to, this.to)};
-                } else {
-                    return new Range[]{};
-                }
-            }
+            return new Range[]{};
         }
     }
 
