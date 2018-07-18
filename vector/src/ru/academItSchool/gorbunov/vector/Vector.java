@@ -30,7 +30,7 @@ public class Vector {
         this.content = content;
     }
 
-    public int getN() {
+    private int getN() {
         return n;
     }
 
@@ -38,11 +38,11 @@ public class Vector {
         this.n = n;
     }
 
-    public double[] getContent() {
+    private double[] getContent() {
         return content;
     }
 
-    public void setContent(double[] content) {
+    private void setContent(double[] content) {
         this.content = content;
     }
 
@@ -124,5 +124,12 @@ public class Vector {
         result = prime * result + n;
         result = prime * result + Arrays.hashCode(content);
         return result;
+    }
+
+    public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
+        if (vector1.content.length > vector2.content.length) {
+            return new Vector(vector1.n + vector2.n,vector1.content);
+        }
+        return new Vector(vector1.n + vector2.n, vector2.content);
     }
 }
