@@ -132,4 +132,8 @@ public class Vector {
         }
         return new Vector(vector1.n + vector2.n, vector2.content);
     }
+
+    public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
+        return new Vector  (0,new double[]{0});
+    }
 }
