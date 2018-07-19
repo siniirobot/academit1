@@ -65,7 +65,7 @@ public class Vector {
             turnContent[i] = this.content[i] * -1;
         }
         setContent(turnContent);
-        return new Vector(this.length,this.content);
+        return new Vector(this.length, this.content);
     }
 
     public int getVectorLength() {
@@ -93,6 +93,9 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
+        if (this.length < 0) {
+            this.length = Math.abs(this.length);
+        }
         for (int i = 0; i <= this.length; ++i) {
             if (i < this.content.length) {
                 stringBuilder.append(this.content[i]).append(",");
@@ -136,11 +139,16 @@ public class Vector {
         int newLength = vector1.length - vector2.length;
 
         if (newLength < 0) {
+
             if (vector1.content.length > vector2.content.length) {
-                vector1.getVectorTurn();
+                for (int i = 0; i < vector1.content.length; ++i) {
+                    vector1.content[i] *= -1;
+                }
                 return new Vector(newLength, vector1.content);
             } else {
-                vector2.getVectorTurn();
+                for (int i = 0; i < vector2.content.length; ++i) {
+                    vector2.content[i] *= -1;
+                }
                 return new Vector(newLength, vector2.content);
             }
         }
