@@ -1,41 +1,38 @@
 package ru.academItSchool.gorbunov.vector;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Vector {
-    private int n;
+    private int length;
     private double[] content;
 
-    public Vector(int n) {
-        if (n <= 0) {
+    public Vector(int length) {
+        if (length <= 0) {
             throw new IllegalArgumentException();
         }
-        this.n = n;
+        this.length = length;
     }
 
     public Vector(Vector aVector) {
-        this(aVector.getN(), aVector.getContent());
+        this(aVector.getLength(), aVector.getContent());
     }
 
     public Vector(double[] content) {
         this.content = content;
     }
 
-    public Vector(int n, double[] content) {
-        if (n <= 0) {
-            throw new IllegalArgumentException();
-        }
-        this.n = n;
+    public Vector(int length, double[] content) {
+
+        this.length = length;
         this.content = content;
     }
 
-    private int getN() {
-        return n;
+    private int getLength() {
+        return length;
     }
 
-    public void setN(int n) {
-        this.n = n;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     private double[] getContent() {
@@ -47,31 +44,32 @@ public class Vector {
     }
 
     public double getSize() {
-        return this.n;
+        return this.length;
     }
 
     public int getVectorSum(Vector vector) {
-        return this.n + vector.n;
+        return this.length + vector.length;
     }
 
     public int getVectorSubtraction(Vector vector) {
-        return this.n - vector.n;
+        return this.length - vector.length;
     }
 
-    public double getVectorScalar(double scalar) {
-        return this.n * scalar;
+    public int getVectorScalar(int scalar) {
+        return this.length * scalar;
     }
 
-    public double[] getVectorTurn() {
+    public Vector getVectorTurn() {
         double[] turnContent = new double[this.content.length];
         for (int i = 0; i < this.content.length; ++i) {
-            turnContent[i] = this.content.length * -1;
+            turnContent[i] = this.content[i] * -1;
         }
-        return turnContent;
+        setContent(turnContent);
+        return new Vector(this.length,this.content);
     }
 
     public int getVectorLength() {
-        return this.n;
+        return this.length;
     }
 
     public double getInsert(double insert, int index) {
@@ -82,6 +80,7 @@ public class Vector {
             System.arraycopy(this.content, 0, newContent, 0, this.content.length - 1);
             newContent[index] = insert;
             setContent(newContent);
+            setLength(index);
             return returnContent;
         }
         returnContent = this.content[index];
@@ -94,14 +93,14 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (int i = 0; i <= this.n; ++i) {
+        for (int i = 0; i <= this.length; ++i) {
             if (i < this.content.length) {
                 stringBuilder.append(this.content[i]).append(",");
             } else {
                 stringBuilder.append(0).append(",");
             }
         }
-        stringBuilder.delete(this.content.length, this.content.length);
+        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         return stringBuilder.append("}").toString();
     }
 
@@ -114,26 +113,48 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        return this.n == vector.n && Arrays.equals(this.content, vector.content);
+        return this.length == vector.length && Arrays.equals(this.content, vector.content);
     }
 
     @Override
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + n;
+        result = prime * result + length;
         result = prime * result + Arrays.hashCode(content);
         return result;
     }
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
         if (vector1.content.length > vector2.content.length) {
-            return new Vector(vector1.n + vector2.n,vector1.content);
+            return new Vector(vector1.length + vector2.length, vector1.content);
         }
-        return new Vector(vector1.n + vector2.n, vector2.content);
+        return new Vector(vector1.length + vector2.length, vector2.content);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
-        return new Vector  (0,new double[]{0});
+        int newLength = vector1.length - vector2.length;
+
+        if (newLength < 0) {
+            if (vector1.content.length > vector2.content.length) {
+                vector1.getVectorTurn();
+                return new Vector(newLength, vector1.content);
+            } else {
+                vector2.getVectorTurn();
+                return new Vector(newLength, vector2.content);
+            }
+        }
+        if (vector1.content.length > vector2.content.length) {
+            return new Vector(newLength, vector1.content);
+        }
+        return new Vector(newLength, vector2.content);
+
+    }
+
+    public static Vector getStaticVectorScalar(Vector vector1, Vector vector2) {
+        if (vector1.content.length > vector2.content.length) {
+            return new Vector(vector1.length * vector2.length, vector1.content);
+        }
+        return new Vector(vector1.length * vector2.length, vector2.content);
     }
 }
