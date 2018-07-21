@@ -13,8 +13,9 @@ public class Vector {
         this.length = length;
     }
 
-    public Vector(Vector aVector) {
-        this(aVector.getLength(), aVector.getContent());
+    public Vector(Vector vector) {
+        this.length = vector.length;
+        this.content = vector.content;
     }
 
     public Vector(double[] content) {
@@ -27,71 +28,57 @@ public class Vector {
         }
         this.length = length;
         this.content = new double[this.length];
-        System.arraycopy(content, 0, this.content, 0, content.length);
+        for (int i = 0; i < this.length; ++i) {
+            if (i < content.length) {
+                this.content[i] = content[i];
+            } else {
+                this.content[i] = 0;
+            }
+        }
     }
 
     private int getLength() {
         return length;
     }
 
-/*    public void setLength(int length) {
-        this.length = length;
-    }
-
-    private double[] getContent() {
-        return content;
-    }
-
-    private void setContent(double[] content) {
-        this.content = content;
-    }*/
-
     public double getSize() {
         return this.length;
     }
 
     public int getVectorSum(Vector vector) {
-        return this.length + vector.length;
+        this.length = this.length + vector.length;
+        return this.length;
     }
 
     public int getVectorSubtraction(Vector vector) {
-        return this.length - vector.length;
+        this.length = this.length - vector.length;
+        return this.length;
     }
 
     public int getVectorScalar(int scalar) {
-        return this.length * scalar;
+        this.length = this.length * scalar;
+        return this.length;
     }
 
-    /*public Vector getVectorTurn() {
-        double[] turnContent = new double[this.content.length];
+    public double[] getVectorTurn() {
         for (int i = 0; i < this.content.length; ++i) {
-            turnContent[i] = this.content[i] * -1;
+            this.content[i] *= -1;
         }
-        setContent(turnContent);
-        return new Vector(this.length, this.content);
-    }*/
+        return this.content;
+    }
 
     public int getVectorLength() {
         return this.content.length;
     }
 
-   /* public double getInsert(double insert, int index) {
-        double returnContent = 0;
+    public double getVectorElementByIndex(int index) {
+        return this.content[index];
+    }
 
-        if (index > this.content.length) {
-            double[] newContent = new double[index + 1];
-            System.arraycopy(this.content, 0, newContent, 0, this.content.length - 1);
-            newContent[index] = insert;
-            setContent(newContent);
-            setLength(index);
-            return returnContent;
-        }
-        returnContent = this.content[index];
-        this.content[index] = insert;
-        setContent(this.content);
-
-        return returnContent;
-    }*/
+    public double[] setVectorElementByIndex(double element, int index) {
+        this.content[index] = element;
+        return this.content;
+    }
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -99,7 +86,7 @@ public class Vector {
         if (this.length < 0) {
             this.length = Math.abs(this.length);
         }
-        for (int i = 0; i <= this.length; ++i) {
+        for (int i = 0; i < this.length; ++i) {
             if (i < this.content.length) {
                 stringBuilder.append(this.content[i]).append(",");
             } else {
