@@ -7,7 +7,7 @@ public class Realization {
         Vector vector1 = new Vector(10, new double[]{0, 1, 2, 3, 4, 5});
         System.out.println("Векстор 1 - " + vector1.toString());
 
-        Vector vector2 = new Vector(10, new double[]{0, 1, 2});
+        Vector vector2 = new Vector(20, new double[]{0, 1, 2});
         System.out.println("Векстор 2 - " + vector2.toString());
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());

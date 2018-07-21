@@ -22,16 +22,19 @@ public class Vector {
     }
 
     public Vector(int length, double[] content) {
-
+        if (length <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.length = length;
-        this.content = content;
+        this.content = new double[this.length];
+        System.arraycopy(content, 0, this.content, 0, content.length);
     }
 
     private int getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+/*    public void setLength(int length) {
         this.length = length;
     }
 
@@ -41,7 +44,7 @@ public class Vector {
 
     private void setContent(double[] content) {
         this.content = content;
-    }
+    }*/
 
     public double getSize() {
         return this.length;
@@ -59,20 +62,20 @@ public class Vector {
         return this.length * scalar;
     }
 
-    public Vector getVectorTurn() {
+    /*public Vector getVectorTurn() {
         double[] turnContent = new double[this.content.length];
         for (int i = 0; i < this.content.length; ++i) {
             turnContent[i] = this.content[i] * -1;
         }
         setContent(turnContent);
         return new Vector(this.length, this.content);
-    }
+    }*/
 
     public int getVectorLength() {
-        return this.length;
+        return this.content.length;
     }
 
-    public double getInsert(double insert, int index) {
+   /* public double getInsert(double insert, int index) {
         double returnContent = 0;
 
         if (index > this.content.length) {
@@ -88,7 +91,7 @@ public class Vector {
         setContent(this.content);
 
         return returnContent;
-    }
+    }*/
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
