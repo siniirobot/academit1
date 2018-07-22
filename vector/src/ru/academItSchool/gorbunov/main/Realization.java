@@ -33,7 +33,7 @@ public class Realization {
         System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(2));
 
         vector1.setVectorElementByIndex(25, 4);
-        System.out.println("Теперь на указаном месте стоит указаное число" + vector1.toString());
+        System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getStaticVectorSum(vector1, vector2).toString());
 

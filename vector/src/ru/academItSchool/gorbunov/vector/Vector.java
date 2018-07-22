@@ -53,7 +53,6 @@ public class Vector {
                 break;
             }
         }
-
         return this.content;
     }
 
@@ -134,41 +133,41 @@ public class Vector {
     }
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
-
-        if (vector1.content.length > vector2.content.length) {
-            return new Vector(vector1.length + vector2.length, vector1.content);
+        int maxLength = Math.max(vector1.length,vector2.length);
+        double[] newContent = new double[maxLength];
+        for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
+            if (Math.min(vector1.content.length,  vector2.content.length) > i) {
+                newContent[i] = vector1.content[i] + vector2.content[i];
+            } else {
+                break;
+            }
         }
-        return new Vector(vector1.length + vector2.length, vector2.content);
+        return new Vector(maxLength,newContent);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
-        int newLength = vector1.length - vector2.length;
-
-        if (newLength < 0) {
-
-            if (vector1.content.length > vector2.content.length) {
-                for (int i = 0; i < vector1.content.length; ++i) {
-                    vector1.content[i] *= -1;
-                }
-                return new Vector(newLength, vector1.content);
+        int maxLength = Math.max(vector1.length,vector2.length);
+        double[] newContent = new double[maxLength];
+        for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
+            if (Math.min(vector1.content.length,  vector2.content.length) > i) {
+                newContent[i] = vector1.content[i] - vector2.content[i];
             } else {
-                for (int i = 0; i < vector2.content.length; ++i) {
-                    vector2.content[i] *= -1;
-                }
-                return new Vector(newLength, vector2.content);
+                break;
             }
         }
-        if (vector1.content.length > vector2.content.length) {
-            return new Vector(newLength, vector1.content);
-        }
-        return new Vector(newLength, vector2.content);
-
+        return new Vector(maxLength,newContent);
     }
 
     public static Vector getStaticVectorScalar(Vector vector1, Vector vector2) {
-        if (vector1.content.length > vector2.content.length) {
-            return new Vector(vector1.length * vector2.length, vector1.content);
+        int maxLength = Math.max(vector1.length,vector2.length);
+        double[] newContent = new double[maxLength];
+        for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
+            if (Math.min(vector1.content.length,  vector2.content.length) > i) {
+                newContent[i] = vector1.content[i] * vector2.content[i];
+            } else {
+                break;
+            }
         }
-        return new Vector(vector1.length * vector2.length, vector2.content);
+        return new Vector(maxLength,newContent);
     }
 }
