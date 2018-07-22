@@ -15,15 +15,15 @@ public class Realization {
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
-        System.out.println("Сумма векторов равна = " + vector1.getVectorSum(vector2));
-        System.out.println(vector1.toString());
+        vector1.getVectorSum(vector2);
+        System.out.println("Сумма векторов равна = " + vector1.toString());
 
-        System.out.println("Вычитание векторов равно = " + vector1.getVectorSubtraction(vector2));
-        System.out.println(vector1.toString());
+        vector1.getVectorSubtraction(vector2);
+        System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        System.out.println("Скаляр векторов равен = " + vector1.getVectorScalar(1));
-        System.out.println(vector1.toString());
-
+        vector1.getVectorScalar(3);
+        System.out.println("Скаляр векторов равен = " + vector1.toString());
+        System.out.println(vector3.toString());
         vector1.getVectorTurn();
         System.out.println("Разворот вектора = " + vector1.toString());
         vector1.getVectorTurn();

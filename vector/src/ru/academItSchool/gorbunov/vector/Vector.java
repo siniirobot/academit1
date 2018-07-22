@@ -45,19 +45,34 @@ public class Vector {
         return this.length;
     }
 
-    public int getVectorSum(Vector vector) {
-        this.length = this.length + vector.length;
-        return this.length;
+    public double[] getVectorSum(Vector vector) {
+        for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
+            if (Math.min(this.content.length, vector.content.length) > i) {
+                this.content[i] += vector.content[i];
+            } else {
+                break;
+            }
+        }
+
+        return this.content;
     }
 
-    public int getVectorSubtraction(Vector vector) {
-        this.length = this.length - vector.length;
-        return this.length;
+    public double[] getVectorSubtraction(Vector vector) {
+        for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
+            if (Math.min(this.content.length, vector.content.length) > i) {
+                this.content[i] -= vector.content[i];
+            } else {
+                break;
+            }
+        }
+        return this.content;
     }
 
-    public int getVectorScalar(int scalar) {
-        this.length = this.length * scalar;
-        return this.length;
+    public double[] getVectorScalar(int scalar) {
+        for (int i = 0; i < this.content.length; ++i) {
+            this.content[i] *= scalar;
+        }
+        return this.content;
     }
 
     public double[] getVectorTurn() {
@@ -119,6 +134,7 @@ public class Vector {
     }
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
+
         if (vector1.content.length > vector2.content.length) {
             return new Vector(vector1.length + vector2.length, vector1.content);
         }
