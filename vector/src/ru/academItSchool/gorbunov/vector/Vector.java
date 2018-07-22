@@ -3,32 +3,34 @@ package ru.academItSchool.gorbunov.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private int length;
+    private int n;
     private double[] content;
 
-    public Vector(int length) {
-        if (length <= 0) {
-            throw new IllegalArgumentException();
+    public Vector(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.length = length;
+        this.n = n;
     }
 
     public Vector(Vector vector) {
-        this.length = vector.length;
-        this.content = vector.content;
+        this.n = vector.n;
+        double[] copy = new double[vector.content.length];
+        System.arraycopy(vector.content,0,copy,0,vector.content.length);
+        this.content = copy;
     }
 
     public Vector(double[] content) {
         this.content = content;
     }
 
-    public Vector(int length, double[] content) {
-        if (length <= 0) {
-            throw new IllegalArgumentException();
+    public Vector(int n, double[] content) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.length = length;
-        this.content = new double[this.length];
-        for (int i = 0; i < this.length; ++i) {
+        this.n = n;
+        this.content = new double[this.n];
+        for (int i = 0; i < this.n; ++i) {
             if (i < content.length) {
                 this.content[i] = content[i];
             } else {
@@ -37,12 +39,12 @@ public class Vector {
         }
     }
 
-    private int getLength() {
-        return length;
+    private int getN() {
+        return n;
     }
 
     public double getSize() {
-        return this.length;
+        return this.n;
     }
 
     public double[] getVectorSum(Vector vector) {
@@ -97,10 +99,10 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        if (this.length < 0) {
-            this.length = Math.abs(this.length);
+        if (this.n < 0) {
+            this.n = Math.abs(this.n);
         }
-        for (int i = 0; i < this.length; ++i) {
+        for (int i = 0; i < this.n; ++i) {
             if (i < this.content.length) {
                 stringBuilder.append(this.content[i]).append(",");
             } else {
@@ -120,20 +122,20 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        return this.length == vector.length && Arrays.equals(this.content, vector.content);
+        return this.n == vector.n && Arrays.equals(this.content, vector.content);
     }
 
     @Override
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + length;
+        result = prime * result + n;
         result = prime * result + Arrays.hashCode(content);
         return result;
     }
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
-        int maxLength = Math.max(vector1.length,vector2.length);
+        int maxLength = Math.max(vector1.n,vector2.n);
         double[] newContent = new double[maxLength];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {
@@ -146,7 +148,7 @@ public class Vector {
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
-        int maxLength = Math.max(vector1.length,vector2.length);
+        int maxLength = Math.max(vector1.n,vector2.n);
         double[] newContent = new double[maxLength];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {
@@ -159,7 +161,7 @@ public class Vector {
     }
 
     public static Vector getStaticVectorScalar(Vector vector1, Vector vector2) {
-        int maxLength = Math.max(vector1.length,vector2.length);
+        int maxLength = Math.max(vector1.n,vector2.n);
         double[] newContent = new double[maxLength];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {

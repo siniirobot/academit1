@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class Realization {
     public static void main(String[] args) {
-        Square square1 = new Square(5.4);
+        Square square1 = new Square(-5.4);
         Square square2 = new Square(88080);
 
         Triangle triangle1 = new Triangle(2.4, 98.6, -5.1, 33, 47, 66.6);

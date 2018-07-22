@@ -2,11 +2,31 @@ package ru.academItSchool.gorbunov.shapes;
 
 import ru.academItSchool.gorbunov.interfaces.Shape;
 
+import java.util.Scanner;
+
 public class Square implements Shape {
     private double side;
 
     public Square(double side) {
-        this.side = side;
+        /*if (side <= 0) {
+            throw new RuntimeException("Файл не может быть меньше нуля.");
+        }
+        this.side = side;*/
+
+        while (side <= 0) {
+            try {
+                throw new RuntimeException("Файл не может быть меньше нуля.");
+            }catch (RuntimeException e) {
+                System.out.println("Попробуйте ввести значение больше нуля.");
+                Scanner scanner = new Scanner(System.in);
+                side = scanner.nextDouble();
+            }finally {
+                this.side = side;
+            }
+        }
+
+
+
     }
 
     public double getSide() {
