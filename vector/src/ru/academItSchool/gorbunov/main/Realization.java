@@ -45,5 +45,7 @@ public class Realization {
         Vector vector4 = new Vector(5);
         System.out.println(vector4);
 
+        Vector vector5 = new Vector(new double[]{1,2,4,7});
+        System.out.println(vector5);
     }
 }

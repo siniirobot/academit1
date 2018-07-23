@@ -23,6 +23,7 @@ public class Vector {
 
     public Vector(double[] content) {
         this.content = content;
+        this.n = this.content.length;
     }
 
     public Vector(int n, double[] content) {
