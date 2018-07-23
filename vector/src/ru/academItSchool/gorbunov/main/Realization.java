@@ -7,7 +7,7 @@ public class Realization {
         Vector vector1 = new Vector(12, new double[]{1, 2, 3, 4, 5});
         System.out.println("Векстор 1 - " + vector1.toString());
 
-        Vector vector2 = new Vector(5, new double[]{1, 2, 3, 4, 5, 6, 7});
+        Vector vector2 = new Vector(25, new double[]{1, 2, 3, 4, 5, 6, 7});
         System.out.println("Векстор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
@@ -42,7 +42,8 @@ public class Realization {
 
         System.out.println("Если произвести скалярное произведение векторов то получится новый - " + Vector.getStaticVectorScalar(vector1, vector2).toString());
 
-        Vector vector4 = new Vector(-5);
+        Vector vector4 = new Vector(5);
         System.out.println(vector4);
+
     }
 }

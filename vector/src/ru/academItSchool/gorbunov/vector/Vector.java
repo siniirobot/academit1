@@ -11,6 +11,7 @@ public class Vector {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.n = n;
+        this.content = new double[n];
     }
 
     public Vector(Vector vector) {
@@ -47,7 +48,7 @@ public class Vector {
         return this.n;
     }
 
-    public double[] getVectorSum(Vector vector) {
+    public void getVectorSum(Vector vector) {
         for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
             if (Math.min(this.content.length, vector.content.length) > i) {
                 this.content[i] += vector.content[i];
@@ -55,10 +56,10 @@ public class Vector {
                 break;
             }
         }
-        return this.content;
+        this.n += vector.n;
     }
 
-    public double[] getVectorSubtraction(Vector vector) {
+    public void getVectorSubtraction(Vector vector) {
         for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
             if (Math.min(this.content.length, vector.content.length) > i) {
                 this.content[i] -= vector.content[i];
@@ -66,21 +67,20 @@ public class Vector {
                 break;
             }
         }
-        return this.content;
+        this.n = Math.max(this.n,vector.n) - Math.min(this.n, vector.n);
     }
 
-    public double[] getVectorScalar(int scalar) {
+    public void getVectorScalar(int scalar) {
         for (int i = 0; i < this.content.length; ++i) {
             this.content[i] *= scalar;
         }
-        return this.content;
+        this.n *= scalar;
     }
 
-    public double[] getVectorTurn() {
+    public void getVectorTurn() {
         for (int i = 0; i < this.content.length; ++i) {
             this.content[i] *= -1;
         }
-        return this.content;
     }
 
     public int getVectorLength() {
@@ -91,9 +91,8 @@ public class Vector {
         return this.content[index];
     }
 
-    public double[] setVectorElementByIndex(double element, int index) {
+    public void setVectorElementByIndex(double element, int index) {
         this.content[index] = element;
-        return this.content;
     }
 
     public String toString() {
@@ -144,6 +143,7 @@ public class Vector {
                 break;
             }
         }
+        maxLength = vector1.n + vector2.n;
         return new Vector(maxLength,newContent);
     }
 
@@ -157,6 +157,7 @@ public class Vector {
                 break;
             }
         }
+        maxLength = Math.max(vector1.n,vector2.n) - Math.min(vector1.n, vector2.n);
         return new Vector(maxLength,newContent);
     }
 
@@ -170,6 +171,7 @@ public class Vector {
                 break;
             }
         }
+        maxLength = vector1.n * vector2.n;
         return new Vector(maxLength,newContent);
     }
 }
