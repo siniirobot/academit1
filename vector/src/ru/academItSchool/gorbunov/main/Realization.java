@@ -22,7 +22,7 @@ public class Realization {
         vector1.getVectorSubtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        vector1.getVectorScalar(3);
+        vector1.getVectorScalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
         System.out.println(vector3.toString());
         vector1.getVectorTurn();
