@@ -50,9 +50,11 @@ public class Vector {
     }
 
     public void getVectorSum(Vector vector) {
+        this.n += vector.n;
+        double[] copy = new double[this.n];
         for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
             if (Math.min(this.content.length, vector.content.length) > i) {
-                this.content[i] += vector.content[i];
+                copy[i] += vector.content[i];
             } else {
                 break;
             }
@@ -61,14 +63,16 @@ public class Vector {
     }
 
     public void getVectorSubtraction(Vector vector) {
+        this.n = Math.max(this.n,vector.n) - Math.min(this.n, vector.n);
+        double[] copy = new double[this.n];
         for (int i = 0; i < Math.max(this.content.length, vector.content.length); ++i) {
             if (Math.min(this.content.length, vector.content.length) > i) {
-                this.content[i] -= vector.content[i];
+                copy[i] -= vector.content[i];
             } else {
                 break;
             }
         }
-        this.n = Math.max(this.n,vector.n) - Math.min(this.n, vector.n);
+        this.content = copy;
     }
 
     public void getVectorScalar(int scalar) {
@@ -136,7 +140,7 @@ public class Vector {
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
         int maxLength = Math.max(vector1.n,vector2.n);
-        double[] newContent = new double[maxLength];
+        double[] newContent = new double[vector1.n + vector2.n];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {
                 newContent[i] = vector1.content[i] + vector2.content[i];
@@ -145,12 +149,12 @@ public class Vector {
             }
         }
         maxLength = vector1.n + vector2.n;
-        return new Vector(maxLength,newContent);
+        return new Vector(newContent.length,newContent);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
         int maxLength = Math.max(vector1.n,vector2.n);
-        double[] newContent = new double[maxLength];
+        double[] newContent = new double[Math.max(vector1.content.length,vector2.content.length) - Math.min(vector1.content.length, vector2.content.length)];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {
                 newContent[i] = vector1.content[i] - vector2.content[i];
@@ -159,12 +163,11 @@ public class Vector {
             }
         }
         maxLength = Math.max(vector1.n,vector2.n) - Math.min(vector1.n, vector2.n);
-        return new Vector(maxLength,newContent);
+        return new Vector(newContent.length,newContent);
     }
 
     public static Vector getStaticVectorScalar(Vector vector1, Vector vector2) {
-        int maxLength = Math.max(vector1.n,vector2.n);
-        double[] newContent = new double[maxLength];
+        double[] newContent = new double[vector1.n * vector2.n];
         for (int i = 0; i < Math.max(vector1.content.length,  vector2.content.length); ++i) {
             if (Math.min(vector1.content.length,  vector2.content.length) > i) {
                 newContent[i] = vector1.content[i] * vector2.content[i];
@@ -172,7 +175,6 @@ public class Vector {
                 break;
             }
         }
-        maxLength = vector1.n * vector2.n;
-        return new Vector(maxLength,newContent);
+        return new Vector(newContent.length,newContent);
     }
 }
