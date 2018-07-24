@@ -25,14 +25,13 @@ public class Realization {
         System.out.println(numbers);
 
         ArrayList<Integer> sameNumbers = new ArrayList<>(Arrays.asList(1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 3, 8, 9, 9, 10, 10));
-        for (int i = 0; i < sameNumbers.size(); ++i) {
-            int nextSameNumber = sameNumbers.indexOf(sameNumbers.get(i));
-            int lastSameNumber = sameNumbers.lastIndexOf(sameNumbers.get(i));
-            while (nextSameNumber != lastSameNumber) {
-                sameNumbers.remove(lastSameNumber);
-                lastSameNumber = sameNumbers.lastIndexOf(sameNumbers.get(i));
+        ArrayList<Integer> copySameNumber = new ArrayList<>();
+        for (int e : sameNumbers) {
+            if (!copySameNumber.contains(e)) {
+                copySameNumber.add(e);
             }
         }
         System.out.println(sameNumbers);
+        System.out.println(copySameNumber);
     }
 }
