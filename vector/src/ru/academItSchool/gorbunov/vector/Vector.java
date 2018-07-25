@@ -16,9 +16,7 @@ public class Vector {
 
     public Vector(Vector vector) {
         this.n = vector.n;
-        double[] copy = new double[vector.content.length];
-        System.arraycopy(vector.content,0,copy,0,vector.content.length);
-        this.content = copy;
+        this.content = Arrays.copyOf(vector.content, vector.content.length);
     }
 
     public Vector(double[] content) {
@@ -34,12 +32,12 @@ public class Vector {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.n = n;
-        this.content = new double[this.n];
-        for (int i = 0; i < this.n; ++i) {
-            if (i < content.length) {
-                this.content[i] = content[i];
-            }
+        if (this.n + 1 < content.length) {
+            this.content = Arrays.copyOf(content, this.n + 1);
+        } else {
+            this.content = Arrays.copyOf(content, content.length);
         }
+
     }
 
     private int getN() {
@@ -51,39 +49,43 @@ public class Vector {
     }
 
     public void getVectorSum(Vector vector) {
-        this.n += vector.n;
-        double[] copy = new double[this.n];
-        for (int i = 0; i < this.n; ++i) {
-            if (this.content.length > i && vector.content.length > i) {
-                copy[i] = this.content[i] + vector.content[i];
-            } else {
-                break;
+        if (Arrays.equals(this.content, vector.content)) {
+            for (int i = 0; i < this.content.length; ++i) {
+                this.content[i] *= 2;
+            }
+        } else {
+            this.n = Math.max(this.n, vector.n);
+            for (int i = 0; i < this.n; ++i) {
+                if (this.content.length > i && vector.content.length > i) {
+                    this.content[i] += vector.content[i];
+                } else {
+                    break;
+                }
             }
         }
-        this.content = copy;
     }
 
     public void getVectorSubtraction(Vector vector) {
-        this.n = Math.max(this.n,vector.n) - Math.min(this.n, vector.n);
-        double[] copy = new double[this.n];
-        for (int i = 0; i < this.n; ++i) {
-            if (this.content.length > i && vector.content.length > i) {
-                copy[i] = this.content[i] - vector.content[i];
-            } else {
-                break;
+        if (Arrays.equals(this.content, vector.content)) {
+            for (int i = 0; i < this.content.length; ++i) {
+                this.content[i] /= 2;
+            }
+        } else {
+            this.n = Math.max(this.n, vector.n);
+            for (int i = 0; i < this.n; ++i) {
+                if (this.content.length > i && vector.content.length > i) {
+                    this.content[i] -= vector.content[i];
+                } else {
+                    break;
+                }
             }
         }
-        this.content = copy;
     }
 
     public void getVectorScalar(int scalar) {
-        double[] copy = new double[this.n * scalar];
-        System.arraycopy(this.content,0,copy,0,this.content.length);
         for (int i = 0; i < this.content.length; ++i) {
-            copy[i] *= scalar;
+            this.content[i] *= scalar;
         }
-        this.content = copy;
-        this.n *= scalar;
     }
 
     public void getVectorTurn() {
@@ -93,14 +95,14 @@ public class Vector {
     }
 
     public int getVectorLength() {
-        return this.content.length;
+        return this.n + 1;
     }
 
     public double getVectorElementByIndex(int index) {
         return this.content[index];
     }
 
-    public void setVectorElementByIndex(double element, int index) {
+    public void setVectorElementByIndex(int index, double element) {
         this.content[index] = element;
     }
 
@@ -110,11 +112,11 @@ public class Vector {
         if (this.n < 0) {
             this.n = Math.abs(this.n);
         }
-        for (int i = 0; i < this.n; ++i) {
+        for (int i = 0; i < this.n + 1; ++i) {
             if (i < this.content.length) {
                 stringBuilder.append(this.content[i]).append(",");
             } else {
-                stringBuilder.append(0).append(",");
+                stringBuilder.append(0.0).append(",");
             }
         }
         stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
@@ -151,11 +153,11 @@ public class Vector {
                 break;
             }
         }
-        return new Vector(newContent.length,newContent);
+        return new Vector(newContent.length, newContent);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
-        double[] newContent = new double[Math.max(vector1.n,vector2.n) - Math.min(vector1.n, vector2.n)];
+        double[] newContent = new double[Math.max(vector1.n, vector2.n) - Math.min(vector1.n, vector2.n)];
         for (int i = 0; i < newContent.length; ++i) {
             if (vector1.content.length > i && vector2.content.length > i) {
                 newContent[i] = vector1.content[i] - vector2.content[i];
@@ -163,18 +165,14 @@ public class Vector {
                 break;
             }
         }
-        return new Vector(newContent.length,newContent);
+        return new Vector(newContent.length, newContent);
     }
 
-    public static Vector getStaticVectorScalar(Vector vector1, Vector vector2) {
-        double[] newContent = new double[vector1.n * vector2.n];
-        for (int i = 0; i < newContent.length; ++i) {
-            if (vector1.content.length > i && vector2.content.length > i) {
-                newContent[i] = vector1.content[i] * vector2.content[i];
-            } else {
-                break;
-            }
+    public static double getStaticVectorScalar(Vector vector1, Vector vector2) {
+        int result = 0;
+        for (int i = 0; i < Math.min(vector1.content.length,vector2.content.length); ++i) {
+            result += vector1.content[i] * vector2.content[i];
         }
-        return new Vector(newContent.length,newContent);
+        return result;
     }
 }

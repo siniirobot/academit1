@@ -4,7 +4,7 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Realization {
     public static void main(String[] args) {
-        Vector vector1 = new Vector(12, new double[]{1, 2, 3, 4, 5});
+        Vector vector1 = new Vector(5, new double[]{1, 2, 3, 4, 5});
         System.out.println("Векстор 1 - " + vector1.toString());
 
         Vector vector2 = new Vector(25, new double[]{1, 2, 3, 4, 5, 6, 7});
@@ -33,14 +33,14 @@ public class Realization {
 
         System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(2));
 
-        vector1.setVectorElementByIndex(25, 4);
+        vector1.setVectorElementByIndex(4, 25);
         System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getStaticVectorSum(vector1, vector2).toString());
 
         System.out.println("Если вычесть два массива то получится новый - " + Vector.getStaticVectorSubtraction(vector1, vector2).toString());
 
-        System.out.println("Если произвести скалярное произведение векторов то получится новый - " + Vector.getStaticVectorScalar(vector1, vector2).toString());
+        System.out.println("Если произвести скалярное произведение векторов то получится новый - " + Vector.getStaticVectorScalar(vector1, vector2));
 
         Vector vector4 = new Vector(5);
         System.out.println(vector4);
