@@ -11,7 +11,7 @@ public class Vector {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.n = n;
-        this.content = new double[n];
+        this.content = new double[n + 1];
     }
 
     public Vector(Vector vector) {
@@ -22,8 +22,11 @@ public class Vector {
     }
 
     public Vector(double[] content) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Меньше нуля вектор быть не может");
+        }
         this.content = content;
-        this.n = this.content.length;
+        this.n = this.content.length - 1;
     }
 
     public Vector(int n, double[] content) {
@@ -35,8 +38,6 @@ public class Vector {
         for (int i = 0; i < this.n; ++i) {
             if (i < content.length) {
                 this.content[i] = content[i];
-            } else {
-                this.content[i] = 0;
             }
         }
     }
