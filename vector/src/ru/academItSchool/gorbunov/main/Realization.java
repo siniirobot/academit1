@@ -17,14 +17,13 @@ public class Realization {
 
         vector1.getVectorSum(vector2);
         System.out.println("Сумма векторов равна = " + vector1.toString());
-        System.out.println(vector3.toString());
 
         vector1.getVectorSubtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
         vector1.getVectorScalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
-        System.out.println(vector3.toString());
+
         vector1.getVectorTurn();
         System.out.println("Разворот вектора = " + vector1.toString());
         vector1.getVectorTurn();
@@ -38,9 +37,9 @@ public class Realization {
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getStaticVectorSum(vector1, vector2).toString());
 
-        System.out.println("Если вычесть два массива то получится новый - " + Vector.getStaticVectorSubtraction(vector1, vector2).toString());
+        System.out.println("Если вычесть два массива то получится новый - " + Vector.getStaticVectorSubtraction(vector3, vector2).toString());
 
-        System.out.println("Если произвести скалярное произведение векторов то получится новый - " + Vector.getStaticVectorScalar(vector1, vector2));
+        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getStaticVectorScalar(vector1, vector2));
 
         Vector vector4 = new Vector(5);
         System.out.println(vector4);

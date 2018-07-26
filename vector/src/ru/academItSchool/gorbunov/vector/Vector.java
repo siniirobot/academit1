@@ -20,11 +20,11 @@ public class Vector {
     }
 
     public Vector(double[] content) {
+        this.n = content.length - 1;
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.content = content;
-        this.n = this.content.length - 1;
     }
 
     public Vector(int n, double[] content) {
@@ -55,13 +55,17 @@ public class Vector {
             }
         } else {
             this.n = Math.max(this.n, vector.n);
+            double[] copy = new double[this.n + 1];
             for (int i = 0; i < this.n; ++i) {
                 if (this.content.length > i && vector.content.length > i) {
-                    this.content[i] += vector.content[i];
+                    copy[i] = this.content[i] + vector.content[i];
+                } else if (vector.content.length > this.content.length && vector.content.length > i) {
+                    copy[i] = vector.content[i];
                 } else {
                     break;
                 }
             }
+            this.content = Arrays.copyOf(copy, copy.length);
         }
     }
 
@@ -72,13 +76,17 @@ public class Vector {
             }
         } else {
             this.n = Math.max(this.n, vector.n);
+            double[] copy = new double[this.n + 1];
             for (int i = 0; i < this.n; ++i) {
                 if (this.content.length > i && vector.content.length > i) {
-                    this.content[i] -= vector.content[i];
+                    copy[i] = this.content[i] - vector.content[i];
+                } else if (vector.content.length > this.content.length && vector.content.length > i) {
+                    copy[i] = vector.content[i];
                 } else {
                     break;
                 }
             }
+            this.content = Arrays.copyOf(copy, copy.length);
         }
     }
 
@@ -153,7 +161,7 @@ public class Vector {
                 break;
             }
         }
-        return new Vector(newContent.length, newContent);
+        return new Vector(newContent.length - 1, newContent);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
@@ -161,16 +169,20 @@ public class Vector {
         for (int i = 0; i < newContent.length; ++i) {
             if (vector1.content.length > i && vector2.content.length > i) {
                 newContent[i] = vector1.content[i] - vector2.content[i];
+            } else if (vector1.content.length > vector2.content.length && vector1.content.length > i) {
+                newContent[i] = vector1.content[i];
+            } else if (vector2.content.length > i) {
+                newContent[i] = vector2.content[i];
             } else {
                 break;
             }
         }
-        return new Vector(newContent.length, newContent);
+        return new Vector(newContent.length - 1, newContent);
     }
 
     public static double getStaticVectorScalar(Vector vector1, Vector vector2) {
         int result = 0;
-        for (int i = 0; i < Math.min(vector1.content.length,vector2.content.length); ++i) {
+        for (int i = 0; i < Math.min(vector1.content.length, vector2.content.length); ++i) {
             result += vector1.content[i] * vector2.content[i];
         }
         return result;
