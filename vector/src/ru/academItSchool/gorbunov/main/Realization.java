@@ -4,10 +4,10 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Realization {
     public static void main(String[] args) {
-        Vector vector1 = new Vector(5, new double[]{1, 2, 3, 4, 5});
-        System.out.println("Векстор 1 - " + vector1.toString());
+        Vector vector1 = new Vector(6, new double[]{1, 2, 3, 4, 5});
+        System.out.println("Векстор 1 - " + vector1);
 
-        Vector vector2 = new Vector(25, new double[]{1, 2, 3, 4, 5, 6, 7});
+        Vector vector2 = new Vector(8, new double[]{1, 2, 3, 4, 5, 6, 7});
         System.out.println("Векстор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
@@ -37,7 +37,7 @@ public class Realization {
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getStaticVectorSum(vector1, vector2).toString());
 
-        System.out.println("Если вычесть два массива то получится новый - " + Vector.getStaticVectorSubtraction(vector3, vector2).toString());
+        System.out.println("Если вычесть два массива то получится новый - " + Vector.getStaticVectorSubtraction(vector1, vector2).toString());
 
         System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getStaticVectorScalar(vector1, vector2));
 

@@ -3,25 +3,21 @@ package ru.academItSchool.gorbunov.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private int n;
     private double[] content;
 
     public Vector(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.n = n;
-        this.content = new double[n + 1];
+        this.content = new double[n];
     }
 
     public Vector(Vector vector) {
-        this.n = vector.n;
         this.content = Arrays.copyOf(vector.content, vector.content.length);
     }
 
     public Vector(double[] content) {
-        this.n = content.length - 1;
-        if (n <= 0) {
+        if (content.length <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.content = content;
@@ -31,60 +27,41 @@ public class Vector {
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.n = n;
-        if (this.n + 1 < content.length) {
-            this.content = Arrays.copyOf(content, this.n + 1);
-        } else {
-            this.content = Arrays.copyOf(content, content.length);
-        }
-
-    }
-
-    private int getN() {
-        return n;
+        this.content = new double[n];
+        System.arraycopy(content, 0, this.content, 0, content.length);
     }
 
     public double getSize() {
-        return this.n;
+        return this.content.length;
     }
 
     public void getVectorSum(Vector vector) {
-        if (Arrays.equals(this.content, vector.content)) {
-            for (int i = 0; i < this.content.length; ++i) {
-                this.content[i] *= 2;
-            }
-        } else {
-            this.n = Math.max(this.n, vector.n);
-            double[] copy = new double[this.n + 1];
-            for (int i = 0; i < this.n; ++i) {
-                if (this.content.length > i && vector.content.length > i) {
-                    copy[i] = this.content[i] + vector.content[i];
-                } else if (vector.content.length > this.content.length && vector.content.length > i) {
-                    copy[i] = vector.content[i];
-                } else {
-                    break;
-                }
+        int maxLength = Math.max(this.content.length, vector.content.length);
+        double[] copy = new double[maxLength];
+        for (int i = 0; i < maxLength; ++i) {
+            if (i < this.content.length && i < vector.content.length) {
+                copy[i] = this.content[i] + vector.content[i];
+            } else if (i < this.content.length) {
+                copy[i] = vector.content[i];
+
+            } else {
+                copy[i] = this.content.length;
             }
             this.content = Arrays.copyOf(copy, copy.length);
         }
     }
 
     public void getVectorSubtraction(Vector vector) {
-        if (Arrays.equals(this.content, vector.content)) {
-            for (int i = 0; i < this.content.length; ++i) {
-                this.content[i] /= 2;
-            }
-        } else {
-            this.n = Math.max(this.n, vector.n);
-            double[] copy = new double[this.n + 1];
-            for (int i = 0; i < this.n; ++i) {
-                if (this.content.length > i && vector.content.length > i) {
-                    copy[i] = this.content[i] - vector.content[i];
-                } else if (vector.content.length > this.content.length && vector.content.length > i) {
-                    copy[i] = vector.content[i];
-                } else {
-                    break;
-                }
+        int maxLength = Math.max(this.content.length, vector.content.length);
+        double[] copy = new double[maxLength];
+        for (int i = 0; i < maxLength; ++i) {
+            if (i < this.content.length && i < vector.content.length) {
+                copy[i] = this.content[i] - vector.content[i];
+            } else if (i < this.content.length) {
+                copy[i] = vector.content[i];
+
+            } else {
+                copy[i] = this.content.length;
             }
             this.content = Arrays.copyOf(copy, copy.length);
         }
@@ -102,8 +79,8 @@ public class Vector {
         }
     }
 
-    public int getVectorLength() {
-        return this.n + 1;
+    public double getVectorLength() {
+        return Math.sqrt(this.content.length * this.content.length);
     }
 
     public double getVectorElementByIndex(int index) {
@@ -117,15 +94,8 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        if (this.n < 0) {
-            this.n = Math.abs(this.n);
-        }
-        for (int i = 0; i < this.n + 1; ++i) {
-            if (i < this.content.length) {
-                stringBuilder.append(this.content[i]).append(",");
-            } else {
-                stringBuilder.append(0.0).append(",");
-            }
+        for (double e : content) {
+            stringBuilder.append(e).append(",");
         }
         stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         return stringBuilder.append("}").toString();
@@ -140,49 +110,51 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        return this.n == vector.n && Arrays.equals(this.content, vector.content);
+        return Arrays.equals(this.content, vector.content);
     }
 
     @Override
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + n;
         result = prime * result + Arrays.hashCode(content);
         return result;
     }
 
     public static Vector getStaticVectorSum(Vector vector1, Vector vector2) {
-        double[] newContent = new double[vector1.n + vector2.n];
+        double[] newContent = new double[Math.max(vector1.content.length, vector2.content.length)];
         for (int i = 0; i < newContent.length; ++i) {
-            if (vector1.content.length > i && vector2.content.length > i) {
+            if (i < vector1.content.length && i < vector2.content.length) {
                 newContent[i] = vector1.content[i] + vector2.content[i];
+            } else if (i < vector1.content.length) {
+                newContent[i] = vector1.content[i];
+
             } else {
-                break;
+                newContent[i] = vector2.content.length;
             }
         }
-        return new Vector(newContent.length - 1, newContent);
+        return new Vector(newContent.length, newContent);
     }
 
     public static Vector getStaticVectorSubtraction(Vector vector1, Vector vector2) {
-        double[] newContent = new double[Math.max(vector1.n, vector2.n) - Math.min(vector1.n, vector2.n)];
+        double[] newContent = new double[Math.max(vector1.content.length, vector2.content.length)];
         for (int i = 0; i < newContent.length; ++i) {
-            if (vector1.content.length > i && vector2.content.length > i) {
+            if (i < vector1.content.length && i < vector2.content.length) {
                 newContent[i] = vector1.content[i] - vector2.content[i];
-            } else if (vector1.content.length > vector2.content.length && vector1.content.length > i) {
+            } else if (i < vector1.content.length) {
                 newContent[i] = vector1.content[i];
-            } else if (vector2.content.length > i) {
-                newContent[i] = vector2.content[i];
+
             } else {
-                break;
+                newContent[i] = vector2.content[i];
             }
         }
-        return new Vector(newContent.length - 1, newContent);
+        return new Vector(newContent.length, newContent);
     }
 
     public static double getStaticVectorScalar(Vector vector1, Vector vector2) {
         int result = 0;
-        for (int i = 0; i < Math.min(vector1.content.length, vector2.content.length); ++i) {
+        int minLength = Math.min(vector1.content.length, vector2.content.length);
+        for (int i = 0; i < minLength; ++i) {
             result += vector1.content[i] * vector2.content[i];
         }
         return result;

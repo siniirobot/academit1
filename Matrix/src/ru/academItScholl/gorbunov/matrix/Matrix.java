@@ -24,7 +24,7 @@ public class Matrix {
         this.height = this.content[0].length;
     }
 
-    public Matrix(Vector[] vectors) {
+    /*public Matrix(Vector[] vectors) {
         this.vectors = vectors;
         int maxSize = 0;
         for (Vector e :vectors) {
@@ -46,7 +46,7 @@ public class Matrix {
         }
         this.width = this.content.length;
         this.height = maxSize;
-    }
+    }*/
 
     public Matrix(Matrix matrix) {
         this.width = matrix.width;
