@@ -28,7 +28,12 @@ public class Vector {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.content = new double[n];
-        System.arraycopy(content, 0, this.content, 0, content.length);
+        if (n > content.length) {
+            System.arraycopy(content, 0, this.content, 0, content.length);
+        } else {
+            System.arraycopy(content, 0, this.content, 0, n);
+        }
+
     }
 
     public double getSize() {
@@ -36,34 +41,46 @@ public class Vector {
     }
 
     public void getVectorSum(Vector vector) {
-        int maxLength = Math.max(this.content.length, vector.content.length);
-        double[] copy = new double[maxLength];
-        for (int i = 0; i < maxLength; ++i) {
-            if (i < this.content.length && i < vector.content.length) {
-                copy[i] = this.content[i] + vector.content[i];
-            } else if (i < this.content.length) {
-                copy[i] = vector.content[i];
-
-            } else {
-                copy[i] = this.content.length;
+        if (this.content.length > vector.content.length) {
+            for (int i = 0; i < this.content.length; ++i) {
+                if (i < vector.content.length) {
+                    this.content[i] += vector.content[i];
+                } else {
+                    break;
+                }
             }
-            this.content = Arrays.copyOf(copy, copy.length);
+        } else {
+            double[] copy = new double[vector.content.length];
+            for (int i = 0; i < vector.content.length; ++i) {
+                if (i < this.content.length) {
+                    copy[i] = this.content[i] + vector.content[i];
+                } else {
+                    copy[i] = vector.content[i];
+                }
+                this.content = Arrays.copyOf(copy, copy.length);
+            }
         }
     }
 
     public void getVectorSubtraction(Vector vector) {
-        int maxLength = Math.max(this.content.length, vector.content.length);
-        double[] copy = new double[maxLength];
-        for (int i = 0; i < maxLength; ++i) {
-            if (i < this.content.length && i < vector.content.length) {
-                copy[i] = this.content[i] - vector.content[i];
-            } else if (i < this.content.length) {
-                copy[i] = vector.content[i];
-
-            } else {
-                copy[i] = this.content.length;
+        if (this.content.length > vector.content.length) {
+            for (int i = 0; i < this.content.length; ++i) {
+                if (i < vector.content.length) {
+                    this.content[i] -= vector.content[i];
+                } else {
+                    break;
+                }
             }
-            this.content = Arrays.copyOf(copy, copy.length);
+        } else {
+            double[] copy = new double[vector.content.length];
+            for (int i = 0; i < vector.content.length; ++i) {
+                if (i < this.content.length) {
+                    copy[i] = this.content[i] - vector.content[i];
+                } else {
+                    copy[i] = vector.content[i];
+                }
+                this.content = Arrays.copyOf(copy, copy.length);
+            }
         }
     }
 
@@ -130,7 +147,7 @@ public class Vector {
                 newContent[i] = vector1.content[i];
 
             } else {
-                newContent[i] = vector2.content.length;
+                newContent[i] = vector2.content[i];
             }
         }
         return new Vector(newContent.length, newContent);

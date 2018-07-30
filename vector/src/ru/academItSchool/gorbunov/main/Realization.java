@@ -4,10 +4,10 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Realization {
     public static void main(String[] args) {
-        Vector vector1 = new Vector(6, new double[]{1, 2, 3, 4, 5});
+        Vector vector1 = new Vector(1, new double[]{1, 2, 3, 4, 5});
         System.out.println("Векстор 1 - " + vector1);
 
-        Vector vector2 = new Vector(8, new double[]{1, 2, 3, 4, 5, 6, 7});
+        Vector vector2 = new Vector(1, new double[]{1, 2, 3, 4, 5, 6, 7});
         System.out.println("Векстор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
@@ -30,9 +30,9 @@ public class Realization {
 
         System.out.println("Длина вектора равна = " + vector1.getVectorLength());
 
-        System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(2));
+        System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(1));
 
-        vector1.setVectorElementByIndex(4, 25);
+        vector1.setVectorElementByIndex(0, 25);
         System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getStaticVectorSum(vector1, vector2).toString());
