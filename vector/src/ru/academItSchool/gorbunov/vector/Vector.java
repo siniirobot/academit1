@@ -81,11 +81,11 @@ public class Vector {
     }
 
     public double getVectorLength() {
-        return Math.sqrt(this.content.length * this.content.length);
-    }
-
-    public double getVectorLength2() {
-        return Math.sqrt(this.content[0] * this.content[0] + this.content[this.content.length - 1] * this.content[this.content.length - 1]);
+        double vectorLength = 0;
+        for (double e : this.content) {
+            vectorLength += e * e;
+        }
+        return Math.sqrt(vectorLength);
     }
 
     public double getVectorElementByIndex(int index) {

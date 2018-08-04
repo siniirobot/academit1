@@ -29,7 +29,6 @@ public class Realization {
         vector1.getVectorTurn();
 
         System.out.println("Длина вектора равна = " + vector1.getVectorLength());
-        System.out.println("Или длина вектора равна = " + vector1.getVectorLength2());
 
         System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(0));
 
