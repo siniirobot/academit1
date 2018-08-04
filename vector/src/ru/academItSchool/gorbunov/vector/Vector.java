@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private int n;
+    public int n;
     private double[] content;
 
     public Vector(int n) {
@@ -11,16 +11,14 @@ public class Vector {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
         this.n = n;
-        this.content = new double[n + 1];
+        this.content = new double[n];
     }
 
     public Vector(Vector vector) {
-        this.n = vector.n;
         this.content = Arrays.copyOf(vector.content, vector.content.length);
     }
 
     public Vector(double[] content) {
-        this.n = content.length - 1;
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
