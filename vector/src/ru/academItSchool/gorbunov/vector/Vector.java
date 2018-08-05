@@ -35,7 +35,7 @@ public class Vector {
     }
 
     public void getVectorSum(Vector vector) {
-        if (this.content.length > vector.content.length) {
+        if (this.content.length >= vector.content.length) {
             for (int i = 0; i < vector.content.length; ++i) {
                 this.content[i] += vector.content[i];
             }
@@ -48,12 +48,12 @@ public class Vector {
                     copy[i] = vector.content[i];
                 }
             }
-            this.content = Arrays.copyOf(copy, copy.length);
+            this.content = copy;
         }
     }
 
     public void getVectorSubtraction(Vector vector) {
-        if (this.content.length > vector.content.length) {
+        if (this.content.length >= vector.content.length) {
             for (int i = 0; i < vector.content.length; ++i) {
                 this.content[i] -= vector.content[i];
             }
@@ -66,7 +66,7 @@ public class Vector {
                     copy[i] = vector.content[i];
                 }
             }
-            this.content = Arrays.copyOf(copy, copy.length);
+            this.content = copy;
         }
     }
 
@@ -126,19 +126,19 @@ public class Vector {
         return result;
     }
 
-    public static Vector getNewVectorSum(Vector vector1, Vector vector2) {
-        Vector newVector = new Vector(Arrays.copyOf(vector1.content, vector1.content.length));
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        Vector newVector = new Vector(vector1);
         newVector.getVectorSum(vector2);
         return newVector;
     }
 
-    public static Vector getNewVectorSubtraction(Vector vector1, Vector vector2) {
-        Vector newVector = new Vector(Arrays.copyOf(vector1.content, vector1.content.length));
+    public static Vector getSubtraction(Vector vector1, Vector vector2) {
+        Vector newVector = new Vector(vector1);
         newVector.getVectorSubtraction(vector2);
         return newVector;
     }
 
-    public static double getNewVectorScalar(Vector vector1, Vector vector2) {
+    public static double getScalar(Vector vector1, Vector vector2) {
         int result = 0;
         int minLength = Math.min(vector1.content.length, vector2.content.length);
         for (int i = 0; i < minLength; ++i) {

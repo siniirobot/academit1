@@ -35,11 +35,11 @@ public class Realization {
         vector1.setVectorElementByIndex(0, 25);
         System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
 
-        System.out.println("Если сложить два массива то получится новый - " + Vector.getNewVectorSum(vector1, vector2).toString());
+        System.out.println("Если сложить два массива то получится новый - " + Vector.getSum(vector1, vector2).toString());
 
-        System.out.println("Если вычесть два массива то получится новый - " + Vector.getNewVectorSubtraction(vector1, vector2).toString());
+        System.out.println("Если вычесть два массива то получится новый - " + Vector.getSubtraction(vector1, vector2).toString());
 
-        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getNewVectorScalar(vector1, vector2));
+        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getScalar(vector1, vector2));
 
         Vector vector4 = new Vector(5);
         System.out.println(vector4);
