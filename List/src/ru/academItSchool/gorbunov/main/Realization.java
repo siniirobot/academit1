@@ -18,12 +18,46 @@ public class Realization {
 
         System.out.println(list.getFirstElement());
 
-        System.out.println(list.getElementBuIndex(3));
+        System.out.println(list.getElementByIndex(3));
 
-        System.out.println(list.setElementBuIndex(2,"1534"));
+        System.out.println(list.setElementByIndex(2,"1534"));
 
         System.out.println(list.deleteElementByIndex(5));
 
+        System.out.println(list.toSting());
+
+        list.addElementAsFirst("Ноль");
+
+        System.out.println(list.toSting());
+
+        list.addElementByIndex(1,"lf");
+
+        System.out.println(list.toSting());
+
+        list.deleteElementByData("1534");
+
+        list.deleteElementByData("lf");
+        list.deleteElementByData("lf");
+
+
+        System.out.println(list.toSting());
+
+        System.out.println(list.getSize());
+
+        list.addElementByIndex(2,"Два");
+        list.addElementByIndex(5,"Пять");
+
+        System.out.println(list.toSting());
+        System.out.println(list.getSize());
+
+        System.out.println(list.setElementByIndex(6,"Шесть"));
+        System.out.println(list.toSting());
+
+        System.out.println(list.deleteFirstElement());
+
+        System.out.println(list.toSting());
+
+        list.turnList();
         System.out.println(list.toSting());
     }
 }

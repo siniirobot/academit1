@@ -33,7 +33,7 @@ public class List<T> {
         return p.getData();
     }
 
-    public T getElementBuIndex(int index) {
+    public T getElementByIndex(int index) {
         int indexCount = this.size;
         Element<T> p = this.head;
         for (; p != null; p = p.getNext()) {
@@ -45,7 +45,7 @@ public class List<T> {
         return p.getData();
     }
 
-    public T setElementBuIndex(int index, T data) {
+    public T setElementByIndex(int index, T data) {
         Element<T> oldElement = null;
         int indexCount = this.size;
         Element<T> p = this.head;
@@ -61,17 +61,69 @@ public class List<T> {
     }
 
     public T deleteElementByIndex(int index) {
-        Element<T> deletedElement = null;
         int indexCount = this.size;
-        Element<T> p = this.head;
-        for (; p != null; p = p.getNext()) {
-            if (indexCount == index + 1) {
-                deletedElement = p.getNext();
-                p.setNext(p.getNext().getNext());
-                this.size--;
+        Element<T> deletedElement = null;
+        if (indexCount + 1 == index + 1) {
+            deletedElement = this.head;
+            this.head = this.head.getNext();
+        } else {
+            Element<T> p = this.head;
+            for (; p != null; p = p.getNext()) {
+                if (indexCount == index + 1) {
+                    deletedElement = p.getNext();
+                    p.setNext(p.getNext().getNext());
+                }
+                indexCount--;
+            }
+        }
+        this.size--;
+        return deletedElement.getData();
+    }
+
+    public void addElementAsFirst(T data) {
+        Element p = new Element<>(data, this.head);
+        this.head = p;
+        size++;
+    }
+
+    public void addElementByIndex(int index, T data) {
+        int indexCount = this.size;
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            if (indexCount == index) {
+                p.setNext(new Element<>(data, p.getNext()));
+                this.size++;
             }
             indexCount--;
         }
+    }
+
+    public boolean deleteElementByData(T data) {
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            if (p.getNext() == null) {
+                break;
+            }
+            if (p.getNext().getData().equals(data)) {
+                p.setNext(p.getNext().getNext());
+                this.size--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public T deleteFirstElement() {
+        Element<T> deletedElement = this.head;
+        this.head = this.head.getNext();
+        this.size--;
         return deletedElement.getData();
+    }
+
+    public void turnList() {
+        Element<T> copy = null;
+
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            copy = p;
+        }
+
     }
 }
