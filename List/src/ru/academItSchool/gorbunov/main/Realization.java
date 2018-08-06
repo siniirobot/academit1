@@ -20,10 +20,9 @@ public class Realization {
 
         System.out.println(list.getElementBuIndex(3));
 
-        list.setElementBuIndex(2,"1534");
-        System.out.println(list.toSting());
+        System.out.println(list.setElementBuIndex(2,"1534"));
 
-        System.out.println(list.deleteElementByIndex(2));
+        System.out.println(list.deleteElementByIndex(5));
 
         System.out.println(list.toSting());
     }

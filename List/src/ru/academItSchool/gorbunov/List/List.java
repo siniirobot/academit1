@@ -5,13 +5,7 @@ public class List<T> {
     private int size = 0;
 
     public void addElement(T data) {
-        Element<T> element = new Element(data, this.head);
-        if (this.head == null) {
-            this.head = element;
-        } else {
-            this.head = element;
-        }
-
+        this.head = new Element(data, this.head);
         size++;
     }
 
@@ -51,16 +45,19 @@ public class List<T> {
         return p.getData();
     }
 
-    public void setElementBuIndex(int index, T data) {
+    public T setElementBuIndex(int index, T data) {
+        Element<T> oldElement = null;
         int indexCount = this.size;
         Element<T> p = this.head;
         for (; p != null; p = p.getNext()) {
             if (indexCount == index) {
+                oldElement = p;
                 p.setData(data);
                 break;
             }
             indexCount--;
         }
+        return oldElement.getData();
     }
 
     public T deleteElementByIndex(int index) {
@@ -69,9 +66,8 @@ public class List<T> {
         Element<T> p = this.head;
         for (; p != null; p = p.getNext()) {
             if (indexCount == index + 1) {
-                deletedElement = p;
-                p = p.getNext().getNext();
-                System.out.println(p.getData());
+                deletedElement = p.getNext();
+                p.setNext(p.getNext().getNext());
                 this.size--;
             }
             indexCount--;
