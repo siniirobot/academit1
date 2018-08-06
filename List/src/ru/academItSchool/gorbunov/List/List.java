@@ -2,12 +2,16 @@ package ru.academItSchool.gorbunov.List;
 
 public class List<T> {
     private Element<T> head;
-
     private int size = 0;
 
     public void addElement(T data) {
-        Element element = new Element(data, this.head);
-        this.head = element;
+        Element<T> element = new Element(data, this.head);
+        if (this.head == null) {
+            this.head = element;
+        } else {
+            this.head = element;
+        }
+
         size++;
     }
 
@@ -64,9 +68,9 @@ public class List<T> {
         int indexCount = this.size;
         Element<T> p = this.head;
         for (; p != null; p = p.getNext()) {
-            if (indexCount == index) {
+            if (indexCount == index + 1) {
                 deletedElement = p;
-                p = p.getNext();
+                p = p.getNext().getNext();
                 System.out.println(p.getData());
                 this.size--;
             }
