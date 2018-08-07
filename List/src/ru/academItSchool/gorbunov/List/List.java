@@ -4,23 +4,29 @@ public class List<T> {
     private Element<T> head;
     private int size = 0;
 
+    // Добавление элемента.
     public void addElement(T data) {
         this.head = new Element(data, this.head);
         size++;
     }
 
+    //Колличество элементов в списке
     public int getSize() {
         return size;
     }
 
+    //Распечатка списка
     public String toSting() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            stringBuilder.append(p.getData()).append(" ");
+            stringBuilder.append(p.getData()).append(", ");
         }
-        return stringBuilder.toString();
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.append("}").toString();
     }
 
+    //Получить данные из первого элемента списка
     public T getFirstElement() {
         int index = this.size;
         Element<T> p = this.head;
@@ -33,6 +39,7 @@ public class List<T> {
         return p.getData();
     }
 
+    //Получить данные из элемента по индексу
     public T getElementByIndex(int index) {
         int indexCount = this.size;
         Element<T> p = this.head;
@@ -45,6 +52,7 @@ public class List<T> {
         return p.getData();
     }
 
+    //Установить элемент по индексу
     public T setElementByIndex(int index, T data) {
         Element<T> oldElement = null;
         int indexCount = this.size;
@@ -60,6 +68,7 @@ public class List<T> {
         return oldElement.getData();
     }
 
+    //Удаление элемента по индексу
     public T deleteElementByIndex(int index) {
         int indexCount = this.size;
         Element<T> deletedElement = null;
@@ -67,8 +76,7 @@ public class List<T> {
             deletedElement = this.head;
             this.head = this.head.getNext();
         } else {
-            Element<T> p = this.head;
-            for (; p != null; p = p.getNext()) {
+            for (Element<T> p = this.head; p != null; p = p.getNext()) {
                 if (indexCount == index + 1) {
                     deletedElement = p.getNext();
                     p.setNext(p.getNext().getNext());
@@ -80,12 +88,13 @@ public class List<T> {
         return deletedElement.getData();
     }
 
+    // Добавить элемент в начало
     public void addElementAsFirst(T data) {
-        Element p = new Element<>(data, this.head);
-        this.head = p;
+        this.head = new Element<>(data, this.head);
         size++;
     }
 
+    // Добавить элемент по индексу
     public void addElementByIndex(int index, T data) {
         int indexCount = this.size;
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
@@ -97,6 +106,7 @@ public class List<T> {
         }
     }
 
+    // Удаление элемента по выбранным данным
     public boolean deleteElementByData(T data) {
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
             if (p.getNext() == null) {
@@ -111,6 +121,7 @@ public class List<T> {
         return false;
     }
 
+    //Удаление первого элемента
     public T deleteFirstElement() {
         Element<T> deletedElement = this.head;
         this.head = this.head.getNext();
@@ -118,12 +129,25 @@ public class List<T> {
         return deletedElement.getData();
     }
 
+    //Разворот списка
     public void turnList() {
         Element<T> copy = null;
-
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            copy = p;
+            copy = new Element<>(p.getData(),copy);
         }
+        this.head = copy;
+    }
 
+    //Копирование списка
+    public List<T> getCopy () {
+        Element<T> list = null;
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            list = new Element<>(p.getData(),list);
+        }
+        List<T> list1 = new List<>();
+        for (Element<T> p = list; p != null; p = p.getNext()) {
+            list1.addElement(p.getData());
+        }
+        return list1;
     }
 }
