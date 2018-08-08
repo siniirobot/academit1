@@ -4,12 +4,6 @@ public class List<T> {
     private Element<T> head;
     private int size = 0;
 
-    // Добавление элемента.
-    public void addElement(T data) {
-        this.head = new Element(data, this.head);
-        size++;
-    }
-
     //Колличество элементов в списке
     public int getSize() {
         return size;
@@ -26,63 +20,45 @@ public class List<T> {
         return stringBuilder.append("}").toString();
     }
 
-    //Получить данные из первого элемента списка
-    public T getFirstElement() {
-        int index = this.size;
+    //Счетчик по индексу
+    private Element<T> getElementFromIndex(int index) {
+        int indexCount = this.size;
         Element<T> p = this.head;
         for (; p != null; p = p.getNext()) {
-            if (index == 1) {
+            if (indexCount == index) {
                 break;
             }
-            index--;
+            indexCount--;
         }
-        return p.getData();
+        return p;
+    }
+
+    //Получить данные из первого элемента списка
+    public T getFirstElement() {
+        return this.head.getData();
     }
 
     //Получить данные из элемента по индексу
     public T getElementByIndex(int index) {
-        int indexCount = this.size;
-        Element<T> p = this.head;
-        for (; p != null; p = p.getNext()) {
-            if (indexCount == index) {
-                break;
-            }
-            indexCount--;
-        }
-        return p.getData();
+        return getElementFromIndex(index).getData();
     }
 
     //Установить элемент по индексу
     public T setElementByIndex(int index, T data) {
-        Element<T> oldElement = null;
-        int indexCount = this.size;
-        Element<T> p = this.head;
-        for (; p != null; p = p.getNext()) {
-            if (indexCount == index) {
-                oldElement = p;
-                p.setData(data);
-                break;
-            }
-            indexCount--;
-        }
+        Element<T> oldElement = getElementFromIndex(index);
+        getElementFromIndex(index).setData(data);
         return oldElement.getData();
     }
 
     //Удаление элемента по индексу
     public T deleteElementByIndex(int index) {
+        Element<T> deletedElement = getElementFromIndex(index + 1);
         int indexCount = this.size;
-        Element<T> deletedElement = null;
         if (indexCount + 1 == index + 1) {
             deletedElement = this.head;
             this.head = this.head.getNext();
         } else {
-            for (Element<T> p = this.head; p != null; p = p.getNext()) {
-                if (indexCount == index + 1) {
-                    deletedElement = p.getNext();
-                    p.setNext(p.getNext().getNext());
-                }
-                indexCount--;
-            }
+            deletedElement.setNext(deletedElement.getNext().getNext());
         }
         this.size--;
         return deletedElement.getData();
@@ -96,23 +72,15 @@ public class List<T> {
 
     // Добавить элемент по индексу
     public void addElementByIndex(int index, T data) {
-        int indexCount = this.size;
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            if (indexCount == index) {
-                p.setNext(new Element<>(data, p.getNext()));
-                this.size++;
-            }
-            indexCount--;
-        }
+        Element<T> addElement = getElementFromIndex(index);
+        addElement.setNext(new Element<>(data, addElement.getNext()));
+        this.size++;
     }
 
     // Удаление элемента по выбранным данным
     public boolean deleteElementByData(T data) {
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            if (p.getNext() == null) {
-                break;
-            }
-            if (p.getNext().getData().equals(data)) {
+            if (p.getNext() != null && p.getNext().getData().equals(data)) {
                 p.setNext(p.getNext().getNext());
                 this.size--;
                 return true;
@@ -133,20 +101,29 @@ public class List<T> {
     public void turnList() {
         Element<T> copy = null;
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            copy = new Element<>(p.getData(),copy);
+            copy = new Element<>(p.getData(), copy);
         }
         this.head = copy;
     }
+    public void turnList2() {
+        Element<T> copy = this.head;
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+
+            copy.setNext(p.getNext());
+            copy.setData(p.getData());
+
+        }
+    }
 
     //Копирование списка
-    public List<T> getCopy () {
+    public List<T> getCopy() {
         Element<T> list = null;
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            list = new Element<>(p.getData(),list);
+            list = new Element<>(p.getData(), list);
         }
         List<T> list1 = new List<>();
         for (Element<T> p = list; p != null; p = p.getNext()) {
-            list1.addElement(p.getData());
+            list1.addElementAsFirst(p.getData());
         }
         return list1;
     }
