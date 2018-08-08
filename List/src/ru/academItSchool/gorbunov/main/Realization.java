@@ -34,10 +34,24 @@ public class Realization {
 
         System.out.println(list.toSting());
 
-        list.deleteElementByData("1534");
+        if (list.deleteElementByData("1534")) {
+            System.out.println("Элемент 1534, был удален из списка.");
+        }else {
+            System.out.println("Элемента 1534, не было в спске.");
+        }
 
-        list.deleteElementByData("lf");
-        list.deleteElementByData("lf");
+        if (list.deleteElementByData("lf")) {
+            System.out.println("Элемент lf, был удален из списка.");
+        }else {
+            System.out.println("Элемента lf, не было в спске.");
+        }
+
+        if (list.deleteElementByData("lf")) {
+            System.out.println("Элемент lf, был удален из списка.");
+        }else {
+            System.out.println("Элемента lf, не было в спске.");
+        }
+
 
 
         System.out.println(list.toSting());
@@ -59,5 +73,11 @@ public class Realization {
 
         list.turnList();
         System.out.println(list.toSting());
+
+        list.addElement("Ноль");
+        System.out.println(list.toSting());
+        System.out.println(list.getSize());
+
+        System.out.println(list.copyList().toString());
     }
 }

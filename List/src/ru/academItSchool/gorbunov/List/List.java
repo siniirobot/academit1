@@ -120,10 +120,20 @@ public class List<T> {
 
     public void turnList() {
         Element<T> copy = null;
-
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            copy = p;
+            copy = new Element<>(p.getData(),copy);
         }
+        this.head = copy;
+    }
 
+    public Element<T> copyList() {
+        Element<T> copy = null;
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            copy = new Element<>(p.getData(),copy);
+        }
+        for (Element<T> p = copy; p != null; p = p.getNext()) {
+            this.head = new Element<>(p.getData(),this.head);
+        }
+        return this.head;
     }
 }
