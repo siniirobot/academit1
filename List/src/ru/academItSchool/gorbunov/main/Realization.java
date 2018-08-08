@@ -71,10 +71,11 @@ public class Realization {
         list.turnList();
         System.out.println("После разворота список содержит - " + list.toSting());
 
-        System.out.println("После копирования список содержит - " + list.getCopy().toSting());
-        System.out.println("Размер списка равен - " + list.getCopy().getSize());
+        List<String> list2 = list.getCopy();
+        System.out.println("После копирования список содержит - " + list2.toSting());
+        System.out.println("Размер списка равен - " + list2.getSize());
 
-
-
+        list2.deleteElementByIndex(5);
+        System.out.println("После  удаления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
     }
 }
