@@ -52,6 +52,14 @@ public class Realization {
         } else {
             System.out.println("Элемент не был удален.");
         }
+
+        list.addElementByIndex(4,null);
+
+        if (list.deleteElementByData(null)) {
+            System.out.println("Элемент null был удален.");
+        } else {
+            System.out.println("Элемент null не был удален.");
+        }
         System.out.println("Размер списка равен - " + list.getSize());
         System.out.println("После удалений список содержит - " + list.toSting());
 
@@ -68,14 +76,14 @@ public class Realization {
         System.out.println("После удаления список содержит - " + list.toSting());
         System.out.println("Размер списка равен - " + list.getSize());
 
-        list.turnList2();
+        list.turnList();
         System.out.println("После разворота список содержит - " + list.toSting());
 
-        List<String> list2 = list.getCopy();
+        List<String> list2 = list.getList();
         System.out.println("После копирования список содержит - " + list2.toSting());
         System.out.println("Размер списка равен - " + list2.getSize());
 
-        list2.deleteElementByIndex(5);
+        list2.deleteElementByIndex(1);
         System.out.println("После  удаления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
     }
 }

@@ -79,11 +79,21 @@ public class List<T> {
 
     // Удаление элемента по выбранным данным
     public boolean deleteElementByData(T data) {
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            if (p.getNext() != null && p.getNext().getData().equals(data)) {
-                p.setNext(p.getNext().getNext());
-                this.size--;
-                return true;
+        if (data == null) {
+            for (Element<T> p = this.head; p != null; p = p.getNext()) {
+                if (p.getNext() != null && p.getNext().getData() == data) {
+                    p.setNext(p.getNext().getNext());
+                    this.size--;
+                    return true;
+                }
+            }
+        } else {
+            for (Element<T> p = this.head; p != null; p = p.getNext()) {
+                if (p.getNext() != null && p.getNext().getData().equals(data)) {
+                    p.setNext(p.getNext().getNext());
+                    this.size--;
+                    return true;
+                }
             }
         }
         return false;
@@ -100,31 +110,24 @@ public class List<T> {
     //Разворот списка
     public void turnList() {
         Element<T> copy = null;
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            copy = new Element<>(p.getData(), copy);
+        Element<T> temp;
+        while (this.head != null) {
+            temp = this.head.getNext();
+            this.head.setNext(copy);
+            copy = this.head;
+            this.head = temp;
         }
         this.head = copy;
     }
-    public void turnList2() {
-        Element<T> copy = this.head;
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-
-            copy.setNext(p.getNext());
-            copy.setData(p.getData());
-
-        }
-    }
 
     //Копирование списка
-    public List<T> getCopy() {
-        Element<T> list = null;
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            list = new Element<>(p.getData(), list);
+    public List<T> getList() {
+        List<T> copyList = new List<>();
+        T addingElement;
+        for (int i = 1; i <= this.size; i++) {
+            addingElement = getElementByIndex(i);
+            copyList.addElementAsFirst(addingElement);
         }
-        List<T> list1 = new List<>();
-        for (Element<T> p = list; p != null; p = p.getNext()) {
-            list1.addElementAsFirst(p.getData());
-        }
-        return list1;
+        return copyList;
     }
 }
