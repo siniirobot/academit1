@@ -6,6 +6,8 @@ public class Realization {
     public static void main(String[] args) {
         List<String> list = new List<>();
 
+        //list.getFirstElement();
+        //list.deleteFirstElement();
         list.addElementAsFirst("Один");
         list.addElementAsFirst("Два");
         list.addElementAsFirst("Три");
@@ -23,7 +25,8 @@ public class Realization {
         System.out.println("По индексу был установлен элемент - " + list.setElementByIndex(2, "1534"));
         System.out.println("После установки список содержит - " + list.toSting());
 
-        System.out.println("Удаленый элемент по индексу - " + list.deleteElementByIndex(5));
+        System.out.println(list.getSize());
+        System.out.println("Удаленый элемент по индексу - " + list.deleteElementByIndex(3));
         System.out.println("Размер списка равен - " + list.getSize());
         System.out.println("После удаления список содержит - " + list.toSting());
 
@@ -63,13 +66,16 @@ public class Realization {
         System.out.println("Размер списка равен - " + list.getSize());
         System.out.println("После удалений список содержит - " + list.toSting());
 
-        list.addElementByIndex(2, "Два");
+        list.setElementByIndex(1,"Один");
+        list.setElementByIndex(2,"Два");
+        list.setElementByIndex(3,"Три");
+        list.addElementByIndex(4, "Четыре");
         list.addElementByIndex(5, "Пять");
         System.out.println("Размер списка равен - " + list.getSize());
         System.out.println("После вставки элементов список содержит - " + list.toSting());
 
 
-        System.out.println("Установлен элемент по индексу - " + list.setElementByIndex(6, "Шесть"));
+        list.addElementByIndex(6, "Шесть");
         System.out.println("После установки элемента список содержит - " + list.toSting());
 
         System.out.println("Удаленый первый элемент - " + list.deleteFirstElement());

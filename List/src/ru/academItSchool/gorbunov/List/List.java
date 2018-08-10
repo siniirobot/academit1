@@ -1,8 +1,10 @@
 package ru.academItSchool.gorbunov.List;
 
+import java.util.Objects;
+
 public class List<T> {
     private Element<T> head;
-    private int size = 0;
+    private int size = -1;
 
     //Колличество элементов в списке
     public int getSize() {
@@ -22,19 +24,25 @@ public class List<T> {
 
     //Счетчик по индексу
     private Element<T> getElementFromIndex(int index) {
-        int indexCount = this.size;
+        if (index > this.size || index < 0) {
+            throw new NullPointerException("Введеный вами индекс за пределами размера списка");
+        }
+        int indexCount = 0;
         Element<T> p = this.head;
-        for (; p != null; p = p.getNext()) {
+        for (; p != null && indexCount <= this.size; p = p.getNext()) {
             if (indexCount == index) {
                 break;
             }
-            indexCount--;
+            indexCount++;
         }
         return p;
     }
 
     //Получить данные из первого элемента списка
     public T getFirstElement() {
+        if (this.size < 0) {
+            throw new NullPointerException("Список пуст");
+        }
         return this.head.getData();
     }
 
@@ -52,13 +60,13 @@ public class List<T> {
 
     //Удаление элемента по индексу
     public T deleteElementByIndex(int index) {
-        Element<T> deletedElement = getElementFromIndex(index + 1);
-        int indexCount = this.size;
-        if (indexCount + 1 == index + 1) {
-            deletedElement = this.head;
-            this.head = this.head.getNext();
+        Element<T> deletedElement = getElementFromIndex(index);
+        if (index == 0) {
+            deleteFirstElement();
+            return deletedElement.getData();
         } else {
-            deletedElement.setNext(deletedElement.getNext().getNext());
+            Element<T> elementForDeleting = getElementFromIndex(index - 1);
+            elementForDeleting.setNext(deletedElement.getNext());
         }
         this.size--;
         return deletedElement.getData();
@@ -72,28 +80,22 @@ public class List<T> {
 
     // Добавить элемент по индексу
     public void addElementByIndex(int index, T data) {
-        Element<T> addElement = getElementFromIndex(index);
-        addElement.setNext(new Element<>(data, addElement.getNext()));
+        if (index == 0) {
+            addElementAsFirst(data);
+        } else {
+            Element<T> addElement = getElementFromIndex(index - 1);
+            addElement.setNext(new Element<>(data, addElement.getNext()));
+        }
         this.size++;
     }
 
     // Удаление элемента по выбранным данным
     public boolean deleteElementByData(T data) {
-        if (data == null) {
-            for (Element<T> p = this.head; p != null; p = p.getNext()) {
-                if (p.getNext() != null && p.getNext().getData() == data) {
-                    p.setNext(p.getNext().getNext());
-                    this.size--;
-                    return true;
-                }
-            }
-        } else {
-            for (Element<T> p = this.head; p != null; p = p.getNext()) {
-                if (p.getNext() != null && p.getNext().getData().equals(data)) {
-                    p.setNext(p.getNext().getNext());
-                    this.size--;
-                    return true;
-                }
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            if (p.getNext() != null && Objects.equals(p.getNext().getData(), data)) {
+                p.setNext(p.getNext().getNext());
+                this.size--;
+                return true;
             }
         }
         return false;
@@ -101,6 +103,9 @@ public class List<T> {
 
     //Удаление первого элемента
     public T deleteFirstElement() {
+        if (this.size < 0) {
+            throw new NullPointerException("Список пуст");
+        }
         Element<T> deletedElement = this.head;
         this.head = this.head.getNext();
         this.size--;
@@ -124,7 +129,7 @@ public class List<T> {
     public List<T> getList() {
         List<T> copyList = new List<>();
         T addingElement;
-        for (int i = 1; i <= this.size; i++) {
+        for (int i = this.size; i >= 0; i--) {
             addingElement = getElementByIndex(i);
             copyList.addElementAsFirst(addingElement);
         }
