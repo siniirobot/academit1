@@ -128,10 +128,10 @@ public class List<T> {
     //Копирование списка
     public List<T> getList() {
         List<T> copyList = new List<>();
-        T addingElement;
-        for (int i = this.size; i >= 0; i--) {
-            addingElement = getElementByIndex(i);
-            copyList.addElementAsFirst(addingElement);
+        int i = 0;
+        for (Element<T> p = this.head;p != null; p = p.getNext()) {
+            copyList.addElementByIndex(i,p.getData());
+            i++;
         }
         return copyList;
     }

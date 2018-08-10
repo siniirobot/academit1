@@ -89,7 +89,7 @@ public class Realization {
         System.out.println("После копирования список содержит - " + list2.toSting());
         System.out.println("Размер списка равен - " + list2.getSize());
 
-        list2.deleteElementByIndex(1);
+        list2.deleteElementByIndex(0);
         System.out.println("После  удаления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
     }
 }
