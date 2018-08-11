@@ -71,7 +71,7 @@ public class Realization {
         list.setElementByIndex(3,"Три");
         list.addElementByIndex(4, "Четыре");
         list.addElementByIndex(5, "Пять");
-        System.out.println("Размер списка равен - " + list.getSize());
+        System.out.println("После изменений и добавлений размер списка равен - " + list.getSize());
         System.out.println("После вставки элементов список содержит - " + list.toSting());
 
 
@@ -87,9 +87,15 @@ public class Realization {
 
         List<String> list2 = list.getList();
         System.out.println("После копирования список содержит - " + list2.toSting());
-        System.out.println("Размер списка равен - " + list2.getSize());
+        System.out.println("Размер скопированного списка равен - " + list2.getSize() + " Размер оригинального списка - " + list.getSize());
 
         list2.deleteElementByIndex(0);
         System.out.println("После  удаления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
+        System.out.println("Размер скопированного списка равен - " + list2.getSize() + " Размер оригинального списка - " + list.getSize());
+        list2.addElementAsFirst("Шесть");
+        System.out.println("После вставки скопированый список содержит - " + list2.toSting() + "его размер - " + list2.getSize());
+
+        list2.addElementByIndex(6,"Ноль");
+        System.out.println(list2.toSting());
     }
 }

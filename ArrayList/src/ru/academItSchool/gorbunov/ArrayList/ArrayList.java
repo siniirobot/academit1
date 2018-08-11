@@ -1,28 +1,33 @@
 package ru.academItSchool.gorbunov.ArrayList;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class ArrayList<T> implements List<T> {
     private T[]array;
-    private int size;
+    private int size = -1;
 
+    public ArrayList() {
+        this.array = (T[])new Object[10];
+    }
 
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.size < 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        for (T e :this.array) {
+            if (Objects.equals(e,o)) {
+                return true;
+            }
+        }
         return false;
     }
 

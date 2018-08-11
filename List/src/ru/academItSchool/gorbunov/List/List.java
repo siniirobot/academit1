@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class List<T> {
     private Element<T> head;
-    private int size = -1;
+    private int size = 0;
 
     //Колличество элементов в списке
     public int getSize() {
@@ -25,15 +25,13 @@ public class List<T> {
     //Счетчик по индексу
     private Element<T> getElementFromIndex(int index) {
         if (index > this.size || index < 0) {
-            throw new NullPointerException("Введеный вами индекс за пределами размера списка");
+            throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
         }
-        int indexCount = 0;
+        int i = 0;
         Element<T> p = this.head;
-        for (; p != null && indexCount <= this.size; p = p.getNext()) {
-            if (indexCount == index) {
-                break;
-            }
-            indexCount++;
+        while (i != index){
+            p = p.getNext();
+            i++;
         }
         return p;
     }
@@ -41,7 +39,7 @@ public class List<T> {
     //Получить данные из первого элемента списка
     public T getFirstElement() {
         if (this.size < 0) {
-            throw new NullPointerException("Список пуст");
+            throw new ArrayIndexOutOfBoundsException("Список пуст");
         }
         return this.head.getData();
     }
@@ -80,13 +78,16 @@ public class List<T> {
 
     // Добавить элемент по индексу
     public void addElementByIndex(int index, T data) {
+        if (index > this.size || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
+        }
         if (index == 0) {
             addElementAsFirst(data);
         } else {
             Element<T> addElement = getElementFromIndex(index - 1);
             addElement.setNext(new Element<>(data, addElement.getNext()));
+            this.size++;
         }
-        this.size++;
     }
 
     // Удаление элемента по выбранным данным
@@ -104,7 +105,7 @@ public class List<T> {
     //Удаление первого элемента
     public T deleteFirstElement() {
         if (this.size < 0) {
-            throw new NullPointerException("Список пуст");
+            throw new ArrayIndexOutOfBoundsException("Список пуст");
         }
         Element<T> deletedElement = this.head;
         this.head = this.head.getNext();
@@ -129,8 +130,8 @@ public class List<T> {
     public List<T> getList() {
         List<T> copyList = new List<>();
         int i = 0;
-        for (Element<T> p = this.head;p != null; p = p.getNext()) {
-            copyList.addElementByIndex(i,p.getData());
+        for (Element<T> p = this.head; p != null; p = p.getNext()) {
+            copyList.addElementByIndex(i, p.getData());
             i++;
         }
         return copyList;
