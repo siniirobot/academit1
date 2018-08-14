@@ -29,7 +29,7 @@ public class List<T> {
         }
         int i = 0;
         Element<T> p = this.head;
-        while (i != index){
+        while (i != index) {
             p = p.getNext();
             i++;
         }
@@ -128,12 +128,16 @@ public class List<T> {
 
     //Копирование списка
     public List<T> getList() {
-        List<T> copyList = new List<>();
-        int i = 0;
-        for (Element<T> p = this.head; p != null; p = p.getNext()) {
-            copyList.addElementByIndex(i, p.getData());
-            i++;
+        List<T> copy = new List<>();
+        copy.addElementAsFirst(this.head.getData());
+        Element<T> temp;
+        for (Element<T> p = this.head.getNext(), h = copy.head; p != null; h = h.getNext()) {
+            temp = p.getNext();
+            p.setNext(null);
+            h.setNext(p);
+            p = temp;
+            copy.size++;
         }
-        return copyList;
+        return copy;
     }
 }
