@@ -5,13 +5,13 @@ import ru.academItSchool.gorbunov.vector.Vector;
 public class Realization {
     public static void main(String[] args) {
         Vector vector1 = new Vector(10, new double[]{1,2,3,4,5});
-        System.out.println("Векстор 1 - " + vector1);
+        System.out.println("Вектор 1 - " + vector1);
 
         Vector vector2 = new Vector(10, new double[]{1, 2, 3, 4, 5, 6, 7});
-        System.out.println("Векстор 2 - " + vector2.toString());
+        System.out.println("Вектор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
-        System.out.println("Векстор 3 - " + vector3.toString());
+        System.out.println("Вектор 3 - " + vector3.toString());
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
