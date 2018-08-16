@@ -22,7 +22,7 @@ public class Realization {
 
         System.out.println("Элемент списка по индексу - " + list.getElementByIndex(3));
 
-        System.out.println("По индексу был установлен элемент - " + list.setElementByIndex(2, "1534"));
+        System.out.println("За место элемента - " + list.setElementByIndex(2, "1534") + " был установлен другой элемент.");
         System.out.println("После установки список содержит - " + list.toSting());
 
         System.out.println(list.getSize());
@@ -85,7 +85,7 @@ public class Realization {
         list.turnList();
         System.out.println("После разворота список содержит - " + list.toSting());
 
-        List<String> list2 = list.getList();
+        List<String> list2 = list.getCopy();
         System.out.println("После копирования список содержит - " + list2.toSting());
         System.out.println("Размер скопированного списка равен - " + list2.getSize() + " Размер оригинального списка - " + list.getSize());
 
@@ -97,5 +97,13 @@ public class Realization {
 
         list2.addElementByIndex(6,"Ноль");
         System.out.println(list2.toSting());
+
+        List<String> newList = new List<>();
+        List<String> copyList = newList.getCopy();
+
+        copyList.addElementAsFirst("проба");
+        System.out.println("Размер пробного скопированого списка - " + copyList.getSize());
+        System.out.println("Удаление из пробного скопированого списка - " + copyList.deleteFirstElement());
+        System.out.println("Размер после удаления в скопированом списке - " + copyList.getSize());
     }
 }
