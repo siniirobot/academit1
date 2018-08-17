@@ -38,7 +38,7 @@ public class List<T> {
 
     //Получить данные из первого элемента списка
     public T getFirstElement() {
-        if (this.size < 0) {
+        if (Objects.equals(this.head, null)) {
             throw new ArrayIndexOutOfBoundsException("Список пуст");
         }
         return this.head.getData();

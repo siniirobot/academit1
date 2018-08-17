@@ -105,5 +105,6 @@ public class Realization {
         System.out.println("Размер пробного скопированого списка - " + copyList.getSize());
         System.out.println("Удаление из пробного скопированого списка - " + copyList.deleteFirstElement());
         System.out.println("Размер после удаления в скопированом списке - " + copyList.getSize());
+        copyList.getFirstElement();
     }
 }
