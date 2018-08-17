@@ -26,20 +26,20 @@ public class List<T> {
     private Element<T> getElementFromIndex(int index) {
         if (index >= this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
-        } else {
-            int i = 0;
-            Element<T> p = this.head;
-            while (i < index) {
-                p = p.getNext();
-                i++;
-            }
-            return p;
         }
+
+        int i = 0;
+        Element<T> p = this.head;
+        while (i < index) {
+            p = p.getNext();
+            i++;
+        }
+        return p;
     }
 
     //Получить данные из первого элемента списка
     public T getFirstElement() {
-        if (Objects.equals(this.head, null)) {
+        if (this.head == null) {
             throw new ArrayIndexOutOfBoundsException("Список пуст");
         }
         return this.head.getData();
@@ -62,7 +62,8 @@ public class List<T> {
     public T deleteElementByIndex(int index) {
         if (index >= this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
-        }else if (index == 0) {
+        }
+        if (index == 0) {
             Element<T> deletedElement = getElementFromIndex(index);
             deleteFirstElement();
             return deletedElement.getData();
@@ -85,7 +86,8 @@ public class List<T> {
     public void addElementByIndex(int index, T data) {
         if (index > this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
-        }else if (index == 0) {
+        }
+        if (index == 0) {
             addElementAsFirst(data);
         } else {
             Element<T> addElement = getElementFromIndex(index - 1);
@@ -108,7 +110,7 @@ public class List<T> {
 
     //Удаление первого элемента
     public T deleteFirstElement() {
-        if (Objects.equals(this.head, null)) {
+        if (this.head == null) {
             throw new ArrayIndexOutOfBoundsException("Список пуст");
         }
         Element<T> deletedElement = this.head;
@@ -120,9 +122,8 @@ public class List<T> {
     //Разворот списка
     public void turnList() {
         Element<T> copy = null;
-        Element<T> temp;
         while (this.head != null) {
-            temp = this.head.getNext();
+            Element<T> temp = this.head.getNext();
             this.head.setNext(copy);
             copy = this.head;
             this.head = temp;
@@ -138,12 +139,8 @@ public class List<T> {
         } else {
             copy.addElementAsFirst(this.head.getData());
             copy.size = this.size;
-            Element<T> temp;
-            for (Element<T> p = this.head.getNext(), h = copy.head; p != null; h = h.getNext()) {
-                temp = p.getNext();
-                p.setNext(null);
-                h.setNext(p);
-                p = temp;
+            for (Element<T> p = this.head.getNext(), h = copy.head; p != null;p = p.getNext(),h = h.getNext() ) {
+                h.setNext(new Element<T>(p.getData(),h.getNext()));
             }
             return copy;
         }

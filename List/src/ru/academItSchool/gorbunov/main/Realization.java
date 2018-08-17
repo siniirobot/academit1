@@ -92,6 +92,9 @@ public class Realization {
         list2.deleteElementByIndex(0);
         System.out.println("После  удаления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
         System.out.println("Размер скопированного списка равен - " + list2.getSize() + " Размер оригинального списка - " + list.getSize());
+        list.addElementAsFirst("пробное число не в тему");
+        System.out.println("После добавления скопированый список содержит - " + list2.toSting() + " А оригинальный список содержит" + list.toSting());
+        System.out.println("Размер скопированного списка равен - " + list2.getSize() + " Размер оригинального списка - " + list.getSize());
         list2.addElementAsFirst("Шесть");
         System.out.println("После вставки скопированый список содержит - " + list2.toSting() + "его размер - " + list2.getSize());
 
