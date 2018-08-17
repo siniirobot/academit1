@@ -139,8 +139,8 @@ public class List<T> {
         } else {
             copy.addElementAsFirst(this.head.getData());
             copy.size = this.size;
-            for (Element<T> p = this.head.getNext(), h = copy.head; p != null;p = p.getNext(),h = h.getNext() ) {
-                h.setNext(new Element<T>(p.getData(),h.getNext()));
+            for (Element<T> p = this.head.getNext(), h = copy.head; p != null; p = p.getNext(), h = h.getNext()) {
+                h.setNext(new Element<>(p.getData(), h.getNext()));
             }
             return copy;
         }

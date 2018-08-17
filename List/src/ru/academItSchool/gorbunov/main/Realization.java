@@ -56,7 +56,7 @@ public class Realization {
             System.out.println("Элемент не был удален.");
         }
 
-        list.addElementByIndex(4,null);
+        list.addElementByIndex(4, null);
 
         if (list.deleteElementByData(null)) {
             System.out.println("Элемент null был удален.");
@@ -66,9 +66,9 @@ public class Realization {
         System.out.println("Размер списка равен - " + list.getSize());
         System.out.println("После удалений список содержит - " + list.toSting());
 
-        list.setElementByIndex(1,"Один");
-        list.setElementByIndex(2,"Два");
-        list.setElementByIndex(3,"Три");
+        list.setElementByIndex(1, "Один");
+        list.setElementByIndex(2, "Два");
+        list.setElementByIndex(3, "Три");
         list.addElementByIndex(4, "Четыре");
         list.addElementByIndex(5, "Пять");
         System.out.println("После изменений и добавлений размер списка равен - " + list.getSize());
@@ -98,7 +98,7 @@ public class Realization {
         list2.addElementAsFirst("Шесть");
         System.out.println("После вставки скопированый список содержит - " + list2.toSting() + "его размер - " + list2.getSize());
 
-        list2.addElementByIndex(6,"Ноль");
+        list2.addElementByIndex(6, "Ноль");
         System.out.println(list2.toSting());
 
         List<String> newList = new List<>();
