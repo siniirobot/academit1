@@ -20,7 +20,7 @@ public class Realization {
 
         System.out.println("Первый элемент списка - " + list.getFirstElement());
 
-        System.out.println("Элемент списка по индексу - " + list.getElementByIndex(3));
+        System.out.println("Элемент списка по индексу - " + list.getDataByIndex(3));
 
         System.out.println("За место элемента - " + list.setElementByIndex(2, "1534") + " был установлен другой элемент.");
         System.out.println("После установки список содержит - " + list.toSting());
@@ -105,6 +105,5 @@ public class Realization {
         System.out.println("Размер пробного скопированого списка - " + copyList.getSize());
         System.out.println("Удаление из пробного скопированого списка - " + copyList.deleteFirstElement());
         System.out.println("Размер после удаления в скопированом списке - " + copyList.getSize());
-        copyList.getFirstElement();
     }
 }

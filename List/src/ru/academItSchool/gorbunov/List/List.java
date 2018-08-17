@@ -24,16 +24,17 @@ public class List<T> {
 
     //Счетчик по индексу
     private Element<T> getElementFromIndex(int index) {
-        if (index > this.size) {
+        if (index >= this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
+        } else {
+            int i = 0;
+            Element<T> p = this.head;
+            while (i < index) {
+                p = p.getNext();
+                i++;
+            }
+            return p;
         }
-        int i = 0;
-        Element<T> p = this.head;
-        while (i < index) {
-            p = p.getNext();
-            i++;
-        }
-        return p;
     }
 
     //Получить данные из первого элемента списка
@@ -45,21 +46,23 @@ public class List<T> {
     }
 
     //Получить данные из элемента по индексу
-    public T getElementByIndex(int index) {
+    public T getDataByIndex(int index) {
         return getElementFromIndex(index).getData();
     }
 
     //Установить элемент по индексу
     public T setElementByIndex(int index, T data) {
         Element<T> elementForChange = getElementFromIndex(index);
-        Element<T> oldElement = new Element<>(elementForChange.getData());
+        T oldElement = elementForChange.getData();
         elementForChange.setData(data);
-        return oldElement.getData();
+        return oldElement;
     }
 
     //Удаление элемента по индексу
     public T deleteElementByIndex(int index) {
-        if (index == 0) {
+        if (index >= this.size || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
+        }else if (index == 0) {
             Element<T> deletedElement = getElementFromIndex(index);
             deleteFirstElement();
             return deletedElement.getData();
@@ -80,7 +83,7 @@ public class List<T> {
 
     // Добавить элемент по индексу
     public void addElementByIndex(int index, T data) {
-        if (index > this.size) {
+        if (index > this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
         }
         if (index == 0) {
@@ -106,6 +109,9 @@ public class List<T> {
 
     //Удаление первого элемента
     public T deleteFirstElement() {
+        if (Objects.equals(this.head, null)) {
+            throw new ArrayIndexOutOfBoundsException("Список пуст");
+        }
         Element<T> deletedElement = this.head;
         this.head = this.head.getNext();
         this.size--;
