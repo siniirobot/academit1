@@ -85,8 +85,7 @@ public class List<T> {
     public void addElementByIndex(int index, T data) {
         if (index > this.size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Введеный вами индекс за пределами размера списка");
-        }
-        if (index == 0) {
+        }else if (index == 0) {
             addElementAsFirst(data);
         } else {
             Element<T> addElement = getElementFromIndex(index - 1);
