@@ -8,9 +8,31 @@ public class MyArrayList<T> implements List<T> {
 
     private T[] array;
     private int size = 0;
+    private int modCount = 0;
 
     public MyArrayList() {
         this.array = (T[]) new Object[10];
+    }
+
+    public class MyArrayListIterator<T> implements Iterator<T> {
+        private int currentIndex = -1;
+
+        @Override
+        public boolean hasNext() {
+            if (currentIndex + 1 == size) {
+                throw new NoSuchElementException(" Нет следующего элемента.");
+            }
+            return true;
+        }
+
+        @Override
+        public T next() {
+            int modification = modCount;
+            if (modification != modCount) {
+                throw new ConcurrentModificationException("Список был изменен");
+            }
+            return (T) array[currentIndex++];
+        }
     }
 
     //Размер списка
@@ -29,7 +51,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean contains(java.lang.Object o) {
         for (int i = 0; i < this.size; i++) {
-            if (Objects.equals(o,this.array[i])) {
+            if (Objects.equals(o, this.array[i])) {
                 return true;
             }
         }
@@ -39,7 +61,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyArrayListIterator<>();
     }
 
     //Перевод списка в массив
@@ -69,6 +91,7 @@ public class MyArrayList<T> implements List<T> {
         } else {
             this.array[this.size] = t;
             this.size++;
+            this.modCount++;
             return true;
         }
     }
@@ -80,6 +103,7 @@ public class MyArrayList<T> implements List<T> {
                 System.arraycopy(this.array, i, this.array, i + 1, this.size - i);
                 this.array[this.size - 1] = null;
                 this.size--;
+                this.modCount++;
             }
         }
         return false;
