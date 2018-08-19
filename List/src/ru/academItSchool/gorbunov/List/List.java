@@ -12,7 +12,8 @@ public class List<T> {
     }
 
     //Распечатка списка
-    public String toSting() {
+    @Override
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (Element<T> p = this.head; p != null; p = p.getNext()) {
@@ -140,7 +141,7 @@ public class List<T> {
             copy.addElementAsFirst(this.head.getData());
             copy.size = this.size;
             for (Element<T> p = this.head.getNext(), h = copy.head; p != null; p = p.getNext(), h = h.getNext()) {
-                h.setNext(new Element<>(p.getData(), h.getNext()));
+                h.setNext(new Element<>(p.getData(), null));
             }
             return copy;
         }
