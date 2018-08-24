@@ -33,6 +33,7 @@ public class Realization {
         Map<String, Double> age = stream2.distinct().collect(Collectors.groupingBy(Person::getName,Collectors.averagingDouble(Person::getAge)));
         age.forEach((person, p) -> System.out.printf("%s: %s\n", person, p));
 
+        //Д) получить людей, возраст которых от 20 до 45, вывести в консоль их имена в порядке убывания возраста
         Stream<Person> stream3 = persons.stream();
         Stream<Person> list = stream3.filter(person -> person.getAge() > 20 && person.getAge() < 45).map(Person::getName);
 
