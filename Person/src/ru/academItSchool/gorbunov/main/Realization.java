@@ -38,6 +38,7 @@ public class Realization {
 
         System.out.println("Д) получить людей, возраст которых от 20 до 45, вывести в консоль их имена в порядке убывания возраста");
         Stream<Person> stream3 = persons.stream();
-        stream3.filter(person -> person.getAge() > 20 && person.getAge() < 45).sorted((o1, o2) -> o2.getAge() - o1.getAge()).map(Person::getName).forEach(System.out::println);
+        String stream4 = stream3.filter(person -> person.getAge() > 20 && person.getAge() < 45).sorted((o1, o2) -> o2.getAge() - o1.getAge()).map(Person::getName).collect(Collectors.joining(", старше чем "));
+        System.out.println(stream4);
     }
 }
