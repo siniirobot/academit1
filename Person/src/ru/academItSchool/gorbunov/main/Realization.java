@@ -43,12 +43,12 @@ public class Realization {
 
         System.out.println();
         System.out.println("Д) получить людей, возраст которых от 20 до 45, вывести в консоль их имена в порядке убывания возраста");
-        System.out.println( persons.stream().filter(person -> person.getAge() > 20 && person.getAge() < 45).sorted((o1, o2) -> o2.getAge() - o1.getAge()).map(Person::getName).collect(Collectors.joining(", старше чем ")));
+        System.out.println(persons.stream().filter(person -> person.getAge() > 20 && person.getAge() < 45).sorted((o1, o2) -> o2.getAge() - o1.getAge()).map(Person::getName).collect(Collectors.joining(", старше чем ")));
 
         System.out.println();
         System.out.println("E) создать бесконечный поток корней чисел." + System.lineSeparator() + "С консоли прочитать число – сколько элементов нужно вычислить, затем – распечатать эти элементы");
         System.out.println("Введите колличество корней");
-        DoubleStream squares = DoubleStream.iterate(0, x-> x+1).limit(new Scanner(System.in).nextInt()).map(Math::cbrt);
+        DoubleStream squares = DoubleStream.iterate(0, x -> x + 1).limit(new Scanner(System.in).nextInt()).map(Math::cbrt);
         squares.forEach(System.out::println);
     }
 }
