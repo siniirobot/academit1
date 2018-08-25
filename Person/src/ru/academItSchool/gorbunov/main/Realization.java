@@ -2,11 +2,9 @@ package ru.academItSchool.gorbunov.main;
 
 import ru.academItSchool.gorbunov.Person.Person;
 
+import java.math.BigInteger;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class Realization {
     public static void main(String[] args) {
@@ -48,7 +46,13 @@ public class Realization {
         System.out.println();
         System.out.println("E) создать бесконечный поток корней чисел." + System.lineSeparator() + "С консоли прочитать число – сколько элементов нужно вычислить, затем – распечатать эти элементы");
         System.out.println("Введите колличество корней");
-        DoubleStream squares = DoubleStream.iterate(0, x -> x + 1).limit(new Scanner(System.in).nextInt()).map(Math::cbrt);
+        DoubleStream squares = DoubleStream.iterate(0, x-> x+1).limit(new Scanner(System.in).nextInt()).map(Math::cbrt);
         squares.forEach(System.out::println);
+
+        System.out.println();
+        System.out.println("Ж)Попробовать реализовать бесконечный поток чисел Фиббоначчи");
+        System.out.println("Введите сколько вывести чисел фибоначи: ");
+        LongStream fibonacci = LongStream.iterate(0, x -> x + 1).map(x -> (long) (Math.pow((((Math.sqrt(5)) + 1) / 2), x) / Math.sqrt(5) + 0.5)).limit(new Scanner(System.in).nextInt());
+        fibonacci.forEach(System.out::println);
     }
 }
