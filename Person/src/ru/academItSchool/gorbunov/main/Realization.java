@@ -2,7 +2,6 @@ package ru.academItSchool.gorbunov.main;
 
 import ru.academItSchool.gorbunov.Person.Person;
 
-import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.*;
 

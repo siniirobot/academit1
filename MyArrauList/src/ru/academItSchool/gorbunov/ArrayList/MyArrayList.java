@@ -6,12 +6,13 @@ import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
 
+    private final int START_ARRAY_SIZE = 10;
     private T[] array;
     private int size = 0;
     private int modCount = 0;
 
     public MyArrayList() {
-        this.array = (T[]) new Object[10];
+        this.array = (T[]) new Object[START_ARRAY_SIZE];
     }
 
     //Иттератор
@@ -96,7 +97,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T t) {
         if (this.size == this.array.length) {
-            T[] newArray = Arrays.copyOf(this.array, this.size + 10);
+            T[] newArray = Arrays.copyOf(this.array, this.size + START_ARRAY_SIZE);
             newArray[this.size] = t;
             this.size++;
             this.array = Arrays.copyOf(newArray, newArray.length);

@@ -40,13 +40,9 @@ public class Vector {
                 this.content[i] += vector.content[i];
             }
         } else {
-            double[] copy = new double[vector.content.length];
+            double[] copy =Arrays.copyOf(this.content, vector.content.length);
             for (int i = 0; i < vector.content.length; ++i) {
-                if (i < this.content.length) {
-                    copy[i] = this.content[i] + vector.content[i];
-                } else {
-                    copy[i] = vector.content[i];
-                }
+                    copy[i] += vector.content[i];
             }
             this.content = copy;
         }
@@ -58,13 +54,9 @@ public class Vector {
                 this.content[i] -= vector.content[i];
             }
         } else {
-            double[] copy = new double[vector.content.length];
+            double[] copy =Arrays.copyOf(this.content, vector.content.length);
             for (int i = 0; i < vector.content.length; ++i) {
-                if (i < this.content.length) {
-                    copy[i] = this.content[i] - vector.content[i];
-                } else {
-                    copy[i] = vector.content[i];
-                }
+                copy[i] -= vector.content[i];
             }
             this.content = copy;
         }
