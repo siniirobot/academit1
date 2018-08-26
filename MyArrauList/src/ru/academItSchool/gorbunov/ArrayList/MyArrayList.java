@@ -14,6 +14,7 @@ public class MyArrayList<T> implements List<T> {
         this.array = (T[]) new Object[10];
     }
 
+    //Иттератор
     public class MyArrayListIterator<T> implements Iterator<T> {
         private int currentIndex = -1;
 
@@ -31,10 +32,21 @@ public class MyArrayList<T> implements List<T> {
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
-            return (T) array[currentIndex++];
+            currentIndex++;
+            return (T) array[currentIndex];
         }
     }
 
+    //Распечатываем массив
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int i = 0; i < this.size; ++i) {
+        stringBuilder.append(array[i]);
+        }
+        return stringBuilder.toString();
+    }
     //Размер списка
     @Override
     public int size() {
@@ -58,7 +70,7 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
-
+    //Иттератор
     @Override
     public Iterator<T> iterator() {
         return new MyArrayListIterator<>();
@@ -80,6 +92,7 @@ public class MyArrayList<T> implements List<T> {
         return toArray;
     }
 
+    //Добавление
     @Override
     public boolean add(T t) {
         if (this.size == this.array.length) {
@@ -96,6 +109,7 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    //Удаление
     @Override
     public boolean remove(java.lang.Object o) {
         for (int i = 0; i < this.size; i++) {

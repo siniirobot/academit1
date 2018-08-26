@@ -7,7 +7,7 @@ public class ArrayList<T> implements List<T> {
     private int size = -1;
 
     public ArrayList() {
-        this.array = (T[])new Object[10];
+        this.array = (T[]) new Object[10];
     }
 
 
