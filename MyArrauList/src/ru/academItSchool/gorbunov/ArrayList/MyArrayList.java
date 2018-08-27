@@ -127,6 +127,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+        for(int i = 0; i < c.size(); i++) {
+            for ()
+        }
         return false;
     }
 
