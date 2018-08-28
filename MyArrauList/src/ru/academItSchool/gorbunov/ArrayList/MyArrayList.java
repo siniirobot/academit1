@@ -127,10 +127,19 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for(int i = 0; i < c.size(); i++) {
-            for ()
+        boolean contain = false;
+        while (c.iterator().hasNext()) {
+            for(int i =0; i < this.size; ++i) {
+             if (this.array[i].equals(c.iterator())) {
+                 contain = true;
+                 break;
+             }
+             if (!contain) {
+                 return false;
+             }
+            }
         }
-        return false;
+        return true;
     }
 
     @Override

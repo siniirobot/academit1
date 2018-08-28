@@ -10,7 +10,7 @@ public class Realization {
     public static void main(String[] args) {
         MyArrayList<String> proba = new MyArrayList<>();
         ArrayList<String> proba1 = new ArrayList<>(Arrays.asList("1","2","3","4","5"));
-
+        proba.add("1");
 
         System.out.println(proba);
     }
