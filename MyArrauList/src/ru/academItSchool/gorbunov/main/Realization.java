@@ -26,5 +26,9 @@ public class Realization {
         proba2.toArray();
         int[] proba3 = {};
         System.out.println();
+        MyArrayList<Integer> forContains = new MyArrayList<>();
+        forContains.add(1);
+        forContains.add(2);
+        System.out.println("Этот список содержит элементы второго - " + proba.containsAll(forContains));
     }
 }

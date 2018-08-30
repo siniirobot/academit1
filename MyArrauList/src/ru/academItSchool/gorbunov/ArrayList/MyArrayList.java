@@ -17,8 +17,12 @@ public class MyArrayList<T> implements List<T> {
 
     //Иттератор
     public class MyArrayListIterator<T> implements Iterator<T> {
-        private int currentIndex = -1;
+        private int currentIndex = 0;
+        private Collection<?> iteratorObject;
 
+        /*public MyArrayListIterator(T[] iteratorObject) {
+            this.iteratorObject = iteratorObject[currentIndex];
+        }*/
         @Override
         public boolean hasNext() {
             if (currentIndex + 1 == size) {
@@ -33,8 +37,7 @@ public class MyArrayList<T> implements List<T> {
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
-            currentIndex++;
-            return (T) array[currentIndex];
+            return (T) array[currentIndex++];
         }
     }
 
@@ -77,7 +80,7 @@ public class MyArrayList<T> implements List<T> {
     //Перевод списка в массив
     @Override
     public T[] toArray() {
-        T[] toArray = (T[])Arrays.copyOf(this.array, this.size);
+        T[] toArray = Arrays.copyOf(this.array, this.size);
         Arrays.sort(toArray);
         return toArray;
     }
@@ -119,17 +122,20 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        boolean contain = false;
+        Iterator iterator = new MyArrayListIterator();
+        c.iterator();
         while (c.iterator().hasNext()) {
+            boolean contain = false;
             for (int i = 0; i < this.size; ++i) {
-                if (this.array[i].equals(c.iterator())) {
+                if (this.array[i].equals(c.iterator().next())) {
                     contain = true;
                     break;
                 }
-                if (!contain) {
-                    return false;
-                }
             }
+            if (!contain) {
+                return false;
+            }
+            c.iterator().next();
         }
         return true;
     }
