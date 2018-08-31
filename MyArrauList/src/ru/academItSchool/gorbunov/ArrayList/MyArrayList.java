@@ -1,8 +1,8 @@
 package ru.academItSchool.gorbunov.ArrayList;
 
-import org.omg.CORBA.Object;
-
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyArrayList<T> implements List<T> {
 
@@ -17,37 +17,36 @@ public class MyArrayList<T> implements List<T> {
 
     //Иттератор
     public class MyArrayListIterator<T> implements Iterator<T> {
-        private int currentIndex = -1;
+        private int currentIndex = 0;
+        private int modification = modCount;
+        //private Collection<?> iteratorObject;
 
+        /*public MyArrayListIterator(T[] iteratorObject) {
+            this.iteratorObject = iteratorObject[currentIndex];
+        }*/
         @Override
         public boolean hasNext() {
-            if (currentIndex + 1 == size) {
-                throw new NoSuchElementException(" Нет следующего элемента.");
-            }
-            return true;
+            return currentIndex++ == size;
         }
 
         @Override
         public T next() {
-            int modification = modCount;
+
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
             currentIndex++;
-            return (T) array[currentIndex];
+            return (T)array[currentIndex];
         }
     }
 
     //Распечатываем массив
     @Override
-    public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for(int i = 0; i < this.size; ++i) {
-        stringBuilder.append(array[i]);
-        }
-        return stringBuilder.toString();
+    public String toString() {
+        Stream<T> stream = Stream.of(this.array).limit(this.size);
+        return stream.collect(Collectors.toList()).toString();
     }
+
     //Размер списка
     @Override
     public int size() {
@@ -57,7 +56,7 @@ public class MyArrayList<T> implements List<T> {
     //Проверка на пустоту списка
     @Override
     public boolean isEmpty() {
-        return this.size < 0;
+        return this.size == 0;
     }
 
     //Проверка на наличие элемента в списке
@@ -79,8 +78,8 @@ public class MyArrayList<T> implements List<T> {
 
     //Перевод списка в массив
     @Override
-    public Object[] toArray() {
-        Object[] toArray = (Object[]) Arrays.copyOf(this.array, this.size);
+    public T[] toArray() {
+        T[] toArray = Arrays.copyOf(this.array, this.size);
         Arrays.sort(toArray);
         return toArray;
     }
@@ -97,17 +96,12 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T t) {
         if (this.size == this.array.length) {
-            T[] newArray = Arrays.copyOf(this.array, this.size + START_ARRAY_SIZE);
-            newArray[this.size] = t;
-            this.size++;
-            this.array = Arrays.copyOf(newArray, newArray.length);
-            return true;
-        } else {
-            this.array[this.size] = t;
-            this.size++;
-            this.modCount++;
-            return true;
+            this.array = Arrays.copyOf(this.array, this.size + START_ARRAY_SIZE);
         }
+        this.array[this.size] = t;
+        this.size++;
+        this.modCount++;
+        return true;
     }
 
     //Удаление
@@ -127,17 +121,20 @@ public class MyArrayList<T> implements List<T> {
     //Содержит ли текущая коллекция все элементы переданой коллекции
     @Override
     public boolean containsAll(Collection<?> c) {
-        boolean contain = false;
+        Iterator iterator = new MyArrayListIterator();
+        c.iterator();
         while (c.iterator().hasNext()) {
-            for(int i =0; i < this.size; ++i) {
-             if (this.array[i].equals(c.iterator())) {
-                 contain = true;
-                 break;
-             }
-             if (!contain) {
-                 return false;
-             }
+            boolean contain = false;
+            for (int i = 0; i < this.size; ++i) {
+                if (this.array[i].equals(c.iterator().next())) {
+                    contain = true;
+                    break;
+                }
             }
+            if (!contain) {
+                return false;
+            }
+            c.iterator().next();
         }
         return true;
     }
