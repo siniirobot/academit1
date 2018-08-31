@@ -18,26 +18,25 @@ public class MyArrayList<T> implements List<T> {
     //Иттератор
     public class MyArrayListIterator<T> implements Iterator<T> {
         private int currentIndex = 0;
-        private Collection<?> iteratorObject;
+        private int modification = modCount;
+        //private Collection<?> iteratorObject;
 
         /*public MyArrayListIterator(T[] iteratorObject) {
             this.iteratorObject = iteratorObject[currentIndex];
         }*/
         @Override
         public boolean hasNext() {
-            if (currentIndex + 1 == size) {
-                throw new NoSuchElementException(" Нет следующего элемента.");
-            }
-            return true;
+            return currentIndex++ == size;
         }
 
         @Override
         public T next() {
-            int modification = modCount;
+
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
-            return (T) array[currentIndex++];
+            currentIndex++;
+            return (T)array[currentIndex];
         }
     }
 

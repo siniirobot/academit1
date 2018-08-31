@@ -29,6 +29,7 @@ public class Realization {
         MyArrayList<Integer> forContains = new MyArrayList<>();
         forContains.add(1);
         forContains.add(2);
+        proba.iterator();
         System.out.println("Этот список содержит элементы второго - " + proba.containsAll(forContains));
     }
 }
