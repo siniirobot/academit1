@@ -124,7 +124,7 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
-
+    //Содержит ли текущая коллекция все элементы переданой коллекции
     @Override
     public boolean containsAll(Collection<?> c) {
         boolean contain = false;
