@@ -16,17 +16,13 @@ public class MyArrayList<T> implements List<T> {
     }
 
     //Иттератор
-    public class MyArrayListIterator<T> implements Iterator<T> {
-        private int currentIndex = 0;
+    public class MyArrayListIterator implements Iterator<T> {
+        private int currentIndex = -1;
         private int modification = modCount;
-        //private Collection<?> iteratorObject;
 
-        /*public MyArrayListIterator(T[] iteratorObject) {
-            this.iteratorObject = iteratorObject[currentIndex];
-        }*/
         @Override
         public boolean hasNext() {
-            return currentIndex++ == size;
+            return currentIndex + 1 == size;
         }
 
         @Override
@@ -35,8 +31,7 @@ public class MyArrayList<T> implements List<T> {
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
-            currentIndex++;
-            return (T)array[currentIndex];
+            return array[currentIndex++];
         }
     }
 
@@ -73,7 +68,7 @@ public class MyArrayList<T> implements List<T> {
     //Иттератор
     @Override
     public Iterator<T> iterator() {
-        return new MyArrayListIterator<>();
+        return new MyArrayListIterator();
     }
 
     //Перевод списка в массив
