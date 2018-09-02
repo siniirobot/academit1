@@ -26,7 +26,7 @@ public class Realization {
         proba2.toArray();
         int[] proba3 = {};
         System.out.println();
-        MyArrayList<Integer> forContains = new MyArrayList<>();
+        MyArrayList<Integer> forContains = proba.
         forContains.add(1);
         forContains.add(2);
         proba.iterator();
