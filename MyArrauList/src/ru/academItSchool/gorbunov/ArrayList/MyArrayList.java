@@ -22,7 +22,7 @@ public class MyArrayList<T> implements List<T> {
 
         @Override
         public boolean hasNext() {
-            return currentIndex + 1 == size;
+            return currentIndex + 1 != size;
         }
 
         @Override
@@ -31,7 +31,8 @@ public class MyArrayList<T> implements List<T> {
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
-            return array[currentIndex++];
+            currentIndex++;
+            return array[currentIndex];
         }
     }
 
@@ -116,12 +117,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        Iterator iterator = new MyArrayListIterator();
-        c.iterator();
-        while (c.iterator().hasNext()) {
+        MyArrayListIterator it = (MyArrayListIterator) c.iterator();
+
+        while (it.hasNext()) {
             boolean contain = false;
             for (int i = 0; i < this.size; ++i) {
-                if (this.array[i].equals(c.iterator().next())) {
+                if (this.array[i].equals(it.next())) {
                     contain = true;
                     break;
                 }
@@ -129,7 +130,6 @@ public class MyArrayList<T> implements List<T> {
             if (!contain) {
                 return false;
             }
-            c.iterator().next();
         }
         return true;
     }
