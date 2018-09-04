@@ -43,6 +43,11 @@ public class MyArrayList<T> implements List<T> {
         return stream.collect(Collectors.toList()).toString();
     }
 
+    //Получаем увеличиную копию списка
+    private void arrayCopy (int size){
+        this.array = Arrays.copyOf(this.array, size);
+    }
+
     //Размер списка
     @Override
     public int size() {
@@ -92,7 +97,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T t) {
         if (this.size == this.array.length) {
-            this.array = Arrays.copyOf(this.array, this.size + START_ARRAY_SIZE);
+            arrayCopy(this.size + START_ARRAY_SIZE);
         }
         this.array[this.size] = t;
         this.size++;
@@ -131,7 +136,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         if (this.size <= c.size() || this.size + c.size() >= this.size()) {
-            this.array = Arrays.copyOf(this.array, this.size + c.size() + 1);
+            arrayCopy(this.size + c.size());
         }
         for(T e: c) {
             this.array[this.size] = e;
