@@ -117,31 +117,26 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        //MyArrayListIterator it = (MyArrayListIterator) c.iterator();
-        for (int i = 0; i < c.size(); i ++) {
-            if (c.contains(this.array[i])) {
-                continue;
-            }else {
+        if (c.size() > this.size) {
+            return false;
+        }
+        for (int i = 0; i < c.size(); i++) {
+            if (!c.contains(this.array[i])) {
                 return false;
             }
         }
-/*        while (it.hasNext()) {
-            boolean contain = false;
-            for (int i = 0; i < this.size; ++i) {
-                if (this.array[i].equals(it.next())) {
-                    contain = true;
-                    break;
-                }
-            }
-            if (!contain) {
-                return false;
-            }
-        }*/
         return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        if (this.size <= c.size() || this.size + c.size() >= this.size()) {
+            this.array = Arrays.copyOf(this.array, this.size + c.size() + 1);
+        }
+        for(T e: c) {
+            this.array[this.size] = e;
+            this.size++;
+        }
         return false;
     }
 

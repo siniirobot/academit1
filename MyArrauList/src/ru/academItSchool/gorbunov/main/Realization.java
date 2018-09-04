@@ -28,9 +28,23 @@ public class Realization {
         proba3.add(1);
         proba3.add(2);
         System.out.println("Этот список содержит элементы второго - " + proba.containsAll(proba3));
+
         MyArrayList.MyArrayListIterator it = (MyArrayList.MyArrayListIterator) proba3.iterator();
         while (it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println("С помощью иттератора it мы распечатали элемент - " + it.next());
         }
+        proba.addAll(proba3);
+        System.out.println("Текущий размер массива - " + proba.size());
+        proba.addAll(proba3);
+        System.out.println("Текущий размер массива - " + proba.size());
+        proba.addAll(proba3);
+        proba.addAll(proba3);
+        System.out.println("Текущий размер массива - " + proba.size());
+        proba3.add(3);
+        proba3.add(4);
+        proba3.add(5);
+        proba.addAll(proba3);
+        System.out.println(proba);
+        System.out.println("Текущий размер массива - " + proba.size());
     }
 }
