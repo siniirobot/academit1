@@ -225,10 +225,10 @@ public class MyArrayList<T> implements List<T> {
             T temp2 = this.array[index + 1];
             for (int i = index + 1; i < this.size;i++) {
                 this.array[i] = temp;
-                temp = this.array[i + 1];
-                this.array[i + 1] = temp2;
                 i++;
-                temp2 = this.array[i + 1];
+                temp = this.array[i];
+                this.array[i] = temp2;
+                temp2 = this.array[i];
             }
         }
     }
