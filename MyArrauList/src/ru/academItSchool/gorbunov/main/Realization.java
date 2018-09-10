@@ -43,8 +43,27 @@ public class Realization {
         proba3.add(3);
         proba3.add(4);
         proba3.add(5);
+        proba3.add(6);
+        proba3.add(7);
         proba.addAll(proba3);
         System.out.println(proba);
         System.out.println("Текущий размер массива - " + proba.size());
+       proba.clear();
+        System.out.println(proba);
+        proba.addAll(proba3);
+        System.out.println(proba);
+        proba.remove((Object)3);
+        System.out.println(proba);
+        proba.remove(2);
+        System.out.println(proba);
+        proba3.clear();
+        proba3.add(3);
+        proba3.add(4);
+        System.out.println(proba3);
+        proba.addAll(2,proba3);
+        System.out.println(proba);
+        proba.add(0,0);
+        proba.add(8,8);
+        System.out.println(proba);
     }
 }
