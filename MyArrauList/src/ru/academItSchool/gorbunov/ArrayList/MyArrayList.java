@@ -16,17 +16,13 @@ public class MyArrayList<T> implements List<T> {
     }
 
     //Иттератор
-    public class MyArrayListIterator<T> implements Iterator<T> {
-        private int currentIndex = 0;
+    public class MyArrayListIterator implements Iterator<T> {
+        private int currentIndex = -1;
         private int modification = modCount;
-        //private Collection<?> iteratorObject;
 
-        /*public MyArrayListIterator(T[] iteratorObject) {
-            this.iteratorObject = iteratorObject[currentIndex];
-        }*/
         @Override
         public boolean hasNext() {
-            return currentIndex++ == size;
+            return currentIndex + 1 != size;
         }
 
         @Override
@@ -36,7 +32,7 @@ public class MyArrayList<T> implements List<T> {
                 throw new ConcurrentModificationException("Список был изменен");
             }
             currentIndex++;
-            return (T)array[currentIndex];
+            return array[currentIndex];
         }
     }
 
@@ -45,6 +41,11 @@ public class MyArrayList<T> implements List<T> {
     public String toString() {
         Stream<T> stream = Stream.of(this.array).limit(this.size);
         return stream.collect(Collectors.toList()).toString();
+    }
+
+    //Получаем увеличиную копию списка
+    private void arrayCopy(int size) {
+        this.array = Arrays.copyOf(this.array, size);
     }
 
     //Размер списка
@@ -73,7 +74,7 @@ public class MyArrayList<T> implements List<T> {
     //Иттератор
     @Override
     public Iterator<T> iterator() {
-        return new MyArrayListIterator<>();
+        return new MyArrayListIterator();
     }
 
     //Перевод списка в массив
@@ -96,7 +97,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T t) {
         if (this.size == this.array.length) {
-            this.array = Arrays.copyOf(this.array, this.size + START_ARRAY_SIZE);
+            arrayCopy(this.array.length + START_ARRAY_SIZE);
         }
         this.array[this.size] = t;
         this.size++;
@@ -107,51 +108,80 @@ public class MyArrayList<T> implements List<T> {
     //Удаление
     @Override
     public boolean remove(java.lang.Object o) {
+        boolean del = false;
         for (int i = 0; i < this.size; i++) {
             if (Objects.equals(o, this.array[i])) {
-                System.arraycopy(this.array, i, this.array, i + 1, this.size - i);
+                System.arraycopy(this.array, i + 1, this.array, i, this.size - i - 1);
                 this.array[this.size - 1] = null;
                 this.size--;
                 this.modCount++;
+                del = true;
+                break;
             }
         }
-        return false;
+        return del;
     }
 
-    //Содержит ли текущая коллекция все элементы переданой коллекции
+    //Содержит ли текущий список, передаваемый список.
     @Override
     public boolean containsAll(Collection<?> c) {
-        Iterator iterator = new MyArrayListIterator();
-        c.iterator();
-        while (c.iterator().hasNext()) {
-            boolean contain = false;
-            for (int i = 0; i < this.size; ++i) {
-                if (this.array[i].equals(c.iterator().next())) {
-                    contain = true;
-                    break;
-                }
-            }
-            if (!contain) {
+        if (c.size() > this.size) {
+            return false;
+        }
+        for (int i = 0; i < c.size(); i++) {
+            if (!c.contains(this.array[i])) {
                 return false;
             }
-            c.iterator().next();
         }
         return true;
     }
 
+    //Добавление в текущий список, передаваемого списка в конец
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        if (this.array.length + c.size() > this.array.length) {
+            arrayCopy(this.array.length + c.size());
+        }
+        for (T e : c) {
+            this.array[this.size] = e;
+            this.size++;
+        }
+        modCount++;
+        return true;
     }
 
+    //Добавление в текущий список, передаваемого списка по индексу
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        if (this.array.length + c.size() > this.array.length) {
+            arrayCopy(this.array.length + c.size());
+        }
+        T[] temp = (T[]) new Object[this.array.length];
+        System.arraycopy(this.array, index, temp, 0, this.size - index);
+        for (T e : c) {
+            this.array[index] = e;
+            index++;
+            this.size++;
+        }
+        System.arraycopy(temp, 0, this.array, index, this.size - index);
+        modCount++;
+        return true;
     }
 
+    //Удаление из текущего списка всех элементов содержащихся в переданом списке
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean del = false;
+        for (int i = 0; i < this.size; i++) {
+            if (c.contains(this.array[i])) {
+                System.arraycopy(this.array, i + 1, this.array, i, this.size - i - 1);
+                this.array[this.size - 1] = null;
+                this.size--;
+                del = true;
+                modCount++;
+            }
+        }
+        return del;
     }
 
     @Override
@@ -159,29 +189,66 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    //Очистка текущего списка
     @Override
     public void clear() {
-
+        this.array = (T[]) new Object[START_ARRAY_SIZE];
+        this.size = 0;
+        this.modCount=0;
     }
 
+    // Получение значения по текущему индексу
     @Override
     public T get(int index) {
-        return null;
+        return this.array[index];
     }
 
+    // установка значения по индексу
     @Override
     public T set(int index, T element) {
-        return null;
+        T old = this.array[index];
+        this.array[index] = element;
+        return old;
     }
 
+    // добавление по индексу
     @Override
     public void add(int index, T element) {
-
+        if (index == this.size) {
+            this.array[index] = element;
+            this.size++;
+            this.modCount++;
+        } else {
+            this.size++;
+            T temp = this.array[index];
+            this.array[index] = element;
+            T temp2 = this.array[index + 1];
+            for (int i = index + 1; i < this.size;i++) {
+                this.array[i] = temp;
+                i++;
+                temp = this.array[i];
+                this.array[i] = temp2;
+                temp2 = this.array[i];
+            }
+        }
     }
-
+    //Удаление по текущему индексу.
     @Override
     public T remove(int index) {
-        return null;
+        T temp = null;
+        if (index == this.size) {
+            temp = this.array[index];
+            this.array[index] = null;
+            this.size--;
+            this.modCount++;
+        } else {
+            temp = this.array[index];
+            System.arraycopy(this.array, index + 1, this.array, index, this.size - index - 1);
+            this.array[this.size - 1] = null;
+            this.size--;
+            this.modCount++;
+        }
+        return temp;
     }
 
     @Override
