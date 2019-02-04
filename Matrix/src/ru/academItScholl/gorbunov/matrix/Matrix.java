@@ -24,29 +24,9 @@ public class Matrix {
         this.height = this.content[0].length;
     }
 
-    /*public Matrix(Vector[] vectors) {
-        this.vectors = vectors;
-        int maxSize = 0;
-        for (Vector e :vectors) {
-            if (e.getVectorLength() > maxSize) {
-                maxSize = e.getVectorLength();
-            }
-        }
-        this.content = new double[vectors.length][maxSize];
-        for (int i = 0; i < this.content.length; ++i) {
-            int vectorLength = this.vectors[i].getVectorLength();
-            int arrayLength = this.content[i].length;
-            for (int j = 0; j < arrayLength; ++j) {
-                if (vectorLength > j) {
-                    this.content[i][j] = vectors[i].getVectorElementByIndex(j);
-                }else {
-                    break;
-                }
-            }
-        }
-        this.width = this.content.length;
-        this.height = maxSize;
-    }*/
+    public Matrix(Vector[] vectors) {
+
+    }
 
     public Matrix(Matrix matrix) {
         this.width = matrix.width;
