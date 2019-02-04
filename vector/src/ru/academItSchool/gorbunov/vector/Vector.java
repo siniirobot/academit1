@@ -30,7 +30,7 @@ public class Vector {
         this.content = Arrays.copyOf(content, n);
     }
 
-    public double getSize() {
+    public int getSize() {
         return this.content.length;
     }
 
