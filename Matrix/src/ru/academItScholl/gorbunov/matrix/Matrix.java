@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import com.sun.tools.javac.comp.Todo;
+
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
@@ -35,7 +35,8 @@ public class Matrix {
         }
         this.content = new double[this.height][this.width];
         for (int i = 0;i < this.height; i++){
-            for (int j = 0; j <this.width; j++){
+            int vectorsSize = vectors[i].getSize();
+            for (int j = 0; j < vectorsSize; j++){
                 this.content[i][j] = vectors[i].getVectorElementByIndex(j);
             }
         }
