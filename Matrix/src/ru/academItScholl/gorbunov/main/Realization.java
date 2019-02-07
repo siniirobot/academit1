@@ -8,7 +8,7 @@ public class Realization {
         Matrix matrix1 = new Matrix(5,5);
         System.out.println(matrix1.toString());
 
-        Matrix matrix2 = new Matrix(new double[1][5]);
+        Matrix matrix2 = new Matrix(new double[3][5]);
         System.out.println(matrix2.toString());
 
         Vector vector0 = new Vector(5,new double[]{1,2,3,4,5});
@@ -19,5 +19,8 @@ public class Realization {
 
         Matrix matrix3 = new Matrix(new Vector[]{vector0,vector1,vector2,vector3,vector4});
         System.out.println(matrix3.toString());
+
+        Vector vector5 = matrix2.getLineVector(1);
+        System.out.println(vector5.toString());
     }
 }

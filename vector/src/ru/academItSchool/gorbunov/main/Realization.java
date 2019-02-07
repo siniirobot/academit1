@@ -13,6 +13,9 @@ public class Realization {
         Vector vector3 = new Vector(vector1);
         System.out.println("Вектор 3 - " + vector3.toString());
 
+        Vector vector6 = new Vector(new double[]{1,2,3});
+        System.out.println("Вектор 4 - " + vector6.toString());
+
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
         vector1.getVectorSum(vector2);

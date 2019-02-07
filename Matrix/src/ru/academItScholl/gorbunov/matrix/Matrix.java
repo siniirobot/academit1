@@ -21,27 +21,39 @@ public class Matrix {
 
     public Matrix(double[][] content) {
         this.content = content;
-        this.width = this.content.length;
-        this.height = this.content[0].length;
+        this.height = this.content.length;
+        this.width = maxWidth(this.content);
     }
 
-    public Matrix(Vector[] vectors){
+    public Matrix(Vector[] vectors) {
         this.height = vectors.length;
         this.width = 0;
-        for (Vector vec: vectors) {
-            if (this.width < vec.getSize()){
+        for (Vector vec : vectors) {
+            if (this.width < vec.getSize()) {
                 this.width = vec.getSize();
             }
         }
         this.content = new double[this.height][this.width];
-        for (int i = 0;i < this.height; i++){
+        for (int i = 0; i < this.height; i++) {
             int vectorsSize = vectors[i].getSize();
-            for (int j = 0; j < vectorsSize; j++){
+            for (int j = 0; j < vectorsSize; j++) {
                 this.content[i][j] = vectors[i].getVectorElementByIndex(j);
             }
         }
     }
     //TODO Написать проверку ошибок
+
+    private int maxWidth(double[][] array ) {
+        int maxWidth = 0;
+        for (double[] arr : array) {
+            for (int j = 0; j < arr.length; j++) {
+                if (maxWidth < arr.length) {
+                    maxWidth = arr.length;
+                }
+            }
+        }
+        return maxWidth;
+    }
 
     public Matrix(Matrix matrix) {
         this.width = matrix.width;
@@ -63,7 +75,7 @@ public class Matrix {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (double[] e :this.content) {
+        for (double[] e : this.content) {
             stringBuilder.append("{");
             for (double a : e) {
                 stringBuilder.append(a).append(", ");
@@ -76,16 +88,13 @@ public class Matrix {
     }
 
     public int[] getSize() {
-        return new int[]{this.width, this.height};
+        return new int[]{this.height, this.width};
     }
 
     public Vector getLineVector(int index) {
-        return vectors[index];
+        return new Vector(this.content[index]);
     }
 
-    public void setLineVector ( int index, Vector vector) {
-        for ( int i = 0; i < vector.getVectorLength(); ++i) {
-            this.vectors[index].setVectorElementByIndex(i,vector.getVectorElementByIndex(i));
-        }
+    public void setLineVector(int index, Vector vector) {
     }
 }
