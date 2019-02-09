@@ -14,6 +14,9 @@ public class Matrix {
     private Vector[] vectors;
 
     public Matrix(int width, int height) {
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше нуля.");
+        }
         this.width = width;
         this.height = height;
         this.content = new double[this.width][this.height];
@@ -43,7 +46,7 @@ public class Matrix {
     }
     //TODO Написать проверку ошибок
 
-    private int maxWidth(double[][] array ) {
+    private int maxWidth(double[][] array) {
         int maxWidth = 0;
         for (double[] arr : array) {
             for (int j = 0; j < arr.length; j++) {
