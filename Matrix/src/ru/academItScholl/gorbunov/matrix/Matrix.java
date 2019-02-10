@@ -15,20 +15,38 @@ public class Matrix {
 
     public Matrix(int width, int height) {
         if (width <= 0 || height <= 0) {
-            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше нуля.");
+            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
         this.width = width;
         this.height = height;
-        this.content = new double[this.width][this.height];
+        this.content = new double[this.height][this.width];
+        this.vectors = new Vector[this.height];
+        for (Vector vec : this.vectors) {
+            vec = new Vector(this.width);
+        }
     }
 
     public Matrix(double[][] content) {
+        if (content.length == 0) {
+            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+        }
+        int maxWidth = maxWidth(content);
+        if (maxWidth == 0) {
+            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+        }
         this.content = content;
         this.height = this.content.length;
         this.width = maxWidth(this.content);
+        this.vectors = new Vector[this.height];
+        for (Vector vec : this.vectors) {
+            vec = new Vector(this.width);
+        }
     }
 
     public Matrix(Vector[] vectors) {
+        if (vectors.length == 0) {
+            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+        }
         this.height = vectors.length;
         this.width = 0;
         for (Vector vec : vectors) {
@@ -44,6 +62,17 @@ public class Matrix {
             }
         }
     }
+
+    public Matrix(Matrix matrix) {
+        this.width = matrix.width;
+        this.height = matrix.height;
+        this.content = Arrays.copyOf(matrix.content, matrix.content.length);
+        this.vectors = new Vector[this.height];
+        for (Vector vec : this.vectors) {
+            vec = new Vector(this.width);
+        }
+
+    }
     //TODO Написать проверку ошибок
 
     private int maxWidth(double[][] array) {
@@ -58,12 +87,6 @@ public class Matrix {
         return maxWidth;
     }
 
-    public Matrix(Matrix matrix) {
-        this.width = matrix.width;
-        this.height = matrix.height;
-        this.content = Arrays.copyOf(matrix.content, matrix.content.length);
-
-    }
 
     public int getWidth() {
         return width;
@@ -95,9 +118,10 @@ public class Matrix {
     }
 
     public Vector getLineVector(int index) {
-        return new Vector(this.content[index]);
+        return this.vectors[index];
     }
 
     public void setLineVector(int index, Vector vector) {
+        
     }
 }

@@ -1,0 +1,66 @@
+package ru.academItScholl.gorbunov.Tests.MatrixArray;
+
+
+import org.junit.Before;
+import org.junit.Test;
+import ru.academItScholl.gorbunov.matrix.Matrix;
+
+
+import static org.junit.Assert.*;
+
+public class MatrixArrayTest {
+    private Matrix matrix;
+
+    private double [][] array;
+
+    @Test
+    public void createMatrixIllegalArgumentExceptionHeightTest(){
+        array = new double[0][5];
+        try {
+            matrix = new Matrix(array);
+        }catch (IllegalArgumentException e){
+            System.out.println("Проверка MatrixArray на неверные данные в высоте матрицы" + e);
+        }
+    }
+
+    @Test
+    public void createMatrixIllegalArgumentExceptionWidthTest(){
+        array = new double[5][0];
+        try {
+            matrix = new Matrix(array);
+        }catch (IllegalArgumentException e){
+            System.out.println("Проверка MatrixArray на неверные данные в ширине матрицы" + e);
+        }
+    }
+
+    @Before
+    public void setMatrix() {
+        this.array = new double[][]{{1,2,3},{1,2,3},{1,2,3}};
+        this.matrix = new Matrix(array);
+    }
+
+    @Test
+    public void getWidthTest() {
+        System.out.println("MatrixArray возврат ширины.");
+        int actual = matrix.getWidth();
+        int expected = 3;
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getHeightTest() {
+        System.out.println("MatrixArray возврат высоты.");
+        int actual = matrix.getHeight();
+        int expected = 3;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getSizeTest() {
+        System.out.println("MatrixArray возврат размера матрицы в массиве");
+        int[] actual = matrix.getSize();
+        int[] expected = new int[]{3,3};
+        assertArrayEquals(expected,actual);
+    }
+}
+

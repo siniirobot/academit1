@@ -21,7 +21,7 @@ public class MatrixIntTest {
         try {
             matrix = new Matrix(firstNumber,secondNumber);
         }catch (IllegalArgumentException e){
-            System.out.println("Проверка высоты" + e);
+            System.out.println("Проверка MatrixInt на неверные данные в ширине матрицы" + e);
         }
     }
 
@@ -32,7 +32,7 @@ public class MatrixIntTest {
         try {
             matrix = new Matrix(firstNumber,secondNumber);
         }catch (IllegalArgumentException e){
-            System.out.println("Проверка ширины" + e);
+            System.out.println("Проверка MatrixInt на неверные данные в высоте матрицы" + e);
         }
     }
 
@@ -41,18 +41,20 @@ public class MatrixIntTest {
         firstNumber = 5;
         secondNumber = 5;
         this.matrix = new Matrix(firstNumber,secondNumber);
+
     }
 
     @Test
     public void getWidthTest() {
+        System.out.println("MatrixInt возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 5;
         assertEquals(expected,actual);
-        System.out.println("Возврат ширины - Ок");
     }
 
     @Test
     public void getHeightTest() {
+        System.out.println("MatrixInt возврат высоты.");
         int actual = matrix.getHeight();
         int expected = 5;
         assertEquals(expected, actual);
@@ -60,6 +62,7 @@ public class MatrixIntTest {
 
     @Test
     public void getSizeTest() {
+        System.out.println("MatrixInt возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
         int[] expected = new int[]{5,5};
         assertArrayEquals(expected,actual);
