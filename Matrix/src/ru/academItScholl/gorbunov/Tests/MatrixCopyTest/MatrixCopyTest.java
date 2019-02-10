@@ -4,6 +4,7 @@ package ru.academItScholl.gorbunov.Tests.MatrixCopyTest;
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
+import ru.academItSchool.gorbunov.vector.Vector;
 
 
 import static org.junit.Assert.*;
@@ -11,11 +12,10 @@ import static org.junit.Assert.*;
 public class MatrixCopyTest {
     private Matrix matrix;
 
-    private Matrix matrixCopy;
+    private Matrix matrixCopy = new Matrix(5, 5);
 
     @Before
     public void setMatrix() {
-        this.matrixCopy =new Matrix(5,5);
         this.matrix = new Matrix(matrixCopy);
     }
 
@@ -24,7 +24,7 @@ public class MatrixCopyTest {
         System.out.println("MatrixCopy возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 5;
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -39,8 +39,24 @@ public class MatrixCopyTest {
     public void getSizeTest() {
         System.out.println("MatrixCopy возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
-        int[] expected = new int[]{5,5};
-        assertArrayEquals(expected,actual);
+        int[] expected = new int[]{5, 5};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void toStringTest() {
+        System.out.println("MatrixCopy правильно возвращает toString");
+        String actual = matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void getLineVectorTest() {
+        System.out.println("MatrixCopy правильно достает Vector");
+        int index = 1;
+        Vector actual = this.matrix.getLineVector(index);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0});
+        assertEquals(expected, actual);
     }
 }
-

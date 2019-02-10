@@ -4,6 +4,7 @@ package ru.academItScholl.gorbunov.Tests.MatrixArray;
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
+import ru.academItSchool.gorbunov.vector.Vector;
 
 
 import static org.junit.Assert.*;
@@ -36,7 +37,7 @@ public class MatrixArrayTest {
     @Before
     public void setMatrix() {
         this.array = new double[][]{{1,2,3},{1,2,3},{1,2,3}};
-        this.matrix = new Matrix(array);
+        this.matrix = new Matrix(this.array);
     }
 
     @Test
@@ -61,6 +62,23 @@ public class MatrixArrayTest {
         int[] actual = matrix.getSize();
         int[] expected = new int[]{3,3};
         assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void toStringTest(){
+        System.out.println("MatrixArray правильно возвращает toString");
+        String actual = matrix.toString();
+        String expected = "{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}";
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void getLineVectorTest() {
+        System.out.println("MatrixArray правильно достает Vector");
+        int index = 2;
+        Vector actual = this.matrix.getLineVector(index);
+        Vector expected = new Vector(new double[]{1.0, 2.0, 3.0});
+        assertEquals(expected,actual);
     }
 }
 

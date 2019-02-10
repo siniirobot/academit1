@@ -17,16 +17,16 @@ public class MatrixVectorTest {
     private Vector vector2 = new Vector(3);
     private Vector vector3 = new Vector(4);
     private Vector vector4 = new Vector(5);
-    private Vector vector5= new Vector(10);
+    private Vector vector5 = new Vector(10);
 
     private Vector[] vectors;
 
     @Test
-    public void createMatrixIllegalArgumentExceptionHeightTest(){
+    public void createMatrixIllegalArgumentExceptionHeightTest() {
         vectors = new Vector[0];
         try {
             matrix = new Matrix(vectors);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Проверка MatrixVector на неверные данные в высоте матрицы" + e);
         }
     }
@@ -34,7 +34,7 @@ public class MatrixVectorTest {
 
     @Before
     public void setMatrix() {
-        this.vectors = new Vector[]{this.vector0,this.vector1,this.vector2,this.vector3,this.vector4,this.vector5};
+        this.vectors = new Vector[]{this.vector0, this.vector1, this.vector2, this.vector3, this.vector4, this.vector5};
         this.matrix = new Matrix(vectors);
     }
 
@@ -43,7 +43,7 @@ public class MatrixVectorTest {
         System.out.println("MatrixVector возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 10;
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -58,8 +58,25 @@ public class MatrixVectorTest {
     public void getSizeTest() {
         System.out.println("MatrixVector возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
-        int[] expected = new int[]{6,10};
-        assertArrayEquals(expected,actual);
+        int[] expected = new int[]{6, 10};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void toStringTest() {
+        System.out.println("MatrixVector правильно возвращает toString");
+        String actual = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
+        String expected = matrix.toString();
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void getLineVectorTest() {
+        System.out.println("MatrixVector правильно достает Vector");
+        int index = 2;
+        Vector actual = this.matrix.getLineVector(index);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0});
+        assertEquals(expected, actual);
     }
 }
 
