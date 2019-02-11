@@ -1,6 +1,6 @@
 package ru.academItScholl.gorbunov.Tests.MatrixCopyTest;
 
-
+import org.junit.*;
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
@@ -45,7 +45,7 @@ public class MatrixCopyTest {
 
     @Test
     public void toStringTest() {
-        System.out.println("MatrixCopy правильно возвращает toString");
+        System.out.println("MatrixCopy правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual = matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(actual, expected);
@@ -58,5 +58,25 @@ public class MatrixCopyTest {
         Vector actual = this.matrix.getLineVector(index);
         Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0});
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setLineVectorTest() {
+        int index = 0;
+        Vector testVector = new Vector(11);
+        this.matrix.setLineVector(index, testVector);
+        String actual = matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Вставка нового вектора по индексу и реформация MatrixCopy просходит правильно" + System.lineSeparator() + actual);
+    }
+
+    @Test
+    public void getColumnVector() {
+        int index = 0;
+        Vector actual = this.matrix.getColumnVector(index);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0});
+        assertEquals(expected, actual);
+        System.out.println("MatrixCopy правильно достает columnVector");
     }
 }

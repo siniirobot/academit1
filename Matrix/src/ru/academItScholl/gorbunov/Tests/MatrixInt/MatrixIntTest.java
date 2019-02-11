@@ -1,6 +1,8 @@
 package ru.academItScholl.gorbunov.Tests.MatrixInt;
 
 
+
+;
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
@@ -47,43 +49,68 @@ public class MatrixIntTest {
 
     @Test
     public void getWidthTest() {
-        System.out.println("MatrixInt возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 5;
         assertEquals(expected, actual);
+        System.out.println("MatrixInt возврат ширины.");
     }
 
     @Test
     public void getHeightTest() {
-        System.out.println("MatrixInt возврат высоты.");
         int actual = matrix.getHeight();
         int expected = 5;
         assertEquals(expected, actual);
+        System.out.println("MatrixInt возврат высоты.");
     }
 
     @Test
     public void getSizeTest() {
-        System.out.println("MatrixInt возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
         int[] expected = new int[]{5, 5};
         assertArrayEquals(expected, actual);
+        System.out.println("MatrixInt возврат размера матрицы в массиве");
     }
 
     @Test
     public void toStringTest() {
-        System.out.println("MatrixInt правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual =matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
+        System.out.println("MatrixInt правильно возвращает toString" + System.lineSeparator() + matrix.toString());
     }
 
     @Test
     public void getLineVectorTest() {
-        System.out.println("MatrixInt правильно достает Vector");
         int index = 2;
         Vector actual = this.matrix.getLineVector(index);
         Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0 });
         assertEquals(expected,actual);
+        System.out.println("MatrixInt правильно достает Vector");
+    }
+
+    @Test
+    public void setLineVectorTest(){
+        int index = 0;
+        Vector testVector = new Vector(11);
+        this.matrix.setLineVector(index,testVector);
+        String actual =matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Вставка нового вектора по индексу и реформация MatrixInt просходит правильно" + System.lineSeparator() + actual);
+    }
+
+    @Test
+    public void getColumnVector(){
+        int index = 0;
+        Vector actual = this.matrix.getColumnVector(index);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0 });
+        assertEquals(expected,actual);
+        System.out.println("MatrixInt правильно достает columnVector");
+    }
+
+    @Test
+    public void transpositionMatrix(){
+
     }
 }
 

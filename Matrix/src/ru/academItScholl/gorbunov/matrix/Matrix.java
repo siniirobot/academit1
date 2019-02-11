@@ -16,7 +16,7 @@ public class Matrix {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
         this.vectors = new Vector[height];
-        for (int i = 0; i < vectors.length;i++){
+        for (int i = 0; i < vectors.length; i++) {
             this.vectors[i] = new Vector(width);
         }
     }
@@ -26,8 +26,8 @@ public class Matrix {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
         boolean minWidth = false;
-        for (double[] arr:content) {
-            if (arr.length == 0){
+        for (double[] arr : content) {
+            if (arr.length == 0) {
                 minWidth = true;
                 break;
             }
@@ -35,8 +35,8 @@ public class Matrix {
         if (minWidth) {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
-        this.vectors = new Vector [content.length];
-        for (int i = 0; i < vectors.length;i++){
+        this.vectors = new Vector[content.length];
+        for (int i = 0; i < vectors.length; i++) {
             this.vectors[i] = new Vector(content[i]);
         }
     }
@@ -45,12 +45,24 @@ public class Matrix {
         if (vectors.length == 0) {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
-        this.vectors = vectors;
+        int maxVectorsLength = 0;
+        for (Vector vec : vectors) {
+            if (maxVectorsLength < vec.getSize()) {
+                maxVectorsLength = vec.getSize();
+            }
+        }
+        this.vectors = new Vector[vectors.length];
+        for (int i = 0; i < this.vectors.length; i++) {
+            this.vectors[i] = new Vector(maxVectorsLength);
+            for (int j = 0; j < vectors[i].getSize(); j++) {
+                this.vectors[i].setVectorElementByIndex(j, vectors[i].getVectorElementByIndex(j));
+            }
+        }
     }
 
     public Matrix(Matrix matrix) {
         this.vectors = new Vector[matrix.getHeight()];
-        for (int i = 0; i < matrix.getHeight();i++){
+        for (int i = 0; i < matrix.getHeight(); i++) {
             this.vectors[i] = matrix.getLineVector(i);
         }
 
@@ -58,8 +70,8 @@ public class Matrix {
 
     public int getWidth() {
         int width = 0;
-        for (Vector vec: vectors) {
-            if (width < vec.getSize()){
+        for (Vector vec : vectors) {
+            if (width < vec.getSize()) {
                 width = vec.getSize();
             }
         }
@@ -76,15 +88,15 @@ public class Matrix {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (Vector vec: this.vectors) {
+        for (Vector vec : this.vectors) {
             stringBuilder.append("{");
-            for (int i = 0; i< vec.getSize();i++){
+            for (int i = 0; i < vec.getSize(); i++) {
                 stringBuilder.append(vec.getVectorElementByIndex(i)).append(", ");
             }
-            stringBuilder.delete(stringBuilder.length() - 2,stringBuilder.length());
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
             stringBuilder.append("}, ");
         }
-        stringBuilder.delete(stringBuilder.length() - 2,stringBuilder.length());
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.append("}").toString();
     }
 
@@ -97,6 +109,41 @@ public class Matrix {
     }
 
     public void setLineVector(int index, Vector vector) {
+        int oldWidth = getWidth();
         this.vectors[index] = vector;
+        if (oldWidth < getWidth()) {
+            for (int i = 0; i < this.vectors.length; i++) {
+                Vector copyVector = this.vectors[i];
+                this.vectors[i] = new Vector(vector.getSize());
+                for (int j = 0; j < copyVector.getSize(); j++) {
+                    this.vectors[i].setVectorElementByIndex(j, copyVector.getVectorElementByIndex(j));
+                }
+            }
+        }
+    }
+
+    public Vector getColumnVector(int index) {
+        Vector columnVector = new Vector(this.vectors.length);
+        for (int i = 0; i < this.vectors.length; i++) {
+            columnVector.setVectorElementByIndex(i, this.vectors[i].getVectorElementByIndex(index));
+        }
+        return columnVector;
+    }
+
+    public void transpositionMatrix() {
+        if (getHeight() == getWidth()) {
+            Matrix copyMatrix = new Matrix(this.vectors);
+            this.vectors = new Vector[copyMatrix.getWidth()];
+            for (int i = 0; i < this.vectors.length; i++) {
+                this.vectors[i] = new Vector(copyMatrix.getHeight());
+            }
+            for (int j = 0; j < copyMatrix.getHeight(); j++) {
+                Vector copyVector = copyMatrix.getLineVector(j);
+                for (int k = 0; k < copyVector.getSize(); k++) {
+                    this.vectors[k].setVectorElementByIndex(j, copyVector.getVectorElementByIndex(k));
+                }
+            }
+        }
+
     }
 }
