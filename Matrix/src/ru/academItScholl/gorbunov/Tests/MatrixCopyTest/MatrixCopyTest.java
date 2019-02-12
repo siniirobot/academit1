@@ -79,4 +79,13 @@ public class MatrixCopyTest {
         assertEquals(expected, actual);
         System.out.println("MatrixCopy правильно достает columnVector");
     }
+
+    @Test
+    public void transpositionMatrix() {
+        this.matrix.transpositionMatrix();
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Транспонирование MatrixCopy просходит правильно" + System.lineSeparator() + actual);
+    }
 }

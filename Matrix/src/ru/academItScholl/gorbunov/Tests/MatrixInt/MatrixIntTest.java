@@ -110,7 +110,11 @@ public class MatrixIntTest {
 
     @Test
     public void transpositionMatrix(){
-
+        this.matrix.transpositionMatrix();
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Транспонирование MatrixInt просходит правильно" + System.lineSeparator() + actual);
     }
 }
 

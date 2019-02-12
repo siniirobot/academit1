@@ -108,7 +108,7 @@ public class MatrixArrayTest {
         String actual = this.matrix.toString();
         String expected = "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}";
         assertEquals(expected, actual);
-        System.out.println("Вставка нового вектора по индексу и реформация MatrixArray просходит правильно" + System.lineSeparator() + actual);
+        System.out.println("Транспонирование MatrixArray просходит правильно" + System.lineSeparator() + actual);
     }
 }
 

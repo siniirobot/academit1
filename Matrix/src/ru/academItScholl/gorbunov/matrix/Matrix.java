@@ -131,19 +131,16 @@ public class Matrix {
     }
 
     public void transpositionMatrix() {
-        if (getHeight() == getWidth()) {
-            Matrix copyMatrix = new Matrix(this.vectors);
-            this.vectors = new Vector[copyMatrix.getWidth()];
-            for (int i = 0; i < this.vectors.length; i++) {
-                this.vectors[i] = new Vector(copyMatrix.getHeight());
-            }
-            for (int j = 0; j < copyMatrix.getHeight(); j++) {
-                Vector copyVector = copyMatrix.getLineVector(j);
-                for (int k = 0; k < copyVector.getSize(); k++) {
-                    this.vectors[k].setVectorElementByIndex(j, copyVector.getVectorElementByIndex(k));
-                }
+        Matrix copyMatrix = new Matrix(this.vectors);
+        this.vectors = new Vector[copyMatrix.getWidth()];
+        for (int i = 0; i < this.vectors.length; i++) {
+            this.vectors[i] = new Vector(copyMatrix.getHeight());
+        }
+        for (int j = 0; j < copyMatrix.getHeight(); j++) {
+            Vector copyVector = copyMatrix.getLineVector(j);
+            for (int k = 0; k < copyVector.getSize(); k++) {
+                this.vectors[k].setVectorElementByIndex(j, copyVector.getVectorElementByIndex(k));
             }
         }
-
     }
 }
