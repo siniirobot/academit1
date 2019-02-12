@@ -143,4 +143,16 @@ public class Matrix {
             }
         }
     }
+
+    public void getMatrixScalar(int scalar){
+        if (scalar == 1){
+            System.out.println("Матрица останется неизменной");
+            return;
+        }
+        for (Vector vec:this.vectors) {
+            for (int i = 0;i<vec.getSize();i++){
+                vec.setVectorElementByIndex(i,vec.getVectorElementByIndex(i) * scalar);
+            }
+        }
+    }
 }

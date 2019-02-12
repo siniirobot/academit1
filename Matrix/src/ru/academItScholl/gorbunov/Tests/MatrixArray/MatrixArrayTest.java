@@ -110,5 +110,15 @@ public class MatrixArrayTest {
         assertEquals(expected, actual);
         System.out.println("Транспонирование MatrixArray просходит правильно" + System.lineSeparator() + actual);
     }
+
+    @Test
+    public void getMatrixScalarTest(){
+        int scalar = -5;
+        this.matrix.getMatrixScalar(scalar);
+        String actual = this.matrix.toString();
+        String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
+        assertEquals(expected,actual);
+        System.out.println("MatrixArray умножена на скаляр правильно");
+    }
 }
 

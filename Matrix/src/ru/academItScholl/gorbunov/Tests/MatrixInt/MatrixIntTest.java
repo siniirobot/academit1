@@ -2,7 +2,7 @@ package ru.academItScholl.gorbunov.Tests.MatrixInt;
 
 
 
-;
+
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
@@ -115,6 +115,16 @@ public class MatrixIntTest {
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
         System.out.println("Транспонирование MatrixInt просходит правильно" + System.lineSeparator() + actual);
+    }
+
+    @Test
+    public void getMatrixScalarTest(){
+        int scalar = 1;
+        this.matrix.getMatrixScalar(scalar);
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected,actual);
+        System.out.println("MatrixInt умножена на скаляр правильно");
     }
 }
 

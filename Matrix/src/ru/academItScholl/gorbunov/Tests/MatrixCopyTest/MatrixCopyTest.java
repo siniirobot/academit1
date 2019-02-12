@@ -1,6 +1,6 @@
 package ru.academItScholl.gorbunov.Tests.MatrixCopyTest;
 
-import org.junit.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
@@ -87,5 +87,15 @@ public class MatrixCopyTest {
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
         System.out.println("Транспонирование MatrixCopy просходит правильно" + System.lineSeparator() + actual);
+    }
+
+    @Test
+    public void getMatrixScalarTest(){
+        int scalar = 1;
+        this.matrix.getMatrixScalar(scalar);
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected,actual);
+        System.out.println("MatrixCopy умножена на скаляр правильно");
     }
 }

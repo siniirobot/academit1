@@ -107,5 +107,15 @@ public class MatrixVectorTest {
         assertEquals(expected, actual);
         System.out.println("Транспонирование MatrixVector просходит правильно" + System.lineSeparator() + actual);
     }
+
+    @Test
+    public void getMatrixScalarTest(){
+        int scalar = 1;
+        this.matrix.getMatrixScalar(scalar);
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
+        assertEquals(expected,actual);
+        System.out.println("MatrixVector умножена на скаляр правильно");
+    }
 }
 
