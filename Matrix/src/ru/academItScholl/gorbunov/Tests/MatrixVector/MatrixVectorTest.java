@@ -117,5 +117,14 @@ public class MatrixVectorTest {
         assertEquals(expected,actual);
         System.out.println("MatrixVector умножена на скаляр правильно");
     }
+
+    @Test
+    public void getDeterminantTest(){
+        try{
+            double actual = this.matrix.getDeterminant();
+        }catch (IllegalArgumentException e){
+            System.out.println("Детерминант не квадратной MatrixVector выдает верное исключение" + e);
+        }
+    }
 }
 

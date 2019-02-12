@@ -126,5 +126,13 @@ public class MatrixIntTest {
         assertEquals(expected,actual);
         System.out.println("MatrixInt умножена на скаляр правильно");
     }
+
+    @Test
+    public void getDeterminantTest(){
+        double actual = this.matrix.getDeterminant();
+        double expected = 0;
+        assertEquals(expected,actual,0.1e-10);
+        System.out.println("Детерминант MatrixInt вычисляется верно");
+    }
 }
 

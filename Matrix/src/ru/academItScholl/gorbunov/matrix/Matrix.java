@@ -9,6 +9,7 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
 
+    final double EPSILON = 0.1e-10;
     private Vector[] vectors;
 
     public Matrix(int width, int height) {
@@ -144,15 +145,56 @@ public class Matrix {
         }
     }
 
-    public void getMatrixScalar(int scalar){
-        if (scalar == 1){
+    public void getMatrixScalar(int scalar) {
+        if (scalar == 1) {
             System.out.println("Матрица останется неизменной");
             return;
         }
-        for (Vector vec:this.vectors) {
-            for (int i = 0;i<vec.getSize();i++){
-                vec.setVectorElementByIndex(i,vec.getVectorElementByIndex(i) * scalar);
+        for (Vector vec : this.vectors) {
+            for (int i = 0; i < vec.getSize(); i++) {
+                vec.setVectorElementByIndex(i, vec.getVectorElementByIndex(i) * scalar);
             }
+        }
+    }
+    //TODO оптимизировать.
+    public double getDeterminant() {
+        if (getWidth() != getHeight()) {
+            throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
+        }
+        if (this.vectors.length == 1) {
+            return this.vectors[0].getVectorElementByIndex(0);
+        } else if (this.vectors.length == 2) {
+            return this.vectors[0].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) - this.vectors[0].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(0);
+        } else if (this.vectors.length == 3) {
+            return this.vectors[0].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) * this.vectors[2].getVectorElementByIndex(2)
+                    + this.vectors[0].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[2].getVectorElementByIndex(0)
+                    + this.vectors[0].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[2].getVectorElementByIndex(1)
+                    - this.vectors[2].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) * this.vectors[0].getVectorElementByIndex(2)
+                    - this.vectors[2].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[0].getVectorElementByIndex(0)
+                    - this.vectors[2].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[0].getVectorElementByIndex(1);
+        } else {
+
+            double determinant = 0;
+            for (int i = 0; i < this.vectors.length; ++i) {
+                if (Math.abs(this.vectors[i].getVectorElementByIndex(0)) >= EPSILON) {
+                    Matrix smallerMatrix = new Matrix(this.vectors.length - 1, this.vectors.length - 1);
+                    for (int j = 0, n = 0; j < this.vectors.length; ++j) {
+                        if (j != i) {
+                            for (int k = 1, m = 0; k < this.vectors.length; ++k) {
+                                smallerMatrix.getLineVector(n).setVectorElementByIndex(m, this.vectors[j].getVectorElementByIndex(k));
+                                m++;
+                            }
+                            n++;
+                        }
+                    }
+                    if (i % 2 == 0) {
+                        determinant += this.vectors[i].getVectorElementByIndex(0) * smallerMatrix.getDeterminant();
+                    } else {
+                        determinant += (this.vectors[i].getVectorElementByIndex(0) * -1) * smallerMatrix.getDeterminant();
+                    }
+                }
+            }
+            return determinant;
         }
     }
 }

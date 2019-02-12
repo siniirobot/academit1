@@ -4,6 +4,7 @@ package ru.academItScholl.gorbunov.Tests.MatrixArray;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.testng.annotations.BeforeTest;
 import ru.academItScholl.gorbunov.matrix.Matrix;
 import ru.academItSchool.gorbunov.vector.Vector;
 
@@ -119,6 +120,15 @@ public class MatrixArrayTest {
         String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
         assertEquals(expected,actual);
         System.out.println("MatrixArray умножена на скаляр правильно");
+    }
+
+    @Test
+    public void getDeterminantTest(){
+        this.matrix = new Matrix(new double[][]{{4,74,12,1},{77,15454,1,0},{0,774,98,4},{45,7,44,45}});
+        double actual = this.matrix.getDeterminant();
+        double expected = 2.32301972E8;
+        assertEquals(expected,actual,0.1e-10);
+        System.out.println("Детерминант MatrixArray вычисляется верно");
     }
 }
 
