@@ -124,11 +124,19 @@ public class MatrixArrayTest {
 
     @Test
     public void getDeterminantTest(){
-        this.matrix = new Matrix(new double[][]{{4,74,12,1},{77,15454,1,0},{0,774,98,4},{45,7,44,45}});
         double actual = this.matrix.getDeterminant();
-        double expected = 2.32301972E8;
+        double expected = 0.0;
         assertEquals(expected,actual,0.1e-10);
         System.out.println("Детерминант MatrixArray вычисляется верно");
+    }
+
+    @Test
+    public void getMatrixMultiplicationByVector(){
+        Vector vector = new Vector(new double[]{1,2,3});
+        Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
+        Vector expected = new Vector(new double[]{14,14,14});
+        assertEquals(expected,actual);
+        System.out.println("Умножение MatrixArray на вектор вычисляется верно");
     }
 }
 

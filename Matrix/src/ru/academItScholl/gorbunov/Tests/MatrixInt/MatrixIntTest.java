@@ -134,5 +134,15 @@ public class MatrixIntTest {
         assertEquals(expected,actual,0.1e-10);
         System.out.println("Детерминант MatrixInt вычисляется верно");
     }
+
+
+    @Test
+    public void getMatrixMultiplicationByVector() {
+        try {
+            this.matrix.getMatrixMultiplicationByVector(new Vector(1));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Умножение MatrixInt на вектор выдает верное исключение" + e);
+        }
+    }
 }
 

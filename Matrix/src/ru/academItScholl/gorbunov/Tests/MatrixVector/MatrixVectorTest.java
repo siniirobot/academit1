@@ -64,7 +64,7 @@ public class MatrixVectorTest {
 
     @Test
     public void toStringTest() {
-        System.out.println("MatrixVector правильно возвращает toString"+ System.lineSeparator() + matrix.toString());
+        System.out.println("MatrixVector правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         String expected = matrix.toString();
         assertEquals(actual, expected);
@@ -80,27 +80,27 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void setLineVectorTest(){
+    public void setLineVectorTest() {
         int index = 0;
         Vector testVector = new Vector(11);
-        this.matrix.setLineVector(index,testVector);
-        String actual =matrix.toString();
+        this.matrix.setLineVector(index, testVector);
+        String actual = matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
         System.out.println("Вставка нового вектора по индексу и реформация MatrixVector просходит правильно" + System.lineSeparator() + actual);
     }
 
     @Test
-    public void getColumnVector(){
+    public void getColumnVector() {
         int index = 0;
         Vector actual = this.matrix.getColumnVector(index);
         Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("MatrixVector правильно достает columnVector");
     }
 
     @Test
-    public void transpositionMatrix(){
+    public void transpositionMatrix() {
         this.matrix.transpositionMatrix();
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
@@ -109,22 +109,31 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getMatrixScalarTest(){
+    public void getMatrixScalarTest() {
         int scalar = 1;
         this.matrix.getMatrixScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("MatrixVector умножена на скаляр правильно");
     }
 
     @Test
-    public void getDeterminantTest(){
-        try{
-            double actual = this.matrix.getDeterminant();
-        }catch (IllegalArgumentException e){
+    public void getDeterminantTest() {
+        try {
+            this.matrix.getDeterminant();
+        } catch (IllegalArgumentException e) {
             System.out.println("Детерминант не квадратной MatrixVector выдает верное исключение" + e);
         }
+    }
+
+    @Test
+    public void getMatrixMultiplicationByVector(){
+        Vector vector = new Vector(new double[]{1,2,3,4,5,6,7,8,9,10});
+        Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
+        Vector expected = new Vector(6);
+        assertEquals(expected,actual);
+        System.out.println("Умножение MatrixVector на вектор вычисляется верно");
     }
 }
 

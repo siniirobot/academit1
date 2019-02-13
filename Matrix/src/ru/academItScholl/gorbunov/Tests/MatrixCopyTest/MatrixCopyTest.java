@@ -106,4 +106,13 @@ public class MatrixCopyTest {
         assertEquals(expected,actual,0.1e-10);
         System.out.println("Детерминант MatrixCopy вычисляется верно");
     }
+
+    @Test
+    public void getMatrixMultiplicationByVector() {
+        try {
+            this.matrix.getMatrixMultiplicationByVector(new Vector(1));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Умножение MatrixCopy на вектор выдает верное исключение" + e);
+        }
+    }
 }

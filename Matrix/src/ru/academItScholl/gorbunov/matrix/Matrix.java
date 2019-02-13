@@ -9,7 +9,7 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
 
-    final double EPSILON = 0.1e-10;
+    final private double EPSILON = 0.1e-10;
     private Vector[] vectors;
 
     public Matrix(int width, int height) {
@@ -156,7 +156,7 @@ public class Matrix {
             }
         }
     }
-    //TODO оптимизировать.
+
     public double getDeterminant() {
         if (getWidth() != getHeight()) {
             throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
@@ -173,7 +173,6 @@ public class Matrix {
                     - this.vectors[2].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[0].getVectorElementByIndex(0)
                     - this.vectors[2].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[0].getVectorElementByIndex(1);
         } else {
-
             double determinant = 0;
             for (int i = 0; i < this.vectors.length; ++i) {
                 if (Math.abs(this.vectors[i].getVectorElementByIndex(0)) >= EPSILON) {
@@ -196,5 +195,20 @@ public class Matrix {
             }
             return determinant;
         }
+    }
+
+    public Vector getMatrixMultiplicationByVector(Vector vector) {
+        if (getWidth() != vector.getSize()){
+            throw  new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
+        }
+        Vector result = new Vector(this.vectors.length);
+        for (int i = 0; i < this.vectors.length;i++) {
+            double sum = 0;
+            for (int j = 0; j < this.vectors[i].getSize();j++) {
+                sum += this.vectors[i].getVectorElementByIndex(j) * vector.getVectorElementByIndex(j);
+            }
+            result.setVectorElementByIndex(i,sum);
+        }
+        return result;
     }
 }
