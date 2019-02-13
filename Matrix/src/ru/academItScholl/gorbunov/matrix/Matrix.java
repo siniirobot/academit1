@@ -211,4 +211,15 @@ public class Matrix {
         }
         return result;
     }
+
+    public void getMatrixSum(Matrix matrix) {
+        if (!Arrays.equals(getSize() , matrix.getSize())) {
+            throw new IllegalArgumentException("Сложение неквадратных матриц невозможно.");
+        }
+        for (int i = 0; i < this.vectors.length; i++){
+            for (int j = 0; j < this.vectors[i].getSize(); j++) {
+                this.vectors[i].setVectorElementByIndex(j,this.vectors[i].getVectorElementByIndex(j) + matrix.getLineVector(i).getVectorElementByIndex(j));
+            }
+        }
+    }
 }

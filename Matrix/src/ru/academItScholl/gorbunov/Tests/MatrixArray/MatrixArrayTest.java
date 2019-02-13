@@ -138,5 +138,13 @@ public class MatrixArrayTest {
         assertEquals(expected,actual);
         System.out.println("Умножение MatrixArray на вектор вычисляется верно");
     }
+    @Test
+    public void getMatrixSumTest(){
+        Matrix matrixSum = new Matrix(new double[][]{{1,2,3},{1,2,3},{1,2,3}});
+        this.matrix.getMatrixSum(matrixSum);
+        String actual = this.matrix.toString();
+        String expected = "{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}";
+        assertEquals(expected,actual);
+    }
 }
 
