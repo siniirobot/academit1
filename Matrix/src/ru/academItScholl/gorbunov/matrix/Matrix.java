@@ -198,38 +198,38 @@ public class Matrix {
     }
 
     public Vector getMatrixMultiplicationByVector(Vector vector) {
-        if (getWidth() != vector.getSize()){
-            throw  new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
+        if (getWidth() != vector.getSize()) {
+            throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
         }
         Vector result = new Vector(this.vectors.length);
-        for (int i = 0; i < this.vectors.length;i++) {
+        for (int i = 0; i < this.vectors.length; i++) {
             double sum = 0;
-            for (int j = 0; j < this.vectors[i].getSize();j++) {
+            for (int j = 0; j < this.vectors[i].getSize(); j++) {
                 sum += this.vectors[i].getVectorElementByIndex(j) * vector.getVectorElementByIndex(j);
             }
-            result.setVectorElementByIndex(i,sum);
+            result.setVectorElementByIndex(i, sum);
         }
         return result;
     }
 
     public void getMatrixSum(Matrix matrix) {
-        if (!Arrays.equals(getSize() , matrix.getSize())) {
+        if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
         }
-        for (int i = 0; i < this.vectors.length; i++){
+        for (int i = 0; i < this.vectors.length; i++) {
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
-                this.vectors[i].setVectorElementByIndex(j,this.vectors[i].getVectorElementByIndex(j) + matrix.getLineVector(i).getVectorElementByIndex(j));
+                this.vectors[i].setVectorElementByIndex(j, this.vectors[i].getVectorElementByIndex(j) + matrix.getLineVector(i).getVectorElementByIndex(j));
             }
         }
     }
 
     public void getMatrixSubtraction(Matrix matrix) {
-        if (!Arrays.equals(getSize() , matrix.getSize())) {
+        if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Вычитание матриц разной размерности невозможно.");
         }
-        for (int i = 0; i < this.vectors.length; i++){
+        for (int i = 0; i < this.vectors.length; i++) {
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
-                this.vectors[i].setVectorElementByIndex(j,this.vectors[i].getVectorElementByIndex(j) - matrix.getLineVector(i).getVectorElementByIndex(j));
+                this.vectors[i].setVectorElementByIndex(j, this.vectors[i].getVectorElementByIndex(j) - matrix.getLineVector(i).getVectorElementByIndex(j));
             }
         }
     }
@@ -238,5 +238,11 @@ public class Matrix {
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.getMatrixSum(matrix2);
         return sumMatrix;
+    }
+
+    public static Matrix getStaticMatrixSubtraction(Matrix matrix1, Matrix matrix2) {
+        Matrix subtractionMatrix = new Matrix(matrix1);
+        subtractionMatrix.getMatrixSubtraction(matrix2);
+        return subtractionMatrix;
     }
 }

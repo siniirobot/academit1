@@ -26,4 +26,21 @@ public class MatrixTest {
             System.out.println("Функция статической суммы правильно обрабатывает исключения.");
         }
     }
+
+    @Test
+    public void getMatrixStaticSubtractionTest(){
+        String actual = Matrix.getStaticMatrixSubtraction(this.matrix1,this.matrix2).toString();
+        String expected = new Matrix(new double[][]{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}).toString();
+        assertEquals(expected,actual);
+        System.out.println("Функция статического вычитания работает нормально");
+    }
+
+    @Test
+    public void getMatrixStaticSubtractionErrorTest() {
+        try{
+            Matrix.getStaticMatrixSubtraction(this.matrix1,new Matrix(5,5));
+        }catch (IllegalArgumentException e){
+            System.out.println("Функция статического вычитания правильно обрабатывает исключения.");
+        }
+    }
 }
