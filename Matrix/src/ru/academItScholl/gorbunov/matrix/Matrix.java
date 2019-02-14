@@ -1,8 +1,7 @@
 package ru.academItScholl.gorbunov.matrix;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+
 
 
 import ru.academItSchool.gorbunov.vector.Vector;
@@ -244,5 +243,27 @@ public class Matrix {
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.getMatrixSubtraction(matrix2);
         return subtractionMatrix;
+    }
+
+    public static Matrix getStaticMatrixMultiplication(Matrix matrix1,Matrix matrix2) {
+        Matrix multiplicationMatrix = new Matrix(matrix1);
+        if (matrix2.getWidth() == 1) {
+            if (matrix1.getWidth() != matrix2.getColumnVector(0).getSize()) {
+                throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины строк умножаемой матрицы");
+            }
+            multiplicationMatrix.getMatrixMultiplicationByVector(matrix2.getColumnVector(0));
+            return multiplicationMatrix;
+        }
+        if (!Arrays.equals(matrix1.getSize(),matrix2.getSize())) {
+            throw new IllegalArgumentException("Умножение матриц разной размерности невозможно.");
+        }
+        for (int i = 0; i < multiplicationMatrix.getHeight(); i++) {
+            double sum = 0;
+            Vector hashVector = multiplicationMatrix.getLineVector(i);
+            for (int j = 0; j < hashVector.getSize(); j++) {
+
+            }
+        }
+        return multiplicationMatrix;
     }
 }
