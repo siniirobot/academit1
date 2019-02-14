@@ -128,12 +128,29 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getMatrixMultiplicationByVector(){
+    public void getMatrixMultiplicationByVectorTest(){
         Vector vector = new Vector(new double[]{1,2,3,4,5,6,7,8,9,10});
         Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
         Vector expected = new Vector(6);
         assertEquals(expected,actual);
         System.out.println("Умножение MatrixVector на вектор вычисляется верно");
+    }
+
+    @Test
+    public void getMatrixSumTest() {
+        Matrix matrixSum = new Matrix(new double[][]{
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        });
+        this.matrix.getMatrixSum(matrixSum);
+        String actual = this.matrix.toString();
+        String expected = "{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Сложение с MatrixVector проходит верно");
     }
 }
 

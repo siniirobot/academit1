@@ -1,7 +1,6 @@
 package ru.academItScholl.gorbunov.Tests.MatrixArray;
 
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.testng.annotations.BeforeTest;
@@ -14,31 +13,31 @@ import static org.junit.Assert.*;
 public class MatrixArrayTest {
     private Matrix matrix;
 
-    private double [][] array;
+    private double[][] array;
 
     @Test
-    public void createMatrixIllegalArgumentExceptionHeightTest(){
+    public void createMatrixIllegalArgumentExceptionHeightTest() {
         array = new double[0][5];
         try {
             matrix = new Matrix(array);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Проверка MatrixArray на неверные данные в высоте матрицы" + e);
         }
     }
 
     @Test
-    public void createMatrixIllegalArgumentExceptionWidthTest(){
+    public void createMatrixIllegalArgumentExceptionWidthTest() {
         array = new double[5][0];
         try {
             matrix = new Matrix(array);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Проверка MatrixArray на неверные данные в ширине матрицы" + e);
         }
     }
 
     @Before
     public void setMatrix() {
-        this.array = new double[][]{{1,2,3},{1,2,3},{1,2,3}};
+        this.array = new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
         this.matrix = new Matrix(this.array);
     }
 
@@ -47,7 +46,7 @@ public class MatrixArrayTest {
         System.out.println("MatrixArray возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 3;
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -62,16 +61,16 @@ public class MatrixArrayTest {
     public void getSizeTest() {
         System.out.println("MatrixArray возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
-        int[] expected = new int[]{3,3};
-        assertArrayEquals(expected,actual);
+        int[] expected = new int[]{3, 3};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void toStringTest(){
-        System.out.println("MatrixArray правильно возвращает toString"+ System.lineSeparator() + matrix.toString());
+    public void toStringTest() {
+        System.out.println("MatrixArray правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual = matrix.toString();
         String expected = "{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}";
-        assertEquals(actual,expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -80,14 +79,14 @@ public class MatrixArrayTest {
         int index = 2;
         Vector actual = this.matrix.getLineVector(index);
         Vector expected = new Vector(new double[]{1.0, 2.0, 3.0});
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void setLineVectorTest(){
+    public void setLineVectorTest() {
         int index = 0;
         Vector testVector = new Vector(11);
-        this.matrix.setLineVector(index,testVector);
+        this.matrix.setLineVector(index, testVector);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -95,16 +94,16 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getColumnVector(){
+    public void getColumnVector() {
         int index = 0;
         Vector actual = this.matrix.getColumnVector(index);
         Vector expected = new Vector(new double[]{1.0, 1.0, 1.0});
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("MatrixArray правильно достает columnVector");
     }
 
     @Test
-    public void transpositionMatrix(){
+    public void transpositionMatrix() {
         this.matrix.transpositionMatrix();
         String actual = this.matrix.toString();
         String expected = "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}";
@@ -113,38 +112,40 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getMatrixScalarTest(){
+    public void getMatrixScalarTest() {
         int scalar = -5;
         this.matrix.getMatrixScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("MatrixArray умножена на скаляр правильно");
     }
 
     @Test
-    public void getDeterminantTest(){
+    public void getDeterminantTest() {
         double actual = this.matrix.getDeterminant();
         double expected = 0.0;
-        assertEquals(expected,actual,0.1e-10);
+        assertEquals(expected, actual, 0.1e-10);
         System.out.println("Детерминант MatrixArray вычисляется верно");
     }
 
     @Test
-    public void getMatrixMultiplicationByVector(){
-        Vector vector = new Vector(new double[]{1,2,3});
+    public void getMatrixMultiplicationByVectorTest() {
+        Vector vector = new Vector(new double[]{1, 2, 3});
         Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
-        Vector expected = new Vector(new double[]{14,14,14});
-        assertEquals(expected,actual);
+        Vector expected = new Vector(new double[]{14, 14, 14});
+        assertEquals(expected, actual);
         System.out.println("Умножение MatrixArray на вектор вычисляется верно");
     }
+
     @Test
-    public void getMatrixSumTest(){
-        Matrix matrixSum = new Matrix(new double[][]{{1,2,3},{1,2,3},{1,2,3}});
+    public void getMatrixSumTest() {
+        Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
         this.matrix.getMatrixSum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}";
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
+        System.out.println("Сложение с MatrixArray проходит верно");
     }
 }
 

@@ -137,11 +137,21 @@ public class MatrixIntTest {
 
 
     @Test
-    public void getMatrixMultiplicationByVector() {
+    public void getMatrixMultiplicationByVectorTest() {
         try {
             this.matrix.getMatrixMultiplicationByVector(new Vector(1));
         } catch (IllegalArgumentException e) {
             System.out.println("Умножение MatrixInt на вектор выдает верное исключение" + e);
+        }
+    }
+
+    @Test
+    public void getMatrixSumTest() {
+        try{
+            Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+            this.matrix.getMatrixSum(matrixSum);
+        }catch (IllegalArgumentException e){
+            System.out.println("Обработка исключения не правильного сложения матриц происходит верно-"+ System.lineSeparator() + e);
         }
     }
 }

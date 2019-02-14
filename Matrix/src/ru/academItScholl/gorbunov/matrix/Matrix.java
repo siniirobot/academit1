@@ -214,7 +214,7 @@ public class Matrix {
 
     public void getMatrixSum(Matrix matrix) {
         if (!Arrays.equals(getSize() , matrix.getSize())) {
-            throw new IllegalArgumentException("Сложение неквадратных матриц невозможно.");
+            throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
         }
         for (int i = 0; i < this.vectors.length; i++){
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
