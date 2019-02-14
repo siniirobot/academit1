@@ -154,5 +154,15 @@ public class MatrixIntTest {
             System.out.println("Обработка исключения не правильного сложения матриц происходит верно-"+ System.lineSeparator() + e);
         }
     }
+
+    @Test
+    public void getMatrixSubtractionTest() {
+        try{
+            Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+            this.matrix.getMatrixSubtraction(matrixSum);
+        }catch (IllegalArgumentException e){
+            System.out.println("Обработка исключения не правильного вычитания матриц происходит верно-"+ System.lineSeparator() + e);
+        }
+    }
 }
 

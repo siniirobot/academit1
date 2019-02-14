@@ -3,7 +3,6 @@ package ru.academItScholl.gorbunov.Tests.MatrixArray;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.testng.annotations.BeforeTest;
 import ru.academItScholl.gorbunov.matrix.Matrix;
 import ru.academItSchool.gorbunov.vector.Vector;
 
@@ -146,6 +145,16 @@ public class MatrixArrayTest {
         String expected = "{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}";
         assertEquals(expected, actual);
         System.out.println("Сложение с MatrixArray проходит верно");
+    }
+
+    @Test
+    public void getMatrixSubtractionTest() {
+        Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+        this.matrix.getMatrixSubtraction(matrixSum);
+        String actual = this.matrix.toString();
+        String expected = "{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Вычитание с MatrixArray проходит верно");
     }
 }
 

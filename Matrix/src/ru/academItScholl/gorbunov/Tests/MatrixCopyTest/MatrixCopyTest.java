@@ -125,4 +125,14 @@ public class MatrixCopyTest {
         assertEquals(expected, actual);
         System.out.println("Сложение с MatrixCopy проходит верно");
     }
+
+    @Test
+    public void getMatrixSubtractionTest() {
+        Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}});
+        this.matrix.getMatrixSubtraction(matrixSum);
+        String actual = this.matrix.toString();
+        String expected = "{{-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Вычитание с MatrixArray проходит верно");
+    }
 }

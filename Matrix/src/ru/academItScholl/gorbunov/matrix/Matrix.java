@@ -222,4 +222,15 @@ public class Matrix {
             }
         }
     }
+
+    public void getMatrixSubtraction(Matrix matrix) {
+        if (!Arrays.equals(getSize() , matrix.getSize())) {
+            throw new IllegalArgumentException("Вычитание матриц разной размерности невозможно.");
+        }
+        for (int i = 0; i < this.vectors.length; i++){
+            for (int j = 0; j < this.vectors[i].getSize(); j++) {
+                this.vectors[i].setVectorElementByIndex(j,this.vectors[i].getVectorElementByIndex(j) - matrix.getLineVector(i).getVectorElementByIndex(j));
+            }
+        }
+    }
 }

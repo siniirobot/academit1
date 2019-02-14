@@ -152,5 +152,22 @@ public class MatrixVectorTest {
         assertEquals(expected, actual);
         System.out.println("Сложение с MatrixVector проходит верно");
     }
+
+    @Test
+    public void getMatrixSubtractionTest() {
+        Matrix matrixSum = new Matrix(new double[][]{
+                {2, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        });
+        this.matrix.getMatrixSubtraction(matrixSum);
+        String actual = this.matrix.toString();
+        String expected = "{{-2.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}}";
+        assertEquals(expected, actual);
+        System.out.println("Вычитание с MatrixVector проходит верно");
+    }
 }
 
