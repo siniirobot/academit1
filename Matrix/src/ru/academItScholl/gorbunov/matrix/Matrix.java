@@ -233,4 +233,10 @@ public class Matrix {
             }
         }
     }
+
+    public static Matrix getStaticMatrixSum(Matrix matrix1, Matrix matrix2) {
+        Matrix sumMatrix = new Matrix(matrix1);
+        sumMatrix.getMatrixSum(matrix2);
+        return sumMatrix;
+    }
 }
