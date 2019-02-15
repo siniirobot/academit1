@@ -66,6 +66,11 @@ public class Matrix {
 
     }
 
+    /**
+     * Возвращает значение ширины матрицы.
+     *
+     * @return int
+     */
     public int getWidth() {
         int width = 0;
         for (Vector vec : vectors) {
@@ -77,19 +82,44 @@ public class Matrix {
 
     }
 
+    /**
+     * Возвращает значение длины матрицы.
+     *
+     * @return int
+     */
     public int getHeight() {
         return vectors.length;
     }
 
+    /**
+     * Возвращает значение размера матрицы.
+     *
+     * @return int []
+     */
     public int[] getSize() {
         return new int[]{getHeight(), getWidth()};
     }
 
+    /**
+     * Возвращает вектор из матрицы по индексу
+     *
+     * @param index int
+     * @return Vector
+     */
     public Vector getLineVector(int index) {
         return this.vectors[index];
     }
 
+    /**
+     * Заменяет существующий вектор по индексу, на новый.
+     *
+     * @param index  int
+     * @param vector Vector
+     */
     public void setLineVector(int index, Vector vector) {
+        if (index > this.vectors.length || index < 0) {
+            throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
+        }
         int oldWidth = getWidth();
         this.vectors[index] = vector;
         if (oldWidth < getWidth()) {
@@ -103,7 +133,16 @@ public class Matrix {
         }
     }
 
+    /**
+     * Возвращает вектор состоящий из значений выбранного столбца матрицы
+     *
+     * @param index int
+     * @return Vector
+     */
     public Vector getColumnVector(int index) {
+        if (index < 0 || index > getWidth()) {
+            throw new IllegalArgumentException("Значение индекса не может быть меньше нуля или больше ширины матрицы.");
+        }
         Vector columnVector = new Vector(this.vectors.length);
         for (int i = 0; i < this.vectors.length; i++) {
             columnVector.setVectorElementByIndex(i, this.vectors[i].getVectorElementByIndex(index));
@@ -111,6 +150,9 @@ public class Matrix {
         return columnVector;
     }
 
+    /**
+     * Транспонирование матрицы.
+     */
     public void transpositionMatrix() {
         Matrix copyMatrix = new Matrix(this.vectors);
         this.vectors = new Vector[copyMatrix.getWidth()];
@@ -125,7 +167,12 @@ public class Matrix {
         }
     }
 
-    public void getMatrixScalar(int scalar) {
+    /**
+     * Перемножает все значения матрицы на скаляр.
+     *
+     * @param scalar double
+     */
+    public void getMatrixScalar(double scalar) {
         if (scalar == 1) {
             System.out.println("Матрица останется неизменной");
             return;
@@ -137,6 +184,11 @@ public class Matrix {
         }
     }
 
+    /**
+     * Вычисляет Определитель.
+     *
+     * @return double
+     */
     public double getDeterminant() {
         if (getWidth() != getHeight()) {
             throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
@@ -178,6 +230,12 @@ public class Matrix {
         }
     }
 
+    /**
+     * Умножает матрицу на вектор.
+     *
+     * @param vector Vector
+     * @return Vector
+     */
     public Vector getMatrixMultiplicationByVector(Vector vector) {
         if (getWidth() != vector.getSize()) {
             throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
@@ -193,6 +251,11 @@ public class Matrix {
         return result;
     }
 
+    /**
+     * Складывает две матрицы.
+     *
+     * @param matrix Matrix
+     */
     public void getMatrixSum(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
@@ -204,6 +267,11 @@ public class Matrix {
         }
     }
 
+    /**
+     * Вычитает две матрицы.
+     *
+     * @param matrix Matrix
+     */
     public void getMatrixSubtraction(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Вычитание матриц разной размерности невозможно.");
@@ -215,18 +283,42 @@ public class Matrix {
         }
     }
 
+    /**
+     * Складывает две матрицы результат выводит в новую матрицу.
+     *
+     * @param matrix1 Matrix
+     * @param matrix2 Matrix
+     *
+     * @return Matrix
+     */
     public static Matrix getStaticMatrixSum(Matrix matrix1, Matrix matrix2) {
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.getMatrixSum(matrix2);
         return sumMatrix;
     }
 
+    /**
+     * Вычитает две матрицы результат выводит в новую матрицу.
+     *
+     * @param matrix1 Matrix
+     * @param matrix2 Matrix
+     *
+     * @return Matrix
+     */
     public static Matrix getStaticMatrixSubtraction(Matrix matrix1, Matrix matrix2) {
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.getMatrixSubtraction(matrix2);
         return subtractionMatrix;
     }
 
+    /**
+     * Умножает две матрицы результат выводит в новую матрицу.
+     *
+     * @param matrix1 Matrix
+     * @param matrix2 Matrix
+     *
+     * @return Matrix
+     */
     public static Matrix getStaticMatrixMultiplication(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getWidth() != matrix2.getHeight()) {
             throw new IllegalArgumentException("Умножение матриц разной размерности невозможно.");
