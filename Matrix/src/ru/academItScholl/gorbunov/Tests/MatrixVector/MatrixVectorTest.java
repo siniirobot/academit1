@@ -22,7 +22,7 @@ public class MatrixVectorTest {
     private Vector[] vectors;
 
     @Test
-    public void createMatrixIllegalArgumentExceptionHeightTest() {
+    public void CreateVectorMatrix_Vectors_Error() {
         vectors = new Vector[0];
         try {
             matrix = new Matrix(vectors);
@@ -33,13 +33,13 @@ public class MatrixVectorTest {
 
 
     @Before
-    public void setMatrix() {
+    public void SetMatrix_Vector_Matrix() {
         this.vectors = new Vector[]{this.vector0, this.vector1, this.vector2, this.vector3, this.vector4, this.vector5};
         this.matrix = new Matrix(vectors);
     }
 
     @Test
-    public void getWidthTest() {
+    public void GetWidth_Matrix_IntWidth() {
         System.out.println("MatrixVector возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 10;
@@ -47,7 +47,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getHeightTest() {
+    public void GetHeight_Matrix_IntHeight() {
         System.out.println("MatrixVector возврат высоты.");
         int actual = matrix.getHeight();
         int expected = 6;
@@ -55,7 +55,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getSizeTest() {
+    public void GetSize_Matrix_ArraySize() {
         System.out.println("MatrixVector возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
         int[] expected = new int[]{6, 10};
@@ -63,7 +63,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void toStringTest() {
+    public void ToString_Matrix_StringMatrix() {
         System.out.println("MatrixVector правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         String expected = matrix.toString();
@@ -71,7 +71,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getLineVectorTest() {
+    public void GetLineVector_Matrix_Vector() {
         System.out.println("MatrixVector правильно достает Vector");
         int index = 2;
         Vector actual = this.matrix.getLineVector(index);
@@ -80,7 +80,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void setLineVectorTest() {
+    public void SetLineVector_Matrix_Matrix() {
         int index = 0;
         Vector testVector = new Vector(11);
         this.matrix.setLineVector(index, testVector);
@@ -91,7 +91,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getColumnVector() {
+    public void GetColumn_Matrix_Vector() {
         int index = 0;
         Vector actual = this.matrix.getColumnVector(index);
         Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
@@ -100,7 +100,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void transpositionMatrix() {
+    public void TranspositionMatrix_Matrix_Matrix_Matrix_Matrix() {
         this.matrix.transpositionMatrix();
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
@@ -109,7 +109,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getMatrixScalarTest() {
+    public void GetMatrixScalar_Matrix_Matrix() {
         int scalar = 1;
         this.matrix.getMatrixScalar(scalar);
         String actual = this.matrix.toString();
@@ -119,7 +119,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getDeterminantTest() {
+    public void GetDeterminant_Matrix_Double() {
         try {
             this.matrix.getDeterminant();
         } catch (IllegalArgumentException e) {
@@ -128,16 +128,16 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getMatrixMultiplicationByVectorTest(){
-        Vector vector = new Vector(new double[]{1,2,3,4,5,6,7,8,9,10});
+    public void GetMatrixMultiplicationByVector_MatrixVector_Matrix() {
+        Vector vector = new Vector(new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
         Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
         Vector expected = new Vector(6);
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("Умножение MatrixVector на вектор вычисляется верно");
     }
 
     @Test
-    public void getMatrixSumTest() {
+    public void GetMatrixSum_Matrix_Matrix() {
         Matrix matrixSum = new Matrix(new double[][]{
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
@@ -154,7 +154,7 @@ public class MatrixVectorTest {
     }
 
     @Test
-    public void getMatrixSubtractionTest() {
+    public void GetMatrixSubtraction_Matrix_MatrixTest() {
         Matrix matrixSum = new Matrix(new double[][]{
                 {2, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},

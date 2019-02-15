@@ -15,7 +15,7 @@ public class MatrixArrayTest {
     private double[][] array;
 
     @Test
-    public void createMatrixIllegalArgumentExceptionHeightTest() {
+    public void CreateMatrix_IllegalArgumentExceptionHeight_Error() {
         array = new double[0][5];
         try {
             matrix = new Matrix(array);
@@ -25,7 +25,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void createMatrixIllegalArgumentExceptionWidthTest() {
+    public void CreateMatrix_IllegalArgumentExceptionWidth_Error() {
         array = new double[5][0];
         try {
             matrix = new Matrix(array);
@@ -35,13 +35,13 @@ public class MatrixArrayTest {
     }
 
     @Before
-    public void setMatrix() {
+    public void SetMatrix_Array_Matrix() {
         this.array = new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
         this.matrix = new Matrix(this.array);
     }
 
     @Test
-    public void getWidthTest() {
+    public void GetWidth_Matrix_Int() {
         System.out.println("MatrixArray возврат ширины.");
         int actual = matrix.getWidth();
         int expected = 3;
@@ -49,7 +49,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getHeightTest() {
+    public void GetHeight_Matrix_Int() {
         System.out.println("MatrixArray возврат высоты.");
         int actual = matrix.getHeight();
         int expected = 3;
@@ -57,7 +57,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getSizeTest() {
+    public void GetHeight_Matrix_ArrayInt() {
         System.out.println("MatrixArray возврат размера матрицы в массиве");
         int[] actual = matrix.getSize();
         int[] expected = new int[]{3, 3};
@@ -65,7 +65,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void toStringTest() {
+    public void ToStringTest_Matrix_String() {
         System.out.println("MatrixArray правильно возвращает toString" + System.lineSeparator() + matrix.toString());
         String actual = matrix.toString();
         String expected = "{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}";
@@ -73,7 +73,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getLineVectorTest() {
+    public void GetLineVector_Matrix_Vector() {
         System.out.println("MatrixArray правильно достает Vector");
         int index = 2;
         Vector actual = this.matrix.getLineVector(index);
@@ -82,7 +82,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void setLineVectorTest() {
+    public void SetLineVector_Matrix_Matrix() {
         int index = 0;
         Vector testVector = new Vector(11);
         this.matrix.setLineVector(index, testVector);
@@ -93,7 +93,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getColumnVector() {
+    public void GetColumnVector_Matrix_Vector() {
         int index = 0;
         Vector actual = this.matrix.getColumnVector(index);
         Vector expected = new Vector(new double[]{1.0, 1.0, 1.0});
@@ -102,7 +102,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void transpositionMatrix() {
+    public void TranspositionMatrix_Matrix_Matrix() {
         this.matrix.transpositionMatrix();
         String actual = this.matrix.toString();
         String expected = "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}";
@@ -111,7 +111,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getMatrixScalarTest() {
+    public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = -5;
         this.matrix.getMatrixScalar(scalar);
         String actual = this.matrix.toString();
@@ -121,7 +121,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getDeterminantTest() {
+    public void GetDeterminantTest_Matrix_Double() {
         double actual = this.matrix.getDeterminant();
         double expected = 0.0;
         assertEquals(expected, actual, 0.1e-10);
@@ -129,7 +129,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getMatrixMultiplicationByVectorTest() {
+    public void GetMatrixMultiplicationByVector_Matrix_Matrix() {
         Vector vector = new Vector(new double[]{1, 2, 3});
         Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
         Vector expected = new Vector(new double[]{14, 14, 14});
@@ -138,7 +138,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getMatrixSumTest() {
+    public void GetMatrixSumTest_Matrix_Matrix() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
         this.matrix.getMatrixSum(matrixSum);
         String actual = this.matrix.toString();
@@ -148,7 +148,7 @@ public class MatrixArrayTest {
     }
 
     @Test
-    public void getMatrixSubtractionTest() {
+    public void GetMatrixSubtraction_Matrix_MatrixTest() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
         this.matrix.getMatrixSubtraction(matrixSum);
         String actual = this.matrix.toString();

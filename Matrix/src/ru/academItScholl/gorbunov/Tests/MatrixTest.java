@@ -7,57 +7,87 @@ import ru.academItScholl.gorbunov.matrix.Matrix;
 import static org.junit.Assert.*;
 
 public class MatrixTest {
-    private Matrix matrix1 = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-    private Matrix matrix2 = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+    private Matrix matrixSquare = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+    private Matrix matrixSquare2 = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
+    private Matrix matrixNotSquare = new Matrix(new double[][]{{1, 2}, {1, 2}, {1, 2}});
+    private Matrix matrixNotSquare2 = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}});
 
     @Test
-    public void getMatrixStaticSumTest() {
-        String actual = Matrix.getStaticMatrixSum(this.matrix1, this.matrix2).toString();
-        String expected = new Matrix(new double[][]{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}).toString();
-        assertEquals(expected, actual);
-        System.out.println("Функция статической суммы работает нормально");
+    public void MatrixStaticSum_SquareMatrix_NewMatrix() {
+        try {
+            String actual = Matrix.getStaticMatrixSum(this.matrixSquare, this.matrixSquare2).toString();
+            String expected = new Matrix(new double[][]{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}).toString();
+            assertEquals(expected, actual);
+            System.out.println("Функция статической суммы работает нормально");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Функция статической суммы правильно обрабатывает исключения." + System.lineSeparator() + e);
+
+        }
+
     }
 
     @Test
-    public void getMatrixStaticSumErrorTest() {
+    public void MatrixStaticSum_NotSquareMatrix_Error() {
         try {
-            Matrix.getStaticMatrixSum(this.matrix1, new Matrix(5, 5));
+            Matrix.getStaticMatrixSum(this.matrixNotSquare, this.matrixNotSquare2);
         } catch (IllegalArgumentException e) {
-            System.out.println("Функция статической суммы правильно обрабатывает исключения.");
+            System.out.println("Функция статической суммы правильно обрабатывает исключения." + System.lineSeparator() + e);
         }
     }
 
     @Test
-    public void getMatrixStaticSubtractionTest() {
-        String actual = Matrix.getStaticMatrixSubtraction(this.matrix1, this.matrix2).toString();
-        String expected = new Matrix(new double[][]{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}).toString();
-        assertEquals(expected, actual);
-        System.out.println("Функция статического вычитания работает нормально");
+    public void MatrixStaticSubtraction_SquareMatrix_NewMatrix() {
+        try {
+            String actual = Matrix.getStaticMatrixSubtraction(this.matrixSquare, this.matrixSquare2).toString();
+            String expected = new Matrix(new double[][]{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}).toString();
+            assertEquals(expected, actual);
+            System.out.println("Функция статического вычитания работает нормально");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Функция статического вычитания правильно обрабатывает исключения." + System.lineSeparator() + e);
+        }
+
     }
 
     @Test
-    public void getMatrixStaticSubtractionErrorTest() {
+    public void MatrixStaticSubtraction_NotSquareMatrix_Error() {
         try {
-            Matrix.getStaticMatrixSubtraction(this.matrix1, new Matrix(5, 5));
+            Matrix.getStaticMatrixSubtraction(this.matrixNotSquare, this.matrixNotSquare2);
         } catch (IllegalArgumentException e) {
-            System.out.println("Функция статического вычитания правильно обрабатывает исключения.");
+            System.out.println("Функция статического вычитания правильно обрабатывает исключения." + System.lineSeparator() + e);
         }
     }
 
     @Test
-    public void getMatrixStaticMultiplicationTest() {
-        String actual = Matrix.getStaticMatrixMultiplication(this.matrix1, this.matrix2).toString();
-        String expected = new Matrix(new double[][]{{6.0, 12.0, 18.0}, {6.0, 12.0, 18.0}, {6.0, 12.0, 18.0}}).toString();
-        assertEquals(expected, actual);
-        System.out.println("Функция статического умножения работает нормально");
+    public void MatrixStaticMultiplication_SquareMatrix_NewMatrix() {
+        try {
+            String actual = Matrix.getStaticMatrixMultiplication(this.matrixSquare, this.matrixSquare2).toString();
+            String expected = new Matrix(new double[][]{{6.0, 12.0, 18.0}, {6.0, 12.0, 18.0}, {6.0, 12.0, 18.0}}).toString();
+            assertEquals(expected, actual);
+            System.out.println("Функция статического умножения работает нормально");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Функция статического умгожения правильно обрабатывает исключения." + System.lineSeparator() + e);
+        }
+
     }
 
     @Test
-    public void getMatrixStaticMultiplicationErrorsTes() {
+    public void MatrixStaticMultiplication_NotSquareMatrix_NewMatrix() {
         try {
-            Matrix.getStaticMatrixMultiplication(this.matrix1, new Matrix(5, 5));
+            String actual = Matrix.getStaticMatrixMultiplication(this.matrixNotSquare2, this.matrixNotSquare).toString();
+            String expected = new Matrix(new double[][]{{6.0, 12.0}, {6.0, 12.0}}).toString();
+            assertEquals(expected, actual);
+            System.out.println("Функция статического умножения работает нормально");
         } catch (IllegalArgumentException e) {
-            System.out.println("Функция статического умгожения правильно обрабатывает исключения.");
+            System.out.println("Функция статического умножения правильно обрабатывает исключения." + System.lineSeparator() + e);
+        }
+    }
+
+    @Test
+    public void MatrixStaticMultiplication_SquareAndNotSquareMatrix_Error() {
+        try {
+            Matrix.getStaticMatrixMultiplication(this.matrixSquare, this.matrixNotSquare2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Функция статического вычитания правильно обрабатывает исключения." + System.lineSeparator() + e);
         }
     }
 }

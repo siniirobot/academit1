@@ -288,7 +288,6 @@ public class Matrix {
      *
      * @param matrix1 Matrix
      * @param matrix2 Matrix
-     *
      * @return Matrix
      */
     public static Matrix getStaticMatrixSum(Matrix matrix1, Matrix matrix2) {
@@ -302,7 +301,6 @@ public class Matrix {
      *
      * @param matrix1 Matrix
      * @param matrix2 Matrix
-     *
      * @return Matrix
      */
     public static Matrix getStaticMatrixSubtraction(Matrix matrix1, Matrix matrix2) {
@@ -316,15 +314,14 @@ public class Matrix {
      *
      * @param matrix1 Matrix
      * @param matrix2 Matrix
-     *
      * @return Matrix
      */
     public static Matrix getStaticMatrixMultiplication(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getWidth() != matrix2.getHeight()) {
-            throw new IllegalArgumentException("Умножение матриц разной размерности невозможно.");
+            throw new IllegalArgumentException("Чтобы можно было умножить две матрицы, количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
         }
 
-        Matrix multiplicationMatrix = new Matrix(matrix1);
+        Matrix multiplicationMatrix = new Matrix(matrix1.getHeight(), matrix2.getWidth());
 
         if (matrix2.getWidth() == 1) {
             multiplicationMatrix.getMatrixMultiplicationByVector(matrix2.getColumnVector(0));
@@ -333,7 +330,7 @@ public class Matrix {
 
         for (int i = 0; i < multiplicationMatrix.getHeight(); i++) {
             Vector hashLine = matrix1.getLineVector(i);
-            for (int j = 0; j < hashLine.getSize(); j++) {
+            for (int j = 0; j < multiplicationMatrix.getWidth(); j++) {
                 double sum = 0;
                 Vector hashColumn = matrix2.getColumnVector(j);
                 for (int o = 0; o < hashColumn.getSize(); o++) {
