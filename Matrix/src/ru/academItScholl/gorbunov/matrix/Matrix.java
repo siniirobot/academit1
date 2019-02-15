@@ -3,7 +3,6 @@ package ru.academItScholl.gorbunov.matrix;
 import java.util.Arrays;
 
 
-
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
@@ -63,7 +62,7 @@ public class Matrix {
     public Matrix(Matrix matrix) {
         this.vectors = new Vector[matrix.getHeight()];
         for (int i = 0; i < matrix.getHeight(); i++) {
-            this.vectors[i] = matrix.getLineVector(i);
+            this.vectors[i] = new Vector(matrix.getLineVector(i));
         }
 
     }
@@ -245,23 +244,27 @@ public class Matrix {
         return subtractionMatrix;
     }
 
-    public static Matrix getStaticMatrixMultiplication(Matrix matrix1,Matrix matrix2) {
+    public static Matrix getStaticMatrixMultiplication(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.getWidth() != matrix2.getHeight()) {
+            throw new IllegalArgumentException("Умножение матриц разной размерности невозможно.");
+        }
+
         Matrix multiplicationMatrix = new Matrix(matrix1);
+
         if (matrix2.getWidth() == 1) {
-            if (matrix1.getWidth() != matrix2.getColumnVector(0).getSize()) {
-                throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины строк умножаемой матрицы");
-            }
             multiplicationMatrix.getMatrixMultiplicationByVector(matrix2.getColumnVector(0));
             return multiplicationMatrix;
         }
-        if (!Arrays.equals(matrix1.getSize(),matrix2.getSize())) {
-            throw new IllegalArgumentException("Умножение матриц разной размерности невозможно.");
-        }
-        for (int i = 0; i < multiplicationMatrix.getHeight(); i++) {
-            double sum = 0;
-            Vector hashVector = multiplicationMatrix.getLineVector(i);
-            for (int j = 0; j < hashVector.getSize(); j++) {
 
+        for (int i = 0; i < multiplicationMatrix.getHeight(); i++) {
+            Vector hashLine = matrix1.getLineVector(i);
+            for (int j = 0; j < hashLine.getSize(); j++) {
+                double sum = 0;
+                Vector hashColumn = matrix2.getColumnVector(j);
+                for (int o = 0; o < hashColumn.getSize(); o++) {
+                    sum += hashLine.getVectorElementByIndex(o) * hashColumn.getVectorElementByIndex(o);
+                }
+                multiplicationMatrix.getLineVector(i).setVectorElementByIndex(j, sum);
             }
         }
         return multiplicationMatrix;
