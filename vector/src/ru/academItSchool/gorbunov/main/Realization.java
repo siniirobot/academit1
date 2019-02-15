@@ -4,7 +4,7 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Realization {
     public static void main(String[] args) {
-        Vector vector1 = new Vector(10, new double[]{1,2,3,4,5});
+        Vector vector1 = new Vector(10, new double[]{1, 2, 3, 4, 5});
         System.out.println("Вектор 1 - " + vector1);
 
         Vector vector2 = new Vector(15, new double[]{1, 2, 3, 4, 5, 6, 7});
@@ -13,7 +13,7 @@ public class Realization {
         Vector vector3 = new Vector(vector1);
         System.out.println("Вектор 3 - " + vector3.toString());
 
-        Vector vector6 = new Vector(new double[]{1,2,3});
+        Vector vector6 = new Vector(new double[]{1, 2, 3});
         System.out.println("Вектор 4 - " + vector6.toString());
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
@@ -47,7 +47,7 @@ public class Realization {
         Vector vector4 = new Vector(5);
         System.out.println(vector4);
 
-        Vector vector5 = new Vector(new double[]{1,2,3,4,5,6,7,8,9,40});
+        Vector vector5 = new Vector(new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 40});
         System.out.println(vector5);
     }
 }

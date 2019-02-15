@@ -7,7 +7,6 @@ import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
 
-    final private double EPSILON = 0.1e-10;
     private Vector[] vectors;
 
     public Matrix(int width, int height) {
@@ -82,23 +81,6 @@ public class Matrix {
         return vectors.length;
     }
 
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{");
-        for (Vector vec : this.vectors) {
-            stringBuilder.append("{");
-            for (int i = 0; i < vec.getSize(); i++) {
-                stringBuilder.append(vec.getVectorElementByIndex(i)).append(", ");
-            }
-            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-            stringBuilder.append("}, ");
-        }
-        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-        return stringBuilder.append("}").toString();
-    }
-
     public int[] getSize() {
         return new int[]{getHeight(), getWidth()};
     }
@@ -171,9 +153,10 @@ public class Matrix {
                     - this.vectors[2].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[0].getVectorElementByIndex(0)
                     - this.vectors[2].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[0].getVectorElementByIndex(1);
         } else {
+            double epsilon = 0.1e-10;
             double determinant = 0;
             for (int i = 0; i < this.vectors.length; ++i) {
-                if (Math.abs(this.vectors[i].getVectorElementByIndex(0)) >= EPSILON) {
+                if (Math.abs(this.vectors[i].getVectorElementByIndex(0)) >= epsilon) {
                     Matrix smallerMatrix = new Matrix(this.vectors.length - 1, this.vectors.length - 1);
                     for (int j = 0, n = 0; j < this.vectors.length; ++j) {
                         if (j != i) {
@@ -268,5 +251,43 @@ public class Matrix {
             }
         }
         return multiplicationMatrix;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Matrix matrix = (Matrix) obj;
+        return Arrays.equals(matrix.vectors, ((Matrix) obj).vectors);
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(this.vectors);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{");
+        for (Vector vec : this.vectors) {
+            stringBuilder.append("{");
+            for (int i = 0; i < vec.getSize(); i++) {
+                stringBuilder.append(vec.getVectorElementByIndex(i)).append(", ");
+            }
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+            stringBuilder.append("}, ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.append("}").toString();
     }
 }

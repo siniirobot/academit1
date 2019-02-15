@@ -1,8 +1,6 @@
 package ru.academItScholl.gorbunov.Tests.MatrixInt;
 
 
-
-
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
@@ -73,7 +71,7 @@ public class MatrixIntTest {
 
     @Test
     public void toStringTest() {
-        String actual =matrix.toString();
+        String actual = matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
         System.out.println("MatrixInt правильно возвращает toString" + System.lineSeparator() + matrix.toString());
@@ -83,33 +81,33 @@ public class MatrixIntTest {
     public void getLineVectorTest() {
         int index = 2;
         Vector actual = this.matrix.getLineVector(index);
-        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0 });
-        assertEquals(expected,actual);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0});
+        assertEquals(expected, actual);
         System.out.println("MatrixInt правильно достает Vector");
     }
 
     @Test
-    public void setLineVectorTest(){
+    public void setLineVectorTest() {
         int index = 0;
         Vector testVector = new Vector(11);
-        this.matrix.setLineVector(index,testVector);
-        String actual =matrix.toString();
+        this.matrix.setLineVector(index, testVector);
+        String actual = matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
         System.out.println("Вставка нового вектора по индексу и реформация MatrixInt просходит правильно" + System.lineSeparator() + actual);
     }
 
     @Test
-    public void getColumnVector(){
+    public void getColumnVector() {
         int index = 0;
         Vector actual = this.matrix.getColumnVector(index);
-        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0 });
-        assertEquals(expected,actual);
+        Vector expected = new Vector(new double[]{0.0, 0.0, 0.0, 0.0, 0.0});
+        assertEquals(expected, actual);
         System.out.println("MatrixInt правильно достает columnVector");
     }
 
     @Test
-    public void transpositionMatrix(){
+    public void transpositionMatrix() {
         this.matrix.transpositionMatrix();
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
@@ -118,20 +116,20 @@ public class MatrixIntTest {
     }
 
     @Test
-    public void getMatrixScalarTest(){
+    public void getMatrixScalarTest() {
         int scalar = 1;
         this.matrix.getMatrixScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         System.out.println("MatrixInt умножена на скаляр правильно");
     }
 
     @Test
-    public void getDeterminantTest(){
+    public void getDeterminantTest() {
         double actual = this.matrix.getDeterminant();
         double expected = 0;
-        assertEquals(expected,actual,0.1e-10);
+        assertEquals(expected, actual, 0.1e-10);
         System.out.println("Детерминант MatrixInt вычисляется верно");
     }
 
@@ -147,21 +145,21 @@ public class MatrixIntTest {
 
     @Test
     public void getMatrixSumTest() {
-        try{
+        try {
             Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
             this.matrix.getMatrixSum(matrixSum);
-        }catch (IllegalArgumentException e){
-            System.out.println("Обработка исключения не правильного сложения матриц происходит верно-"+ System.lineSeparator() + e);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Обработка исключения не правильного сложения матриц происходит верно-" + System.lineSeparator() + e);
         }
     }
 
     @Test
     public void getMatrixSubtractionTest() {
-        try{
+        try {
             Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
             this.matrix.getMatrixSubtraction(matrixSum);
-        }catch (IllegalArgumentException e){
-            System.out.println("Обработка исключения не правильного вычитания матриц происходит верно-"+ System.lineSeparator() + e);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Обработка исключения не правильного вычитания матриц происходит верно-" + System.lineSeparator() + e);
         }
     }
 }

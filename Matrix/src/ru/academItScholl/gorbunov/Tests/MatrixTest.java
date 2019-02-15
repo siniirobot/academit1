@@ -55,7 +55,7 @@ public class MatrixTest {
     @Test
     public void getMatrixStaticMultiplicationErrorsTes() {
         try {
-            Matrix.getStaticMatrixMultiplication(this.matrix1,new Matrix(5,5));
+            Matrix.getStaticMatrixMultiplication(this.matrix1, new Matrix(5, 5));
         } catch (IllegalArgumentException e) {
             System.out.println("Функция статического умгожения правильно обрабатывает исключения.");
         }
