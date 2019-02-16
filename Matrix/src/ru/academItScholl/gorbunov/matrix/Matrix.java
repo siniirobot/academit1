@@ -53,7 +53,7 @@ public class Matrix {
         for (int i = 0; i < this.vectors.length; i++) {
             this.vectors[i] = new Vector(maxVectorsLength);
             for (int j = 0; j < vectors[i].getSize(); j++) {
-                this.vectors[i].setElementByIndex(j, vectors[i].getVectorElementByIndex(j));
+                this.vectors[i].setElementByIndex(j, vectors[i].getElementByIndex(j));
             }
         }
     }
@@ -127,7 +127,7 @@ public class Matrix {
                 Vector copyVector = this.vectors[i];
                 this.vectors[i] = new Vector(vector.getSize());
                 for (int j = 0; j < copyVector.getSize(); j++) {
-                    this.vectors[i].setElementByIndex(j, copyVector.getVectorElementByIndex(j));
+                    this.vectors[i].setElementByIndex(j, copyVector.getElementByIndex(j));
                 }
             }
         }
@@ -145,7 +145,7 @@ public class Matrix {
         }
         Vector columnVector = new Vector(this.vectors.length);
         for (int i = 0; i < this.vectors.length; i++) {
-            columnVector.setElementByIndex(i, this.vectors[i].getVectorElementByIndex(index));
+            columnVector.setElementByIndex(i, this.vectors[i].getElementByIndex(index));
         }
         return columnVector;
     }
@@ -162,7 +162,7 @@ public class Matrix {
         for (int j = 0; j < copyMatrix.getHeight(); j++) {
             Vector copyVector = copyMatrix.getLineVector(j);
             for (int k = 0; k < copyVector.getSize(); k++) {
-                this.vectors[k].setElementByIndex(j, copyVector.getVectorElementByIndex(k));
+                this.vectors[k].setElementByIndex(j, copyVector.getElementByIndex(k));
             }
         }
     }
@@ -179,7 +179,7 @@ public class Matrix {
         }
         for (Vector vec : this.vectors) {
             for (int i = 0; i < vec.getSize(); i++) {
-                vec.setElementByIndex(i, vec.getVectorElementByIndex(i) * scalar);
+                vec.setElementByIndex(i, vec.getElementByIndex(i) * scalar);
             }
         }
     }
@@ -194,35 +194,35 @@ public class Matrix {
             throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
         }
         if (this.vectors.length == 1) {
-            return this.vectors[0].getVectorElementByIndex(0);
+            return this.vectors[0].getElementByIndex(0);
         } else if (this.vectors.length == 2) {
-            return this.vectors[0].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) - this.vectors[0].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(0);
+            return this.vectors[0].getElementByIndex(0) * this.vectors[1].getElementByIndex(1) - this.vectors[0].getElementByIndex(1) * this.vectors[1].getElementByIndex(0);
         } else if (this.vectors.length == 3) {
-            return this.vectors[0].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) * this.vectors[2].getVectorElementByIndex(2)
-                    + this.vectors[0].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[2].getVectorElementByIndex(0)
-                    + this.vectors[0].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[2].getVectorElementByIndex(1)
-                    - this.vectors[2].getVectorElementByIndex(0) * this.vectors[1].getVectorElementByIndex(1) * this.vectors[0].getVectorElementByIndex(2)
-                    - this.vectors[2].getVectorElementByIndex(1) * this.vectors[1].getVectorElementByIndex(2) * this.vectors[0].getVectorElementByIndex(0)
-                    - this.vectors[2].getVectorElementByIndex(2) * this.vectors[1].getVectorElementByIndex(0) * this.vectors[0].getVectorElementByIndex(1);
+            return this.vectors[0].getElementByIndex(0) * this.vectors[1].getElementByIndex(1) * this.vectors[2].getElementByIndex(2)
+                    + this.vectors[0].getElementByIndex(1) * this.vectors[1].getElementByIndex(2) * this.vectors[2].getElementByIndex(0)
+                    + this.vectors[0].getElementByIndex(2) * this.vectors[1].getElementByIndex(0) * this.vectors[2].getElementByIndex(1)
+                    - this.vectors[2].getElementByIndex(0) * this.vectors[1].getElementByIndex(1) * this.vectors[0].getElementByIndex(2)
+                    - this.vectors[2].getElementByIndex(1) * this.vectors[1].getElementByIndex(2) * this.vectors[0].getElementByIndex(0)
+                    - this.vectors[2].getElementByIndex(2) * this.vectors[1].getElementByIndex(0) * this.vectors[0].getElementByIndex(1);
         } else {
             double epsilon = 0.1e-10;
             double determinant = 0;
             for (int i = 0; i < this.vectors.length; ++i) {
-                if (Math.abs(this.vectors[i].getVectorElementByIndex(0)) >= epsilon) {
+                if (Math.abs(this.vectors[i].getElementByIndex(0)) >= epsilon) {
                     Matrix smallerMatrix = new Matrix(this.vectors.length - 1, this.vectors.length - 1);
                     for (int j = 0, n = 0; j < this.vectors.length; ++j) {
                         if (j != i) {
                             for (int k = 1, m = 0; k < this.vectors.length; ++k) {
-                                smallerMatrix.getLineVector(n).setElementByIndex(m, this.vectors[j].getVectorElementByIndex(k));
+                                smallerMatrix.getLineVector(n).setElementByIndex(m, this.vectors[j].getElementByIndex(k));
                                 m++;
                             }
                             n++;
                         }
                     }
                     if (i % 2 == 0) {
-                        determinant += this.vectors[i].getVectorElementByIndex(0) * smallerMatrix.getDeterminant();
+                        determinant += this.vectors[i].getElementByIndex(0) * smallerMatrix.getDeterminant();
                     } else {
-                        determinant += (this.vectors[i].getVectorElementByIndex(0) * -1) * smallerMatrix.getDeterminant();
+                        determinant += (this.vectors[i].getElementByIndex(0) * -1) * smallerMatrix.getDeterminant();
                     }
                 }
             }
@@ -244,7 +244,7 @@ public class Matrix {
         for (int i = 0; i < this.vectors.length; i++) {
             double sum = 0;
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
-                sum += this.vectors[i].getVectorElementByIndex(j) * vector.getVectorElementByIndex(j);
+                sum += this.vectors[i].getElementByIndex(j) * vector.getElementByIndex(j);
             }
             result.setElementByIndex(i, sum);
         }
@@ -262,7 +262,7 @@ public class Matrix {
         }
         for (int i = 0; i < this.vectors.length; i++) {
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
-                this.vectors[i].setElementByIndex(j, this.vectors[i].getVectorElementByIndex(j) + matrix.getLineVector(i).getVectorElementByIndex(j));
+                this.vectors[i].setElementByIndex(j, this.vectors[i].getElementByIndex(j) + matrix.getLineVector(i).getElementByIndex(j));
             }
         }
     }
@@ -278,7 +278,7 @@ public class Matrix {
         }
         for (int i = 0; i < this.vectors.length; i++) {
             for (int j = 0; j < this.vectors[i].getSize(); j++) {
-                this.vectors[i].setElementByIndex(j, this.vectors[i].getVectorElementByIndex(j) - matrix.getLineVector(i).getVectorElementByIndex(j));
+                this.vectors[i].setElementByIndex(j, this.vectors[i].getElementByIndex(j) - matrix.getLineVector(i).getElementByIndex(j));
             }
         }
     }
@@ -334,7 +334,7 @@ public class Matrix {
                 double sum = 0;
                 Vector hashColumn = matrix2.getColumnVector(j);
                 for (int o = 0; o < hashColumn.getSize(); o++) {
-                    sum += hashLine.getVectorElementByIndex(o) * hashColumn.getVectorElementByIndex(o);
+                    sum += hashLine.getElementByIndex(o) * hashColumn.getElementByIndex(o);
                 }
                 multiplicationMatrix.getLineVector(i).setElementByIndex(j, sum);
             }
@@ -371,7 +371,7 @@ public class Matrix {
         for (Vector vec : this.vectors) {
             stringBuilder.append("{");
             for (int i = 0; i < vec.getSize(); i++) {
-                stringBuilder.append(vec.getVectorElementByIndex(i)).append(", ");
+                stringBuilder.append(vec.getElementByIndex(i)).append(", ");
             }
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
             stringBuilder.append("}, ");

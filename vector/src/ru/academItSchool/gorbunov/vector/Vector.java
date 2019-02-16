@@ -64,7 +64,7 @@ public class Vector {
         Scalar(-1);
     }
 
-    public double getVectorLength() {
+    public double getLength() {
         double vectorLength = 0;
         for (double e : this.components) {
             vectorLength += e * e;
@@ -72,7 +72,7 @@ public class Vector {
         return Math.sqrt(vectorLength);
     }
 
-    public double getVectorElementByIndex(int index) {
+    public double getElementByIndex(int index) {
         return this.components[index];
     }
 

@@ -31,9 +31,9 @@ public class Realization {
         System.out.println("Разворот вектора = " + vector1.toString());
         vector1.Turn();
 
-        System.out.println("Длина вектора равна = " + vector1.getVectorLength());
+        System.out.println("Длина вектора равна = " + vector1.getLength());
 
-        System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(0));
+        System.out.println("По заданому индексу стоит элемент - " + vector1.getElementByIndex(0));
 
         vector1.setElementByIndex(0, 25);
         System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
