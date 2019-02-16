@@ -18,18 +18,18 @@ public class Realization {
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
-        vector2.Sum(vector1);
+        vector2.sum(vector1);
         System.out.println("Сумма векторов равна = " + vector2.toString());
 
-        vector1.Subtraction(vector2);
+        vector1.subtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        vector1.Scalar(5);
+        vector1.scalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
 
-        vector1.Turn();
+        vector1.turn();
         System.out.println("Разворот вектора = " + vector1.toString());
-        vector1.Turn();
+        vector1.turn();
 
         System.out.println("Длина вектора равна = " + vector1.getLength());
 
