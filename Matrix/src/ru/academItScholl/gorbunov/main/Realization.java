@@ -1,26 +1,24 @@
 package ru.academItScholl.gorbunov.main;
 
-import ru.academItScholl.gorbunov.matrix.Matrix;
-import ru.academItSchool.gorbunov.vector.Vector;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import ru.academItScholl.gorbunov.Tests.MatrixArray.MatrixArrayTest;
+import ru.academItScholl.gorbunov.Tests.MatrixCopyTest.MatrixCopyTest;
+import ru.academItScholl.gorbunov.Tests.MatrixInt.MatrixIntTest;
+import ru.academItScholl.gorbunov.Tests.MatrixTestStaticFunc;
+import ru.academItScholl.gorbunov.Tests.MatrixVector.MatrixVectorTest;
+
+@RunWith(Suite.class)
+
+@Suite.SuiteClasses({
+        MatrixTestStaticFunc.class,
+        MatrixArrayTest.class,
+        MatrixCopyTest.class,
+        MatrixIntTest.class,
+        MatrixVectorTest.class
+})
 
 public class Realization {
-    public static void main(String[] args) {
-        Matrix matrix1 = new Matrix(5,5);
-        System.out.println(matrix1.toString());
-
-        Matrix matrix2 = new Matrix(new double[3][5]);
-        System.out.println(matrix2.toString());
-
-        Vector vector0 = new Vector(5,new double[]{1,2,3,4,5});
-        Vector vector1 = new Vector(5,new double[]{1,2,3,4,5});
-        Vector vector2 = new Vector(10,new double[]{1,2,3,4,5});
-        Vector vector3 = new Vector(5,new double[]{1,2,3,4,5});
-        Vector vector4 = new Vector(5,new double[]{1,2,3,4,5});
-
-        Matrix matrix3 = new Matrix(new Vector[]{vector0,vector1,vector2,vector3,vector4});
-        System.out.println(matrix3.toString());
-
-        Vector vector5 = matrix2.getLineVector(1);
-        System.out.println(vector5.toString());
-    }
 }
+
+
