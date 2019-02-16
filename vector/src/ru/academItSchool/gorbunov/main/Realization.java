@@ -18,8 +18,8 @@ public class Realization {
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
-        vector1.getVectorSum(vector2);
-        System.out.println("Сумма векторов равна = " + vector1.toString());
+        vector2.getVectorSum(vector1);
+        System.out.println("Сумма векторов равна = " + vector2.toString());
 
         vector1.getVectorSubtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());

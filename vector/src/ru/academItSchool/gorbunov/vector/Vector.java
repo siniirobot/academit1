@@ -3,68 +3,60 @@ package ru.academItSchool.gorbunov.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private double[] content;
+    private double[] components;
 
     public Vector(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.content = new double[n];
+        this.components = new double[n];
     }
 
     public Vector(Vector vector) {
-        this.content = Arrays.copyOf(vector.content, vector.content.length);
+        this.components = Arrays.copyOf(vector.components, vector.components.length);
     }
 
-    public Vector(double[] content) {
-        if (content.length <= 0) {
+    public Vector(double[] components) {
+        if (components.length <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.content = Arrays.copyOf(content, content.length);
+        this.components = Arrays.copyOf(components, components.length);
     }
 
-    public Vector(int n, double[] content) {
+    public Vector(int n, double[] components) {
         if (n <= 0) {
             throw new IllegalArgumentException("Меньше нуля вектор быть не может");
         }
-        this.content = Arrays.copyOf(content, n);
+        this.components = Arrays.copyOf(components, n);
     }
 
     public int getSize() {
-        return this.content.length;
+        return this.components.length;
     }
 
     public void getVectorSum(Vector vector) {
-        if (this.content.length >= vector.content.length) {
-            for (int i = 0; i < vector.content.length; ++i) {
-                this.content[i] += vector.content[i];
-            }
-        } else {
-            double[] copy = Arrays.copyOf(this.content, vector.content.length);
-            for (int i = 0; i < vector.content.length; ++i) {
-                copy[i] += vector.content[i];
-            }
-            this.content = copy;
+        int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
+        int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
+        double[] copy = Arrays.copyOf(this.components, longest);
+        for (int i = 0; i < shorter; i++) {
+            copy[i] += vector.components[i];
         }
+        this.components = copy;
     }
 
     public void getVectorSubtraction(Vector vector) {
-        if (this.content.length >= vector.content.length) {
-            for (int i = 0; i < vector.content.length; ++i) {
-                this.content[i] -= vector.content[i];
-            }
-        } else {
-            double[] copy = Arrays.copyOf(this.content, vector.content.length);
-            for (int i = 0; i < vector.content.length; ++i) {
-                copy[i] -= vector.content[i];
-            }
-            this.content = copy;
+        int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
+        int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
+        double[] copy = Arrays.copyOf(this.components, longest);
+        for (int i = 0; i < shorter; i++) {
+            copy[i] -= vector.components[i];
         }
+        this.components = copy;
     }
 
     public void getVectorScalar(int scalar) {
-        for (int i = 0; i < this.content.length; ++i) {
-            this.content[i] *= scalar;
+        for (int i = 0; i < this.components.length; ++i) {
+            this.components[i] *= scalar;
         }
     }
 
@@ -74,24 +66,24 @@ public class Vector {
 
     public double getVectorLength() {
         double vectorLength = 0;
-        for (double e : this.content) {
+        for (double e : this.components) {
             vectorLength += e * e;
         }
         return Math.sqrt(vectorLength);
     }
 
     public double getVectorElementByIndex(int index) {
-        return this.content[index];
+        return this.components[index];
     }
 
     public void setVectorElementByIndex(int index, double element) {
-        this.content[index] = element;
+        this.components[index] = element;
     }
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (double e : content) {
+        for (double e : components) {
             stringBuilder.append(e).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
@@ -107,14 +99,14 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        return Arrays.equals(this.content, vector.content);
+        return Arrays.equals(this.components, vector.components);
     }
 
     @Override
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(content);
+        result = prime * result + Arrays.hashCode(components);
         return result;
     }
 
@@ -132,9 +124,9 @@ public class Vector {
 
     public static double getScalar(Vector vector1, Vector vector2) {
         int result = 0;
-        int minLength = Math.min(vector1.content.length, vector2.content.length);
+        int minLength = Math.min(vector1.components.length, vector2.components.length);
         for (int i = 0; i < minLength; ++i) {
-            result += vector1.content[i] * vector2.content[i];
+            result += vector1.components[i] * vector2.components[i];
         }
         return result;
     }
