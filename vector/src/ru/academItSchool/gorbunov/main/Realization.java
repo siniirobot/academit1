@@ -18,24 +18,24 @@ public class Realization {
 
         System.out.println("Размерность вектора равна = " + vector1.getSize());
 
-        vector2.getVectorSum(vector1);
+        vector2.Sum(vector1);
         System.out.println("Сумма векторов равна = " + vector2.toString());
 
-        vector1.getVectorSubtraction(vector2);
+        vector1.Subtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        vector1.getVectorScalar(5);
+        vector1.Scalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
 
-        vector1.getVectorTurn();
+        vector1.Turn();
         System.out.println("Разворот вектора = " + vector1.toString());
-        vector1.getVectorTurn();
+        vector1.Turn();
 
         System.out.println("Длина вектора равна = " + vector1.getVectorLength());
 
         System.out.println("По заданому индексу стоит элемент - " + vector1.getVectorElementByIndex(0));
 
-        vector1.setVectorElementByIndex(0, 25);
+        vector1.setElementByIndex(0, 25);
         System.out.println("Теперь на указаном месте стоит указаное число - " + vector1.toString());
 
         System.out.println("Если сложить два массива то получится новый - " + Vector.getSum(vector1, vector2).toString());

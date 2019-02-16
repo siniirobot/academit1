@@ -34,7 +34,7 @@ public class Vector {
         return this.components.length;
     }
 
-    public void getVectorSum(Vector vector) {
+    public void Sum(Vector vector) {
         int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
         int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
         double[] copy = Arrays.copyOf(this.components, longest);
@@ -44,7 +44,7 @@ public class Vector {
         this.components = copy;
     }
 
-    public void getVectorSubtraction(Vector vector) {
+    public void Subtraction(Vector vector) {
         int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
         int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
         double[] copy = Arrays.copyOf(this.components, longest);
@@ -54,14 +54,14 @@ public class Vector {
         this.components = copy;
     }
 
-    public void getVectorScalar(int scalar) {
+    public void Scalar(int scalar) {
         for (int i = 0; i < this.components.length; ++i) {
             this.components[i] *= scalar;
         }
     }
 
-    public void getVectorTurn() {
-        getVectorScalar(-1);
+    public void Turn() {
+        Scalar(-1);
     }
 
     public double getVectorLength() {
@@ -76,7 +76,7 @@ public class Vector {
         return this.components[index];
     }
 
-    public void setVectorElementByIndex(int index, double element) {
+    public void setElementByIndex(int index, double element) {
         this.components[index] = element;
     }
 
@@ -112,13 +112,13 @@ public class Vector {
 
     public static Vector getSum(Vector vector1, Vector vector2) {
         Vector newVector = new Vector(vector1);
-        newVector.getVectorSum(vector2);
+        newVector.Sum(vector2);
         return newVector;
     }
 
     public static Vector getSubtraction(Vector vector1, Vector vector2) {
         Vector newVector = new Vector(vector1);
-        newVector.getVectorSubtraction(vector2);
+        newVector.Subtraction(vector2);
         return newVector;
     }
 
