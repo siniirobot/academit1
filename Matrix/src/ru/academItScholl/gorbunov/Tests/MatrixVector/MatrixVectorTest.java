@@ -1,52 +1,85 @@
 package ru.academItScholl.gorbunov.Tests.MatrixVector;
 
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.runners.*;
+import org.junit.Test;
+import org.junit.Assume;
+import org.testng.annotations.Parameters;
+import ru.academItScholl.gorbunov.Tests.MatrixTestStaticFunc;
+import ru.academItScholl.gorbunov.matrix.Matrix;
+import org.junit.runner.RunWith;
+import ru.academItSchool.gorbunov.vector.Vector;
 import org.junit.Before;
 import org.junit.Test;
 import ru.academItScholl.gorbunov.matrix.Matrix;
 import ru.academItSchool.gorbunov.vector.Vector;
 
-
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class MatrixVectorTest {
-    private Matrix matrix;
+    enum Type {
+        WIDTH, HEIGHT, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, SCALAR, DETERMINANTE,
+        VECTOR_MULTIPLICATION, GET_VECTOR_COLUMN, SUM, SUBTRACT
+    }
 
-    private Vector vector0 = new Vector(1);
-    private Vector vector1 = new Vector(2);
-    private Vector vector2 = new Vector(3);
-    private Vector vector3 = new Vector(4);
-    private Vector vector4 = new Vector(5);
-    private Vector vector5 = new Vector(10);
+    ;
+    private Type type;
+    private Matrix matrix1, matrix2, expectedMatrix;
+    private int index, expectedInt;
+    private int[] expectedIntArray;
+    private Vector vector, expectedVector;
 
-    private Vector[] vectors;
+    public MatrixVectorTest(Type type, Matrix matrix1, Matrix matrix2, Matrix expectedMatrix, int index,
+                            int expectedInt, int[] expectedIntArray, Vector vector, Vector expectedVector) {
+        this.type = type;
+        this.matrix1 = matrix1;
+        this.matrix2 = matrix2;
+        this.expectedMatrix = expectedMatrix;
+        this.index = index;
+        this.expectedInt = expectedInt;
+        this.expectedIntArray = expectedIntArray;
+        this.vector = vector;
+        this.expectedVector = expectedVector;
+    }
 
-    @Test
-    public void CreateVectorMatrix_Vectors_Error() {
-        vectors = new Vector[0];
-        try {
-            matrix = new Matrix(vectors);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Проверка MatrixVector на неверные данные в высоте матрицы" + e);
-        }
+    @Parameterized.Parameters
+    public static Collection dataSum() {
+        return Arrays.asList(new java.lang.Object[][]{
+                {
+                        Type.WIDTH,
+                        new Matrix(new Vector[]{new Vector(1),
+                                new Vector(2),
+                                new Vector(3),
+                                new Vector(4),
+                                new Vector(5),
+                                new Vector(10)}),
+                        null,
+                        null,
+                        null,
+                        10,
+                        null,
+                        null,
+                        null
+                }
+        });
     }
 
 
-    @Before
-    public void SetMatrix_Vector_Matrix() {
-        this.vectors = new Vector[]{this.vector0, this.vector1, this.vector2, this.vector3, this.vector4, this.vector5};
-        this.matrix = new Matrix(vectors);
-    }
 
     @Test
     public void GetWidth_Matrix_IntWidth() {
-        System.out.println("MatrixVector возврат ширины.");
-        int actual = matrix.getWidth();
-        int expected = 10;
-        assertEquals(expected, actual);
+        try {
+            Assume.assumeTrue(type == Type.WIDTH);
+            assertEquals(expectedInt,matrix1.getWidth() );
+        } catch (IllegalArgumentException e) {
+            System.out.println("getWidth - " + e);
+        }
     }
 
-    @Test
+   /* @Test
     public void GetHeight_Matrix_IntHeight() {
         System.out.println("MatrixVector возврат высоты.");
         int actual = matrix.getHeight();
@@ -101,7 +134,7 @@ public class MatrixVectorTest {
 
     @Test
     public void TranspositionMatrix_Matrix_Matrix_Matrix_Matrix() {
-        this.matrix.transpositionMatrix();
+        this.matrix.transposition();
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -111,7 +144,7 @@ public class MatrixVectorTest {
     @Test
     public void GetMatrixScalar_Matrix_Matrix() {
         int scalar = 1;
-        this.matrix.getMatrixScalar(scalar);
+        this.matrix.Scalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -130,7 +163,7 @@ public class MatrixVectorTest {
     @Test
     public void GetMatrixMultiplicationByVector_MatrixVector_Matrix() {
         Vector vector = new Vector(new double[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
-        Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
+        Vector actual = this.matrix.getMultiplicationByVector(vector);
         Vector expected = new Vector(6);
         assertEquals(expected, actual);
         System.out.println("Умножение MatrixVector на вектор вычисляется верно");
@@ -146,7 +179,7 @@ public class MatrixVectorTest {
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
         });
-        this.matrix.getMatrixSum(matrixSum);
+        this.matrix.Sum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}}";
         assertEquals(expected, actual);
@@ -163,11 +196,11 @@ public class MatrixVectorTest {
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
         });
-        this.matrix.getMatrixSubtraction(matrixSum);
+        this.matrix.Subtraction(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{-2.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}}";
         assertEquals(expected, actual);
         System.out.println("Вычитание с MatrixVector проходит верно");
-    }
+    }*/
 }
 

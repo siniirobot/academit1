@@ -153,7 +153,7 @@ public class Matrix {
     /**
      * Транспонирование матрицы.
      */
-    public void transpositionMatrix() {
+    public void transposition() {
         Matrix copyMatrix = new Matrix(this.vectors);
         this.vectors = new Vector[copyMatrix.getWidth()];
         for (int i = 0; i < this.vectors.length; i++) {
@@ -172,7 +172,7 @@ public class Matrix {
      *
      * @param scalar double
      */
-    public void getMatrixScalar(double scalar) {
+    public void Scalar(double scalar) {
         if (scalar == 1) {
             System.out.println("Матрица останется неизменной");
             return;
@@ -236,7 +236,7 @@ public class Matrix {
      * @param vector Vector
      * @return Vector
      */
-    public Vector getMatrixMultiplicationByVector(Vector vector) {
+    public Vector getMultiplicationByVector(Vector vector) {
         if (getWidth() != vector.getSize()) {
             throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
         }
@@ -256,7 +256,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    public void getMatrixSum(Matrix matrix) {
+    public void Sum(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
         }
@@ -272,7 +272,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    public void getMatrixSubtraction(Matrix matrix) {
+    public void Subtraction(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Вычитание матриц разной размерности невозможно.");
         }
@@ -290,9 +290,9 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticMatrixSum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getStaticSum(Matrix matrix1, Matrix matrix2) {
         Matrix sumMatrix = new Matrix(matrix1);
-        sumMatrix.getMatrixSum(matrix2);
+        sumMatrix.Sum(matrix2);
         return sumMatrix;
     }
 
@@ -303,9 +303,9 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticMatrixSubtraction(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getStaticSubtraction(Matrix matrix1, Matrix matrix2) {
         Matrix subtractionMatrix = new Matrix(matrix1);
-        subtractionMatrix.getMatrixSubtraction(matrix2);
+        subtractionMatrix.Subtraction(matrix2);
         return subtractionMatrix;
     }
 
@@ -316,7 +316,7 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticMatrixMultiplication(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getStaticMultiplication(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getWidth() != matrix2.getHeight()) {
             throw new IllegalArgumentException("Чтобы можно было умножить две матрицы, количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
         }
@@ -324,7 +324,7 @@ public class Matrix {
         Matrix multiplicationMatrix = new Matrix(matrix1.getHeight(), matrix2.getWidth());
 
         if (matrix2.getWidth() == 1) {
-            multiplicationMatrix.getMatrixMultiplicationByVector(matrix2.getColumnVector(0));
+            multiplicationMatrix.getMultiplicationByVector(matrix2.getColumnVector(0));
             return multiplicationMatrix;
         }
 
@@ -360,8 +360,7 @@ public class Matrix {
     public int hashCode() {
         int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(this.vectors);
-        return result;
+        return prime * result + Arrays.hashCode(this.vectors);
     }
 
     @Override

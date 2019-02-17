@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.junit.runners.*;
 import org.junit.Test;
-import org.testng.annotations.Parameters;
 import org.junit.Assume;
 import ru.academItScholl.gorbunov.matrix.Matrix;
 import org.junit.runner.RunWith;
@@ -16,8 +15,6 @@ import static org.junit.Assert.*;
 public class MatrixTestStaticFunc {
 
     enum Type {SUM, SUBTRACT, MULTIPLICATION}
-
-    ;
 
     @Parameterized.Parameters
     public static Collection dataSum() {
@@ -81,9 +78,9 @@ public class MatrixTestStaticFunc {
     public void StaticSum_Matrix_NewMatrix() {
         try {
             Assume.assumeTrue(type == Type.SUM);
-                assertEquals(expected.toString(), Matrix.getStaticMatrixSum(matrix1, matrix2).toString());
+                assertEquals(expected.toString(), Matrix.getStaticSum(matrix1, matrix2).toString());
         } catch (IllegalArgumentException e) {
-            System.out.println("StaticSum - " + e);
+            System.out.println("getStaticSum - " + e);
         }
     }
 
@@ -91,7 +88,7 @@ public class MatrixTestStaticFunc {
     public void StaticSubtraction_Matrix_NewMatrix() {
         try {
             Assume.assumeTrue(type == Type.SUBTRACT);
-            assertEquals(expected.toString(), Matrix.getStaticMatrixSubtraction(matrix1, matrix2).toString());
+            assertEquals(expected.toString(), Matrix.getStaticSubtraction(matrix1, matrix2).toString());
         } catch (IllegalArgumentException e) {
             System.out.println("StaticSubtraction - " + e);
         }
@@ -101,7 +98,7 @@ public class MatrixTestStaticFunc {
     public void StaticMultiplication() {
         try {
             Assume.assumeTrue(type == Type.MULTIPLICATION);
-            assertEquals(expected.toString(), Matrix.getStaticMatrixMultiplication(matrix1, matrix2).toString());
+            assertEquals(expected.toString(), Matrix.getStaticMultiplication(matrix1, matrix2).toString());
         } catch (IllegalArgumentException e) {
             System.out.println("StaticMultiplication - " + e);
         }

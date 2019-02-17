@@ -82,7 +82,7 @@ public class MatrixCopyTest {
 
     @Test
     public void TranspositionMatrix_Matrix_Matrix() {
-        this.matrix.transpositionMatrix();
+        this.matrix.transposition();
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -92,7 +92,7 @@ public class MatrixCopyTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = 1;
-        this.matrix.getMatrixScalar(scalar);
+        this.matrix.Scalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -110,7 +110,7 @@ public class MatrixCopyTest {
     @Test
     public void GetMatrixMultiplicationByVector_Matrix_Matrix() {
         try {
-            this.matrix.getMatrixMultiplicationByVector(new Vector(1));
+            this.matrix.getMultiplicationByVector(new Vector(1));
         } catch (IllegalArgumentException e) {
             System.out.println("Умножение MatrixCopy на вектор выдает верное исключение" + e);
         }
@@ -119,7 +119,7 @@ public class MatrixCopyTest {
     @Test
     public void GetMatrixSumTest_Matrix_Matrix() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}});
-        this.matrix.getMatrixSum(matrixSum);
+        this.matrix.Sum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{1.0, 2.0, 3.0, 4.0, 5.0}, {1.0, 2.0, 3.0, 4.0, 5.0}, {1.0, 2.0, 3.0, 4.0, 5.0}, {1.0, 2.0, 3.0, 4.0, 5.0}, {1.0, 2.0, 3.0, 4.0, 5.0}}";
         assertEquals(expected, actual);
@@ -129,7 +129,7 @@ public class MatrixCopyTest {
     @Test
     public void GetMatrixSubtraction_Matrix_MatrixTest() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}});
-        this.matrix.getMatrixSubtraction(matrixSum);
+        this.matrix.Subtraction(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}, {-1.0, -2.0, -3.0, -4.0, -5.0}}";
         assertEquals(expected, actual);

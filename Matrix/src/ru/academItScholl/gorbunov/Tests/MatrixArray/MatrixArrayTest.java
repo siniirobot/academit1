@@ -103,7 +103,7 @@ public class MatrixArrayTest {
 
     @Test
     public void TranspositionMatrix_Matrix_Matrix() {
-        this.matrix.transpositionMatrix();
+        this.matrix.transposition();
         String actual = this.matrix.toString();
         String expected = "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}";
         assertEquals(expected, actual);
@@ -113,7 +113,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = -5;
-        this.matrix.getMatrixScalar(scalar);
+        this.matrix.Scalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
         assertEquals(expected, actual);
@@ -131,7 +131,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixMultiplicationByVector_Matrix_Matrix() {
         Vector vector = new Vector(new double[]{1, 2, 3});
-        Vector actual = this.matrix.getMatrixMultiplicationByVector(vector);
+        Vector actual = this.matrix.getMultiplicationByVector(vector);
         Vector expected = new Vector(new double[]{14, 14, 14});
         assertEquals(expected, actual);
         System.out.println("Умножение MatrixArray на вектор вычисляется верно");
@@ -140,7 +140,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixSumTest_Matrix_Matrix() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-        this.matrix.getMatrixSum(matrixSum);
+        this.matrix.Sum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}";
         assertEquals(expected, actual);
@@ -150,7 +150,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixSubtraction_Matrix_MatrixTest() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-        this.matrix.getMatrixSubtraction(matrixSum);
+        this.matrix.Subtraction(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
