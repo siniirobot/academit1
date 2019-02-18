@@ -127,7 +127,7 @@ public class Vector {
         return newVector;
     }
 
-    public static double getScalar(Vector vector1, Vector vector2) {
+    public static double getStaticScalarMultiplication(Vector vector1, Vector vector2) {
         int result = 0;
         int minLength = Math.min(vector1.components.length, vector2.components.length);
         for (int i = 0; i < minLength; ++i) {

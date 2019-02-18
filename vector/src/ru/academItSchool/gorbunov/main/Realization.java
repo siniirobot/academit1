@@ -42,7 +42,7 @@ public class Realization {
 
         System.out.println("Если вычесть два массива то получится новый - " + Vector.getSubtraction(vector1, vector2).toString());
 
-        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getScalar(vector1, vector2));
+        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getStaticScalarMultiplication(vector1, vector2));
 
         Vector vector4 = new Vector(5);
         System.out.println(vector4);
