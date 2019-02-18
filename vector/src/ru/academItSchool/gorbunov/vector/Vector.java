@@ -56,14 +56,14 @@ public class Vector {
         }
     }
 
-    public void multiplicationByScalar(int scalar) {
+    public void scalarMultiplication(int scalar) {
         for (int i = 0; i < this.components.length; ++i) {
             this.components[i] *= scalar;
         }
     }
 
     public void turn() {
-        multiplicationByScalar(-1);
+        scalarMultiplication(-1);
     }
 
     public double getLength() {
@@ -121,7 +121,7 @@ public class Vector {
         return newVector;
     }
 
-    public static double getStaticScalarMultiplication(Vector vector1, Vector vector2) {
+    public static double getScalarMultiplication(Vector vector1, Vector vector2) {
         int result = 0;
         int minLength = Math.min(vector1.components.length, vector2.components.length);
         for (int i = 0; i < minLength; ++i) {
