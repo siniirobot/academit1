@@ -35,35 +35,41 @@ public class Vector {
     }
 
     public void sum(Vector vector) {
-        int minVector = minVector(vector);
-        for (int i = 0; i < minVector; i++) {
+        int shortestVector = this.components.length;
+        if (shortestVector != vector.components.length) {
+            shortestVector = getShortestVector(vector);
+        }
+        for (int i = 0; i < shortestVector; i++) {
             this.components[i] += vector.components[i];
         }
     }
 
-    private int minVector(Vector vector) {
-        int minVector = Math.min(this.components.length,vector.components.length);
+    private int getShortestVector(Vector vector) {
+        int minVector = Math.min(this.components.length, vector.components.length);
         if (this.components.length == minVector) {
-            this.components = Arrays.copyOf(this.components,vector.components.length);
+            this.components = Arrays.copyOf(this.components, vector.components.length);
         }
         return minVector;
     }
 
     public void subtraction(Vector vector) {
-        int minVector = minVector(vector);
-        for (int i = 0; i < minVector; i++) {
+        int shortestVector = this.components.length;
+        if (shortestVector != vector.components.length) {
+            shortestVector = getShortestVector(vector);
+        }
+        for (int i = 0; i < shortestVector; i++) {
             this.components[i] -= vector.components[i];
         }
     }
 
-    public void getMultiplicationByScalar(int scalar) {
+    public void multiplicationByScalar(int scalar) {
         for (int i = 0; i < this.components.length; ++i) {
             this.components[i] *= scalar;
         }
     }
 
     public void turn() {
-        getMultiplicationByScalar(-1);
+        multiplicationByScalar(-1);
     }
 
     public double getLength() {
@@ -106,7 +112,7 @@ public class Vector {
 
     @Override
     public int hashCode() {
-        return 31 + Arrays.hashCode(components);
+        return Arrays.hashCode(components);
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {

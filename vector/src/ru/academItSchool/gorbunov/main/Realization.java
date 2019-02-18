@@ -24,7 +24,7 @@ public class Realization {
         vector1.subtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        vector1.getMultiplicationByScalar(5);
+        vector1.multiplicationByScalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
 
         vector1.turn();
