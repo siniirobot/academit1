@@ -18,7 +18,7 @@ public class MatrixTestStaticFunc {
 
     @Parameterized.Parameters
     public static Collection dataSum() {
-        return Arrays.asList(new java.lang.Object[][]{
+        return Arrays.asList(new Object[][]{
                 {
                         Type.SUM,
                         new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}}),

@@ -172,7 +172,7 @@ public class Matrix {
      *
      * @param scalar double
      */
-    public void Scalar(double scalar) {
+    public void getMultiplicationByScalar(double scalar) {
         if (scalar == 1) {
             System.out.println("Матрица останется неизменной");
             return;
@@ -256,7 +256,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    public void Sum(Matrix matrix) {
+    public void sum(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
         }
@@ -272,7 +272,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    public void Subtraction(Matrix matrix) {
+    public void subtraction(Matrix matrix) {
         if (!Arrays.equals(getSize(), matrix.getSize())) {
             throw new IllegalArgumentException("Вычитание матриц разной размерности невозможно.");
         }
@@ -292,7 +292,7 @@ public class Matrix {
      */
     public static Matrix getStaticSum(Matrix matrix1, Matrix matrix2) {
         Matrix sumMatrix = new Matrix(matrix1);
-        sumMatrix.Sum(matrix2);
+        sumMatrix.sum(matrix2);
         return sumMatrix;
     }
 
@@ -305,7 +305,7 @@ public class Matrix {
      */
     public static Matrix getStaticSubtraction(Matrix matrix1, Matrix matrix2) {
         Matrix subtractionMatrix = new Matrix(matrix1);
-        subtractionMatrix.Subtraction(matrix2);
+        subtractionMatrix.subtraction(matrix2);
         return subtractionMatrix;
     }
 
@@ -358,9 +358,7 @@ public class Matrix {
 
     @Override
     public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        return prime * result + Arrays.hashCode(this.vectors);
+        return 31 + Arrays.hashCode(this.vectors);
     }
 
     @Override

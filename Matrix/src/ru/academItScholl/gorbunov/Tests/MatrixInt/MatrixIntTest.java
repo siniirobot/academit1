@@ -118,7 +118,7 @@ public class MatrixIntTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = 1;
-        this.matrix.Scalar(scalar);
+        this.matrix.getMultiplicationByScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -147,7 +147,7 @@ public class MatrixIntTest {
     public void GetMatrixSumTest_Matrix_Matrix() {
         try {
             Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-            this.matrix.Sum(matrixSum);
+            this.matrix.sum(matrixSum);
         } catch (IllegalArgumentException e) {
             System.out.println("Обработка исключения не правильного сложения матриц происходит верно-" + System.lineSeparator() + e);
         }
@@ -157,7 +157,7 @@ public class MatrixIntTest {
     public void GetMatrixSubtraction_Matrix_MatrixTest() {
         try {
             Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-            this.matrix.Subtraction(matrixSum);
+            this.matrix.subtraction(matrixSum);
         } catch (IllegalArgumentException e) {
             System.out.println("Обработка исключения не правильного вычитания матриц происходит верно-" + System.lineSeparator() + e);
         }

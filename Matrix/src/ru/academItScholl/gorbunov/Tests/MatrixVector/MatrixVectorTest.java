@@ -21,33 +21,25 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class MatrixVectorTest {
     enum Type {
-        WIDTH, HEIGHT, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, SCALAR, DETERMINANTE,
+        WIDTH, HEIGHT,SIZE, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, SCALAR, DETERMINANTE,
         VECTOR_MULTIPLICATION, GET_VECTOR_COLUMN, SUM, SUBTRACT
     }
 
     ;
     private Type type;
-    private Matrix matrix1, matrix2, expectedMatrix;
-    private int index, expectedInt;
-    private int[] expectedIntArray;
-    private Vector vector, expectedVector;
+    private Matrix matrix1, matrix2;
+    private String expectedMatrix;
 
-    public MatrixVectorTest(Type type, Matrix matrix1, Matrix matrix2, Matrix expectedMatrix, int index,
-                            int expectedInt, int[] expectedIntArray, Vector vector, Vector expectedVector) {
+    public MatrixVectorTest(Type type, Matrix matrix1, Matrix matrix2, String expectedMatrix) {
         this.type = type;
         this.matrix1 = matrix1;
         this.matrix2 = matrix2;
         this.expectedMatrix = expectedMatrix;
-        this.index = index;
-        this.expectedInt = expectedInt;
-        this.expectedIntArray = expectedIntArray;
-        this.vector = vector;
-        this.expectedVector = expectedVector;
     }
 
     @Parameterized.Parameters
     public static Collection dataSum() {
-        return Arrays.asList(new java.lang.Object[][]{
+        return Arrays.asList(new Object[][]{
                 {
                         Type.WIDTH,
                         new Matrix(new Vector[]{new Vector(1),
@@ -56,14 +48,25 @@ public class MatrixVectorTest {
                                 new Vector(4),
                                 new Vector(5),
                                 new Vector(10)}),
-                        null,
-                        null,
-                        null,
-                        10,
-                        null,
-                        null,
-                        null
-                }
+                        new Matrix(1,1),
+                        "10"
+                },
+                {
+                        Type.HEIGHT,
+                        new Matrix(new Vector[]{new Vector(1)}),
+                        new Matrix(1,1),
+                        "1"
+                },
+                {
+                        Type.SIZE,
+                        new Matrix(new Vector[]{new Vector(1),
+                                new Vector(7),
+                                new Vector(7),
+                                new Vector(7),
+                                new Vector(7)}),
+                        new Matrix(1,1),
+                        "[5, 7]"
+                },
         });
     }
 
@@ -73,12 +76,31 @@ public class MatrixVectorTest {
     public void GetWidth_Matrix_IntWidth() {
         try {
             Assume.assumeTrue(type == Type.WIDTH);
-            assertEquals(expectedInt,matrix1.getWidth() );
+            assertEquals(expectedMatrix,(Integer.toString(matrix1.getWidth())) );
         } catch (IllegalArgumentException e) {
             System.out.println("getWidth - " + e);
         }
     }
 
+    @Test
+    public void GetHeight_Matrix_IntHeight() {
+        try {
+            Assume.assumeTrue(type == Type.HEIGHT);
+            assertEquals(expectedMatrix,(Integer.toString(matrix1.getHeight())) );
+        } catch (IllegalArgumentException e) {
+            System.out.println("getWidth - " + e);
+        }
+    }
+
+    @Test
+    public void GetSize_Matrix_ArraySize() {
+        try {
+            Assume.assumeTrue(type == Type.SIZE);
+            assertEquals(expectedMatrix,Arrays.toString(matrix1.getSize()));
+        } catch (IllegalArgumentException e) {
+            System.out.println("getWidth - " + e);
+        }
+    }
    /* @Test
     public void GetHeight_Matrix_IntHeight() {
         System.out.println("MatrixVector возврат высоты.");
@@ -144,7 +166,7 @@ public class MatrixVectorTest {
     @Test
     public void GetMatrixScalar_Matrix_Matrix() {
         int getMultiplicationByScalar = 1;
-        this.matrix.Scalar(getMultiplicationByScalar);
+        this.matrix.getMultiplicationByScalar(getMultiplicationByScalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
@@ -179,7 +201,7 @@ public class MatrixVectorTest {
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
         });
-        this.matrix.Sum(matrixSum);
+        this.matrix.sum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0}}";
         assertEquals(expected, actual);
@@ -196,7 +218,7 @@ public class MatrixVectorTest {
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
                 {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
         });
-        this.matrix.Subtraction(matrixSum);
+        this.matrix.subtraction(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{-2.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}, {-1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0}}";
         assertEquals(expected, actual);

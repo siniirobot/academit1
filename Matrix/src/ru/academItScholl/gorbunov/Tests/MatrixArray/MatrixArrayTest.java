@@ -113,7 +113,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = -5;
-        this.matrix.Scalar(scalar);
+        this.matrix.getMultiplicationByScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
         assertEquals(expected, actual);
@@ -140,7 +140,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixSumTest_Matrix_Matrix() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-        this.matrix.Sum(matrixSum);
+        this.matrix.sum(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}, {2.0, 4.0, 6.0}}";
         assertEquals(expected, actual);
@@ -150,7 +150,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixSubtraction_Matrix_MatrixTest() {
         Matrix matrixSum = new Matrix(new double[][]{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
-        this.matrix.Subtraction(matrixSum);
+        this.matrix.subtraction(matrixSum);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
