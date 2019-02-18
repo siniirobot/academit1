@@ -7,7 +7,7 @@ public class Realization {
         Vector vector1 = new Vector(10, new double[]{1, 2, 3, 4, 5});
         System.out.println("Вектор 1 - " + vector1);
 
-        Vector vector2 = new Vector(15, new double[]{1, 2, 3, 4, 5, 6, 7});
+        Vector vector2 = new Vector(12, new double[]{1, 2, 3, 4, 5, 6, 7});
         System.out.println("Вектор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
