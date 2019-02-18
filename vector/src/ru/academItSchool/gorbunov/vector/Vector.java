@@ -35,41 +35,43 @@ public class Vector {
     }
 
     public void sum(Vector vector) {
-        int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
-        int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
-        double[] copy = Arrays.copyOf(this.components, longest);
-        for (int i = 0; i < shorter; i++) {
-            copy[i] += vector.components[i];
+        int minVector = minVector(vector);
+        for (int i = 0; i < minVector; i++) {
+            this.components[i] += vector.components[i];
         }
-        this.components = copy;
+    }
+
+    private int minVector(Vector vector) {
+        int minVector = Math.min(this.components.length,vector.components.length);
+        if (this.components.length == minVector) {
+            this.components = Arrays.copyOf(this.components,vector.components.length);
+        }
+        return minVector;
     }
 
     public void subtraction(Vector vector) {
-        int longest = this.components.length > vector.components.length ? this.components.length : vector.components.length;
-        int shorter = this.components.length < vector.components.length ? this.components.length : vector.components.length;
-        double[] copy = Arrays.copyOf(this.components, longest);
-        for (int i = 0; i < shorter; i++) {
-            copy[i] -= vector.components[i];
+        int minVector = minVector(vector);
+        for (int i = 0; i < minVector; i++) {
+            this.components[i] -= vector.components[i];
         }
-        this.components = copy;
     }
 
-    public void scalar(int scalar) {
+    public void getMultiplicationByScalar(int scalar) {
         for (int i = 0; i < this.components.length; ++i) {
             this.components[i] *= scalar;
         }
     }
 
     public void turn() {
-        scalar(-1);
+        getMultiplicationByScalar(-1);
     }
 
     public double getLength() {
-        double vectorLength = 0;
+        double vectorModule = 0;
         for (double e : this.components) {
-            vectorLength += e * e;
+            vectorModule += e * e;
         }
-        return Math.sqrt(vectorLength);
+        return Math.sqrt(vectorModule);
     }
 
     public double getElementByIndex(int index) {
@@ -104,9 +106,7 @@ public class Vector {
 
     @Override
     public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        return prime * result + Arrays.hashCode(components);
+        return 31 + Arrays.hashCode(components);
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {

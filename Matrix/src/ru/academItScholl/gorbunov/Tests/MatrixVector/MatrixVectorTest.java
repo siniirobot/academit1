@@ -143,8 +143,8 @@ public class MatrixVectorTest {
 
     @Test
     public void GetMatrixScalar_Matrix_Matrix() {
-        int scalar = 1;
-        this.matrix.Scalar(scalar);
+        int getMultiplicationByScalar = 1;
+        this.matrix.Scalar(getMultiplicationByScalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
