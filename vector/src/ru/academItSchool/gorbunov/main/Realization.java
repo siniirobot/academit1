@@ -7,7 +7,7 @@ public class Realization {
         Vector vector1 = new Vector(10, new double[]{1, 2, 3, 4, 5});
         System.out.println("Вектор 1 - " + vector1);
 
-        Vector vector2 = new Vector(15, new double[]{1, 2, 3, 4, 5, 6, 7});
+        Vector vector2 = new Vector(12, new double[]{1, 2, 3, 4, 5, 6, 7});
         System.out.println("Вектор 2 - " + vector2.toString());
 
         Vector vector3 = new Vector(vector1);
@@ -24,7 +24,7 @@ public class Realization {
         vector1.subtraction(vector2);
         System.out.println("Вычитание векторов равно = " + vector1.toString());
 
-        vector1.getMultiplicationByScalar(5);
+        vector1.multiplicationByScalar(5);
         System.out.println("Скаляр векторов равен = " + vector1.toString());
 
         vector1.turn();
@@ -42,7 +42,7 @@ public class Realization {
 
         System.out.println("Если вычесть два массива то получится новый - " + Vector.getSubtraction(vector1, vector2).toString());
 
-        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getScalar(vector1, vector2));
+        System.out.println("Cкалярное произведение векторов будет равно =  " + Vector.getScalarMultiplication(vector1, vector2));
 
         Vector vector4 = new Vector(5);
         System.out.println(vector4);

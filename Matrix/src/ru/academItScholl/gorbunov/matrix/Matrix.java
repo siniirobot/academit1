@@ -107,6 +107,9 @@ public class Matrix {
      * @return Vector
      */
     public Vector getLineVector(int index) {
+        if (index >= this.vectors.length || index < 0) {
+            throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
+        }
         return this.vectors[index];
     }
 
@@ -117,7 +120,7 @@ public class Matrix {
      * @param vector Vector
      */
     public void setLineVector(int index, Vector vector) {
-        if (index > this.vectors.length || index < 0) {
+        if (index >= this.vectors.length || index < 0) {
             throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
         }
         int oldWidth = getWidth();
@@ -155,9 +158,11 @@ public class Matrix {
      */
     public void transposition() {
         Matrix copyMatrix = new Matrix(this.vectors);
-        this.vectors = new Vector[copyMatrix.getWidth()];
-        for (int i = 0; i < this.vectors.length; i++) {
-            this.vectors[i] = new Vector(copyMatrix.getHeight());
+        if (getWidth() != getHeight()) {
+            this.vectors = new Vector[copyMatrix.getWidth()];
+            for (int i = 0; i < this.vectors.length; i++) {
+                this.vectors[i] = new Vector(copyMatrix.getHeight());
+            }
         }
         for (int j = 0; j < copyMatrix.getHeight(); j++) {
             Vector copyVector = copyMatrix.getLineVector(j);
@@ -172,7 +177,7 @@ public class Matrix {
      *
      * @param scalar double
      */
-    public void getMultiplicationByScalar(double scalar) {
+    public void multiplicationByScalar(double scalar) {
         if (scalar == 1) {
             System.out.println("Матрица останется неизменной");
             return;

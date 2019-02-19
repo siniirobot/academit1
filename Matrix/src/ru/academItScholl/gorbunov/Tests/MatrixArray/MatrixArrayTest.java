@@ -113,7 +113,7 @@ public class MatrixArrayTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = -5;
-        this.matrix.getMultiplicationByScalar(scalar);
+        this.matrix.multiplicationByScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}, {-5.0, -10.0, -15.0}}";
         assertEquals(expected, actual);

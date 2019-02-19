@@ -92,7 +92,7 @@ public class MatrixCopyTest {
     @Test
     public void GetMatrixScalarTest_Matrix_Matrix() {
         int scalar = 1;
-        this.matrix.getMultiplicationByScalar(scalar);
+        this.matrix.multiplicationByScalar(scalar);
         String actual = this.matrix.toString();
         String expected = "{{0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0}}";
         assertEquals(expected, actual);
