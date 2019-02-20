@@ -9,7 +9,7 @@ public class Matrix {
 
     private Vector[] vectors;
 
-    public Matrix(int width, int height) {
+    public Matrix(int height, int width) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
@@ -20,19 +20,10 @@ public class Matrix {
     }
 
     public Matrix(double[][] content) {
-        if (content.length == 0) {
+        if (content.length == 0 && getWidth(content)) {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
-        boolean minWidth = false;
-        for (double[] arr : content) {
-            if (arr.length == 0) {
-                minWidth = true;
-                break;
-            }
-        }
-        if (minWidth) {
-            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
-        }
+
         this.vectors = new Vector[content.length];
         for (int i = 0; i < vectors.length; i++) {
             this.vectors[i] = new Vector(content[i]);
@@ -43,12 +34,7 @@ public class Matrix {
         if (vectors.length == 0) {
             throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
         }
-        int maxVectorsLength = 0;
-        for (Vector vec : vectors) {
-            if (maxVectorsLength < vec.getSize()) {
-                maxVectorsLength = vec.getSize();
-            }
-        }
+        int maxVectorsLength = getWidth(vectors);
         this.vectors = new Vector[vectors.length];
         for (int i = 0; i < this.vectors.length; i++) {
             this.vectors[i] = new Vector(maxVectorsLength);
@@ -67,19 +53,50 @@ public class Matrix {
     }
 
     /**
+     * Возвращает значение ширины массива.
+     *
+     * @return int
+     */
+    private boolean getWidth(double[][] array) {
+        int width = 0;
+        for (double[] arr: array) {
+            if (arr != null) {
+                if (width < arr.length) {
+                    width = arr.length;
+                }
+            }else {
+                throw new IllegalArgumentException("Вы не указали ширину массива.");
+            }
+
+        }
+        return true;
+    }
+
+    /**
+     * Возвращает значение ширины векторного массива.
+     *
+     * @return int
+     */
+    private int getWidth(Vector[] vector) {
+        int width = 0;
+        for (Vector vec : vector) {
+            if (vec != null) {
+                if (width < vec.getSize()) {
+                    width = vec.getSize();
+                }
+            }else {
+                throw new IllegalArgumentException("Вы не указали ширину массива.");
+            }
+        }
+        return width;
+    }
+    /**
      * Возвращает значение ширины матрицы.
      *
      * @return int
      */
     public int getWidth() {
-        int width = 0;
-        for (Vector vec : vectors) {
-            if (width < vec.getSize()) {
-                width = vec.getSize();
-            }
-        }
-        return width;
-
+        return getWidth(this.vectors);
     }
 
     /**

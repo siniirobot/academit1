@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class MatrixTestStaticFunc {
+public class MatrixTestStatic {
 
     enum Type {SUM, SUBTRACT, MULTIPLICATION}
 
@@ -67,7 +67,7 @@ public class MatrixTestStaticFunc {
     private Type type;
     private Matrix matrix1, matrix2, expected;
 
-    public MatrixTestStaticFunc(Type type, Matrix matrix1, Matrix matrix2, Matrix expected) {
+    public MatrixTestStatic(Type type, Matrix matrix1, Matrix matrix2, Matrix expected) {
         this.type = type;
         this.matrix1 = matrix1;
         this.matrix2 = matrix2;

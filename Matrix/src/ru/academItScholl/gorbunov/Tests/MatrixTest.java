@@ -1,4 +1,4 @@
-package ru.academItScholl.gorbunov.Tests.MatrixVector;
+package ru.academItScholl.gorbunov.Tests;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,7 +13,7 @@ import ru.academItSchool.gorbunov.vector.Vector;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class MatrixVectorTest {
+public class MatrixTest {
     enum Type {
         WIDTH, HEIGHT, SIZE, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, MULTIPLICATION_BY_SCALAR, DETERMINANT,
         VECTOR_MULTIPLICATION, GET_VECTOR_COLUMN, SUM, SUBTRACT
@@ -25,7 +25,7 @@ public class MatrixVectorTest {
     private Integer index;
     private Vector vector;
 
-    public MatrixVectorTest(Type type, Matrix matrix1, Matrix matrix2, Integer index, Vector vector, String expectedMatrix) {
+    public MatrixTest(Type type, Matrix matrix1, Matrix matrix2, Integer index, Vector vector, String expectedMatrix) {
         this.type = type;
         this.matrix1 = matrix1;
         this.matrix2 = matrix2;
@@ -349,7 +349,6 @@ public class MatrixVectorTest {
         });
     }
 
-
     @Test
     public void GetWidth_Matrix_IntWidth() {
         try {
@@ -481,7 +480,7 @@ public class MatrixVectorTest {
             this.matrix1.subtraction(this.matrix2);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IllegalArgumentException e) {
-            System.out.println("getMatrixSum - " + e);
+            System.out.println("getMatrixSubtraction - " + e);
         }
     }
 }

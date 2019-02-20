@@ -2,20 +2,16 @@ package ru.academItScholl.gorbunov.main;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import ru.academItScholl.gorbunov.Tests.MatrixArray.MatrixArrayTest;
-import ru.academItScholl.gorbunov.Tests.MatrixCopyTest.MatrixCopyTest;
-import ru.academItScholl.gorbunov.Tests.MatrixInt.MatrixIntTest;
-import ru.academItScholl.gorbunov.Tests.MatrixTestStaticFunc;
-import ru.academItScholl.gorbunov.Tests.MatrixVector.MatrixVectorTest;
+import ru.academItScholl.gorbunov.Tests.MatrixCreatingTest;
+import ru.academItScholl.gorbunov.Tests.MatrixTestStatic;
+import ru.academItScholl.gorbunov.Tests.MatrixTest;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        MatrixTestStaticFunc.class,
-        MatrixArrayTest.class,
-        MatrixCopyTest.class,
-        MatrixIntTest.class,
-        MatrixVectorTest.class
+        MatrixTestStatic.class,
+        MatrixTest.class,
+        MatrixCreatingTest.class
 })
 
 public class Realization {
