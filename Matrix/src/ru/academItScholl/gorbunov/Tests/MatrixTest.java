@@ -353,9 +353,9 @@ public class MatrixTest {
     public void GetWidth_Matrix_IntWidth() {
         try {
             Assume.assumeTrue(this.type == Type.WIDTH);
-            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getWidth())));
+            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getColumnNumber())));
         } catch (IllegalArgumentException e) {
-            System.out.println("getWidth - " + e);
+            System.out.println("getColumnNumber - " + e);
         }
     }
 
@@ -363,19 +363,9 @@ public class MatrixTest {
     public void GetHeight_Matrix_IntHeight() {
         try {
             Assume.assumeTrue(this.type == Type.HEIGHT);
-            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getHeight())));
+            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getLineNumber())));
         } catch (IllegalArgumentException e) {
-            System.out.println("getHeight - " + e);
-        }
-    }
-
-    @Test
-    public void GetSize_Matrix_ArraySize() {
-        try {
-            Assume.assumeTrue(this.type == Type.SIZE);
-            assertEquals(this.expectedMatrix, Arrays.toString(this.matrix1.getSize()));
-        } catch (IllegalArgumentException e) {
-            System.out.println("getSize - " + e);
+            System.out.println("getLineNumber - " + e);
         }
     }
 
@@ -383,6 +373,8 @@ public class MatrixTest {
     public void ToString_Matrix_StringMatrix() {
         try {
             Assume.assumeTrue(this.type == Type.TO_STRING);
+            System.out.println(this.expectedMatrix);
+            System.out.println(this.matrix1.toString());
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IllegalArgumentException e) {
             System.out.println("ToString - " + e);
