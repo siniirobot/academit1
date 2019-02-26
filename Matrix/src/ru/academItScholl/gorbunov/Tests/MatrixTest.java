@@ -180,15 +180,15 @@ public class MatrixTest {
                 },
                 {
                         Type.TRANSPOSITION,
-                        new Matrix(new Vector[]{new Vector(1),
-                                new Vector(1),
-                                new Vector(1),
-                                new Vector(1),
-                                new Vector(1)}),
+                        new Matrix(new Vector[]{new Vector(new double[]{1}),
+                                new Vector(new double[]{1}),
+                                new Vector(new double[]{1}),
+                                new Vector(new double[]{1}),
+                                new Vector(new double[]{1})}),
                         null,
                         null,
                         null,
-                        "{{0.0, 0.0, 0.0, 0.0, 0.0}}"
+                        "{{1.0, 1.0, 1.0, 1.0, 1.0}}"
                 },
                 {
                         Type.TRANSPOSITION,
