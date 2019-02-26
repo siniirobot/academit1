@@ -9,11 +9,11 @@ public class Matrix {
 
     private Vector[] fields;
 
-    public Matrix(int linesNumber, int columnNumber) {
-        if (columnNumber <= 0 || linesNumber <= 0) {
-            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+    public Matrix(int rowNumber, int columnNumber) {
+        if (columnNumber <= 0 || rowNumber <= 0) {
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
-        this.fields = new Vector[linesNumber];
+        this.fields = new Vector[rowNumber];
         for (int i = 0; i < fields.length; i++) {
             this.fields[i] = new Vector(columnNumber);
         }
@@ -21,7 +21,7 @@ public class Matrix {
 
     public Matrix(double[][] components) {
         if (components.length == 0 && getColumnNumber(components) > 0) {
-            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
 
         this.fields = new Vector[components.length];
@@ -32,7 +32,7 @@ public class Matrix {
 
     public Matrix(Vector[] fields) {
         if (fields.length == 0) {
-            throw new IllegalArgumentException("Высота и ширина матрицы не может быть меньше или равен нулю.");
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         int columnNumber = getColumnNumber(fields);
         this.fields = new Vector[fields.length];
@@ -45,9 +45,9 @@ public class Matrix {
     }
 
     public Matrix(Matrix matrix) {
-        this.fields = new Vector[matrix.getLineNumber()];
-        for (int i = 0; i < matrix.getLineNumber(); i++) {
-            this.fields[i] = new Vector(matrix.getLineVector(i));
+        this.fields = new Vector[matrix.getRowNumber()];
+        for (int i = 0; i < matrix.getRowNumber(); i++) {
+            this.fields[i] = new Vector(matrix.getRowVector(i));
         }
 
     }
@@ -57,9 +57,9 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnNumber(double[][] array) {
+    private int getColumnNumber(double[][] components) {
         int columnNumber = 0;
-        for (double[] arr : array) {
+        for (double[] arr : components) {
             if (arr != null) {
                 if (columnNumber < arr.length) {
                     columnNumber = arr.length;
@@ -76,9 +76,9 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnNumber(Vector[] vector) {
+    private int getColumnNumber(Vector[] columns) {
         int columnNumber = 0;
-        for (Vector vec : vector) {
+        for (Vector vec : columns) {
             if (vec != null) {
                 if (columnNumber < vec.getSize()) {
                     columnNumber = vec.getSize();
@@ -104,7 +104,7 @@ public class Matrix {
      *
      * @return int
      */
-    public int getLineNumber() {
+    public int getRowNumber() {
         return fields.length;
     }
 
@@ -114,7 +114,7 @@ public class Matrix {
      * @param index int
      * @return Vector
      */
-    public Vector getLineVector(int index) {
+    public Vector getRowVector(int index) {
         if (index >= this.fields.length || index < 0) {
             throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
         }
@@ -125,20 +125,20 @@ public class Matrix {
      * Заменяет существующий вектор по индексу, на новый.
      *
      * @param index  int
-     * @param vector Vector
+     * @param row Vector
      */
-    public void setLineVector(int index, Vector vector) {
+    public void setRowVector(int index, Vector row) {
         if (index >= this.fields.length || index < 0) {
             throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
         }
         int oldWidth = getColumnNumber();
-        this.fields[index] = vector;
+        this.fields[index] = row;
         if (oldWidth < getColumnNumber()) {
             for (int i = 0; i < this.fields.length; i++) {
-                Vector copyVector = this.fields[i];
-                this.fields[i] = new Vector(vector.getSize());
-                for (int j = 0; j < copyVector.getSize(); j++) {
-                    this.fields[i].setElementByIndex(j, copyVector.getElementByIndex(j));
+                Vector tempVector = this.fields[i];
+                this.fields[i] = new Vector(row.getSize());
+                for (int j = 0; j < tempVector.getSize(); j++) {
+                    this.fields[i].setElementByIndex(j, tempVector.getElementByIndex(j));
                 }
             }
         }
@@ -166,14 +166,14 @@ public class Matrix {
      */
     public void transposition() {
         Matrix copyMatrix = new Matrix(this.fields);
-        if (getColumnNumber() != getLineNumber()) {
+        if (getColumnNumber() != getRowNumber()) {
             this.fields = new Vector[copyMatrix.getColumnNumber()];
             for (int i = 0; i < this.fields.length; i++) {
-                this.fields[i] = new Vector(copyMatrix.getLineNumber());
+                this.fields[i] = new Vector(copyMatrix.getRowNumber());
             }
         }
-        for (int j = 0; j < copyMatrix.getLineNumber(); j++) {
-            Vector copyVector = copyMatrix.getLineVector(j);
+        for (int j = 0; j < copyMatrix.getRowNumber(); j++) {
+            Vector copyVector = copyMatrix.getRowVector(j);
             for (int k = 0; k < copyVector.getSize(); k++) {
                 this.fields[k].setElementByIndex(j, copyVector.getElementByIndex(k));
             }
@@ -186,14 +186,9 @@ public class Matrix {
      * @param scalar double
      */
     public void multiplicationByScalar(double scalar) {
-        if (scalar == 1) {
-            System.out.println("Матрица останется неизменной");
-            return;
-        }
+        if (scalar == 1) return;
         for (Vector vec : this.fields) {
-            for (int i = 0; i < vec.getSize(); i++) {
-                vec.setElementByIndex(i, vec.getElementByIndex(i) * scalar);
-            }
+            vec.multiplicationByScalar(scalar);
         }
     }
 
@@ -203,7 +198,7 @@ public class Matrix {
      * @return double
      */
     public double getDeterminant() {
-        if (getColumnNumber() != getLineNumber()) {
+        if (getColumnNumber() != getRowNumber()) {
             throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
         }
         if (this.fields.length == 1) {
@@ -226,7 +221,7 @@ public class Matrix {
                     for (int j = 0, n = 0; j < this.fields.length; ++j) {
                         if (j != i) {
                             for (int k = 1, m = 0; k < this.fields.length; ++k) {
-                                smallerMatrix.getLineVector(n).setElementByIndex(m, this.fields[j].getElementByIndex(k));
+                                smallerMatrix.getRowVector(n).setElementByIndex(m, this.fields[j].getElementByIndex(k));
                                 m++;
                             }
                             n++;
@@ -265,20 +260,28 @@ public class Matrix {
     }
 
     /**
+     * @param lineNumber1   int
+     * @param columnNumber1 int
+     * @param lineNumber2   int
+     * @param columnNumber2 int
+     */
+    private static void exceptionForNotIdenticalMatrix(int lineNumber1, int columnNumber1, int lineNumber2, int columnNumber2) {
+        if (lineNumber1 != lineNumber2 || columnNumber1 != columnNumber2) {
+            throw new IllegalArgumentException("Сложение и вычитание матриц разной размерности невозможно.");
+        }
+    }
+
+    /**
      * Складывает две матрицы.
      *
      * @param matrix Matrix
      */
     public void sum(Matrix matrix) {
-        if (getLineNumber() != matrix.getLineNumber() && getColumnNumber() != matrix.getColumnNumber()) {
-            throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
-
-        }
+        exceptionForNotIdenticalMatrix(getRowNumber(), getColumnNumber(), matrix.getRowNumber(), matrix.getColumnNumber());
         for (int i = 0; i < this.fields.length; i++) {
-            for (int j = 0; j < this.fields[i].getSize(); j++) {
-                this.fields[i].setElementByIndex(j, this.fields[i].getElementByIndex(j) + matrix.getLineVector(i).getElementByIndex(j));
-            }
+            this.fields[i].sum(matrix.getRowVector(i));
         }
+
     }
 
     /**
@@ -287,14 +290,9 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void subtraction(Matrix matrix) {
-        if (getLineNumber() != matrix.getLineNumber() && getColumnNumber() != matrix.getColumnNumber()) {
-            throw new IllegalArgumentException("Сложение матриц разной размерности невозможно.");
-
-        }
+        exceptionForNotIdenticalMatrix(getRowNumber(), getColumnNumber(), matrix.getRowNumber(), matrix.getColumnNumber());
         for (int i = 0; i < this.fields.length; i++) {
-            for (int j = 0; j < this.fields[i].getSize(); j++) {
-                this.fields[i].setElementByIndex(j, this.fields[i].getElementByIndex(j) - matrix.getLineVector(i).getElementByIndex(j));
-            }
+            this.fields[i].subtraction(matrix.getRowVector(i));
         }
     }
 
@@ -305,7 +303,9 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticSum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
+        exceptionForNotIdenticalMatrix(matrix1.getRowNumber(), matrix2.getColumnNumber(),
+                matrix2.getRowNumber(), matrix2.getColumnNumber());
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.sum(matrix2);
         return sumMatrix;
@@ -318,7 +318,9 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticSubtraction(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
+        exceptionForNotIdenticalMatrix(matrix1.getRowNumber(), matrix2.getColumnNumber(),
+                matrix2.getRowNumber(), matrix2.getColumnNumber());
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.subtraction(matrix2);
         return subtractionMatrix;
@@ -331,27 +333,22 @@ public class Matrix {
      * @param matrix2 Matrix
      * @return Matrix
      */
-    public static Matrix getStaticMultiplication(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getColumnNumber() != matrix2.getLineNumber()) {
+    public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.getColumnNumber() != matrix2.getRowNumber()) {
             throw new IllegalArgumentException("Чтобы можно было умножить две матрицы, количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
         }
 
-        Matrix multiplicationMatrix = new Matrix(matrix1.getLineNumber(), matrix2.getColumnNumber());
+        Matrix multiplicationMatrix = new Matrix(matrix1.getRowNumber(), matrix2.getColumnNumber());
 
-        if (matrix2.getColumnNumber() == 1) {
-            multiplicationMatrix.getMultiplicationByVector(matrix2.getColumnVector(0));
-            return multiplicationMatrix;
-        }
-
-        for (int i = 0; i < multiplicationMatrix.getLineNumber(); i++) {
-            Vector hashLine = matrix1.getLineVector(i);
+        for (int i = 0; i < multiplicationMatrix.getRowNumber(); i++) {
+            Vector tempLine = matrix1.getRowVector(i);
             for (int j = 0; j < multiplicationMatrix.getColumnNumber(); j++) {
                 double sum = 0;
-                Vector hashColumn = matrix2.getColumnVector(j);
-                for (int o = 0; o < hashColumn.getSize(); o++) {
-                    sum += hashLine.getElementByIndex(o) * hashColumn.getElementByIndex(o);
+                Vector tempColumn = matrix2.getColumnVector(j);
+                for (int o = 0; o < tempColumn.getSize(); o++) {
+                    sum += tempLine.getElementByIndex(o) * tempColumn.getElementByIndex(o);
                 }
-                multiplicationMatrix.getLineVector(i).setElementByIndex(j, sum);
+                multiplicationMatrix.getRowVector(i).setElementByIndex(j, sum);
             }
         }
         return multiplicationMatrix;

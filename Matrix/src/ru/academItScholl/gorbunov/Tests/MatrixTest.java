@@ -59,18 +59,6 @@ public class MatrixTest {
                         "1"
                 },
                 {
-                        Type.SIZE,
-                        new Matrix(new Vector[]{new Vector(1),
-                                new Vector(7),
-                                new Vector(7),
-                                new Vector(7),
-                                new Vector(7)}),
-                        null,
-                        null,
-                        null,
-                        "[5, 7]"
-                },
-                {
                         Type.TO_STRING,
                         new Matrix(new Vector[]{new Vector(1),
                                 new Vector(7),
@@ -363,9 +351,9 @@ public class MatrixTest {
     public void GetHeight_Matrix_IntHeight() {
         try {
             Assume.assumeTrue(this.type == Type.HEIGHT);
-            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getLineNumber())));
+            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getRowNumber())));
         } catch (IllegalArgumentException e) {
-            System.out.println("getLineNumber - " + e);
+            System.out.println("getRowNumber - " + e);
         }
     }
 
@@ -385,9 +373,9 @@ public class MatrixTest {
     public void GetLineVector_Matrix_Vector() {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_LINE);
-            assertEquals(this.expectedMatrix, this.matrix1.getLineVector(this.index).toString());
+            assertEquals(this.expectedMatrix, this.matrix1.getRowVector(this.index).toString());
         } catch (IllegalArgumentException e) {
-            System.out.println("getLineVector - " + e);
+            System.out.println("getRowVector - " + e);
         }
     }
 
@@ -395,10 +383,10 @@ public class MatrixTest {
     public void SetLineVector_Matrix_Matrix() {
         try {
             Assume.assumeTrue(this.type == Type.SET_VECTOR_LINE);
-            matrix1.setLineVector(this.index, this.vector);
+            matrix1.setRowVector(this.index, this.vector);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IllegalArgumentException e) {
-            System.out.println("setLineVector - " + e);
+            System.out.println("setRowVector - " + e);
         }
     }
 

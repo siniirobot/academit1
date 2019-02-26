@@ -57,7 +57,7 @@ public class Vector {
         }
     }
 
-    public void multiplicationByScalar(int scalar) {
+    public void multiplicationByScalar(double scalar) {
         for (int i = 0; i < this.components.length; ++i) {
             this.components[i] *= scalar;
         }
