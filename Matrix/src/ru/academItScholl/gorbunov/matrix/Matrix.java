@@ -11,7 +11,7 @@ public class Matrix {
 
     public Matrix(int rowNumber, int columnNumber) {
         if (columnNumber <= 0 || rowNumber <= 0) {
-            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         this.fields = new Vector[rowNumber];
         for (int i = 0; i < fields.length; i++) {
@@ -20,19 +20,19 @@ public class Matrix {
     }
 
     public Matrix(double[][] components) {
-        if (components.length == 0 && getColumnNumber(components) > 0) {
-            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+        if (components.length == 0 || getColumnNumber(components) <= 0) {
+            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
-
+        int columnNumber = getColumnNumber(components);
         this.fields = new Vector[components.length];
         for (int i = 0; i < fields.length; i++) {
-            this.fields[i] = new Vector(components[i]);
+            this.fields[i] = new Vector(columnNumber,components[i]);
         }
     }
 
     public Matrix(Vector[] fields) {
         if (fields.length == 0) {
-            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         int columnNumber = getColumnNumber(fields);
         this.fields = new Vector[fields.length];
@@ -60,12 +60,12 @@ public class Matrix {
     private int getColumnNumber(double[][] components) {
         int columnNumber = 0;
         for (double[] arr : components) {
-            if (arr != null) {
+            if (arr.length != 0) {
                 if (columnNumber < arr.length) {
                     columnNumber = arr.length;
                 }
             } else {
-                throw new IllegalArgumentException("Вы не указали ширину массива.");
+                throw new NullPointerException("Двумерный массив содержит null массиы во втором измерении.");
             }
         }
         return columnNumber;

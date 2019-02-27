@@ -15,7 +15,7 @@ public class MatrixCreatingTest {
             int weight = 2;
             Matrix matrix = new Matrix(height,weight);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixInt - " + e);
         }
     }
@@ -27,7 +27,7 @@ public class MatrixCreatingTest {
             int weight = 0;
             Matrix matrix = new Matrix(height,weight);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixInt - " + e);
         }
     }
@@ -38,7 +38,7 @@ public class MatrixCreatingTest {
             double[][] array = new double[3][2];
             Matrix matrix = new Matrix(array);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixArray - " + e);
         }
     }
@@ -49,10 +49,22 @@ public class MatrixCreatingTest {
             double[][] array = new double[0][2];
             Matrix matrix = new Matrix(array);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixArray - " + e);
         }
     }
+
+    @Test
+    public void CreateMatrixArray_Array_Error2() {
+        try {
+            double[][] array = new double[][]{{1,2,3},{1},{}};
+            Matrix matrix = new Matrix(array);
+            assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}",matrix.toString());
+        }catch (NullPointerException e) {
+            System.out.println("createMatrixArray - " + e);
+        }
+    }
+
 
     @Test
     public void CreateMatrixCopy_Matrix_Matrix() {
@@ -60,7 +72,7 @@ public class MatrixCreatingTest {
             Matrix matrix = new Matrix(2,2);
             Matrix copyMatrix = new Matrix(matrix);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}}",copyMatrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixCopy - " + e);
         }
     }
@@ -75,7 +87,7 @@ public class MatrixCreatingTest {
             };
             Matrix matrix = new Matrix(vectors);
             assertEquals("{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixVector - " + e);
         }
     }
@@ -86,7 +98,7 @@ public class MatrixCreatingTest {
             Vector[] vectors = new Vector[0];
             Matrix matrix = new Matrix(vectors);
             assertEquals("{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}",matrix.toString());
-        }catch (IllegalArgumentException e) {
+        }catch (NullPointerException e) {
             System.out.println("createMatrixVector - " + e);
         }
     }
