@@ -130,20 +130,14 @@ public class Matrix {
      */
     public void setRowVector(int index, Vector row) {
         if (index >= this.fields.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
-                    this.fields.length + " матрицы");
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк "
+                    + this.fields.length + " матрицы");
         }
-        int oldWidth = getColumnNumber();
+        if (row.getSize() > getColumnNumber()) {
+            throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов "
+                    + getColumnNumber() + " матрицы");
+        }
         this.fields[index] = row;
-        if (oldWidth < getColumnNumber()) {
-            for (int i = 0; i < this.fields.length; i++) {
-                Vector tempRow = this.fields[i];
-                this.fields[i] = new Vector(row.getSize());
-                for (int j = 0; j < tempRow.getSize(); j++) {
-                    this.fields[i].setElementByIndex(j, tempRow.getElementByIndex(j));
-                }
-            }
-        }
     }
 
     /**
