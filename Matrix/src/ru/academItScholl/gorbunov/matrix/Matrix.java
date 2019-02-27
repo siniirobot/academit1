@@ -256,13 +256,10 @@ public class Matrix {
     /**
      * Проверяет возможно ли сложение или вычитание матриц
      *
-     * @param lineNumber1   int
-     * @param columnNumber1 int
-     * @param lineNumber2   int
-     * @param columnNumber2 int
+     * @param matrix Matrix
      */
-    private static void exceptionForNotIdenticalMatrix(int lineNumber1, int columnNumber1, int lineNumber2, int columnNumber2) {
-        if (lineNumber1 != lineNumber2 || columnNumber1 != columnNumber2) {
+    private void exceptionForNotIdenticalMatrix(Matrix matrix) {
+        if (getRowNumber() != matrix.getRowNumber() || getColumnNumber() != matrix.getColumnNumber()) {
             throw new IllegalArgumentException("Сложение и вычитание матриц разной размерности невозможно.");
         }
     }
@@ -273,7 +270,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void sum(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(getRowNumber(), getColumnNumber(), matrix.getRowNumber(), matrix.getColumnNumber());
+        exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.fields.length; i++) {
             this.fields[i].sum(matrix.getRowVector(i));
         }
@@ -286,7 +283,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void subtraction(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(getRowNumber(), getColumnNumber(), matrix.getRowNumber(), matrix.getColumnNumber());
+        exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.fields.length; i++) {
             this.fields[i].subtraction(matrix.getRowVector(i));
         }
@@ -300,8 +297,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        exceptionForNotIdenticalMatrix(matrix1.getRowNumber(), matrix2.getColumnNumber(),
-                matrix2.getRowNumber(), matrix2.getColumnNumber());
+        matrix1.exceptionForNotIdenticalMatrix(matrix2);
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.sum(matrix2);
         return sumMatrix;
@@ -315,8 +311,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
-        exceptionForNotIdenticalMatrix(matrix1.getRowNumber(), matrix2.getColumnNumber(),
-                matrix2.getRowNumber(), matrix2.getColumnNumber());
+        matrix1.exceptionForNotIdenticalMatrix(matrix2);
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.subtraction(matrix2);
         return subtractionMatrix;
