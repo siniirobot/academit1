@@ -26,7 +26,7 @@ public class Matrix {
         int columnNumber = getColumnNumber(components);
         this.fields = new Vector[components.length];
         for (int i = 0; i < fields.length; i++) {
-            this.fields[i] = new Vector(columnNumber,components[i]);
+            this.fields[i] = new Vector(columnNumber, components[i]);
         }
     }
 
@@ -65,7 +65,7 @@ public class Matrix {
                     columnNumber = arr.length;
                 }
             } else {
-                throw new NullPointerException("Двумерный массив содержит null массиы во втором измерении.");
+                throw new NullPointerException("Двумерный массив содержит пустые массивы.");
             }
         }
         return columnNumber;
@@ -326,21 +326,20 @@ public class Matrix {
         if (matrix1.getColumnNumber() != matrix2.getRowNumber()) {
             throw new IllegalArgumentException("Чтобы можно было умножить две матрицы, количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
         }
-
-        Matrix multiplicationMatrix = new Matrix(matrix1.getRowNumber(), matrix2.getColumnNumber());
-
-        for (int i = 0; i < multiplicationMatrix.getRowNumber(); i++) {
+        Vector[] tempMatrix = new Vector[matrix1.getRowNumber()];
+        for (int i = 0; i < tempMatrix.length; i++) {
             Vector tempLine = matrix1.getRowVector(i);
-            for (int j = 0; j < multiplicationMatrix.getColumnNumber(); j++) {
+            tempMatrix[i] = new Vector(matrix2.getColumnNumber());
+            for (int j = 0; j < tempMatrix[i].getSize(); j++) {
                 double sum = 0;
                 Vector tempColumn = matrix2.getColumnVector(j);
-                for (int o = 0; o < tempColumn.getSize(); o++) {
-                    sum += tempLine.getElementByIndex(o) * tempColumn.getElementByIndex(o);
+                for (int k = 0; k < tempColumn.getSize(); k++) {
+                    sum += tempLine.getElementByIndex(k) * tempColumn.getElementByIndex(k);
                 }
-                multiplicationMatrix.getRowVector(i).setElementByIndex(j, sum);
+                tempMatrix[i].setElementByIndex(j, sum);
             }
         }
-        return multiplicationMatrix;
+        return new Matrix(tempMatrix);
     }
 
     @Override

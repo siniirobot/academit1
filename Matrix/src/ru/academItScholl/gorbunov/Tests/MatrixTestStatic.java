@@ -78,7 +78,7 @@ public class MatrixTestStatic {
     public void StaticSum_Matrix_NewMatrix() {
         try {
             Assume.assumeTrue(type == Type.SUM);
-                assertEquals(expected.toString(), Matrix.getSum(matrix1, matrix2).toString());
+            assertEquals(expected.toString(), Matrix.getSum(matrix1, matrix2).toString());
         } catch (IllegalArgumentException e) {
             System.out.println("getSum - " + e);
         }
@@ -98,7 +98,8 @@ public class MatrixTestStatic {
     public void StaticMultiplication() {
         try {
             Assume.assumeTrue(type == Type.MULTIPLICATION);
-            assertEquals(expected.toString(), Matrix.getMultiplication(matrix1, matrix2).toString());
+            Matrix matrix = Matrix.getMultiplication(matrix1, matrix2);
+            assertEquals(expected.toString(), matrix.toString());
         } catch (IllegalArgumentException e) {
             System.out.println("StaticMultiplication - " + e);
         }
