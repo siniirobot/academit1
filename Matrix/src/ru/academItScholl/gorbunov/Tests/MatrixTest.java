@@ -370,7 +370,7 @@ public class MatrixTest {
     }
 
     @Test
-    public void GetLineVector_Matrix_Vector() {
+    public void GetRowVector_Matrix_Vector() {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_LINE);
             assertEquals(this.expectedMatrix, this.matrix1.getRowVector(this.index).toString());

@@ -49,7 +49,6 @@ public class Matrix {
         for (int i = 0; i < matrix.getRowNumber(); i++) {
             this.fields[i] = new Vector(matrix.getRowVector(i));
         }
-
     }
 
     /**
@@ -84,7 +83,7 @@ public class Matrix {
                     columnNumber = vec.getSize();
                 }
             } else {
-                throw new IllegalArgumentException("Вы не указали ширину массива.");
+                throw new NullPointerException("Векторный массив содержит пустые вектора.");
             }
         }
         return columnNumber;
@@ -109,16 +108,25 @@ public class Matrix {
     }
 
     /**
+     * Проверяет входит ли индекс в размеры матрицы.
+     *
+     * @param index int
+     */
+    private void exceptionForWrongIndex(int index) {
+        if (index >= this.fields.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
+                    this.fields.length + " матрицы");
+        }
+    }
+
+    /**
      * Возвращает вектор из матрицы по индексу
      *
      * @param index int
      * @return Vector
      */
     public Vector getRowVector(int index) {
-        if (index >= this.fields.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
-                    this.fields.length + " матрицы");
-        }
+        exceptionForWrongIndex(index);
         return new Vector(this.fields[index]);
     }
 
@@ -129,10 +137,7 @@ public class Matrix {
      * @param row   Vector
      */
     public void setRowVector(int index, Vector row) {
-        if (index >= this.fields.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк "
-                    + this.fields.length + " матрицы");
-        }
+        exceptionForWrongIndex(index);
         if (row.getSize() > getColumnNumber()) {
             throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов "
                     + getColumnNumber() + " матрицы");
@@ -249,6 +254,8 @@ public class Matrix {
     }
 
     /**
+     * Проверяет возможно ли сложение или вычитание матриц
+     *
      * @param lineNumber1   int
      * @param columnNumber1 int
      * @param lineNumber2   int
@@ -371,6 +378,4 @@ public class Matrix {
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.append("}").toString();
     }
-
-
 }
