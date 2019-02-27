@@ -201,6 +201,7 @@ public class MatrixTest {
                         null,
                         "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}"
                 },
+
                 {
                         Type.TRANSPOSITION,
                         new Matrix(new Vector[]{new Vector(3, new double[]{1, 2, 3})}),
@@ -404,7 +405,9 @@ public class MatrixTest {
     public void TranspositionMatrix_Matrix_Matrix_Matrix_Matrix() {
         try {
             Assume.assumeTrue(this.type == Type.TRANSPOSITION);
+            System.out.println(this.matrix1.toString());
             this.matrix1.transposition();
+            System.out.println(this.matrix1.toString());
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IllegalArgumentException e) {
             System.out.println("transposition - " + e);

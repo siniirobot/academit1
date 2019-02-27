@@ -165,39 +165,11 @@ public class Matrix {
      * Транспонирование матрицы.
      */
     public void transposition() {
-        for (int i = 0; i < this.fields.length; i++) {
-            Vector tempRow = getColumnVector(i);
-            for (int j = 1 + i; j < tempRow.getSize(); j++) {
-                this.fields[j].setElementByIndex(i,this.fields[i].getElementByIndex(j));
-                this.fields[i].setElementByIndex(j,tempRow.getElementByIndex(j));
-            }
+        Vector[] transposeMatrix = new Vector[getColumnNumber()];
+        for (int i = 0; i < transposeMatrix.length; i++) {
+            transposeMatrix[i] = new Vector(getColumnVector(i));
         }
-
-        /*if (getRowNumber() == 1 && getColumnNumber() == 1) {
-            return;
-        }
-
-        Vector tempVector = this.fields[0];
-        this.fields[0] = getColumnVector(0);
-        for (int i = 0; i < tempVector.getSize(); i++) {
-            this.fields[i].setElementByIndex(0, tempVector.getElementByIndex(i));
-        }
-        Vector[] copyMatrix = Arrays.copyOfRange(this.fields, 1, getRowNumber());
-        Matrix tempMatrix = new Matrix(copyMatrix);
-        tempMatrix.transposition();*/
-        /*Matrix copyMatrix = new Matrix(this.fields);
-        if (getColumnNumber() != getRowNumber()) {
-            this.fields = new Vector[copyMatrix.getColumnNumber()];
-            for (int i = 0; i < this.fields.length; i++) {
-                this.fields[i] = new Vector(copyMatrix.getRowNumber());
-            }
-        }
-        for (int j = 0; j < copyMatrix.getRowNumber(); j++) {
-            Vector copyVector = copyMatrix.getRowVector(j);
-            for (int k = 0; k < copyVector.getSize(); k++) {
-                this.fields[k].setElementByIndex(j, copyVector.getElementByIndex(k));
-            }
-        }*/
+        this.fields = transposeMatrix;
     }
 
     /**
