@@ -116,9 +116,10 @@ public class Matrix {
      */
     public Vector getRowVector(int index) {
         if (index >= this.fields.length || index < 0) {
-            throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
+                    this.fields.length + " матрицы");
         }
-        return this.fields[index];
+        return new Vector(this.fields[index]);
     }
 
     /**
@@ -129,16 +130,17 @@ public class Matrix {
      */
     public void setRowVector(int index, Vector row) {
         if (index >= this.fields.length || index < 0) {
-            throw new IllegalArgumentException("Индекс не может быть меньше нуля и больше высоты матрицы");
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
+                    this.fields.length + " матрицы");
         }
         int oldWidth = getColumnNumber();
         this.fields[index] = row;
         if (oldWidth < getColumnNumber()) {
             for (int i = 0; i < this.fields.length; i++) {
-                Vector tempVector = this.fields[i];
+                Vector tempRow = this.fields[i];
                 this.fields[i] = new Vector(row.getSize());
-                for (int j = 0; j < tempVector.getSize(); j++) {
-                    this.fields[i].setElementByIndex(j, tempVector.getElementByIndex(j));
+                for (int j = 0; j < tempRow.getSize(); j++) {
+                    this.fields[i].setElementByIndex(j, tempRow.getElementByIndex(j));
                 }
             }
         }
@@ -151,8 +153,9 @@ public class Matrix {
      * @return Vector
      */
     public Vector getColumnVector(int index) {
-        if (index < 0 || index > getColumnNumber()) {
-            throw new IllegalArgumentException("Значение индекса не может быть меньше нуля или больше ширины матрицы.");
+        if (index >= this.fields.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок " +
+                    getColumnNumber() + " матрицы");
         }
         Vector columnVector = new Vector(this.fields.length);
         for (int i = 0; i < this.fields.length; i++) {
