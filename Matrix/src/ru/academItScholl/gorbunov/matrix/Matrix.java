@@ -147,7 +147,7 @@ public class Matrix {
      * @return Vector
      */
     public Vector getColumnVector(int index) {
-        if (index >= this.fields.length || index < 0) {
+        if (index >= getColumnNumber() || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок " +
                     getColumnNumber() + " матрицы");
         }

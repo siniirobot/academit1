@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class MatrixTest {
     enum Type {
-        WIDTH, HEIGHT, SIZE, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, MULTIPLICATION_BY_SCALAR, DETERMINANT,
+        WIDTH, HEIGHT, TO_STRING, GET_VECTOR_LINE, SET_VECTOR_LINE, TRANSPOSITION, MULTIPLICATION_BY_SCALAR, DETERMINANT,
         VECTOR_MULTIPLICATION, GET_VECTOR_COLUMN, SUM, SUBTRACT
     }
 
@@ -180,6 +180,14 @@ public class MatrixTest {
                 },
                 {
                         Type.TRANSPOSITION,
+                        new Matrix(new Vector[]{new Vector(3, new double[]{1, 2, 3})}),
+                        null,
+                        null,
+                        null,
+                        "{{1.0}, {2.0}, {3.0}}"
+                },
+                {
+                        Type.TRANSPOSITION,
                         new Matrix(new Vector[]{new Vector(new double[]{1}),
                                 new Vector(new double[]{1}),
                                 new Vector(new double[]{1}),
@@ -200,15 +208,6 @@ public class MatrixTest {
                         null,
                         null,
                         "{{1.0, 1.0, 1.0}, {2.0, 2.0, 2.0}, {3.0, 3.0, 3.0}}"
-                },
-
-                {
-                        Type.TRANSPOSITION,
-                        new Matrix(new Vector[]{new Vector(3, new double[]{1, 2, 3})}),
-                        null,
-                        null,
-                        null,
-                        "{{1.0}, {2.0}, {3.0}}"
                 },
                 {
                         Type.MULTIPLICATION_BY_SCALAR,
@@ -375,7 +374,7 @@ public class MatrixTest {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_LINE);
             assertEquals(this.expectedMatrix, this.matrix1.getRowVector(this.index).toString());
-        } catch (IllegalArgumentException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("getRowVector - " + e);
         }
     }
@@ -386,7 +385,7 @@ public class MatrixTest {
             Assume.assumeTrue(this.type == Type.SET_VECTOR_LINE);
             matrix1.setRowVector(this.index, this.vector);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
-        } catch (IllegalArgumentException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("setRowVector - " + e);
         }
     }
@@ -396,7 +395,7 @@ public class MatrixTest {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_COLUMN);
             assertEquals(this.expectedMatrix, this.matrix1.getColumnVector(this.index).toString());
-        } catch (IllegalArgumentException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("getColumnVector - " + e);
         }
     }
@@ -405,9 +404,7 @@ public class MatrixTest {
     public void TranspositionMatrix_Matrix_Matrix_Matrix_Matrix() {
         try {
             Assume.assumeTrue(this.type == Type.TRANSPOSITION);
-            System.out.println(this.matrix1.toString());
             this.matrix1.transposition();
-            System.out.println(this.matrix1.toString());
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IllegalArgumentException e) {
             System.out.println("transposition - " + e);
