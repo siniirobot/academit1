@@ -19,7 +19,7 @@ public class Matrix {
     }
 
     public Matrix(double[][] components) {
-        if (components.length == 0){
+        if (components.length == 0) {
             throw new NullPointerException("Колличество строк не может быть равно нулю.");
         }
         int columnsCount = getColumnsCount(components);
@@ -136,10 +136,10 @@ public class Matrix {
     public void setRow(int index, Vector row) {
         exceptionForWrongIndex(index);
         int columnsCount = getColumnsCount();
-        if (row.getSize() > columnsCount) {
-            throw new IndexOutOfBoundsException("Длина строки не может быть больше количества столбцов матрицы");
+        if (row.getSize() != columnsCount) {
+            throw new IndexOutOfBoundsException("Длина строки не может быть больше или меньше количества столбцов матрицы");
         }
-        this.rows[index] = Vector.getSum(new Vector(columnsCount),row);
+        this.rows[index] = new Vector(row);
     }
 
     /**
