@@ -269,7 +269,6 @@ public class Matrix {
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i].sum(matrix.getRow(i));
         }
-
     }
 
     /**
