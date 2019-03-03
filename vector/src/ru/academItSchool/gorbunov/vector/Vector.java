@@ -35,24 +35,21 @@ public class Vector {
     }
 
     public void sum(Vector vector) {
-        int shortestVector = getShortestVector(vector);
-        for (int i = 0; i < shortestVector; i++) {
+        changeVectorLength(vector);
+        for (int i = 0; i < this.components.length; i++) {
             this.components[i] += vector.components[i];
         }
     }
 
-    private int getShortestVector (Vector vector) {
-        int shortestVector = vector.components.length;
+    private void changeVectorLength(Vector vector) {
         if (this.components.length < vector.components.length) {
-            shortestVector = this.components.length;
             this.components = Arrays.copyOf(this.components, vector.components.length);
         }
-        return shortestVector;
     }
 
     public void subtraction(Vector vector) {
-        int shortestVector = getShortestVector(vector);
-        for (int i = 0; i < shortestVector; i++) {
+        changeVectorLength(vector);
+        for (int i = 0; i < this.components.length; i++) {
             this.components[i] -= vector.components[i];
         }
     }
