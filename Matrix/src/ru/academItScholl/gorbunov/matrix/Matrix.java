@@ -135,10 +135,11 @@ public class Matrix {
      */
     public void setRowVector(int index, Vector row) {
         exceptionForWrongIndex(index);
-        if (row.getSize() > getColumnsCount()) {
-            throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов матрицы");
+        int columnsCount = getColumnsCount();
+        if (row.getSize() > columnsCount) {
+            throw new IndexOutOfBoundsException("Длина строки не может быть больше количества столбцов матрицы");
         }
-        this.rows[index] = row;
+        this.rows[index] = Vector.getSum(new Vector(columnsCount),row);
     }
 
     /**

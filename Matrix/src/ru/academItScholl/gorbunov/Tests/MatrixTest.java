@@ -143,6 +143,18 @@ public class MatrixTest {
                         "{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}"
                 },
                 {
+                        Type.SET_VECTOR_LINE,
+                        new Matrix(new Vector[]{new Vector(1),
+                                new Vector(7),
+                                new Vector(7),
+                                new Vector(7),
+                                new Vector(7)}),
+                        null,
+                        4,
+                        new Vector(5, new double[]{1, 2, 3, 4, 5}),
+                        "{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}"
+                },
+                {
                         Type.GET_VECTOR_COLUMN,
                         new Matrix(new Vector[]{new Vector(1),
                                 new Vector(7),

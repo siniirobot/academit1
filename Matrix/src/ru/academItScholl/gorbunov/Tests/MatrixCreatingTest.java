@@ -27,7 +27,7 @@ public class MatrixCreatingTest {
             int weight = 0;
             Matrix matrix = new Matrix(height, weight);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("createMatrixInt - " + e);
         }
     }
