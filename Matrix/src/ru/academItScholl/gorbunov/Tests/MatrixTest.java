@@ -374,7 +374,7 @@ public class MatrixTest {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_LINE);
             assertEquals(this.expectedMatrix, this.matrix1.getRowVector(this.index).toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("getRowVector - " + e);
         }
     }
@@ -385,7 +385,7 @@ public class MatrixTest {
             Assume.assumeTrue(this.type == Type.SET_VECTOR_LINE);
             matrix1.setRowVector(this.index, this.vector);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("setRowVector - " + e);
         }
     }
@@ -395,7 +395,7 @@ public class MatrixTest {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_COLUMN);
             assertEquals(this.expectedMatrix, this.matrix1.getColumnVector(this.index).toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("getColumnVector - " + e);
         }
     }

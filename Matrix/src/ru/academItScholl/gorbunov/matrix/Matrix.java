@@ -112,7 +112,7 @@ public class Matrix {
      */
     private void exceptionForWrongIndex(int index) {
         if (index >= this.rows.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
                     this.rows.length + " матрицы");
         }
     }
