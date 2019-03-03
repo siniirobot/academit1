@@ -1,27 +1,31 @@
 package ru.academItScholl.gorbunov.matrix;
 
 import java.util.Arrays;
+
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
 
     private Vector[] rows;
 
-    public Matrix(int rowsCount, int columnsCoount) {
-        if (columnsCoount <= 0 || rowsCount <= 0) {
+    public Matrix(int rowsCount, int columnsCount) {
+        if (columnsCount <= 0 || rowsCount <= 0) {
             throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         this.rows = new Vector[rowsCount];
         for (int i = 0; i < rows.length; i++) {
-            this.rows[i] = new Vector(columnsCoount);
+            this.rows[i] = new Vector(columnsCount);
         }
     }
 
     public Matrix(double[][] components) {
-        if (components.length == 0 || getColumnsCount(components) <= 0) {
-            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+        if (components.length == 0){
+            throw new NullPointerException("Колличество строк не может быть равно нулю.");
         }
         int columnsCount = getColumnsCount(components);
+        if (columnsCount == 0) {
+            throw new NullPointerException("Количество столбцов не может быть равно нулю.");
+        }
         this.rows = new Vector[components.length];
         for (int i = 0; i < rows.length; i++) {
             this.rows[i] = new Vector(columnsCount, components[i]);
@@ -57,12 +61,8 @@ public class Matrix {
     private int getColumnsCount(double[][] components) {
         int columnsCount = 0;
         for (double[] arr : components) {
-            if (arr.length != 0) {
-                if (columnsCount < arr.length) {
-                    columnsCount = arr.length;
-                }
-            } else {
-                throw new NullPointerException("Двумерный массив содержит пустые массивы.");
+            if (columnsCount < arr.length) {
+                columnsCount = arr.length;
             }
         }
         return columnsCount;

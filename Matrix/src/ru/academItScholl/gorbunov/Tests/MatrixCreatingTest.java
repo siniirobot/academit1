@@ -57,9 +57,9 @@ public class MatrixCreatingTest {
     @Test
     public void CreateMatrixArray_Array_Error2() {
         try {
-            double[][] array = new double[][]{{1, 2, 3}, {1}, {}};
+            double[][] array = new double[][]{{}, {}, {}};
             Matrix matrix = new Matrix(array);
-            assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}", matrix.toString());
+            assertEquals("{{1.0, 2.0, 3.0}, {1.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}", matrix.toString());
         } catch (NullPointerException e) {
             System.out.println("createMatrixArray - " + e);
         }
