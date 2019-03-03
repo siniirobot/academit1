@@ -49,7 +49,7 @@ public class Matrix {
     public Matrix(Matrix matrix) {
         this.rows = new Vector[matrix.getRowsCount()];
         for (int i = 0; i < matrix.getRowsCount(); i++) {
-            this.rows[i] = new Vector(matrix.getRow(i));
+            this.rows[i] = matrix.getRow(i);
         }
     }
 
@@ -210,7 +210,7 @@ public class Matrix {
                     for (int j = 0, n = 0; j < this.rows.length; ++j) {
                         if (j != i) {
                             for (int k = 1, m = 0; k < this.rows.length; ++k) {
-                                smallerMatrix.getRow(n).setElementByIndex(m, this.rows[j].getElementByIndex(k));
+                                smallerMatrix.rows[n].setElementByIndex(m, this.rows[j].getElementByIndex(k));
                                 m++;
                             }
                             n++;
@@ -267,7 +267,7 @@ public class Matrix {
     public void sum(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
-            this.rows[i].sum(matrix.getRow(i));
+            this.rows[i].sum(matrix.rows[i]);
         }
     }
 
@@ -279,7 +279,7 @@ public class Matrix {
     public void subtraction(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
-            this.rows[i].subtraction(matrix.getRow(i));
+            this.rows[i].subtraction(matrix.rows[i]);
         }
     }
 
