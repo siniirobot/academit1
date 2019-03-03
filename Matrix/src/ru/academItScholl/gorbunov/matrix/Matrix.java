@@ -54,7 +54,7 @@ public class Matrix {
     }
 
     /**
-     * Возвращает значение ширины массива.
+     * Возвращает значение колличества столбцов двумерного вектора.
      *
      * @return int
      */
@@ -69,7 +69,7 @@ public class Matrix {
     }
 
     /**
-     * Возвращает значение ширины векторного массива.
+     * Возвращает значение колличества столбцов векторного массива.
      *
      * @return int
      */
@@ -93,7 +93,7 @@ public class Matrix {
      * @return int
      */
     public int getColumnsCount() {
-        return getColumnsCount(this.rows);
+        return this.rows[0].getSize();
     }
 
     /**
