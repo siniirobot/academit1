@@ -341,9 +341,9 @@ public class MatrixTest {
     public void GetWidth_Matrix_IntWidth() {
         try {
             Assume.assumeTrue(this.type == Type.WIDTH);
-            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getColumnsNumber())));
+            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getColumnsCount())));
         } catch (IllegalArgumentException e) {
-            System.out.println("getColumnsNumber - " + e);
+            System.out.println("getColumnsCount - " + e);
         }
     }
 
@@ -351,9 +351,9 @@ public class MatrixTest {
     public void GetHeight_Matrix_IntHeight() {
         try {
             Assume.assumeTrue(this.type == Type.HEIGHT);
-            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getRowsNumber())));
+            assertEquals(this.expectedMatrix, (Integer.toString(this.matrix1.getRowsCount())));
         } catch (IllegalArgumentException e) {
-            System.out.println("getRowsNumber - " + e);
+            System.out.println("getRowsCount - " + e);
         }
     }
 
