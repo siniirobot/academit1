@@ -19,7 +19,7 @@ public class Matrix {
     }
 
     public Matrix(double[][] components) {
-        if (components.length == 0) {
+        if (components.length == 0){
             throw new NullPointerException("Колличество строк не может быть равно нулю.");
         }
         int columnsCount = getColumnsCount(components);
@@ -76,8 +76,12 @@ public class Matrix {
     private int getColumnsCount(Vector[] rows) {
         int columnsCounts = 0;
         for (Vector vec : rows) {
-            if (columnsCounts < vec.getSize()) {
-                columnsCounts = vec.getSize();
+            if (vec != null) {
+                if (columnsCounts < vec.getSize()) {
+                    columnsCounts = vec.getSize();
+                }
+            } else {
+                throw new NullPointerException("Векторный массив содержит null елементы.");
             }
         }
         return columnsCounts;
