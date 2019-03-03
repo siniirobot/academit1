@@ -1,53 +1,51 @@
 package ru.academItScholl.gorbunov.matrix;
 
 import java.util.Arrays;
-
-
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
 
-    private Vector[] fields;
+    private Vector[] rows;
 
-    public Matrix(int rowNumber, int columnNumber) {
-        if (columnNumber <= 0 || rowNumber <= 0) {
-            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+    public Matrix(int rowsNumber, int columnsNumber) {
+        if (columnsNumber <= 0 || rowsNumber <= 0) {
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
-        this.fields = new Vector[rowNumber];
-        for (int i = 0; i < fields.length; i++) {
-            this.fields[i] = new Vector(columnNumber);
+        this.rows = new Vector[rowsNumber];
+        for (int i = 0; i < rows.length; i++) {
+            this.rows[i] = new Vector(columnsNumber);
         }
     }
 
     public Matrix(double[][] components) {
-        if (components.length == 0 || getColumnNumber(components) <= 0) {
+        if (components.length == 0 || getColumnsNumber(components) <= 0) {
             throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
-        int columnNumber = getColumnNumber(components);
-        this.fields = new Vector[components.length];
-        for (int i = 0; i < fields.length; i++) {
-            this.fields[i] = new Vector(columnNumber, components[i]);
+        int columnNumber = getColumnsNumber(components);
+        this.rows = new Vector[components.length];
+        for (int i = 0; i < rows.length; i++) {
+            this.rows[i] = new Vector(columnNumber, components[i]);
         }
     }
 
-    public Matrix(Vector[] fields) {
-        if (fields.length == 0) {
+    public Matrix(Vector[] rows) {
+        if (rows.length == 0) {
             throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
-        int columnNumber = getColumnNumber(fields);
-        this.fields = new Vector[fields.length];
-        for (int i = 0; i < this.fields.length; i++) {
-            this.fields[i] = new Vector(columnNumber);
-            for (int j = 0; j < fields[i].getSize(); j++) {
-                this.fields[i].setElementByIndex(j, fields[i].getElementByIndex(j));
+        int columnNumber = getColumnsNumber(rows);
+        this.rows = new Vector[rows.length];
+        for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i] = new Vector(columnNumber);
+            for (int j = 0; j < rows[i].getSize(); j++) {
+                this.rows[i].setElementByIndex(j, rows[i].getElementByIndex(j));
             }
         }
     }
 
     public Matrix(Matrix matrix) {
-        this.fields = new Vector[matrix.getRowNumber()];
-        for (int i = 0; i < matrix.getRowNumber(); i++) {
-            this.fields[i] = new Vector(matrix.getRowVector(i));
+        this.rows = new Vector[matrix.getRowsNumber()];
+        for (int i = 0; i < matrix.getRowsNumber(); i++) {
+            this.rows[i] = new Vector(matrix.getRowVector(i));
         }
     }
 
@@ -56,18 +54,18 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnNumber(double[][] components) {
-        int columnNumber = 0;
+    private int getColumnsNumber(double[][] components) {
+        int columnsNumber = 0;
         for (double[] arr : components) {
             if (arr.length != 0) {
-                if (columnNumber < arr.length) {
-                    columnNumber = arr.length;
+                if (columnsNumber < arr.length) {
+                    columnsNumber = arr.length;
                 }
             } else {
                 throw new NullPointerException("Двумерный массив содержит пустые массивы.");
             }
         }
-        return columnNumber;
+        return columnsNumber;
     }
 
     /**
@@ -75,18 +73,18 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnNumber(Vector[] columns) {
-        int columnNumber = 0;
+    private int getColumnsNumber(Vector[] columns) {
+        int columnsNumber = 0;
         for (Vector vec : columns) {
             if (vec != null) {
-                if (columnNumber < vec.getSize()) {
-                    columnNumber = vec.getSize();
+                if (columnsNumber < vec.getSize()) {
+                    columnsNumber = vec.getSize();
                 }
             } else {
                 throw new NullPointerException("Векторный массив содержит пустые вектора.");
             }
         }
-        return columnNumber;
+        return columnsNumber;
     }
 
     /**
@@ -94,8 +92,8 @@ public class Matrix {
      *
      * @return int
      */
-    public int getColumnNumber() {
-        return getColumnNumber(this.fields);
+    public int getColumnsNumber() {
+        return getColumnsNumber(this.rows);
     }
 
     /**
@@ -103,8 +101,8 @@ public class Matrix {
      *
      * @return int
      */
-    public int getRowNumber() {
-        return fields.length;
+    public int getRowsNumber() {
+        return rows.length;
     }
 
     /**
@@ -113,9 +111,9 @@ public class Matrix {
      * @param index int
      */
     private void exceptionForWrongIndex(int index) {
-        if (index >= this.fields.length || index < 0) {
+        if (index >= this.rows.length || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
-                    this.fields.length + " матрицы");
+                    this.rows.length + " матрицы");
         }
     }
 
@@ -127,7 +125,7 @@ public class Matrix {
      */
     public Vector getRowVector(int index) {
         exceptionForWrongIndex(index);
-        return new Vector(this.fields[index]);
+        return new Vector(this.rows[index]);
     }
 
     /**
@@ -138,11 +136,11 @@ public class Matrix {
      */
     public void setRowVector(int index, Vector row) {
         exceptionForWrongIndex(index);
-        if (row.getSize() > getColumnNumber()) {
+        if (row.getSize() > getColumnsNumber()) {
             throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов "
-                    + getColumnNumber() + " матрицы");
+                    + getColumnsNumber() + " матрицы");
         }
-        this.fields[index] = row;
+        this.rows[index] = row;
     }
 
     /**
@@ -152,13 +150,13 @@ public class Matrix {
      * @return Vector
      */
     public Vector getColumnVector(int index) {
-        if (index >= getColumnNumber() || index < 0) {
+        if (index >= getColumnsNumber() || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок " +
-                    getColumnNumber() + " матрицы");
+                    getColumnsNumber() + " матрицы");
         }
-        Vector columnVector = new Vector(this.fields.length);
-        for (int i = 0; i < this.fields.length; i++) {
-            columnVector.setElementByIndex(i, this.fields[i].getElementByIndex(index));
+        Vector columnVector = new Vector(this.rows.length);
+        for (int i = 0; i < this.rows.length; i++) {
+            columnVector.setElementByIndex(i, this.rows[i].getElementByIndex(index));
         }
         return columnVector;
     }
@@ -167,11 +165,11 @@ public class Matrix {
      * Транспонирование матрицы.
      */
     public void transposition() {
-        Vector[] transposeMatrix = new Vector[getColumnNumber()];
+        Vector[] transposeMatrix = new Vector[getColumnsNumber()];
         for (int i = 0; i < transposeMatrix.length; i++) {
-            transposeMatrix[i] = new Vector(getColumnVector(i));
+            transposeMatrix[i] = getColumnVector(i);
         }
-        this.fields = transposeMatrix;
+        this.rows = transposeMatrix;
     }
 
     /**
@@ -181,7 +179,7 @@ public class Matrix {
      */
     public void multiplicationByScalar(double scalar) {
         if (scalar == 1) return;
-        for (Vector vec : this.fields) {
+        for (Vector vec : this.rows) {
             vec.multiplicationByScalar(scalar);
         }
     }
@@ -192,39 +190,39 @@ public class Matrix {
      * @return double
      */
     public double getDeterminant() {
-        if (getColumnNumber() != getRowNumber()) {
+        if (getColumnsNumber() != getRowsNumber()) {
             throw new IllegalArgumentException("Вычислить детерминант не квадратичной матрицы нельзя.");
         }
-        if (this.fields.length == 1) {
-            return this.fields[0].getElementByIndex(0);
-        } else if (this.fields.length == 2) {
-            return this.fields[0].getElementByIndex(0) * this.fields[1].getElementByIndex(1) - this.fields[0].getElementByIndex(1) * this.fields[1].getElementByIndex(0);
-        } else if (this.fields.length == 3) {
-            return this.fields[0].getElementByIndex(0) * this.fields[1].getElementByIndex(1) * this.fields[2].getElementByIndex(2)
-                    + this.fields[0].getElementByIndex(1) * this.fields[1].getElementByIndex(2) * this.fields[2].getElementByIndex(0)
-                    + this.fields[0].getElementByIndex(2) * this.fields[1].getElementByIndex(0) * this.fields[2].getElementByIndex(1)
-                    - this.fields[2].getElementByIndex(0) * this.fields[1].getElementByIndex(1) * this.fields[0].getElementByIndex(2)
-                    - this.fields[2].getElementByIndex(1) * this.fields[1].getElementByIndex(2) * this.fields[0].getElementByIndex(0)
-                    - this.fields[2].getElementByIndex(2) * this.fields[1].getElementByIndex(0) * this.fields[0].getElementByIndex(1);
+        if (this.rows.length == 1) {
+            return this.rows[0].getElementByIndex(0);
+        } else if (this.rows.length == 2) {
+            return this.rows[0].getElementByIndex(0) * this.rows[1].getElementByIndex(1) - this.rows[0].getElementByIndex(1) * this.rows[1].getElementByIndex(0);
+        } else if (this.rows.length == 3) {
+            return this.rows[0].getElementByIndex(0) * this.rows[1].getElementByIndex(1) * this.rows[2].getElementByIndex(2)
+                    + this.rows[0].getElementByIndex(1) * this.rows[1].getElementByIndex(2) * this.rows[2].getElementByIndex(0)
+                    + this.rows[0].getElementByIndex(2) * this.rows[1].getElementByIndex(0) * this.rows[2].getElementByIndex(1)
+                    - this.rows[2].getElementByIndex(0) * this.rows[1].getElementByIndex(1) * this.rows[0].getElementByIndex(2)
+                    - this.rows[2].getElementByIndex(1) * this.rows[1].getElementByIndex(2) * this.rows[0].getElementByIndex(0)
+                    - this.rows[2].getElementByIndex(2) * this.rows[1].getElementByIndex(0) * this.rows[0].getElementByIndex(1);
         } else {
             double epsilon = 0.1e-10;
             double determinant = 0;
-            for (int i = 0; i < this.fields.length; ++i) {
-                if (Math.abs(this.fields[i].getElementByIndex(0)) >= epsilon) {
-                    Matrix smallerMatrix = new Matrix(this.fields.length - 1, this.fields.length - 1);
-                    for (int j = 0, n = 0; j < this.fields.length; ++j) {
+            for (int i = 0; i < this.rows.length; ++i) {
+                if (Math.abs(this.rows[i].getElementByIndex(0)) >= epsilon) {
+                    Matrix smallerMatrix = new Matrix(this.rows.length - 1, this.rows.length - 1);
+                    for (int j = 0, n = 0; j < this.rows.length; ++j) {
                         if (j != i) {
-                            for (int k = 1, m = 0; k < this.fields.length; ++k) {
-                                smallerMatrix.getRowVector(n).setElementByIndex(m, this.fields[j].getElementByIndex(k));
+                            for (int k = 1, m = 0; k < this.rows.length; ++k) {
+                                smallerMatrix.getRowVector(n).setElementByIndex(m, this.rows[j].getElementByIndex(k));
                                 m++;
                             }
                             n++;
                         }
                     }
                     if (i % 2 == 0) {
-                        determinant += this.fields[i].getElementByIndex(0) * smallerMatrix.getDeterminant();
+                        determinant += this.rows[i].getElementByIndex(0) * smallerMatrix.getDeterminant();
                     } else {
-                        determinant += (this.fields[i].getElementByIndex(0) * -1) * smallerMatrix.getDeterminant();
+                        determinant += (this.rows[i].getElementByIndex(0) * -1) * smallerMatrix.getDeterminant();
                     }
                 }
             }
@@ -239,14 +237,14 @@ public class Matrix {
      * @return Vector
      */
     public Vector getMultiplicationByVector(Vector vector) {
-        if (getColumnNumber() != vector.getSize()) {
+        if (getColumnsNumber() != vector.getSize()) {
             throw new IllegalArgumentException("Число столбцов матрицы должно быть равно числу длины вектора");
         }
-        Vector result = new Vector(this.fields.length);
-        for (int i = 0; i < this.fields.length; i++) {
+        Vector result = new Vector(this.rows.length);
+        for (int i = 0; i < this.rows.length; i++) {
             double sum = 0;
-            for (int j = 0; j < this.fields[i].getSize(); j++) {
-                sum += this.fields[i].getElementByIndex(j) * vector.getElementByIndex(j);
+            for (int j = 0; j < this.rows[i].getSize(); j++) {
+                sum += this.rows[i].getElementByIndex(j) * vector.getElementByIndex(j);
             }
             result.setElementByIndex(i, sum);
         }
@@ -259,7 +257,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     private void exceptionForNotIdenticalMatrix(Matrix matrix) {
-        if (getRowNumber() != matrix.getRowNumber() || getColumnNumber() != matrix.getColumnNumber()) {
+        if (getRowsNumber() != matrix.getRowsNumber() || getColumnsNumber() != matrix.getColumnsNumber()) {
             throw new IllegalArgumentException("Сложение и вычитание матриц разной размерности невозможно.");
         }
     }
@@ -271,8 +269,8 @@ public class Matrix {
      */
     public void sum(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
-        for (int i = 0; i < this.fields.length; i++) {
-            this.fields[i].sum(matrix.getRowVector(i));
+        for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i].sum(matrix.getRowVector(i));
         }
 
     }
@@ -284,8 +282,8 @@ public class Matrix {
      */
     public void subtraction(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
-        for (int i = 0; i < this.fields.length; i++) {
-            this.fields[i].subtraction(matrix.getRowVector(i));
+        for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i].subtraction(matrix.getRowVector(i));
         }
     }
 
@@ -325,13 +323,13 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getColumnNumber() != matrix2.getRowNumber()) {
+        if (matrix1.getColumnsNumber() != matrix2.getRowsNumber()) {
             throw new IllegalArgumentException("Чтобы можно было умножить две матрицы, количество столбцов первой матрицы должно быть равно количеству строк второй матрицы.");
         }
-        Vector[] tempMatrix = new Vector[matrix1.getRowNumber()];
+        Vector[] tempMatrix = new Vector[matrix1.getRowsNumber()];
         for (int i = 0; i < tempMatrix.length; i++) {
             Vector tempLine = matrix1.getRowVector(i);
-            tempMatrix[i] = new Vector(matrix2.getColumnNumber());
+            tempMatrix[i] = new Vector(matrix2.getColumnsNumber());
             for (int j = 0; j < tempMatrix[i].getSize(); j++) {
                 double sum = 0;
                 Vector tempColumn = matrix2.getColumnVector(j);
@@ -355,19 +353,19 @@ public class Matrix {
         }
 
         Matrix matrix = (Matrix) obj;
-        return Arrays.equals(matrix.fields, fields);
+        return Arrays.equals(matrix.rows, rows);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(this.fields);
+        return Arrays.hashCode(this.rows);
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (Vector vec : this.fields) {
+        for (Vector vec : this.rows) {
             stringBuilder.append(vec.toString()).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
