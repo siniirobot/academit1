@@ -176,7 +176,9 @@ public class Matrix {
      * @param scalar double
      */
     public void multiplicationByScalar(double scalar) {
-        if (scalar == 1) return;
+        if (scalar == 1){
+            return;
+        }
         for (Vector vec : this.rows) {
             vec.multiplicationByScalar(scalar);
         }
