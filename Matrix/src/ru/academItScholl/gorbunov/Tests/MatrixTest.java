@@ -151,7 +151,7 @@ public class MatrixTest {
                                 new Vector(7)}),
                         null,
                         4,
-                        new Vector(5, new double[]{1, 2, 3, 4, 5}),
+                        new Vector(7, new double[]{1, 2, 3, 4, 5}),
                         "{{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, {1.0, 2.0, 3.0, 4.0, 5.0, 0.0, 0.0}}"
                 },
                 {
@@ -397,7 +397,7 @@ public class MatrixTest {
             Assume.assumeTrue(this.type == Type.SET_VECTOR_LINE);
             matrix1.setRow(this.index, this.vector);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             System.out.println("setRow - " + e);
         }
     }
