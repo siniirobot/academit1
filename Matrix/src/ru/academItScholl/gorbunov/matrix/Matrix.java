@@ -112,8 +112,7 @@ public class Matrix {
      */
     private void exceptionForWrongIndex(int index) {
         if (index >= this.rows.length || index < 0) {
-            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк " +
-                    this.rows.length + " матрицы");
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
         }
     }
 
@@ -137,8 +136,7 @@ public class Matrix {
     public void setRowVector(int index, Vector row) {
         exceptionForWrongIndex(index);
         if (row.getSize() > getColumnsCount()) {
-            throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов "
-                    + getColumnsCount() + " матрицы");
+            throw new ArrayIndexOutOfBoundsException("Длина строки не может быть больше количества столбцов матрицы");
         }
         this.rows[index] = row;
     }
@@ -151,8 +149,7 @@ public class Matrix {
      */
     public Vector getColumnVector(int index) {
         if (index >= getColumnsCount() || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок " +
-                    getColumnsCount() + " матрицы");
+            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок матрицы");
         }
         Vector columnVector = new Vector(this.rows.length);
         for (int i = 0; i < this.rows.length; i++) {
