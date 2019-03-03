@@ -385,9 +385,9 @@ public class MatrixTest {
     public void GetRowVector_Matrix_Vector() {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_LINE);
-            assertEquals(this.expectedMatrix, this.matrix1.getRowVector(this.index).toString());
+            assertEquals(this.expectedMatrix, this.matrix1.getRow(this.index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("getRowVector - " + e);
+            System.out.println("getRow - " + e);
         }
     }
 
@@ -395,10 +395,10 @@ public class MatrixTest {
     public void SetLineVector_Matrix_Matrix() {
         try {
             Assume.assumeTrue(this.type == Type.SET_VECTOR_LINE);
-            matrix1.setRowVector(this.index, this.vector);
+            matrix1.setRow(this.index, this.vector);
             assertEquals(this.expectedMatrix, this.matrix1.toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("setRowVector - " + e);
+            System.out.println("setRow - " + e);
         }
     }
 
@@ -406,9 +406,9 @@ public class MatrixTest {
     public void GetColumn_Matrix_Vector() {
         try {
             Assume.assumeTrue(this.type == Type.GET_VECTOR_COLUMN);
-            assertEquals(this.expectedMatrix, this.matrix1.getColumnVector(this.index).toString());
+            assertEquals(this.expectedMatrix, this.matrix1.getColumn(this.index).toString());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("getColumnVector - " + e);
+            System.out.println("getColumn - " + e);
         }
     }
 

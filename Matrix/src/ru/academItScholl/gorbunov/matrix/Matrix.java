@@ -49,7 +49,7 @@ public class Matrix {
     public Matrix(Matrix matrix) {
         this.rows = new Vector[matrix.getRowsCount()];
         for (int i = 0; i < matrix.getRowsCount(); i++) {
-            this.rows[i] = new Vector(matrix.getRowVector(i));
+            this.rows[i] = new Vector(matrix.getRow(i));
         }
     }
 
@@ -122,7 +122,7 @@ public class Matrix {
      * @param index int
      * @return Vector
      */
-    public Vector getRowVector(int index) {
+    public Vector getRow(int index) {
         exceptionForWrongIndex(index);
         return new Vector(this.rows[index]);
     }
@@ -133,7 +133,7 @@ public class Matrix {
      * @param index int
      * @param row   Vector
      */
-    public void setRowVector(int index, Vector row) {
+    public void setRow(int index, Vector row) {
         exceptionForWrongIndex(index);
         int columnsCount = getColumnsCount();
         if (row.getSize() > columnsCount) {
@@ -148,7 +148,7 @@ public class Matrix {
      * @param index int
      * @return Vector
      */
-    public Vector getColumnVector(int index) {
+    public Vector getColumn(int index) {
         if (index >= getColumnsCount() || index < 0) {
             throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок матрицы");
         }
@@ -165,7 +165,7 @@ public class Matrix {
     public void transposition() {
         Vector[] transposeMatrix = new Vector[getColumnsCount()];
         for (int i = 0; i < transposeMatrix.length; i++) {
-            transposeMatrix[i] = getColumnVector(i);
+            transposeMatrix[i] = getColumn(i);
         }
         this.rows = transposeMatrix;
     }
@@ -211,7 +211,7 @@ public class Matrix {
                     for (int j = 0, n = 0; j < this.rows.length; ++j) {
                         if (j != i) {
                             for (int k = 1, m = 0; k < this.rows.length; ++k) {
-                                smallerMatrix.getRowVector(n).setElementByIndex(m, this.rows[j].getElementByIndex(k));
+                                smallerMatrix.getRow(n).setElementByIndex(m, this.rows[j].getElementByIndex(k));
                                 m++;
                             }
                             n++;
@@ -268,7 +268,7 @@ public class Matrix {
     public void sum(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
-            this.rows[i].sum(matrix.getRowVector(i));
+            this.rows[i].sum(matrix.getRow(i));
         }
 
     }
@@ -281,7 +281,7 @@ public class Matrix {
     public void subtraction(Matrix matrix) {
         exceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
-            this.rows[i].subtraction(matrix.getRowVector(i));
+            this.rows[i].subtraction(matrix.getRow(i));
         }
     }
 
@@ -326,11 +326,11 @@ public class Matrix {
         }
         Vector[] tempMatrix = new Vector[matrix1.getRowsCount()];
         for (int i = 0; i < tempMatrix.length; i++) {
-            Vector tempRow = matrix1.getRowVector(i);
+            Vector tempRow = matrix1.getRow(i);
             tempMatrix[i] = new Vector(matrix2.getColumnsCount());
             for (int j = 0; j < tempMatrix[i].getSize(); j++) {
                 double sum = 0;
-                Vector tempColumn = matrix2.getColumnVector(j);
+                Vector tempColumn = matrix2.getColumn(j);
                 for (int k = 0; k < tempColumn.getSize(); k++) {
                     sum += tempRow.getElementByIndex(k) * tempColumn.getElementByIndex(k);
                 }
