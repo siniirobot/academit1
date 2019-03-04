@@ -1,5 +1,7 @@
 package ru.academItSchool.gorbunov.main;
 
+import ru.academItSchool.gorbunov.main.myArrayList.MyArrayList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.Scanner;
 
 public class Realization {
     public static void main(String[] args) {
+
+        MyArrayList<Integer> list = new MyArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream("try.txt"), "windows-1251")) {
             ArrayList<String> lines = new ArrayList<>();
             while (scanner.hasNextLine()) {
