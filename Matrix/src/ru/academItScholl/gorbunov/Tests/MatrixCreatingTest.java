@@ -78,6 +78,18 @@ public class MatrixCreatingTest {
     }
 
     @Test
+    public void CreateMatrixCopyForChange_Matrix_Matrix() {
+        try {
+            Matrix matrix = new Matrix(2, 2);
+            Matrix copyMatrix = new Matrix(matrix);
+            matrix.setRow(1,new Vector(2,new double[]{1,2}));
+            assertNotEquals(matrix,copyMatrix);
+        } catch (NullPointerException e) {
+            System.out.println("createMatrixCopy - " + e);
+        }
+    }
+
+    @Test
     public void CreateMatrixVector_Vector_Matrix() {
         try {
             Vector[] vectors = new Vector[]{

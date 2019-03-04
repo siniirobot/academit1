@@ -150,7 +150,7 @@ public class Matrix {
      */
     public Vector getColumn(int index) {
         if (index >= getColumnsCount() || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок матрицы");
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества колонок матрицы");
         }
         Vector column = new Vector(this.rows.length);
         for (int i = 0; i < this.rows.length; i++) {
