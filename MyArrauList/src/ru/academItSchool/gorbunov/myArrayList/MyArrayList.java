@@ -1,15 +1,14 @@
-package ru.academItSchool.gorbunov.main.myArrayList;
+package ru.academItSchool.gorbunov.myArrayList;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 public class MyArrayList<T> implements List<T> {
     private T[] array;
-    private int lenhgth;
+    private int lenhght;
     private int modCount;
 
     /**
@@ -18,7 +17,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.array = (T[]) new Object[10];
-        this.lenhgth = 0;
+        this.lenhght = 0;
         this.modCount = 0;
     }
 
@@ -29,22 +28,136 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         this.array = (T[]) new Object[capacity];
-        this.lenhgth = 0;
+        this.lenhght = 0;
         this.modCount = 0;
+    }
+
+    private class MyIterator implements Iterator<T> {
+        private int currentIndex = -1;
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public T next() {
+            return null;
+        }
+    }
+
+    private class MyListIterator implements ListIterator<T> {
+        private int currentIndex = -1;
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public T next() {
+            return null;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return false;
+        }
+
+        @Override
+        public T previous() {
+            return null;
+        }
+
+        @Override
+        public int nextIndex() {
+            return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(T t) {
+
+        }
+
+        @Override
+        public void add(T t) {
+
+        }
+    }
+
+    private class MySpliterator implements Spliterator<T> {
+        @Override
+        public void forEachRemaining(Consumer<? super T> action) {
+
+        }
+
+        @Override
+        public long getExactSizeIfKnown() {
+            return 0;
+        }
+
+        @Override
+        public boolean hasCharacteristics(int characteristics) {
+            return false;
+        }
+
+        @Override
+        public Comparator<? super T> getComparator() {
+            return null;
+        }
+
+        @Override
+        public boolean tryAdvance(Consumer<? super T> action) {
+            return false;
+        }
+
+        @Override
+        public Spliterator<T> trySplit() {
+            return null;
+        }
+
+        @Override
+        public long estimateSize() {
+            return 0;
+        }
+
+        @Override
+        public int characteristics() {
+            return 0;
+        }
+    }
+
+    private void increaseCapacity () {
+        this.array = Arrays.copyOf(this.array,this.lenhght + 10);
     }
 
     @Override
     public int size() {
-        return lenhgth;
+        return lenhght;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        for (T arr : array) {
+            if (arr.equals(o)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -65,7 +178,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        return false;
+        if (this.lenhght == this.array.length) {
+            increaseCapacity();
+        }
+        this.array[lenhght] = t;
+        return true;
     }
 
     @Override
@@ -162,11 +279,6 @@ public class MyArrayList<T> implements List<T> {
     public Spliterator<T> spliterator() {
         return null;
     }
-
-   /* @Override
-    public <T1> T1[] toArray(IntFunction<T1[]> generator) {
-        return null;
-    }*/
 
     @Override
     public boolean removeIf(Predicate<? super T> filter) {

@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.ArrayList;
+package ru.academItSchool.gorbunov.OldArrayList;
 
 import java.util.*;
 import java.util.stream.Collectors;
