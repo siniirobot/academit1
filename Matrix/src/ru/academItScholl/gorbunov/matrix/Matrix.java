@@ -5,7 +5,6 @@ import java.util.Arrays;
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
-
     private Vector[] rows;
 
     public Matrix(int rowsCount, int columnsCount) {
@@ -20,11 +19,11 @@ public class Matrix {
 
     public Matrix(double[][] components) {
         if (components.length == 0) {
-            throw new NullPointerException("Колличество строк не может быть равно нулю.");
+            throw new IllegalArgumentException("Колличество строк не может быть равно нулю.");
         }
         int columnsCount = getColumnsCount(components);
         if (columnsCount == 0) {
-            throw new NullPointerException("Количество столбцов не может быть равно нулю.");
+            throw new IllegalArgumentException("Количество столбцов не может быть равно нулю.");
         }
         this.rows = new Vector[components.length];
         for (int i = 0; i < rows.length; i++) {
@@ -34,15 +33,13 @@ public class Matrix {
 
     public Matrix(Vector[] rows) {
         if (rows.length == 0) {
-            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         int columnsCount = getColumnsCount(rows);
         this.rows = new Vector[rows.length];
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i] = new Vector(columnsCount);
-            for (int j = 0; j < rows[i].getSize(); j++) {
-                this.rows[i].setElementByIndex(j, rows[i].getElementByIndex(j));
-            }
+            this.rows[i].sum(rows[i]);
         }
     }
 
