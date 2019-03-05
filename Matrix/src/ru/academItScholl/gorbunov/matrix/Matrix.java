@@ -107,7 +107,7 @@ public class Matrix {
      *
      * @param index int
      */
-    private void exceptionForWrongIndex(int index) {
+    private void catchExceptionForWrongIndex(int index) {
         if (index >= this.rows.length || index < 0) {
             throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
         }
@@ -120,7 +120,7 @@ public class Matrix {
      * @return Vector
      */
     public Vector getRow(int index) {
-        exceptionForWrongIndex(index);
+        catchExceptionForWrongIndex(index);
         return new Vector(this.rows[index]);
     }
 
@@ -131,7 +131,7 @@ public class Matrix {
      * @param row   Vector
      */
     public void setRow(int index, Vector row) {
-        exceptionForWrongIndex(index);
+        catchExceptionForWrongIndex(index);
         int columnsCount = getColumnsCount();
         if (row.getSize() != columnsCount) {
             throw new IllegalArgumentException("Длина строки не может быть больше или меньше количества столбцов матрицы");
@@ -250,7 +250,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    private void exceptionForNotIdenticalMatrix(Matrix matrix) {
+    private void catchExceptionForNotIdenticalMatrix(Matrix matrix) {
         if (getRowsCount() != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
             throw new IllegalArgumentException("Сложение и вычитание матриц разной размерности невозможно.");
         }
@@ -262,7 +262,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void sum(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(matrix);
+        catchExceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i].sum(matrix.rows[i]);
         }
@@ -274,7 +274,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void subtraction(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(matrix);
+        catchExceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i].subtraction(matrix.rows[i]);
         }
@@ -288,7 +288,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        matrix1.exceptionForNotIdenticalMatrix(matrix2);
+        matrix1.catchExceptionForNotIdenticalMatrix(matrix2);
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.sum(matrix2);
         return sumMatrix;
@@ -302,7 +302,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
-        matrix1.exceptionForNotIdenticalMatrix(matrix2);
+        matrix1.catchExceptionForNotIdenticalMatrix(matrix2);
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.subtraction(matrix2);
         return subtractionMatrix;
