@@ -28,7 +28,7 @@ public class MyArrayListTest {
     @DataProvider(name = "Add")
     public Object[][] add() {
         return new Object[][]{
-               // new Object[]{new MyArrayList<>(),"Это нулевой элемент", new MyArrayList<String>(Arrays.asList("Это нулевой элемент"))}
+                new Object[]{new MyArrayList<>(), "Это нулевой элемент", true}
         };
     }
 
@@ -62,8 +62,8 @@ public class MyArrayListTest {
         assertEquals(list.toArray(array), result);
     }
 
-    @Test
-    public void testAdd(MyArrayList list, String element, MyArrayList result) {
+    @Test(dataProvider = "Add")
+    public void testAdd(MyArrayList list, String element, boolean result) {
         assertEquals(list.add(element), result);
     }
 

@@ -1,13 +1,17 @@
 package ru.academItSchool.gorbunov.main;
 
 import ru.academItSchool.gorbunov.OldArrayList.MyArrayList;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 //import java.util.OldArrayList;
 //import java.util.Arrays;
 
 public class Realization {
     public static void main(String[] args) {
+        System.out.println(Arrays.asList(new Integer[]{1,2,3},new Double[]{1.1,2.5,3.3}));
         MyArrayList<Integer> proba = new MyArrayList<>();
-        //OldArrayList<Integer> proba2 = new OldArrayList<>(Arrays.asList(1,2,3));
+        ArrayList<Integer> proba2 = new ArrayList<>(Arrays.asList(1,2,3));
         System.out.println("Проверка массива на пустоту - " + proba.isEmpty());
         proba.add(1);
         proba.add(2);

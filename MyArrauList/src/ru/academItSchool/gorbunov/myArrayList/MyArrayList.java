@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class MyArrayList<T> implements List<T> {
     private T[] array;
-    private int lenhght;
+    private int length;
     private int modCount;
 
     /**
@@ -17,7 +17,14 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.array = (T[]) new Object[10];
-        this.lenhght = 0;
+        this.length = 0;
+        this.modCount = 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    public MyArrayList(T... array) {
+        this.array = array;
+        this.length = array.length;
         this.modCount = 0;
     }
 
@@ -28,7 +35,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         this.array = (T[]) new Object[capacity];
-        this.lenhght = 0;
+        this.length = 0;
         this.modCount = 0;
     }
 
@@ -138,12 +145,12 @@ public class MyArrayList<T> implements List<T> {
     }
 
     private void increaseCapacity () {
-        this.array = Arrays.copyOf(this.array,this.lenhght + 10);
+        this.array = Arrays.copyOf(this.array,this.length + 10);
     }
 
     @Override
     public int size() {
-        return lenhght;
+        return length;
     }
 
     @Override
@@ -178,10 +185,10 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        if (this.lenhght == this.array.length) {
+        if (this.length == this.array.length) {
             increaseCapacity();
         }
-        this.array[lenhght] = t;
+        this.array[length] = t;
         return true;
     }
 
