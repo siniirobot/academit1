@@ -321,7 +321,7 @@ public class Matrix {
         }
         Vector[] tempMatrix = new Vector[matrix1.getRowsCount()];
         for (int i = 0; i < tempMatrix.length; i++) {
-            Vector tempRow = matrix1.getRow(i);
+            Vector tempRow = matrix1.rows[i];
             tempMatrix[i] = new Vector(matrix2.getColumnsCount());
             for (int j = 0; j < tempMatrix[i].getSize(); j++) {
                 double sum = 0;
