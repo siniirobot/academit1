@@ -55,7 +55,7 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnsCount(double[][] components) {
+    private static int getColumnsCount(double[][] components) {
         int columnsCount = 0;
         for (double[] arr : components) {
             if (columnsCount < arr.length) {
@@ -70,7 +70,7 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnsCount(Vector[] rows) {
+    private static int getColumnsCount(Vector[] rows) {
         int columnsCounts = 0;
         for (Vector vec : rows) {
             if (vec != null) {
