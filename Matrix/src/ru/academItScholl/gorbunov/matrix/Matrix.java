@@ -33,7 +33,7 @@ public class Matrix {
 
     public Matrix(Vector[] rows) {
         if (rows.length == 0) {
-            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+            throw new IllegalArgumentException("Количество столбцов не может быть меньше или равен нулю.");
         }
         int columnsCount = getColumnsCount(rows);
         this.rows = new Vector[rows.length];
