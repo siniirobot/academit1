@@ -5,7 +5,6 @@ import java.util.Arrays;
 import ru.academItSchool.gorbunov.vector.Vector;
 
 public class Matrix {
-
     private Vector[] rows;
 
     public Matrix(int rowsCount, int columnsCount) {
@@ -20,11 +19,11 @@ public class Matrix {
 
     public Matrix(double[][] components) {
         if (components.length == 0) {
-            throw new NullPointerException("Колличество строк не может быть равно нулю.");
+            throw new IllegalArgumentException("Колличество строк не может быть равно нулю.");
         }
         int columnsCount = getColumnsCount(components);
         if (columnsCount == 0) {
-            throw new NullPointerException("Количество столбцов не может быть равно нулю.");
+            throw new IllegalArgumentException("Количество столбцов не может быть равно нулю.");
         }
         this.rows = new Vector[components.length];
         for (int i = 0; i < rows.length; i++) {
@@ -34,15 +33,13 @@ public class Matrix {
 
     public Matrix(Vector[] rows) {
         if (rows.length == 0) {
-            throw new NullPointerException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
+            throw new IllegalArgumentException("Количество столбцов и количество рядов не может быть меньше или равен нулю.");
         }
         int columnsCount = getColumnsCount(rows);
         this.rows = new Vector[rows.length];
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i] = new Vector(columnsCount);
-            for (int j = 0; j < rows[i].getSize(); j++) {
-                this.rows[i].setElementByIndex(j, rows[i].getElementByIndex(j));
-            }
+            this.rows[i].sum(rows[i]);
         }
     }
 
@@ -58,7 +55,7 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnsCount(double[][] components) {
+    private static int getColumnsCount(double[][] components) {
         int columnsCount = 0;
         for (double[] arr : components) {
             if (columnsCount < arr.length) {
@@ -73,7 +70,7 @@ public class Matrix {
      *
      * @return int
      */
-    private int getColumnsCount(Vector[] rows) {
+    private static int getColumnsCount(Vector[] rows) {
         int columnsCounts = 0;
         for (Vector vec : rows) {
             if (vec != null) {
@@ -110,7 +107,7 @@ public class Matrix {
      *
      * @param index int
      */
-    private void exceptionForWrongIndex(int index) {
+    private void catchExceptionForWrongIndex(int index) {
         if (index >= this.rows.length || index < 0) {
             throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
         }
@@ -123,7 +120,7 @@ public class Matrix {
      * @return Vector
      */
     public Vector getRow(int index) {
-        exceptionForWrongIndex(index);
+        catchExceptionForWrongIndex(index);
         return new Vector(this.rows[index]);
     }
 
@@ -134,7 +131,7 @@ public class Matrix {
      * @param row   Vector
      */
     public void setRow(int index, Vector row) {
-        exceptionForWrongIndex(index);
+        catchExceptionForWrongIndex(index);
         int columnsCount = getColumnsCount();
         if (row.getSize() != columnsCount) {
             throw new IllegalArgumentException("Длина строки не может быть больше или меньше количества столбцов матрицы");
@@ -253,7 +250,7 @@ public class Matrix {
      *
      * @param matrix Matrix
      */
-    private void exceptionForNotIdenticalMatrix(Matrix matrix) {
+    private void catchExceptionForNotIdenticalMatrix(Matrix matrix) {
         if (getRowsCount() != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
             throw new IllegalArgumentException("Сложение и вычитание матриц разной размерности невозможно.");
         }
@@ -265,7 +262,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void sum(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(matrix);
+        catchExceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i].sum(matrix.rows[i]);
         }
@@ -277,7 +274,7 @@ public class Matrix {
      * @param matrix Matrix
      */
     public void subtraction(Matrix matrix) {
-        exceptionForNotIdenticalMatrix(matrix);
+        catchExceptionForNotIdenticalMatrix(matrix);
         for (int i = 0; i < this.rows.length; i++) {
             this.rows[i].subtraction(matrix.rows[i]);
         }
@@ -291,7 +288,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        matrix1.exceptionForNotIdenticalMatrix(matrix2);
+        matrix1.catchExceptionForNotIdenticalMatrix(matrix2);
         Matrix sumMatrix = new Matrix(matrix1);
         sumMatrix.sum(matrix2);
         return sumMatrix;
@@ -305,7 +302,7 @@ public class Matrix {
      * @return Matrix
      */
     public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
-        matrix1.exceptionForNotIdenticalMatrix(matrix2);
+        matrix1.catchExceptionForNotIdenticalMatrix(matrix2);
         Matrix subtractionMatrix = new Matrix(matrix1);
         subtractionMatrix.subtraction(matrix2);
         return subtractionMatrix;
@@ -324,7 +321,7 @@ public class Matrix {
         }
         Vector[] tempMatrix = new Vector[matrix1.getRowsCount()];
         for (int i = 0; i < tempMatrix.length; i++) {
-            Vector tempRow = matrix1.getRow(i);
+            Vector tempRow = matrix1.rows[i];
             tempMatrix[i] = new Vector(matrix2.getColumnsCount());
             for (int j = 0; j < tempMatrix[i].getSize(); j++) {
                 double sum = 0;
