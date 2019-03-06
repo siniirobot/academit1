@@ -221,8 +221,6 @@ public class MyArrayList<T> implements List<T> {
         return 0;
     }
 
-
-
     @Override
     public void replaceAll(UnaryOperator<T> operator) {
 
@@ -273,7 +271,10 @@ public class MyArrayList<T> implements List<T> {
         return null;
     }
 
-    //Распечатываем массив
+    /**
+     *Вывод элемента списков в виде строки.
+     * @return String
+     */
     @Override
     public String toString() {
         Stream<T> stream = Stream.of(this.array).limit(this.length);
