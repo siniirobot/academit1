@@ -38,7 +38,7 @@ public class MatrixCreatingTest {
             double[][] array = new double[3][2];
             Matrix matrix = new Matrix(array);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("createMatrixArray - " + e);
         }
     }
@@ -49,7 +49,7 @@ public class MatrixCreatingTest {
             double[][] array = new double[0][2];
             Matrix matrix = new Matrix(array);
             assertEquals("{{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("createMatrixArray - " + e);
         }
     }
@@ -60,7 +60,7 @@ public class MatrixCreatingTest {
             double[][] array = new double[][]{{}, {}, {}};
             Matrix matrix = new Matrix(array);
             assertEquals("{{1.0, 2.0, 3.0}, {1.0, 0.0, 0.0}, {0.0, 0.0, 0.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("createMatrixArray - " + e);
         }
     }
@@ -99,7 +99,7 @@ public class MatrixCreatingTest {
             };
             Matrix matrix = new Matrix(vectors);
             assertEquals("{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("createMatrixVector - " + e);
         }
     }
@@ -110,7 +110,7 @@ public class MatrixCreatingTest {
             Vector[] vectors = new Vector[0];
             Matrix matrix = new Matrix(vectors);
             assertEquals("{{1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}, {1.0, 2.0, 3.0}}", matrix.toString());
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             System.out.println("createMatrixVector - " + e);
         }
     }

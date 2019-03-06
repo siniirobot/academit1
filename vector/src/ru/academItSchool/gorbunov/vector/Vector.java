@@ -36,7 +36,7 @@ public class Vector {
 
     public void sum(Vector vector) {
         changeVectorLength(vector);
-        for (int i = 0; i < this.components.length; i++) {
+        for (int i = 0; i < vector.getSize(); i++) {
             this.components[i] += vector.components[i];
         }
     }
@@ -49,7 +49,7 @@ public class Vector {
 
     public void subtraction(Vector vector) {
         changeVectorLength(vector);
-        for (int i = 0; i < this.components.length; i++) {
+        for (int i = 0; i < vector.getSize(); i++) {
             this.components[i] -= vector.components[i];
         }
     }
