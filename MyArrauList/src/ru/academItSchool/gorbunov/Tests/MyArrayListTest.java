@@ -32,6 +32,21 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Contains")
+    public Object[][] contains() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"), "Это второй элемент", true}
+        };
+    }
+
+    @DataProvider(name = "ToArray")
+    public Object[][] iterator() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new Object[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент"}}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyArrayList list, int result) {
         assertEquals(list.size(), result);
@@ -42,19 +57,14 @@ public class MyArrayListTest {
         assertEquals(list.isEmpty(), result);
     }
 
-    @Test
+    @Test(dataProvider = "Contains")
     public void testContains(MyArrayList list, String element, boolean result) {
         assertEquals(list.contains(element), result);
     }
 
-    @Test
-    public void testIterator(MyArrayList list, Iterator result) {
-        assertEquals(list.iterator(), result);
-    }
-
-    @Test
-    public void testToArray(MyArrayList list, String[] result) {
-        assertEquals(list.toArray(), result);
+    @Test(dataProvider = "ToArray")
+    public void testToArray(MyArrayList list, Object[] result) {
+        assertEquals(list.toArray(),result);
     }
 
     @Test

@@ -4,9 +4,11 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyArrayList<T> implements List<T> {
+    private final int ARRAY_LENGTH = 10;
     private T[] array;
     private int length;
     private int modCount;
@@ -16,11 +18,16 @@ public class MyArrayList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public MyArrayList() {
-        this.array = (T[]) new Object[10];
+        this.array = (T[]) new Object[ARRAY_LENGTH];
         this.length = 0;
         this.modCount = 0;
     }
 
+    /**
+     * Создание исписка определеного типа и одновременно его заполнение.
+     *
+     * @param array T
+     */
     @SuppressWarnings("unchecked")
     public MyArrayList(T... array) {
         this.array = array;
@@ -41,64 +48,20 @@ public class MyArrayList<T> implements List<T> {
 
     private class MyIterator implements Iterator<T> {
         private int currentIndex = -1;
+        private int modification = modCount;
 
         @Override
         public boolean hasNext() {
-            return false;
+            return currentIndex++ != length;
         }
 
         @Override
         public T next() {
-            return null;
-        }
-    }
-
-    private class MyListIterator implements ListIterator<T> {
-        private int currentIndex = -1;
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public T next() {
-            return null;
-        }
-
-        @Override
-        public boolean hasPrevious() {
-            return false;
-        }
-
-        @Override
-        public T previous() {
-            return null;
-        }
-
-        @Override
-        public int nextIndex() {
-            return 0;
-        }
-
-        @Override
-        public int previousIndex() {
-            return 0;
-        }
-
-        @Override
-        public void remove() {
-
-        }
-
-        @Override
-        public void set(T t) {
-
-        }
-
-        @Override
-        public void add(T t) {
-
+            if (modification != modCount) {
+                throw new ConcurrentModificationException("Список был изменен");
+            }
+            currentIndex++;
+            return array[currentIndex];
         }
     }
 
@@ -144,8 +107,8 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
-    private void increaseCapacity () {
-        this.array = Arrays.copyOf(this.array,this.length + 10);
+    private void increaseCapacity() {
+        this.array = Arrays.copyOf(this.array, this.length + ARRAY_LENGTH);
     }
 
     @Override
@@ -170,12 +133,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyIterator();
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = Arrays.copyOf(this.array, this.length);
+        return array;
     }
 
     @Override
@@ -257,20 +221,7 @@ public class MyArrayList<T> implements List<T> {
         return 0;
     }
 
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
 
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        return null;
-    }
 
     @Override
     public void replaceAll(UnaryOperator<T> operator) {
@@ -305,5 +256,27 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public void forEach(Consumer<? super T> action) {
 
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        return null;
+    }
+
+    //Распечатываем массив
+    @Override
+    public String toString() {
+        Stream<T> stream = Stream.of(this.array).limit(this.length);
+        return stream.collect(Collectors.toList()).toString();
     }
 }
