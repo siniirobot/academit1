@@ -131,6 +131,7 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+
     @Override
     public Iterator<T> iterator() {
         return new MyIterator();
@@ -138,12 +139,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        Object[] array = Arrays.copyOf(this.array, this.length);
-        return array;
+        return Arrays.copyOf(this.array, this.length);
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
+        if(a.length < this.length) {
+        }
         return null;
     }
 
