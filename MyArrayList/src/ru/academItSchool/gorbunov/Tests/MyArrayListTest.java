@@ -47,11 +47,21 @@ public class MyArrayListTest {
         };
     }
 
+
+    @DataProvider(name = "Remove")
+    public Object[][] remove() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        "Это первый элемент",
+                        true}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                "Это второй элемент", 2}
+                        "Это второй элемент", 2}
         };
     }
 
@@ -72,7 +82,7 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "ToArray")
     public void testToArray(MyArrayList list, Object[] result) {
-        assertEquals(list.toArray(),result);
+        assertEquals(list.toArray(), result);
     }
 
     @Test
@@ -85,7 +95,7 @@ public class MyArrayListTest {
         assertEquals(list.add(element), result);
     }
 
-    @Test
+    @Test(dataProvider = "Remove")
     public void testRemove(MyArrayList list, String element, boolean result) {
         assertEquals(list.remove(element), result);
     }
@@ -142,7 +152,7 @@ public class MyArrayListTest {
         assertEquals(list.remove(index), list);
     }
 
-    @Test (dataProvider = "IndexOf")
+    @Test(dataProvider = "IndexOf")
     public void testIndexOf(MyArrayList list, String element, int result) {
         assertEquals(list.indexOf(element), result);
     }

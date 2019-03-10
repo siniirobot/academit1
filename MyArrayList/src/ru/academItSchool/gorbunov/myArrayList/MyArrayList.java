@@ -30,6 +30,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public MyArrayList(T... array) {
+
         this.array = array;
         this.length = array.length;
         this.modCount = 0;
@@ -65,50 +66,8 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
-    private class MySpliterator implements Spliterator<T> {
-        @Override
-        public void forEachRemaining(Consumer<? super T> action) {
-
-        }
-
-        @Override
-        public long getExactSizeIfKnown() {
-            return 0;
-        }
-
-        @Override
-        public boolean hasCharacteristics(int characteristics) {
-            return false;
-        }
-
-        @Override
-        public Comparator<? super T> getComparator() {
-            return null;
-        }
-
-        @Override
-        public boolean tryAdvance(Consumer<? super T> action) {
-            return false;
-        }
-
-        @Override
-        public Spliterator<T> trySplit() {
-            return null;
-        }
-
-        @Override
-        public long estimateSize() {
-            return 0;
-        }
-
-        @Override
-        public int characteristics() {
-            return 0;
-        }
-    }
-
     private void increaseCapacity() {
-        this.array = Arrays.copyOf(this.array, this.length + ARRAY_LENGTH);
+        this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
     }
 
     @Override
@@ -144,7 +103,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        if(a.length < this.length) {
+        if (a.length < this.length) {
         }
         return null;
     }
@@ -155,13 +114,22 @@ public class MyArrayList<T> implements List<T> {
             increaseCapacity();
         }
         this.array[length] = t;
+        this.length++;
+        this.modCount++;
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
-
-        return false;
+        int objectIndex = indexOf(o);
+        if (objectIndex == -1) {
+            return false;
+        }
+        System.arraycopy(this.array, objectIndex + 1, this.array, objectIndex, this.array.length - objectIndex - 1);
+        this.array[this.length - 1] = null;
+        this.length--;
+        this.modCount++;
+        return true;
     }
 
     @Override
@@ -216,7 +184,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < this.length;i++) {
+        for (int i = 0; i < this.length; i++) {
             if (this.array[i].equals(o)) {
                 return i;
             }
@@ -246,7 +214,8 @@ public class MyArrayList<T> implements List<T> {
     }
 
     /**
-     *Вывод элемента списков в виде строки.
+     * Вывод элемента списков в виде строки.
+     *
      * @return String
      */
     @Override
