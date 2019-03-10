@@ -47,6 +47,14 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "IndexOf")
+    public Object[][] indexOf() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                "Это второй элемент", 2}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyArrayList list, int result) {
         assertEquals(list.size(), result);
@@ -134,30 +142,14 @@ public class MyArrayListTest {
         assertEquals(list.remove(index), list);
     }
 
-    @Test
-    public void testIndexOf(MyArrayList list, String element, String result) {
+    @Test (dataProvider = "IndexOf")
+    public void testIndexOf(MyArrayList list, String element, int result) {
         assertEquals(list.indexOf(element), result);
     }
 
     @Test
     public void testLastIndexOf(MyArrayList list, String element, String result) {
         assertEquals(list.indexOf(element), result);
-    }
-
-    @Test
-    public void testListIterator(MyArrayList list, ListIterator iter) {
-        assertEquals(list.listIterator(), iter);
-    }
-
-    @Test
-    public void testListIterator1(MyArrayList list, int index, ListIterator iter) {
-        assertEquals(list.listIterator(index), iter);
-    }
-
-    @Test
-    public void testSubList(MyArrayList list, int indexFrom, int indexTo, MyArrayList result) {
-        list.subList(indexFrom, indexTo);
-        assertEquals(list, result);
     }
 
     @Test
@@ -168,32 +160,8 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testSort(MyArrayList list, Comparator comparator, MyArrayList result) {
-        list.sort(comparator);
-        assertEquals(list, result);
-    }
-
-    @Test
-    public void testSpliterator(MyArrayList list, Spliterator spliterator, MyArrayList result) {
-    }
-
-
-    @Test
     public void testRemoveIf(MyArrayList list, MyArrayList result) {
         Predicate<String> predicate = n -> n.charAt(0) == 'S';
         assertEquals(list.removeIf(predicate), result);
     }
-/*
-    @Tests
-    public void testStream() {
-
-    }
-
-    @Tests
-    public void testParallelStream() {
-    }
-
-    @Tests
-    public void testForEach() {
-    }*/
 }

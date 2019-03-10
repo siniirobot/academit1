@@ -160,6 +160,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
+
         return false;
     }
 
@@ -215,7 +216,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < this.length;i++) {
+            if (this.array[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -223,40 +229,6 @@ public class MyArrayList<T> implements List<T> {
         return 0;
     }
 
-    @Override
-    public void replaceAll(UnaryOperator<T> operator) {
-
-    }
-
-    @Override
-    public void sort(Comparator<? super T> c) {
-
-    }
-
-    @Override
-    public Spliterator<T> spliterator() {
-        return null;
-    }
-
-    @Override
-    public boolean removeIf(Predicate<? super T> filter) {
-        return false;
-    }
-
-    @Override
-    public Stream<T> stream() {
-        return null;
-    }
-
-    @Override
-    public Stream<T> parallelStream() {
-        return null;
-    }
-
-    @Override
-    public void forEach(Consumer<? super T> action) {
-
-    }
 
     @Override
     public ListIterator<T> listIterator() {
