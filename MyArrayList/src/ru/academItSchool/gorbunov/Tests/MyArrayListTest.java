@@ -47,6 +47,16 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "ToArray1")
+    public Object[][] toArray1() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент","Это третий элемент"},
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент",
+                                "Это нулевой элемент", "Это первый элемент", "Это второй элемент"}}
+        };
+    }
+
 
     @DataProvider(name = "Remove")
     public Object[][] remove() {
@@ -85,7 +95,7 @@ public class MyArrayListTest {
         assertEquals(list.toArray(), result);
     }
 
-    @Test
+    @Test(dataProvider = "ToArray1")
     public void testToArray1(MyArrayList list, String[] array, String[] result) {
         assertEquals(list.toArray(array), result);
     }

@@ -103,9 +103,19 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        if (a.length < this.length) {
+        if (a.length + this.length > this.array.length) {
+            T1[] temp = Arrays.copyOf(a,a.length + this.array.length);
+            for (T1 arr:temp) {
+                System.out.println(arr);
+            }
+            System.arraycopy((T1[])this.array,0,temp,a.length ,this.length);
+            for (T1 arr:temp) {
+                System.out.println(arr);
+            }
+            return temp;
         }
-        return null;
+        System.arraycopy((T1[])this.array,0,a,a.length,this.length);
+        return a;
     }
 
     @Override
