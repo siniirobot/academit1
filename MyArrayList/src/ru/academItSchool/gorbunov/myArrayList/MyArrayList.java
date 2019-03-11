@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.myArrayList;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -53,7 +54,7 @@ public class MyArrayList<T> implements List<T> {
 
         @Override
         public boolean hasNext() {
-            return currentIndex++ != length;
+            return currentIndex + 1 != length;
         }
 
         @Override
@@ -137,7 +138,10 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (Object element : c)
+            if (!contains(element))
+                return false;
+        return true;
     }
 
     @Override

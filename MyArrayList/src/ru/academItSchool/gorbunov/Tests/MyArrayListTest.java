@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.myArrayList.MyArrayList;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -67,6 +68,15 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "ContainsAll")
+    public Object[][] containsAll() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>("Это первый элемент","Это нулевой элемент"),
+                        true}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -110,9 +120,9 @@ public class MyArrayListTest {
         assertEquals(list.remove(element), result);
     }
 
-    @Test
+    @Test(dataProvider = "ContainsAll")
     public void testContainsAll(MyArrayList list, MyArrayList list2, boolean result) {
-        assertEquals(list.contains(list2), result);
+        assertEquals(list.containsAll(list2), result);
     }
 
     @Test
