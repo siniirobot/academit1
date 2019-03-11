@@ -1,17 +1,13 @@
 package ru.academItSchool.gorbunov.myArrayList;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyArrayList<T> implements List<T> {
     private final int ARRAY_LENGTH = 10;
     private T[] array;
-    private int length;
+    private int count;
     private int modCount;
 
     /**
@@ -20,7 +16,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.array = (T[]) new Object[ARRAY_LENGTH];
-        this.length = 0;
+        this.count = 0;
         this.modCount = 0;
     }
 
@@ -33,7 +29,7 @@ public class MyArrayList<T> implements List<T> {
     public MyArrayList(T... array) {
 
         this.array = array;
-        this.length = array.length;
+        this.count = array.length;
         this.modCount = 0;
     }
 
@@ -44,7 +40,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         this.array = (T[]) new Object[capacity];
-        this.length = 0;
+        this.count = 0;
         this.modCount = 0;
     }
 
@@ -54,7 +50,7 @@ public class MyArrayList<T> implements List<T> {
 
         @Override
         public boolean hasNext() {
-            return currentIndex + 1 != length;
+            return currentIndex + 1 != count;
         }
 
         @Override
@@ -67,13 +63,20 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    public void ensureCapacity(int minCapacity) {
+        this.array = Arrays.copyOf(this.array,minCapacity);
+    }
+
+    public void trimToSize() {
+        this.array = Arrays.copyOf(this.array, count);
+    }
     private void increaseCapacity() {
         this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
     }
 
     @Override
     public int size() {
-        return length;
+        return count;
     }
 
     @Override
@@ -98,27 +101,27 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(this.array, this.length);
+        return Arrays.copyOf(this.array, this.count);
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        if (a.length + this.length > this.array.length) {
+        if (a.length + this.count > this.array.length) {
             T1[] temp = Arrays.copyOf(a,a.length + this.array.length);
-            System.arraycopy(this.array,0,temp,a.length ,this.length);
+            System.arraycopy(this.array,0,temp,a.length ,this.count);
             return temp;
         }
-        System.arraycopy(this.array,0,a,a.length,this.length);
+        System.arraycopy(this.array,0,a,a.length,this.count);
         return a;
     }
 
     @Override
     public boolean add(T t) {
-        if (this.length == this.array.length) {
+        if (this.count == this.array.length) {
             increaseCapacity();
         }
-        this.array[length] = t;
-        this.length++;
+        this.array[count] = t;
+        this.count++;
         this.modCount++;
         return true;
     }
@@ -130,8 +133,8 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         System.arraycopy(this.array, objectIndex + 1, this.array, objectIndex, this.array.length - objectIndex - 1);
-        this.array[this.length - 1] = null;
-        this.length--;
+        this.array[this.count - 1] = null;
+        this.count--;
         this.modCount++;
         return true;
     }
@@ -146,7 +149,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        return true;
     }
 
     @Override
@@ -191,7 +194,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < this.length; i++) {
+        for (int i = 0; i < this.count; i++) {
             if (this.array[i].equals(o)) {
                 return i;
             }
@@ -227,7 +230,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public String toString() {
-        Stream<T> stream = Stream.of(this.array).limit(this.length);
+        Stream<T> stream = Stream.of(this.array).limit(this.count);
         return stream.collect(Collectors.toList()).toString();
     }
 }

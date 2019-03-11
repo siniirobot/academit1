@@ -52,8 +52,8 @@ public class MyArrayListTest {
     public Object[][] toArray1() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент","Это третий элемент"},
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент","Это третий элемент" ,
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент"},
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент",
                                 "Это нулевой элемент", "Это первый элемент", "Это второй элемент"}}
         };
     }
@@ -72,7 +72,16 @@ public class MyArrayListTest {
     public Object[][] containsAll() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                        new MyArrayList<>("Это первый элемент","Это нулевой элемент"),
+                        new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true}
+        };
+    }
+
+    @DataProvider(name = "AddAll")
+    public Object[][] addAll() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
                         true}
         };
     }
@@ -125,8 +134,11 @@ public class MyArrayListTest {
         assertEquals(list.containsAll(list2), result);
     }
 
-    @Test
-    public void testAddAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+    @Test(dataProvider = "AddAll")
+    public void testAddAll(MyArrayList list, MyArrayList list2, boolean result) {
+        ArrayList<String> List = new ArrayList<>(Arrays.asList("1","2","3"));
+        ArrayList<String> List2 = new ArrayList<>(Arrays.asList("4","5","6"));
+        List.addAll(List2);
         assertEquals(list.addAll(list2), result);
     }
 
