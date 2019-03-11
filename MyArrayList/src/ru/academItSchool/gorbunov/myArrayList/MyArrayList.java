@@ -90,7 +90,6 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
-
     @Override
     public Iterator<T> iterator() {
         return new MyIterator();
@@ -105,16 +104,10 @@ public class MyArrayList<T> implements List<T> {
     public <T1> T1[] toArray(T1[] a) {
         if (a.length + this.length > this.array.length) {
             T1[] temp = Arrays.copyOf(a,a.length + this.array.length);
-            for (T1 arr:temp) {
-                System.out.println(arr);
-            }
-            System.arraycopy((T1[])this.array,0,temp,a.length ,this.length);
-            for (T1 arr:temp) {
-                System.out.println(arr);
-            }
+            System.arraycopy(this.array,0,temp,a.length ,this.length);
             return temp;
         }
-        System.arraycopy((T1[])this.array,0,a,a.length,this.length);
+        System.arraycopy(this.array,0,a,a.length,this.length);
         return a;
     }
 
