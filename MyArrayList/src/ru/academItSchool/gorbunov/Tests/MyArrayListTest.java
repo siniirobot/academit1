@@ -136,9 +136,6 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "AddAll")
     public void testAddAll(MyArrayList list, MyArrayList list2, boolean result) {
-        ArrayList<String> List = new ArrayList<>(Arrays.asList("1","2","3"));
-        ArrayList<String> List2 = new ArrayList<>(Arrays.asList("4","5","6"));
-        List.addAll(List2);
         assertEquals(list.addAll(list2), result);
     }
 

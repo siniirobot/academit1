@@ -149,6 +149,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        if (c.size() + this.count > this.array.length) {
+            ensureCapacity(c.size() + this.count);
+            System.arraycopy((T[])c.toArray(),0,this.array,size(),c.size());
+            return true;
+        }
+        System.arraycopy((T[])c.toArray(),0,this.array,this.count,c.size());
         return true;
     }
 
