@@ -163,7 +163,7 @@ public class MyArrayListTest {
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
-                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                new Object[]{new MyArrayList<>(new String[5]),
                         "Это второй элемент", 2}
         };
     }

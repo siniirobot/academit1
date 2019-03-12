@@ -10,9 +10,6 @@ public class MyArrayList<T> implements List<T> {
     private int count;
     private int modCount;
 
-    /**
-     * Создание списка определение его типа.
-     */
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.array = (T[]) new Object[ARRAY_LENGTH];
@@ -20,25 +17,18 @@ public class MyArrayList<T> implements List<T> {
         this.modCount = 0;
     }
 
-    /**
-     * Создание исписка определеного типа и одновременно его заполнение.
-     *
-     * @param array T
-     */
     @SuppressWarnings("unchecked")
     public MyArrayList(T... array) {
-
         this.array = array;
         this.count = array.length;
         this.modCount = 0;
     }
 
-    /**
-     * Создание списка определеного размера и
-     * определение его типа.
-     */
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Длина списка не может быть меньше 0");
+        }
         this.array = (T[]) new Object[capacity];
         this.count = 0;
         this.modCount = 0;
@@ -116,6 +106,7 @@ public class MyArrayList<T> implements List<T> {
         return a;
     }
 
+
     @Override
     public boolean add(T t) {
         if (this.count == this.array.length) {
@@ -148,6 +139,7 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+
     @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
@@ -159,6 +151,7 @@ public class MyArrayList<T> implements List<T> {
         this.count = this.array.length;
         return true;
     }
+
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
