@@ -204,7 +204,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        return null;
+        T oldElement = this.array[index];
+        this.array[index] = element;
+        return oldElement;
     }
 
     @Override

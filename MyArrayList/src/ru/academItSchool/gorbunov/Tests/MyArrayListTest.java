@@ -131,6 +131,16 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Set")
+    public Object[][] set() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        1,
+                        "Это не первый элемент",
+                "Это первый элемент"}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -215,8 +225,8 @@ public class MyArrayListTest {
         assertEquals(list.get(index), result);
     }
 
-    @Test
-    public void testSet(MyArrayList list, int index, String element, MyArrayList result) {
+    @Test(dataProvider = "Set")
+    public void testSet(MyArrayList list, int index, String element, String result) {
         assertEquals(list.set(index, element), result);
     }
 
