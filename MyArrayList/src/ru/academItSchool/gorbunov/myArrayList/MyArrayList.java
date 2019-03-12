@@ -206,12 +206,19 @@ public class MyArrayList<T> implements List<T> {
     public T set(int index, T element) {
         T oldElement = this.array[index];
         this.array[index] = element;
+        this.modCount++;
         return oldElement;
     }
 
     @Override
     public void add(int index, T element) {
-
+        if (this.count == this.array.length) {
+            increaseCapacity();
+        }
+        System.arraycopy(this.array,index,this.array,index +1,this.count - index);
+        this.array[index] = element;
+        this.count++;
+        this.modCount++;
     }
 
     @Override
