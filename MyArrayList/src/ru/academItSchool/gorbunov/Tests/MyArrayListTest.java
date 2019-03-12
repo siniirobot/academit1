@@ -122,6 +122,15 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Get")
+    public Object[][] get() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        1,
+                        "Это первый элемент"}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -201,7 +210,7 @@ public class MyArrayListTest {
         assertEquals(list, result);
     }
 
-    @Test
+    @Test(dataProvider = "Get")
     public void testGet(MyArrayList list, int index, String result) {
         assertEquals(list.get(index), result);
     }

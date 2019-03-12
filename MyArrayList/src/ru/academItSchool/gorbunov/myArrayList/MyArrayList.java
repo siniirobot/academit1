@@ -199,7 +199,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        return this.array[index];
     }
 
     @Override
