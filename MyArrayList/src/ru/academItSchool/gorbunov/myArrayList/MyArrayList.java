@@ -182,7 +182,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        for (Object element:c) {
+            if (!contains(element)) {
+                remove(element);
+            }
+        }
+        return true;
     }
 
     @Override

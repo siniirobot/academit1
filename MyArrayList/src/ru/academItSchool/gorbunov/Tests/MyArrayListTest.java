@@ -182,7 +182,7 @@ public class MyArrayListTest {
         assertEquals(list.removeAll(list2), result);
     }
 
-    @Test
+    @Test(dataProvider = "RetainAll")
     public void testRetainAll(MyArrayList list, MyArrayList list2, boolean result) {
         assertEquals(list.retainAll(list2), result);
     }
