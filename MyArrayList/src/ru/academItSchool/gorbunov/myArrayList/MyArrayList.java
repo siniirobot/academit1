@@ -243,7 +243,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        int lastObjectIndex = -1;
+        for (int i = 0; i < this.count;i++) {
+            if (this.array[i].equals(o)) {
+                lastObjectIndex = i;
+            }
+        }
+        return lastObjectIndex;
     }
 
 

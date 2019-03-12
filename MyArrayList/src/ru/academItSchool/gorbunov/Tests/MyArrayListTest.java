@@ -168,6 +168,14 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "LastIndexOf")
+    public Object[][] lastIndexOf() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это первый элемент"),
+                        "Это первый элемент", 3}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyArrayList list, int result) {
         assertEquals(list.size(), result);
@@ -265,21 +273,8 @@ public class MyArrayListTest {
         assertEquals(list.indexOf(element), result);
     }
 
-    @Test
-    public void testLastIndexOf(MyArrayList list, String element, String result) {
-        assertEquals(list.indexOf(element), result);
-    }
-
-    @Test
-    public void testReplaceAll(MyArrayList list, MyArrayList result) {
-        UnaryOperator<String> operator = x -> x.toLowerCase();
-        list.replaceAll(operator);
-        assertEquals(list, result);
-    }
-
-    @Test
-    public void testRemoveIf(MyArrayList list, MyArrayList result) {
-        Predicate<String> predicate = n -> n.charAt(0) == 'S';
-        assertEquals(list.removeIf(predicate), result);
+    @Test(dataProvider = "LastIndexOf")
+    public void testLastIndexOf(MyArrayList list, String element, int result) {
+        assertEquals(list.lastIndexOf(element), result);
     }
 }
