@@ -192,7 +192,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void clear() {
-
+        this.array = null;
+        this.count = 0;
+        this.modCount++;
     }
 
     @Override

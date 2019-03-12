@@ -114,6 +114,14 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Clear")
+    public Object[][] clear() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>()}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -187,7 +195,7 @@ public class MyArrayListTest {
         assertEquals(list.retainAll(list2), result);
     }
 
-    @Test
+    @Test(dataProvider = "Clear")
     public void testClear(MyArrayList list, MyArrayList result) {
         list.clear();
         assertEquals(list, result);
