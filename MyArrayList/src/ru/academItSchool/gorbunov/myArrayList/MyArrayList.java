@@ -70,6 +70,7 @@ public class MyArrayList<T> implements List<T> {
     public void trimToSize() {
         this.array = Arrays.copyOf(this.array, count);
     }
+
     private void increaseCapacity() {
         this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
     }
@@ -147,20 +148,28 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
-            System.arraycopy((T[])c.toArray(),0,this.array,size(),c.size());
-            return true;
         }
         System.arraycopy((T[])c.toArray(),0,this.array,this.count,c.size());
+        this.modCount++;
+        this.count = this.array.length;
         return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        if (c.size() + this.count > this.array.length) {
+            ensureCapacity(c.size() + this.count);
+        }
+        System.arraycopy(this.array,index,this.array,c.size() + index,c.size());
+        System.arraycopy((T[])c.toArray(),0,this.array,index,c.size());
+        this.modCount++;
+        this.count = this.array.length;
+        return true;
     }
 
     @Override

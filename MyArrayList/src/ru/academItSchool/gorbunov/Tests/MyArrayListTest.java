@@ -86,6 +86,16 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "AddAll1")
+    public Object[][] addAll1() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        1,
+                        new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -139,8 +149,8 @@ public class MyArrayListTest {
         assertEquals(list.addAll(list2), result);
     }
 
-    @Test
-    public void testAddAll1(MyArrayList list, int index, MyArrayList list2, MyArrayList result) {
+    @Test(dataProvider = "AddAll1")
+    public void testAddAll1(MyArrayList list, int index, MyArrayList list2, boolean result) {
         assertEquals(list.addAll(index, list2), result);
     }
 
