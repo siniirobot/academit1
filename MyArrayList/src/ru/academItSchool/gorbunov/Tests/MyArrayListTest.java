@@ -151,6 +151,15 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Remove1")
+    public Object[][] remove1() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        1,
+                        "Это первый элемент"}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -246,9 +255,9 @@ public class MyArrayListTest {
         assertEquals(list, result);
     }
 
-    @Test
-    public void testRemove1(MyArrayList list, int index) {
-        assertEquals(list.remove(index), list);
+    @Test(dataProvider = "Remove1")
+    public void testRemove1(MyArrayList list, int index,Object result) {
+        assertEquals(list.remove(index), result);
     }
 
     @Test(dataProvider = "IndexOf")

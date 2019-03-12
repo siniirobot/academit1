@@ -223,7 +223,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        return null;
+        T oldElement = this.array[index];
+        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
+        this.array[this.count - 1] = null;
+        this.count--;
+        this.modCount++;
+        return oldElement;
     }
 
     @Override
