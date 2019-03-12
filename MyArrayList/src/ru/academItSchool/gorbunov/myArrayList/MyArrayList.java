@@ -168,7 +168,7 @@ public class MyArrayList<T> implements List<T> {
         System.arraycopy(this.array,index,this.array,c.size() + index,c.size());
         System.arraycopy((T[])c.toArray(),0,this.array,index,c.size());
         this.modCount++;
-        this.count = this.array.length;
+        this.count += c.size();
         return true;
     }
 
