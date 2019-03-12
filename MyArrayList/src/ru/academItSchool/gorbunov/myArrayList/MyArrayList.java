@@ -26,9 +26,7 @@ public class MyArrayList<T> implements List<T> {
 
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
-        if (capacity < 0) {
-            throw new IllegalArgumentException("Длина списка не может быть меньше 0");
-        }
+        throwIllegalArgumentException(capacity);
         this.array = (T[]) new Object[capacity];
         this.count = 0;
         this.modCount = 0;
@@ -53,7 +51,14 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    private void throwIllegalArgumentException(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Длина списка не может быть меньше 0");
+        }
+    }
+
     public void ensureCapacity(int minCapacity) {
+        throwIllegalArgumentException(minCapacity);
         this.array = Arrays.copyOf(this.array,minCapacity);
     }
 
