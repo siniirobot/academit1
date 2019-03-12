@@ -174,7 +174,10 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        for (Object element:c) {
+            remove(element);
+        }
+        return true;
     }
 
     @Override

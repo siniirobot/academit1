@@ -96,6 +96,24 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "RemoveAll")
+    public Object[][] removeAll() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true}
+        };
+    }
+
+    @DataProvider(name = "RetainAll")
+    public Object[][] retainAll() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -154,13 +172,18 @@ public class MyArrayListTest {
         assertEquals(list.addAll(index, list2), result);
     }
 
-    @Test
-    public void testRemoveAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+    @Test(dataProvider = "RemoveAll")
+    public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
+        ArrayList<String> List = new ArrayList<>(Arrays.asList("Это нулевой элемент", "Это первый элемент",
+                "Это второй элемент", "Это третий элемент"));
+        ArrayList<String> List1 = new ArrayList<>(Arrays.asList("Это первый элемент",
+                "Это второй элемент", "dfsdfs"));
+        List.removeAll(List1);
         assertEquals(list.removeAll(list2), result);
     }
 
     @Test
-    public void testRetainAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+    public void testRetainAll(MyArrayList list, MyArrayList list2, boolean result) {
         assertEquals(list.retainAll(list2), result);
     }
 
