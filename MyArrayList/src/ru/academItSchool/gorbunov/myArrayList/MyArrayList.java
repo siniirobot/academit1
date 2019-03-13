@@ -95,8 +95,15 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        for (T arr : array) {
-            if (arr.equals(o)) {
+        if (o == null) {
+            for (T element : this.array) {
+                if (element == null) {
+                    return true;
+                }
+            }
+        }
+        for (T element : this.array) {
+            if (element.equals(o)) {
                 return true;
             }
         }
@@ -175,7 +182,7 @@ public class MyArrayList<T> implements List<T> {
             ensureCapacity(c.size() + this.count);
         }
         System.arraycopy(this.array, index, this.array, c.size() + index, c.size());
-        System.arraycopy((T[]) c.toArray(), 0, this.array, index, c.size());
+        System.arraycopy(c.toArray(), 0, this.array, index, c.size());
         this.modCount++;
         this.count += c.size();
         return true;
@@ -289,16 +296,5 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
-    }
-
-    /**
-     * Вывод элемента списков в виде строки.
-     *
-     * @return String
-     */
-    @Override
-    public String toString() {
-        Stream<T> stream = Stream.of(this.array).limit(this.count);
-        return stream.collect(Collectors.toList()).toString();
     }
 }
