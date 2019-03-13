@@ -57,9 +57,15 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    private void throwExceptionForWrongIndex(int index) {
+        if (index >= this.count || index < 0) {
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
+        }
+    }
+
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
-        this.array = Arrays.copyOf(this.array,minCapacity);
+        this.array = Arrays.copyOf(this.array, minCapacity);
     }
 
     public void trimToSize() {
@@ -103,11 +109,11 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if (a.length + this.count > this.array.length) {
-            T1[] temp = Arrays.copyOf(a,a.length + this.array.length);
-            System.arraycopy(this.array,0,temp,a.length ,this.count);
+            T1[] temp = Arrays.copyOf(a, a.length + this.array.length);
+            System.arraycopy(this.array, 0, temp, a.length, this.count);
             return temp;
         }
-        System.arraycopy(this.array,0,a,a.length,this.count);
+        System.arraycopy(this.array, 0, a, a.length, this.count);
         return a;
     }
 
@@ -151,7 +157,7 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy((T[])c.toArray(),0,this.array,this.count,c.size());
+        System.arraycopy((T[]) c.toArray(), 0, this.array, this.count, c.size());
         this.modCount++;
         this.count = this.array.length;
         return true;
@@ -160,11 +166,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
+        throwExceptionForWrongIndex(index);
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy(this.array,index,this.array,c.size() + index,c.size());
-        System.arraycopy((T[])c.toArray(),0,this.array,index,c.size());
+        System.arraycopy(this.array, index, this.array, c.size() + index, c.size());
+        System.arraycopy((T[]) c.toArray(), 0, this.array, index, c.size());
         this.modCount++;
         this.count += c.size();
         return true;
@@ -172,7 +179,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        for (Object element:c) {
+        for (Object element : c) {
             remove(element);
         }
         return true;
@@ -180,7 +187,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        for (Object element:c) {
+        for (Object element : c) {
             if (!contains(element)) {
                 remove(element);
             }
@@ -197,11 +204,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
+        throwExceptionForWrongIndex(index);
         return this.array[index];
     }
 
     @Override
     public T set(int index, T element) {
+        throwExceptionForWrongIndex(index);
         T oldElement = this.array[index];
         this.array[index] = element;
         this.modCount++;
@@ -210,10 +219,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
+        throwExceptionForWrongIndex(index);
         if (this.count == this.array.length) {
             increaseCapacity();
         }
-        System.arraycopy(this.array,index,this.array,index +1,this.count - index);
+        System.arraycopy(this.array, index, this.array, index + 1, this.count - index);
         this.array[index] = element;
         this.count++;
         this.modCount++;
@@ -221,6 +231,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+        throwExceptionForWrongIndex(index);
         T oldElement = this.array[index];
         System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
         this.array[this.count - 1] = null;
@@ -231,6 +242,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < this.count; i++) {
+                if (this.array[i] == null) {
+                    return i;
+                }
+            }
+        }
         for (int i = 0; i < this.count; i++) {
             if (this.array[i].equals(o)) {
                 return i;
@@ -241,13 +259,19 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        int lastObjectIndex = -1;
-        for (int i = 0; i < this.count;i++) {
-            if (this.array[i].equals(o)) {
-                lastObjectIndex = i;
+        if (o == null) {
+            for (int i = this.count - 1; i != 0; i--) {
+                if (this.array[i] == null) {
+                    return i;
+                }
             }
         }
-        return lastObjectIndex;
+        for (int i = this.count - 1; i != 0; i--) {
+            if (this.array[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 

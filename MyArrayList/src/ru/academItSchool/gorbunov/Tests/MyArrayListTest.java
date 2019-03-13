@@ -4,10 +4,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.myArrayList.MyArrayList;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 import static org.testng.Assert.*;
 
@@ -137,7 +134,7 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         "Это не первый элемент",
-                "Это первый элемент"}
+                        "Это первый элемент"}
         };
     }
 
@@ -147,7 +144,7 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         "1.5",
-                        new MyArrayList<>("Это нулевой элемент", "1.5","Это первый элемент", "Это второй элемент")}
+                        new MyArrayList<>("Это нулевой элемент", "1.5", "Это первый элемент", "Это второй элемент")}
         };
     }
 
@@ -163,8 +160,9 @@ public class MyArrayListTest {
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
-                new Object[]{new MyArrayList<>(new String[5]),
-                        "Это второй элемент", 2}
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это первый элемент", null),
+                        null,
+                       4}
         };
     }
 
@@ -228,11 +226,6 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "RemoveAll")
     public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
-        ArrayList<String> List = new ArrayList<>(Arrays.asList("Это нулевой элемент", "Это первый элемент",
-                "Это второй элемент", "Это третий элемент"));
-        ArrayList<String> List1 = new ArrayList<>(Arrays.asList("Это первый элемент",
-                "Это второй элемент", "dfsdfs"));
-        List.removeAll(List1);
         assertEquals(list.removeAll(list2), result);
     }
 
@@ -264,7 +257,7 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "Remove1")
-    public void testRemove1(MyArrayList list, int index,Object result) {
+    public void testRemove1(MyArrayList list, int index, Object result) {
         assertEquals(list.remove(index), result);
     }
 
