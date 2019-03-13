@@ -76,6 +76,13 @@ public class MyArrayList<T> implements List<T> {
         this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
     }
 
+    private void getCollapseArray(int index) {
+        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
+        this.array[this.count - 1] = null;
+        this.count--;
+        this.modCount++;
+    }
+
     @Override
     public int size() {
         return count;
@@ -131,14 +138,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        int objectIndex = indexOf(o);
-        if (objectIndex == -1) {
+        int index = indexOf(o);
+        if (index == -1) {
             return false;
         }
-        System.arraycopy(this.array, objectIndex + 1, this.array, objectIndex, this.array.length - objectIndex - 1);
-        this.array[this.count - 1] = null;
-        this.count--;
-        this.modCount++;
+        getCollapseArray(index);
         return true;
     }
 
@@ -233,10 +237,7 @@ public class MyArrayList<T> implements List<T> {
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
         T oldElement = this.array[index];
-        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
-        this.array[this.count - 1] = null;
-        this.count--;
-        this.modCount++;
+        getCollapseArray(index);
         return oldElement;
     }
 
