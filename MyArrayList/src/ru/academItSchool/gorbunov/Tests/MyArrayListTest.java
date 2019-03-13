@@ -3,30 +3,48 @@ package ru.academItSchool.gorbunov.Tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.myArrayList.MyArrayList;
-
-import java.util.*;
-
 import static org.testng.Assert.*;
 
 public class MyArrayListTest {
     @DataProvider(name = "Size")
     public Object[][] size() {
         return new Object[][]{
-                new Object[]{new MyArrayList<>(), 0}
+                new Object[]{new MyArrayList<>(), 0},
+                new Object[]{new MyArrayList<>("0", "1", "2", "3"), 4}
         };
     }
 
     @DataProvider(name = "IsEmpty")
     public Object[][] isEmpty() {
         return new Object[][]{
-                new Object[]{new MyArrayList<>(), true}
+                new Object[]{new MyArrayList<>(), true},
+                new Object[]{new MyArrayList<>("0", "1", "2", "3"), false}
         };
     }
 
     @DataProvider(name = "Add")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{new MyArrayList<>(), "Это нулевой элемент", true}
+                new Object[]{new MyArrayList<>(),
+                        new String[]{"0", "1", "2", "3"},
+                        new MyArrayList<>("0", "1", "2", "3")},
+                new Object[]{new MyArrayList<>(),
+                        new String[5],
+                        new MyArrayList<>(null,null,null,null,null)},
+                new Object[]{new MyArrayList<>(),
+                        new java.lang.String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"},
+                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")},
+
+        };
+    }
+
+    @DataProvider(name = "AddError")
+    public Object[][] addError() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>(),
+                        "0",
+                        3,
+                        new MyArrayList<>("0", 3)}
         };
     }
 
@@ -49,8 +67,8 @@ public class MyArrayListTest {
     public Object[][] toArray1() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент"},
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент",
+                        new java.lang.String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент"},
+                        new java.lang.String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это третий элемент",
                                 "Это нулевой элемент", "Это первый элемент", "Это второй элемент"}}
         };
     }
@@ -61,6 +79,9 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         "Это первый элемент",
+                        true},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент",null, "Это второй элемент"),
+                        null,
                         true}
         };
     }
@@ -162,7 +183,7 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это первый элемент", null),
                         null,
-                       4}
+                        4}
         };
     }
 
@@ -200,8 +221,18 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "Add")
-    public void testAdd(MyArrayList list, String element, boolean result) {
-        assertEquals(list.add(element), result);
+    public void testAdd(MyArrayList list, String[] elements, MyArrayList result) {
+        for (String element : elements) {
+            list.add(element);
+        }
+        assertEquals(list, result);
+    }
+
+    @Test(dataProvider = "AddError", expectedExceptions = IllegalArgumentException.class)
+    public void testAddError(MyArrayList list, String element,int element1, MyArrayList result) {
+        list.add(element);
+        list.add(element1);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "Remove")

@@ -122,6 +122,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
+        if (Arrays.equals(a, null)) {
+            throw new NullPointerException("Вводимы массив не может быть null");
+        }
         if (a.length + this.count > this.array.length) {
             T1[] temp = Arrays.copyOf(a, a.length + this.array.length);
             System.arraycopy(this.array, 0, temp, a.length, this.count);
