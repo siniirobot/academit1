@@ -279,6 +279,18 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "Remove1Error")
+    public Object[][] remove1Error() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        -1,
+                        "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        18,
+                        "Это первый элемент"}
+        };
+    }
+
     @DataProvider(name = "IndexOf")
     public Object[][] indexOf() {
         return new Object[][]{
@@ -432,6 +444,11 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "Remove1")
     public void testRemove1(MyArrayList list, int index, Object result) {
+        assertEquals(list.remove(index), result);
+    }
+
+    @Test(dataProvider = "Remove1Error", expectedExceptions = {IndexOutOfBoundsException.class})
+    public void testRemove1Error(MyArrayList list, int index, Object result) {
         assertEquals(list.remove(index), result);
     }
 
