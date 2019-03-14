@@ -137,6 +137,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
+        System.out.println(t.getClass());
+        System.out.println(this.array.getClass());
+        if(t.getClass() != this.array.getClass()) {
+            throw new IllegalArgumentException("Тип аргумента не соответствует типу списка.");
+        }
         if (this.count == this.array.length) {
             increaseCapacity();
         }
@@ -158,9 +163,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+        if (c.size() == 0) {
+            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
+        }
         for (Object element : c)
-            if (!contains(element))
+            if (!contains(element)) {
                 return false;
+            }
         return true;
     }
 
@@ -168,6 +177,9 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        if (c.size() == 0) {
+            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
+        }
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
         }
@@ -180,6 +192,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
+        if (c.size() == 0) {
+            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
+        }
         throwExceptionForWrongIndex(index);
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
