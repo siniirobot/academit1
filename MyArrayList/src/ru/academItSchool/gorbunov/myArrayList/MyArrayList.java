@@ -126,20 +126,16 @@ public class MyArrayList<T> implements List<T> {
         return Arrays.copyOf(this.array, this.count);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        if (Arrays.equals(a, null)) {
-            throw new NullPointerException("Вводимы массив не может быть null");
+        if (a.length < this.count) {
+            return (T1[]) Arrays.copyOf(this.array, this.count, a.getClass());
         }
-        if (a.length + this.count > this.array.length) {
-            T1[] temp = Arrays.copyOf(a, a.length + this.array.length);
-            System.arraycopy(this.array, 0, temp, a.length, this.count);
-            return temp;
-        }
-        System.arraycopy(this.array, 0, a, a.length, this.count);
+        System.arraycopy(this.array, 0, a, 0, this.count);
         return a;
-    }
 
+    }
 
     @Override
     public boolean add(T t) {
