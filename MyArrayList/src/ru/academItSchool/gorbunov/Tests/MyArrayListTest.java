@@ -166,6 +166,15 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "RemoveAllError")
+    public Object[][] removeAllError() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>(),
+                        true}
+        };
+    }
+
     @DataProvider(name = "RetainAll")
     public Object[][] retainAll() {
         return new Object[][]{
@@ -316,6 +325,11 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "RemoveAll")
     public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
+        assertEquals(list.removeAll(list2), result);
+    }
+
+    @Test(dataProvider = "RemoveAllError", expectedExceptions = {NullPointerException.class})
+    public void testRemoveAllError(MyArrayList list, MyArrayList list2, boolean result) {
         assertEquals(list.removeAll(list2), result);
     }
 

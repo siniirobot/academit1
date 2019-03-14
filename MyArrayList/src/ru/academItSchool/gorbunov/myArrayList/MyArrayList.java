@@ -208,6 +208,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
+        if (c.size() == 0) {
+            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
+        }
         for (Object element : c) {
             remove(element);
         }
