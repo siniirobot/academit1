@@ -63,6 +63,12 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    private void throwEmptyList(Collection<?> c) {
+        if (c.isEmpty()) {
+            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
+        }
+    }
+
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
         this.array = Arrays.copyOf(this.array, minCapacity);
@@ -139,7 +145,7 @@ public class MyArrayList<T> implements List<T> {
     public boolean add(T t) {
         System.out.println(t.getClass());
         System.out.println(this.array.getClass());
-        if(t.getClass() != this.array.getClass()) {
+        if (t.getClass() != this.array.getClass()) {
             throw new IllegalArgumentException("Тип аргумента не соответствует типу списка.");
         }
         if (this.count == this.array.length) {
@@ -163,9 +169,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        if (c.size() == 0) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
+        throwEmptyList(c);
         for (Object element : c)
             if (!contains(element)) {
                 return false;
@@ -177,9 +181,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c.size() == 0) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
+        throwEmptyList(c);
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
         }
@@ -192,9 +194,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (c.size() == 0) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
+        throwEmptyList(c);
         throwExceptionForWrongIndex(index);
         if (c.size() + this.count > this.array.length) {
             ensureCapacity(c.size() + this.count);
@@ -208,9 +208,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        if (c.size() == 0) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
+        throwEmptyList(c);
         for (Object element : c) {
             remove(element);
         }
@@ -219,9 +217,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        if (c.size() == 0) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
+        throwEmptyList(c);
         for (Object element : c) {
             if (!contains(element)) {
                 remove(element);
