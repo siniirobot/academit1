@@ -10,6 +10,9 @@ public class MyArrayList<T> implements List<T> {
     private int count;
     private int modCount;
 
+    /**
+     * Конструктор для создания пустого списка.
+     */
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         this.array = (T[]) new Object[ARRAY_LENGTH];
@@ -17,13 +20,21 @@ public class MyArrayList<T> implements List<T> {
         this.modCount = 0;
     }
 
+    /**
+     * Конструктор для создания заполненого списка.
+     * @param array T
+     */
     @SuppressWarnings("unchecked")
     public MyArrayList(T... array) {
-        this.array = array;
+        this.array = Arrays.copyOf(array,array.length + ARRAY_LENGTH);
         this.count = array.length;
         this.modCount = 0;
     }
 
+    /**
+     * Конструктор с заранее определеным размером.
+     * @param capacity int
+     */
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         throwIllegalArgumentException(capacity);
@@ -32,15 +43,26 @@ public class MyArrayList<T> implements List<T> {
         this.modCount = 0;
     }
 
+    /**
+     * Класс необходимый для перебора списка.
+     */
     private class MyIterator implements Iterator<T> {
         private int currentIndex = -1;
         private int modification = modCount;
 
+        /**
+         * Проверяет есть ли следующий элемент в списке.
+         * @return boolean
+         */
         @Override
         public boolean hasNext() {
             return currentIndex + 1 != count;
         }
 
+        /**
+         * Возвращает следующий элемент из списка.
+         * @return T
+         */
         @Override
         public T next() {
             if (modification != modCount) {
@@ -51,23 +73,36 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
+    /**
+     * Кидает исключение , если введеная длина списка меньше нуля.
+     * @param capacity int
+     */
     private void throwIllegalArgumentException(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("Длина списка не может быть меньше 0");
         }
     }
 
+    /**
+     * Кидает исключения для индекса если он меньше нуля или больше длины списка.
+     * @param index int
+     */
     private void throwExceptionForWrongIndex(int index) {
         if (index >= this.count || index < 0) {
             throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
         }
     }
 
+    /**
+     * Кидает исключение если введеный список пуст.
+     * @param c Collection
+     */
     private void throwEmptyList(Collection<?> c) {
         if (c.isEmpty()) {
             throw new NullPointerException("Список должен содержать хотя бы один элемент.");
         }
     }
+
 
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
