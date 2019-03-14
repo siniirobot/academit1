@@ -184,6 +184,15 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "RetainAllError")
+    public Object[][] retainAllError() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new MyArrayList<>(),
+                        true}
+        };
+    }
+
     @DataProvider(name = "Clear")
     public Object[][] clear() {
         return new Object[][]{
@@ -201,11 +210,37 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "GetError")
+    public Object[][] getError() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        -1,
+                        "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        18,
+                        "Это первый элемент"},
+        };
+    }
+
     @DataProvider(name = "Set")
     public Object[][] set() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
+                        "Это не первый элемент",
+                        "Это первый элемент"}
+        };
+    }
+
+    @DataProvider(name = "SetError")
+    public Object[][] setError() {
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        -1,
+                        "Это не первый элемент",
+                        "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        -19,
                         "Это не первый элемент",
                         "Это первый элемент"}
         };
@@ -338,6 +373,11 @@ public class MyArrayListTest {
         assertEquals(list.retainAll(list2), result);
     }
 
+    @Test(dataProvider = "RetainAllError", expectedExceptions = {NullPointerException.class})
+    public void testRetainAllError(MyArrayList list, MyArrayList list2, boolean result) {
+        assertEquals(list.retainAll(list2), result);
+    }
+
     @Test(dataProvider = "Clear")
     public void testClear(MyArrayList list, MyArrayList result) {
         list.clear();
@@ -349,8 +389,18 @@ public class MyArrayListTest {
         assertEquals(list.get(index), result);
     }
 
+    @Test(dataProvider = "GetError", expectedExceptions = IndexOutOfBoundsException.class)
+    public void testGetError(MyArrayList list, int index, String result) {
+        assertEquals(list.get(index), result);
+    }
+
     @Test(dataProvider = "Set")
     public void testSet(MyArrayList list, int index, String element, String result) {
+        assertEquals(list.set(index, element), result);
+    }
+
+    @Test(dataProvider = "SetError", expectedExceptions = IndexOutOfBoundsException.class)
+    public void testSetError(MyArrayList list, int index, String element, String result) {
         assertEquals(list.set(index, element), result);
     }
 
