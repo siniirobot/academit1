@@ -70,6 +70,9 @@ public class MyArrayList<T> implements List<T> {
             if (modification != modCount) {
                 throw new ConcurrentModificationException("Список был изменен");
             }
+            if (!hasNext()) {
+                throw new NoSuchElementException("Следующего элемента нет.");
+            }
             currentIndex++;
             return listElements[currentIndex];
         }
