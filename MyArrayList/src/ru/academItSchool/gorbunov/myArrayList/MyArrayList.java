@@ -103,20 +103,33 @@ public class MyArrayList<T> implements List<T> {
         }
     }
 
-
+    /**
+     * Увеличивает вместимость списка до указаного размера.
+     * @param minCapacity int
+     */
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
         this.array = Arrays.copyOf(this.array, minCapacity);
     }
 
+    /**
+     * Уменьшает размер массива до размера текущего списка.
+     */
     public void trimToSize() {
         this.array = Arrays.copyOf(this.array, count);
     }
 
+    /**
+     * Увеличивает вместимость списка на ARRAY_LENGTH
+     */
     private void increaseCapacity() {
         this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
     }
 
+    /**
+     * Уменьшает массив в указаном индексе тем самым удаляя элемент
+     * @param index int
+     */
     private void getCollapseArray(int index) {
         System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
         this.array[this.count - 1] = null;
@@ -124,16 +137,29 @@ public class MyArrayList<T> implements List<T> {
         this.modCount++;
     }
 
+    /**
+     * Возвращает размер массива
+     * @return int
+     */
     @Override
     public int size() {
-        return count;
+        return this.count;
     }
 
+    /**
+     * Проверяет пустой ли массив
+     * @return boolean
+     */
     @Override
     public boolean isEmpty() {
         return size() == 0;
     }
 
+    /**
+     * Проверяет содержится ли данный элемент в списке
+     * @param o Object проверяемый элемент
+     * @return boolean true если есть, false если нет.
+     */
     @Override
     public boolean contains(Object o) {
         if (o == null) {
@@ -151,16 +177,30 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    /**
+     * Возвращает иттератор списка
+     * @return Iterator
+     */
     @Override
     public Iterator<T> iterator() {
         return new MyIterator();
     }
 
+    /**
+     * Переводит содержимое списка в массив.
+     * @return Object[]
+     */
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(this.array, this.count);
     }
 
+    /**
+     * Добовляет в переданый массив элементы из списка заменяя уже имеющиеся элементы.
+     * @param a T1[]
+     * @param <T1> Требуемый массив
+     * @return Переделаный массив
+     */
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
@@ -172,6 +212,11 @@ public class MyArrayList<T> implements List<T> {
 
     }
 
+    /**
+     * Добавляет новый элемент в конец
+     * @param t T
+     * @return boolean true если добавился
+     */
     @Override
     public boolean add(T t) {
         System.out.println(t.getClass());
@@ -188,6 +233,11 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Удаляет данный элемент из списка
+     * @param o Object
+     * @return boolean true если удалился false если не удалился
+     */
     @Override
     public boolean remove(Object o) {
         int index = indexOf(o);
@@ -198,6 +248,11 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Проверяет содержит ли список все элементы из данного списка
+     * @param c Collection
+     * @return boolean true если содержит все элементы false если нет
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
         throwEmptyList(c);
@@ -208,7 +263,11 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
-
+    /**
+     * Добавляет все элементы из данного списка в список.
+     * @param c Collection
+     * @return boolean true если добавились false если нет
+     */
     @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
@@ -222,7 +281,12 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
-
+    /**
+     * Добавляет все элементы из данного списка в список по указаному индексу
+     * @param index int
+     * @param c Collection
+     * @return boolean true если добавились false если нет
+     */
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         throwEmptyList(c);
@@ -237,6 +301,11 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Удаляет все элементы из списка которые есть в данном списке
+     * @param c Collection
+     * @return boolean true если удалились все элементы false если нет
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
         throwEmptyList(c);
@@ -246,6 +315,11 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Удаляет все элементы из списка кроме тех что содержатся в переданом списке
+     * @param c Collection
+     * @return boolean true если удалились все элементы false если нет
+     */
     @Override
     public boolean retainAll(Collection<?> c) {
         throwEmptyList(c);
@@ -257,6 +331,9 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Очищает список
+     */
     @Override
     public void clear() {
         this.array = null;
@@ -264,12 +341,23 @@ public class MyArrayList<T> implements List<T> {
         this.modCount++;
     }
 
+    /**
+     * Достает элемент из списка по указаному индексу
+     * @param index int
+     * @return T
+     */
     @Override
     public T get(int index) {
         throwExceptionForWrongIndex(index);
         return this.array[index];
     }
 
+    /**
+     * Устанавливает данный элемент по списку
+     * @param index int
+     * @param element T
+     * @return T старый элемент
+     */
     @Override
     public T set(int index, T element) {
         throwExceptionForWrongIndex(index);
@@ -279,6 +367,11 @@ public class MyArrayList<T> implements List<T> {
         return oldElement;
     }
 
+    /**
+     * Добавляет элемент по индексу список при этом раздвигается
+     * @param index int
+     * @param element T
+     */
     @Override
     public void add(int index, T element) {
         throwExceptionForWrongIndex(index);
@@ -291,14 +384,24 @@ public class MyArrayList<T> implements List<T> {
         this.modCount++;
     }
 
+    /**
+     * Удаляет элемент из списка по указаному индексу список при этом схлопывается.
+     * @param index int
+     * @return T удаленый элемент
+     */
     @Override
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
-        T oldElement = this.array[index];
+        T delElement = this.array[index];
         getCollapseArray(index);
-        return oldElement;
+        return delElement;
     }
 
+    /**
+     * Возвращает индекс первого вхождения переданого элемента
+     * @param o Object
+     * @return int
+     */
     @Override
     public int indexOf(Object o) {
         if (o == null) {
@@ -315,7 +418,11 @@ public class MyArrayList<T> implements List<T> {
         }
         return -1;
     }
-
+    /**
+     * Возвращает индекс последнего вхождения переданого элемента
+     * @param o Object
+     * @return int
+     */
     @Override
     public int lastIndexOf(Object o) {
         if (o == null) {
@@ -333,17 +440,31 @@ public class MyArrayList<T> implements List<T> {
         return -1;
     }
 
-
+    /**
+     * Продвинутый Иттератор что может добавлять и удалять элементы по индексу
+     * @return null
+     */
     @Override
     public ListIterator<T> listIterator() {
         return null;
     }
 
+    /**
+     * Устанавливает продвинутый иттератор по данному индексу
+     * @param index int
+     * @return null
+     */
     @Override
     public ListIterator<T> listIterator(int index) {
         return null;
     }
 
+    /**
+     * Возвращает кусок списка начиная с данного индекса до данного индекса
+     * @param fromIndex int
+     * @param toIndex int
+     * @return bull
+     */
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
