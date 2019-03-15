@@ -340,7 +340,9 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public void clear() {
-        this.listElements = null;
+        for (int i = 0; i < this.count; i++) {
+            this.listElements = null;
+        }
         this.count = 0;
         this.modCount++;
     }
