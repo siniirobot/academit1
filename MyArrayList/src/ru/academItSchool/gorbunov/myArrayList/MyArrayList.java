@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
     private final int ARRAY_LENGTH = 10;
-    private T[] array;
+    private T[] listElements;
     private int count;
     private int modCount;
 
@@ -13,7 +13,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public MyArrayList() {
-        this.array = (T[]) new Object[ARRAY_LENGTH];
+        this.listElements = (T[]) new Object[ARRAY_LENGTH];
         this.count = 0;
         this.modCount = 0;
     }
@@ -21,12 +21,12 @@ public class MyArrayList<T> implements List<T> {
     /**
      * Конструктор для создания заполненого списка.
      *
-     * @param array T
+     * @param listElements T
      */
     @SuppressWarnings("unchecked")
-    public MyArrayList(T... array) {
-        this.array = Arrays.copyOf(array, array.length + ARRAY_LENGTH);
-        this.count = array.length;
+    public MyArrayList(T... listElements) {
+        this.listElements = Arrays.copyOf(listElements, listElements.length + ARRAY_LENGTH);
+        this.count = listElements.length;
         this.modCount = 0;
     }
 
@@ -38,7 +38,7 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         throwIllegalArgumentException(capacity);
-        this.array = (T[]) new Object[capacity];
+        this.listElements = (T[]) new Object[capacity];
         this.count = 0;
         this.modCount = 0;
     }
@@ -71,7 +71,7 @@ public class MyArrayList<T> implements List<T> {
                 throw new ConcurrentModificationException("Список был изменен");
             }
             currentIndex++;
-            return array[currentIndex];
+            return listElements[currentIndex];
         }
     }
 
@@ -115,21 +115,23 @@ public class MyArrayList<T> implements List<T> {
      */
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
-        this.array = Arrays.copyOf(this.array, minCapacity);
+        modCount++;
+        this.listElements = Arrays.copyOf(this.listElements, minCapacity);
     }
 
     /**
      * Уменьшает размер массива до размера текущего списка.
      */
     public void trimToSize() {
-        this.array = Arrays.copyOf(this.array, count);
+        modCount++;
+        this.listElements = Arrays.copyOf(this.listElements, count);
     }
 
     /**
      * Увеличивает вместимость списка на ARRAY_LENGTH
      */
     private void increaseCapacity() {
-        this.array = Arrays.copyOf(this.array, this.array.length + ARRAY_LENGTH);
+        this.listElements = Arrays.copyOf(this.listElements, this.listElements.length + ARRAY_LENGTH);
     }
 
     /**
@@ -138,8 +140,8 @@ public class MyArrayList<T> implements List<T> {
      * @param index int
      */
     private void getCollapseArray(int index) {
-        System.arraycopy(this.array, index + 1, this.array, index, this.array.length - index - 1);
-        this.array[this.count - 1] = null;
+        System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
+        this.listElements[this.count - 1] = null;
         this.count--;
         this.modCount++;
     }
@@ -192,7 +194,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(this.array, this.count);
+        return Arrays.copyOf(this.listElements, this.count);
     }
 
     /**
@@ -206,9 +208,9 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if (a.length < this.count) {
-            return (T1[]) Arrays.copyOf(this.array, this.count, a.getClass());
+            return (T1[]) Arrays.copyOf(this.listElements, this.count, a.getClass());
         }
-        System.arraycopy(this.array, 0, a, 0, this.count);
+        System.arraycopy(this.listElements, 0, a, 0, this.count);
         return a;
     }
 
@@ -220,10 +222,10 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean add(T t) {
-        if (this.count == this.array.length) {
+        if (this.count == this.listElements.length) {
             increaseCapacity();
         }
-        this.array[count] = t;
+        this.listElements[count] = t;
         this.count++;
         this.modCount++;
         return true;
@@ -271,12 +273,12 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         throwEmptyList(c);
-        if (c.size() + this.count > this.array.length) {
+        if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy((T[]) c.toArray(), 0, this.array, this.count, c.size());
+        System.arraycopy((T[]) c.toArray(), 0, this.listElements, this.count, c.size());
         this.modCount++;
-        this.count = this.array.length;
+        this.count = this.listElements.length;
         return true;
     }
 
@@ -291,11 +293,11 @@ public class MyArrayList<T> implements List<T> {
     public boolean addAll(int index, Collection<? extends T> c) {
         throwEmptyList(c);
         throwExceptionForWrongIndex(index);
-        if (c.size() + this.count > this.array.length) {
+        if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy(this.array, index, this.array, c.size() + index, c.size());
-        System.arraycopy(c.toArray(), 0, this.array, index, c.size());
+        System.arraycopy(this.listElements, index, this.listElements, c.size() + index, c.size());
+        System.arraycopy(c.toArray(), 0, this.listElements, index, c.size());
         this.modCount++;
         this.count += c.size();
         return true;
@@ -338,7 +340,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public void clear() {
-        this.array = null;
+        this.listElements = null;
         this.count = 0;
         this.modCount++;
     }
@@ -352,7 +354,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T get(int index) {
         throwExceptionForWrongIndex(index);
-        return this.array[index];
+        return this.listElements[index];
     }
 
     /**
@@ -365,8 +367,8 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T set(int index, T element) {
         throwExceptionForWrongIndex(index);
-        T oldElement = this.array[index];
-        this.array[index] = element;
+        T oldElement = this.listElements[index];
+        this.listElements[index] = element;
         this.modCount++;
         return oldElement;
     }
@@ -380,11 +382,11 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         throwExceptionForWrongIndex(index);
-        if (this.count == this.array.length) {
+        if (this.count == this.listElements.length) {
             increaseCapacity();
         }
-        System.arraycopy(this.array, index, this.array, index + 1, this.count - index);
-        this.array[index] = element;
+        System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
+        this.listElements[index] = element;
         this.count++;
         this.modCount++;
     }
@@ -398,7 +400,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
-        T delElement = this.array[index];
+        T delElement = this.listElements[index];
         getCollapseArray(index);
         return delElement;
     }
@@ -413,13 +415,13 @@ public class MyArrayList<T> implements List<T> {
     public int indexOf(Object o) {
         if (o == null) {
             for (int i = 0; i < this.count; i++) {
-                if (this.array[i] == null) {
+                if (this.listElements[i] == null) {
                     return i;
                 }
             }
         }
         for (int i = 0; i < this.count; i++) {
-            if (this.array[i].equals(o)) {
+            if (this.listElements[i].equals(o)) {
                 return i;
             }
         }
@@ -436,13 +438,13 @@ public class MyArrayList<T> implements List<T> {
     public int lastIndexOf(Object o) {
         if (o == null) {
             for (int i = this.count - 1; i != 0; i--) {
-                if (this.array[i] == null) {
+                if (this.listElements[i] == null) {
                     return i;
                 }
             }
         }
         for (int i = this.count - 1; i != 0; i--) {
-            if (this.array[i].equals(o)) {
+            if (this.listElements[i].equals(o)) {
                 return i;
             }
         }

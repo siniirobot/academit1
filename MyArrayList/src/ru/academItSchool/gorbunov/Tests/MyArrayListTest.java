@@ -335,7 +335,7 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "Add")
     public void testAdd(MyArrayList<String> list, String[] elements, MyArrayList result) {
-        MyArrayList<String> list1 = new MyArrayList<String>();
+        ArrayList<String> list1 = new ArrayList<String>();
         for (String element : elements) {
             list1.add(element);
         }
