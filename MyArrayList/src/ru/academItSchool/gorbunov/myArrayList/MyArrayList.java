@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.myArrayList;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
@@ -487,5 +488,30 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MyArrayList<?> that = (MyArrayList<?>) o;
+        return this.count == that.count &&
+                this.modCount == that.modCount &&
+                Arrays.equals(this.listElements, that.listElements);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Integer.hashCode(ARRAY_LENGTH);
+        result = prime * result + Integer.hashCode(this.count);
+        result = prime * result + Integer.hashCode(this.modCount);
+        result = prime * result + Arrays.hashCode(this.listElements);
+        return result;
     }
 }
