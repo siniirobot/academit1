@@ -4,7 +4,18 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class MyHashTable<T> implements Collection<T> {
-    private Collection<T>[] list;
+    private final int ARRAY_LENGTH = 100;
+    private Collection<T>[] array;
+    private int elementsCount;
+
+    /**
+     * Конструктор для создания пустого списка.
+     */
+    @SuppressWarnings("unchecked")
+    public MyHashTable() {
+        this.elementsCount = 0;
+    }
+
     @Override
     public int size() {
         return 0;
