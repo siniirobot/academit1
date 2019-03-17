@@ -1,6 +1,5 @@
 package ru.academItSchool.gorbunov.myArrayList;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
