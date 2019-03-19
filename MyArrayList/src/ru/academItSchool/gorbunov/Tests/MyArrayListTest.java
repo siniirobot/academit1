@@ -134,7 +134,7 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        new MyArrayList<>("1", "0"),
+                        new MyArrayList<>("0", "1","2","3","4","5","6","7","8","9","10","11","12","13"),
                         true}
         };
     }
@@ -162,6 +162,9 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true},
+                new Object[]{new MyArrayList<>("0", "1", "2","3","4","5","6","0","5","7","8","1"),
+                        new MyArrayList<>("0", "5","1"),
                         true}
         };
     }
@@ -367,12 +370,6 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "AddAll1")
     public void testAddAll1(MyArrayList list, int index, MyArrayList list2, boolean result) {
-        System.out.println("list - " + list.size());
-        System.out.println("list2 - " + list2.size());
-        list.addAll(index,list2);
-        for (Object el : list) {
-            System.out.println(el);
-        }
         assertEquals(list.addAll(index, list2), result);
     }
 
@@ -383,6 +380,10 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "RemoveAll")
     public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
+        list.removeAll(list2);
+        for (Object el:list) {
+            System.out.println(el);
+        }
         assertEquals(list.removeAll(list2), result);
     }
 

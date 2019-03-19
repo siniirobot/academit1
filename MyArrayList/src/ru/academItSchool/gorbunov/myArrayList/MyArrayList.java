@@ -309,7 +309,11 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         for (Object element : c) {
-            remove(element);
+            int index = indexOf(element);
+            while( indexOf(element) >= 0) {
+                remove(index);
+                index = indexOf(element);
+            }
         }
         return true;
     }
