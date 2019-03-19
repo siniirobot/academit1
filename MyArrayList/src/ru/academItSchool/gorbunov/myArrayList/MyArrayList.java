@@ -270,9 +270,9 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy((T[]) c.toArray(), 0, this.listElements, this.count, c.size());
-        this.modCount++;
-        this.count = this.listElements.length;
+        for (Object element : c) {
+            add((T) element);
+        }
         return true;
     }
 
@@ -289,10 +289,14 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy(this.listElements, index, this.listElements, c.size() + index, c.size());
-        System.arraycopy(c.toArray(), 0, this.listElements, index, c.size());
-        this.modCount++;
-        this.count += c.size();
+        System.arraycopy(this.listElements,index,this.listElements,index + c.size(),this.count-index);
+        int i = index;
+        for (Object el:c) {
+            this.listElements[i] = (T)el;
+            i++;
+        }
+        modCount++;
+        this.count+=c.size();
         return true;
     }
 
