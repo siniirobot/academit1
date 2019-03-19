@@ -142,7 +142,7 @@ public class MyArrayList<T> implements List<T> {
      *
      * @param index int
      */
-    private void getCollapseArray(int index) {
+    private void collapseArray(int index) {
         System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
         this.listElements[this.count - 1] = null;
         this.count--;
@@ -248,7 +248,7 @@ public class MyArrayList<T> implements List<T> {
         if (index == -1) {
             return false;
         }
-        getCollapseArray(index);
+        collapseArray(index);
         return true;
     }
 
@@ -408,7 +408,7 @@ public class MyArrayList<T> implements List<T> {
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
         T delElement = this.listElements[index];
-        getCollapseArray(index);
+        collapseArray(index);
         return delElement;
     }
 
