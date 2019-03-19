@@ -125,7 +125,9 @@ public class MyArrayList<T> implements List<T> {
      * Уменьшает размер массива до размера текущего списка.
      */
     public void trimToSize() {
-        this.listElements = Arrays.copyOf(this.listElements, count);
+        if (this.listElements.length != this.count) {
+            this.listElements = Arrays.copyOf(this.listElements, this.count);
+        }
     }
 
     /**

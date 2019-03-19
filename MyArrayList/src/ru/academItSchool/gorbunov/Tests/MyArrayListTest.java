@@ -330,17 +330,6 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "ToArray1")
     public void testToArray1(MyArrayList list, String[] array, String[] result) {
-        String[] toArray = (String[]) list.toArray();
-        ArrayList<String> List = new ArrayList<>(Arrays.asList(toArray));
-        toArray = List.toArray(array);
-        for (String lis:toArray) {
-            System.out.println(lis);
-        }
-        System.out.println("Второй массив");
-        String[] toArray2 = (String[]) list.toArray(array);
-        for (String lis2:toArray2) {
-            System.out.println(lis2);
-        }
         assertEquals(list.toArray(array), result);
     }
 
