@@ -101,17 +101,6 @@ public class MyArrayList<T> implements List<T> {
     }
 
     /**
-     * Кидает исключение если введеный список пуст.
-     *
-     * @param c Collection
-     */
-    private void throwEmptyList(Collection<?> c) {
-        if (c.isEmpty()) {
-            throw new NullPointerException("Список должен содержать хотя бы один элемент.");
-        }
-    }
-
-    /**
      * Увеличивает вместимость списка до указаного размера.
      *
      * @param minCapacity int
@@ -260,7 +249,6 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean containsAll(Collection<?> c) {
-        throwEmptyList(c);
         for (Object element : c) {
             if (!contains(element)) {
                 return false;
@@ -279,7 +267,6 @@ public class MyArrayList<T> implements List<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        throwEmptyList(c);
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
@@ -298,7 +285,6 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        throwEmptyList(c);
         throwExceptionForWrongIndex(index);
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
@@ -318,7 +304,6 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean removeAll(Collection<?> c) {
-        throwEmptyList(c);
         for (Object element : c) {
             remove(element);
         }
@@ -333,7 +318,6 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        throwEmptyList(c);
         for (Object element : c) {
             if (!contains(element)) {
                 remove(element);
