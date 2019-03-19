@@ -183,6 +183,9 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
+                        true},
+                new Object[]{new MyArrayList<>("0", "1", "2","2","2","3","1","2","3","4","5"),
+                        new MyArrayList<>("0","1","3","4","5"),
                         true}
         };
     }
@@ -380,15 +383,15 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "RemoveAll")
     public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
-        list.removeAll(list2);
-        for (Object el:list) {
-            System.out.println(el);
-        }
         assertEquals(list.removeAll(list2), result);
     }
 
     @Test(dataProvider = "RetainAll")
     public void testRetainAll(MyArrayList list, MyArrayList list2, boolean result) {
+        list.retainAll(list2);
+        for (Object el:list) {
+            System.out.println(el);
+        }
         assertEquals(list.retainAll(list2), result);
     }
 

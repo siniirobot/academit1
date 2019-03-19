@@ -310,7 +310,7 @@ public class MyArrayList<T> implements List<T> {
     public boolean removeAll(Collection<?> c) {
         for (Object element : c) {
             int index = indexOf(element);
-            while( indexOf(element) >= 0) {
+            while( index >= 0) {
                 remove(index);
                 index = indexOf(element);
             }
@@ -327,8 +327,10 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         for (Object element : c) {
-            if (!contains(element)) {
-                remove(element);
+            int index = indexOf(element);
+            while( index != -1) {
+                remove(index);
+                index = indexOf(element);
             }
         }
         return true;
