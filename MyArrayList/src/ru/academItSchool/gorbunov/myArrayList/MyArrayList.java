@@ -134,7 +134,7 @@ public class MyArrayList<T> implements List<T> {
      * Увеличивает вместимость списка на ARRAY_LENGTH
      */
     private void increaseCapacity() {
-        this.listElements = Arrays.copyOf(this.listElements, this.listElements.length + ARRAY_LENGTH);
+        this.listElements = Arrays.copyOf(this.listElements, this.listElements.length * 2);
     }
 
     /**
