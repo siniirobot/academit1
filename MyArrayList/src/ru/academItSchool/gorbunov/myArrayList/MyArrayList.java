@@ -261,10 +261,12 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         throwEmptyList(c);
-        for (Object element : c)
+        for (Object element : c) {
             if (!contains(element)) {
                 return false;
             }
+        }
+
         return true;
     }
 
