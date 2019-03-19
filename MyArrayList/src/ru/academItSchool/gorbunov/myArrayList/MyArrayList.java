@@ -118,7 +118,6 @@ public class MyArrayList<T> implements List<T> {
      */
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
-        modCount++;
         this.listElements = Arrays.copyOf(this.listElements, minCapacity);
     }
 
@@ -126,7 +125,6 @@ public class MyArrayList<T> implements List<T> {
      * Уменьшает размер массива до размера текущего списка.
      */
     public void trimToSize() {
-        modCount++;
         this.listElements = Arrays.copyOf(this.listElements, count);
     }
 
