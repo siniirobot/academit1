@@ -6,14 +6,15 @@ import java.util.Iterator;
 public class MyHashTable<T> implements Collection<T> {
     private final int ARRAY_LENGTH = 100;
     private Collection<T>[] array;
-    private int elementsCount;
+    private int count;
+    private int modCount;
 
     /**
      * Конструктор для создания пустого списка.
      */
     @SuppressWarnings("unchecked")
     public MyHashTable() {
-        this.elementsCount = 0;
+        this.count = 0;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new String[]{"0", "1", "2", "3"},
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", "3"
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", null
                         }}
         };
     }
@@ -330,12 +330,23 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "ToArray1")
     public void testToArray1(MyArrayList list, String[] array, String[] result) {
+        String[] toArray = (String[]) list.toArray();
+        ArrayList<String> List = new ArrayList<>(Arrays.asList(toArray));
+        toArray = List.toArray(array);
+        for (String lis:toArray) {
+            System.out.println(lis);
+        }
+        System.out.println("Второй массив");
+        String[] toArray2 = (String[]) list.toArray(array);
+        for (String lis2:toArray2) {
+            System.out.println(lis2);
+        }
         assertEquals(list.toArray(array), result);
     }
 
     @Test(dataProvider = "Add")
     public void testAdd(MyArrayList<String> list, String[] elements, MyArrayList result) {
-        ArrayList<String> list1 = new ArrayList<String>();
+        ArrayList<String> list1 = new ArrayList<>();
         for (String element : elements) {
             list1.add(element);
         }
