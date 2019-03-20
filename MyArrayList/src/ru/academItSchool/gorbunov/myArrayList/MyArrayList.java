@@ -492,7 +492,6 @@ public class MyArrayList<T> implements List<T> {
         }
         MyArrayList<?> that = (MyArrayList<?>) o;
         return this.count == that.count &&
-                this.modCount == that.modCount &&
                 Arrays.equals(this.listElements, that.listElements);
     }
 
@@ -500,9 +499,7 @@ public class MyArrayList<T> implements List<T> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Integer.hashCode(ARRAY_LENGTH);
         result = prime * result + Integer.hashCode(this.count);
-        result = prime * result + Integer.hashCode(this.modCount);
         result = prime * result + Arrays.hashCode(this.listElements);
         return result;
     }
