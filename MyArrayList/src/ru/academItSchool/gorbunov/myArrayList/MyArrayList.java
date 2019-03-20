@@ -372,7 +372,6 @@ public class MyArrayList<T> implements List<T> {
         throwExceptionForWrongIndex(index);
         T oldElement = this.listElements[index];
         this.listElements[index] = element;
-        this.modCount++;
         return oldElement;
     }
 
