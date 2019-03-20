@@ -317,7 +317,7 @@ public class MyArrayList<T> implements List<T> {
         for (Object element : c) {
             int index = indexOf(element);
             while (index >= 0) {
-                remove(index);
+                collapseArray(index);
                 index = indexOf(element);
             }
         }
@@ -335,7 +335,7 @@ public class MyArrayList<T> implements List<T> {
         for (Object element : c) {
             int index = indexOf(element);
             while (index != -1) {
-                remove(index);
+                collapseArray(index);
                 index = indexOf(element);
             }
         }
