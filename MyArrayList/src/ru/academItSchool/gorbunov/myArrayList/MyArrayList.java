@@ -288,17 +288,21 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         throwExceptionForWrongIndex(index);
-        if (c.size() + this.count > this.listElements.length) {
-            ensureCapacity(c.size() + this.count);
+        if (index == this.count - 1) {
+            addAll(c);
+        } else {
+            if (c.size() + this.count > this.listElements.length) {
+                ensureCapacity(c.size() + this.count);
+            }
+            System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
+            int i = index;
+            for (Object el : c) {
+                this.listElements[i] = (T) el;
+                i++;
+            }
+            modCount++;
+            this.count += c.size();
         }
-        System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
-        int i = index;
-        for (Object el : c) {
-            this.listElements[i] = (T) el;
-            i++;
-        }
-        modCount++;
-        this.count += c.size();
         return true;
     }
 
