@@ -425,15 +425,8 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public int indexOf(Object o) {
-        if (o == null) {
-            for (int i = 0; i < this.count; i++) {
-                if (this.listElements[i] == null) {
-                    return i;
-                }
-            }
-        }
         for (int i = 0; i < this.count; i++) {
-            if (this.listElements[i].equals(o)) {
+            if (Objects.equals(this.listElements[i], o)) {
                 return i;
             }
         }
@@ -448,15 +441,8 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(Object o) {
-        if (o == null) {
-            for (int i = this.count - 1; i != 0; i--) {
-                if (this.listElements[i] == null) {
-                    return i;
-                }
-            }
-        }
         for (int i = this.count - 1; i != 0; i--) {
-            if (this.listElements[i].equals(o)) {
+            if (Objects.equals(this.listElements[i], o)) {
                 return i;
             }
         }
