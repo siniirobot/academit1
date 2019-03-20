@@ -142,13 +142,15 @@ public class MyArrayList<T> implements List<T> {
 
     /**
      * Добавляет элемент в конец списка.
+     *
      * @param o T
      */
-    private void addToEnd(T o){
+    private void addToEnd(T o) {
         this.listElements[count] = o;
         this.count++;
         this.modCount++;
     }
+
     /**
      * Возвращает размер массива
      *
@@ -301,8 +303,8 @@ public class MyArrayList<T> implements List<T> {
             }
             System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
             int i = index;
-            for (Object el : c) {
-                this.listElements[i] = (T) el;
+            for (T el : c) {
+                this.listElements[i] = el;
                 i++;
             }
             modCount++;
