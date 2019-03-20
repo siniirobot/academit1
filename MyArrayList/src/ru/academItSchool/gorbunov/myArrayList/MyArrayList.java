@@ -132,8 +132,10 @@ public class MyArrayList<T> implements List<T> {
      * @param index int
      */
     private void collapseArray(int index) {
-        System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
-        this.listElements[this.count - 1] = null;
+        if (index != this.count - 1) {
+            System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
+        }
+        this.listElements[this.count] = null;
         this.count--;
         this.modCount++;
     }
@@ -289,14 +291,14 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        System.arraycopy(this.listElements,index,this.listElements,index + c.size(),this.count-index);
+        System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
         int i = index;
-        for (Object el:c) {
-            this.listElements[i] = (T)el;
+        for (Object el : c) {
+            this.listElements[i] = (T) el;
             i++;
         }
         modCount++;
-        this.count+=c.size();
+        this.count += c.size();
         return true;
     }
 
@@ -310,7 +312,7 @@ public class MyArrayList<T> implements List<T> {
     public boolean removeAll(Collection<?> c) {
         for (Object element : c) {
             int index = indexOf(element);
-            while( index >= 0) {
+            while (index >= 0) {
                 remove(index);
                 index = indexOf(element);
             }
@@ -328,7 +330,7 @@ public class MyArrayList<T> implements List<T> {
     public boolean retainAll(Collection<?> c) {
         for (Object element : c) {
             int index = indexOf(element);
-            while( index != -1) {
+            while (index != -1) {
                 remove(index);
                 index = indexOf(element);
             }
@@ -384,13 +386,17 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         throwExceptionForWrongIndex(index);
-        if (this.count == this.listElements.length) {
-            increaseCapacity();
+        if (index == this.count - 1) {
+            add(element);
+        } else {
+            if (this.count == this.listElements.length) {
+                increaseCapacity();
+            }
+            System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
+            this.listElements[index] = element;
+            this.count++;
+            this.modCount++;
         }
-        System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
-        this.listElements[index] = element;
-        this.count++;
-        this.modCount++;
     }
 
     /**

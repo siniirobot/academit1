@@ -281,7 +281,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        "Это первый элемент"}
+                        "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        2,
+                        "Это второй элемент"}
         };
     }
 
@@ -357,7 +360,14 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "Remove")
     public void testRemove(MyArrayList list, String element, boolean result) {
+        for (Object el: list) {
+            System.out.println(el);
+        }
+        System.out.println("После удаления");
         assertEquals(list.remove(element), result);
+        for (Object el: list) {
+            System.out.println(el);
+        }
     }
 
     @Test(dataProvider = "ContainsAll")
