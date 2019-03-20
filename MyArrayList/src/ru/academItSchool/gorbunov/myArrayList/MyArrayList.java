@@ -141,6 +141,15 @@ public class MyArrayList<T> implements List<T> {
     }
 
     /**
+     * Добавляет элемент в конец списка.
+     * @param o T
+     */
+    private void addToEnd(T o){
+        this.listElements[count] = o;
+        this.count++;
+        this.modCount++;
+    }
+    /**
      * Возвращает размер массива
      *
      * @return int
@@ -221,9 +230,7 @@ public class MyArrayList<T> implements List<T> {
         if (this.count == this.listElements.length) {
             increaseCapacity();
         }
-        this.listElements[count] = t;
-        this.count++;
-        this.modCount++;
+        addToEnd(t);
         return true;
     }
 
@@ -256,7 +263,6 @@ public class MyArrayList<T> implements List<T> {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -266,14 +272,13 @@ public class MyArrayList<T> implements List<T> {
      * @param c Collection
      * @return boolean true если добавились false если нет
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        for (Object element : c) {
-            add((T) element);
+        for (T element : c) {
+            addToEnd(element);
         }
         return true;
     }
@@ -391,7 +396,7 @@ public class MyArrayList<T> implements List<T> {
     public void add(int index, T element) {
         throwExceptionForWrongIndex(index);
         if (index == this.count - 1) {
-            add(element);
+            addToEnd(element);
         } else {
             if (this.count == this.listElements.length) {
                 increaseCapacity();
