@@ -498,16 +498,11 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         MyArrayList<?> that = (MyArrayList<?>) o;
-        return this.count == that.count &&
-                Arrays.equals(this.listElements, that.listElements);
+        return Arrays.equals(this.listElements, that.listElements);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Integer.hashCode(this.count);
-        result = prime * result + Arrays.hashCode(this.listElements);
-        return result;
+        return Arrays.hashCode(this.listElements);
     }
 }

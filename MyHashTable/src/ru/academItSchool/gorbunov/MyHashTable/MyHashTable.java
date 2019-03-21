@@ -1,7 +1,9 @@
 package ru.academItSchool.gorbunov.MyHashTable;
 
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyHashTable<T> implements Collection<T> {
     private final int ARRAY_LENGTH = 100;
@@ -10,12 +12,39 @@ public class MyHashTable<T> implements Collection<T> {
     private int modCount;
 
     /**
-     * Конструктор для создания пустого списка.
-     */
-    @SuppressWarnings("unchecked")
-    public MyHashTable() {
-        this.count = 0;
-    }
+     * Класс необходимый для перебора списка.
+     *//*
+    private class MyIterator implements Iterator<T> {
+        private int currentIndex = -1;
+        private int modification = modCount;
+
+        *//**
+         * Проверяет есть ли следующий элемент в списке.
+         *
+         * @return boolean
+         *//*
+        @Override
+        public boolean hasNext() {
+            return currentIndex + 1 != count;
+        }
+
+        *//**
+         * Возвращает следующий элемент из списка.
+         *
+         * @return T
+         *//*
+        @Override
+        public T next() {
+            if (modification != modCount) {
+                throw new ConcurrentModificationException("Список был изменен");
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException("Следующего элемента нет.");
+            }
+            currentIndex++;
+            return array[currentIndex];
+        }
+    }*/
 
     @Override
     public int size() {
