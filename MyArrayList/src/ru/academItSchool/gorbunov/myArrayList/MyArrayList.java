@@ -506,4 +506,15 @@ public class MyArrayList<T> implements List<T> {
     public int hashCode() {
         return Arrays.hashCode(this.listElements);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0; i < this.count;i++) {
+            stringBuilder.append(this.listElements[i]).append(", ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.append("]").toString();
+    }
 }

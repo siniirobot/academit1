@@ -134,11 +134,11 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        new MyArrayList<>("0", "1","2","3","4","5","6","7","8","9","10","11","12","13"),
+                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
                         true},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         2,
-                        new MyArrayList<>("0", "1","2","3","4","5","6","7","8","9","10","11","12","13"),
+                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
                         true}
         };
     }
@@ -167,8 +167,8 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
                         true},
-                new Object[]{new MyArrayList<>("0", "1", "2","3","4","5","6","0","5","7","8","1"),
-                        new MyArrayList<>("0", "5","1"),
+                new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
+                        new MyArrayList<>("0", "5", "1"),
                         true}
         };
     }
@@ -188,8 +188,8 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
                         true},
-                new Object[]{new MyArrayList<>("0", "1", "2","2","2","3","1","2","3","4","5"),
-                        new MyArrayList<>("0","1","3","4","5"),
+                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>("0", "1", "3", "4", "5"),
                         true}
         };
     }
@@ -321,6 +321,22 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "ToString")
+    public Object[][] testToString() {
+        MyArrayList<Integer> intArray = new MyArrayList<>();
+        intArray.add(1);
+        intArray.add(2);
+        intArray.add(3);
+        intArray.add(4);
+        intArray.add(5);
+        return new Object[][]{
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "Это первый элемент"),
+                        "[Это нулевой элемент, Это первый элемент, Это второй элемент, Это первый элемент]"},
+                new Object[]{intArray,
+                        "[1, 2, 3, 4, 5]"}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyArrayList list, int result) {
         assertEquals(list.size(), result);
@@ -364,12 +380,12 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "Remove")
     public void testRemove(MyArrayList list, String element, boolean result) {
-        for (Object el: list) {
+        for (Object el : list) {
             System.out.println(el);
         }
         System.out.println("После удаления");
         assertEquals(list.remove(element), result);
-        for (Object el: list) {
+        for (Object el : list) {
             System.out.println(el);
         }
     }
@@ -403,7 +419,7 @@ public class MyArrayListTest {
     @Test(dataProvider = "RetainAll")
     public void testRetainAll(MyArrayList list, MyArrayList list2, boolean result) {
         list.retainAll(list2);
-        for (Object el:list) {
+        for (Object el : list) {
             System.out.println(el);
         }
         assertEquals(list.retainAll(list2), result);
@@ -466,5 +482,10 @@ public class MyArrayListTest {
     @Test(dataProvider = "LastIndexOf")
     public void testLastIndexOf(MyArrayList list, String element, int result) {
         assertEquals(list.lastIndexOf(element), result);
+    }
+
+    @Test(dataProvider = "ToString")
+    public void testToString(MyArrayList list, String result) {
+        assertEquals(list.toString(), result);
     }
 }
