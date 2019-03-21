@@ -216,8 +216,9 @@ public class MyArrayList<T> implements List<T> {
             return (T1[]) Arrays.copyOf(this.listElements, this.count, a.getClass());
         }
         System.arraycopy(this.listElements, 0, a, 0, this.count);
-        if (a.length > this.count)
+        if (a.length > this.count) {
             a[this.count] = null;
+        }
         return a;
     }
 
