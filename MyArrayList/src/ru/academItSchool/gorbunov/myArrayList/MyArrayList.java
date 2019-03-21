@@ -451,7 +451,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = this.count - 1; i != 0; i--) {
+        for (int i = this.count - 1; i >= 0; i--) {
             if (Objects.equals(this.listElements[i], o)) {
                 return i;
             }
@@ -511,6 +511,9 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public String toString() {
+        if (this.count <= 0) {
+            return "Список пуст";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (int i = 0; i < this.count; i++) {

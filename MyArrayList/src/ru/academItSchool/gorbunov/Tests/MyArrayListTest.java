@@ -364,11 +364,10 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "Add")
     public void testAdd(MyArrayList<String> list, String[] elements, MyArrayList result) {
-        ArrayList<String> list1 = new ArrayList<>();
         for (String element : elements) {
-            list1.add(element);
+            list.add(element);
         }
-        assertEquals(list1, result);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "AddError", expectedExceptions = IllegalArgumentException.class, enabled = false)
