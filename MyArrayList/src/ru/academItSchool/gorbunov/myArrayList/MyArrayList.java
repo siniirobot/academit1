@@ -342,12 +342,12 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        for (Object element : c) {
-            int index = indexOf(element);
-            while (index != -1) {
-                collapseArray(index);
-                index = indexOf(element);
+        for (int i = 0; i < this.count; i++) {
+            if (c.contains(this.listElements[i])) {
+                continue;
             }
+            collapseArray(i);
+            i--;
         }
         return true;
     }
