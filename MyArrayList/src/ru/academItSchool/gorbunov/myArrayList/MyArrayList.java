@@ -296,12 +296,14 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         throwExceptionForWrongIndex(index);
+        if (c.size() + this.count > this.listElements.length) {
+            ensureCapacity(c.size() + this.count);
+        }
         if (index == this.count - 1) {
-            addAll(c);
-        } else {
-            if (c.size() + this.count > this.listElements.length) {
-                ensureCapacity(c.size() + this.count);
+            for (T el : c) {
+                addToEnd(el);
             }
+        } else {
             System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
             int i = index;
             for (T el : c) {
@@ -511,7 +513,7 @@ public class MyArrayList<T> implements List<T> {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (int i = 0; i < this.count;i++) {
+        for (int i = 0; i < this.count; i++) {
             stringBuilder.append(this.listElements[i]).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
