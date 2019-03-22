@@ -83,10 +83,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         "Это первый элемент",
-                        true},
+                        new MyArrayList<>("Это нулевой элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", null, "Это второй элемент"),
                         null,
-                        true}
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент")}
         };
     }
 
@@ -116,7 +116,7 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("1", "0"),
-                        true}
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "1", "0")}
         };
     }
 
@@ -135,11 +135,13 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
-                        true},
+                        new MyArrayList<>("Это нулевой элемент", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                "10", "11", "12", "13", "Это первый элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         2,
                         new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
-                        true}
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент",
+                                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13")}
         };
     }
 
@@ -166,10 +168,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
-                        true},
+                        new MyArrayList<>("Это второй элемент")},
                 new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
                         new MyArrayList<>("0", "5", "1"),
-                        true}
+                        new MyArrayList<>("2", "3", "4", "6", "7", "8")}
         };
     }
 
@@ -187,10 +189,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
-                        true},
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент")},
                 new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         new MyArrayList<>("0", "1", "3", "4", "5"),
-                        true}
+                        new MyArrayList<>("0", "1", "3", "1", "3", "4", "5")}
         };
     }
 
@@ -285,10 +287,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        "Это первый элемент"},
+                        new MyArrayList<>("Это нулевой элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         2,
-                        "Это второй элемент"}
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент")}
         };
     }
 
@@ -378,15 +380,9 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "Remove")
-    public void testRemove(MyArrayList list, String element, boolean result) {
-        for (Object el : list) {
-            System.out.println(el);
-        }
-        System.out.println("После удаления");
-        assertEquals(list.remove(element), result);
-        for (Object el : list) {
-            System.out.println(el);
-        }
+    public void testRemove(MyArrayList list, String element, MyArrayList result) {
+        list.remove(element);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "ContainsAll")
@@ -395,14 +391,15 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "AddAll")
-    public void testAddAll(MyArrayList list, MyArrayList list2, boolean result) {
-        System.out.println("После add - " + list.size());
-        assertEquals(list.addAll(list2), result);
+    public void testAddAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+        list.addAll(list2);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "AddAll1")
-    public void testAddAll1(MyArrayList list, int index, MyArrayList list2, boolean result) {
-        assertEquals(list.addAll(index, list2), result);
+    public void testAddAll1(MyArrayList list, int index, MyArrayList list2, MyArrayList result) {
+        list.addAll(index, list2);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "AddAll1Error", expectedExceptions = {IndexOutOfBoundsException.class})
@@ -411,17 +408,15 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "RemoveAll")
-    public void testRemoveAll(MyArrayList list, MyArrayList list2, boolean result) {
-        assertEquals(list.removeAll(list2), result);
+    public void testRemoveAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+        list.removeAll(list2);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "RetainAll")
-    public void testRetainAll(MyArrayList list, MyArrayList list2, boolean result) {
+    public void testRetainAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
         list.retainAll(list2);
-        for (Object el : list) {
-            System.out.println(el);
-        }
-        assertEquals(list.retainAll(list2), result);
+        assertEquals(list, result);
     }
 
 
@@ -464,8 +459,9 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "Remove1")
-    public void testRemove1(MyArrayList list, int index, Object result) {
-        assertEquals(list.remove(index), result);
+    public void testRemove1(MyArrayList list, int index, MyArrayList result) {
+        list.remove(index);
+        assertEquals(list, result);
     }
 
     @Test(dataProvider = "Remove1Error", expectedExceptions = {IndexOutOfBoundsException.class})
