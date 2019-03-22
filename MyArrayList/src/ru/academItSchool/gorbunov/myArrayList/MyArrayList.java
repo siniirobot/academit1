@@ -280,8 +280,12 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        for (T element : c) {
-            addToEnd(element);
+        try {
+            for (T element : c) {
+                addToEnd(element);
+            }
+        } catch (ConcurrentModificationException e) {
+            return false;
         }
         return true;
     }
@@ -299,19 +303,23 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        if (index == this.count - 1) {
-            for (T el : c) {
-                addToEnd(el);
+        try {
+            if (index == this.count - 1) {
+                for (T el : c) {
+                    addToEnd(el);
+                }
+            } else {
+                System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
+                int i = index;
+                for (T el : c) {
+                    this.listElements[i] = el;
+                    i++;
+                }
+                modCount++;
+                this.count += c.size();
             }
-        } else {
-            System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
-            int i = index;
-            for (T el : c) {
-                this.listElements[i] = el;
-                i++;
-            }
-            modCount++;
-            this.count += c.size();
+        } catch (ConcurrentModificationException e) {
+            return false;
         }
         return true;
     }
@@ -324,12 +332,16 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean removeAll(Collection<?> c) {
-        for (Object element : c) {
-            int index = indexOf(element);
-            while (index >= 0) {
-                collapseArray(index);
-                index = indexOf(element);
+        try {
+            for (Object element : c) {
+                int index = indexOf(element);
+                while (index >= 0) {
+                    collapseArray(index);
+                    index = indexOf(element);
+                }
             }
+        } catch (ConcurrentModificationException e) {
+            return false;
         }
         return true;
     }
@@ -342,12 +354,16 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        for (int i = 0; i < this.count; i++) {
-            if (c.contains(this.listElements[i])) {
-                continue;
+        try {
+            for (int i = 0; i < this.count; i++) {
+                if (c.contains(this.listElements[i])) {
+                    continue;
+                }
+                collapseArray(i);
+                i--;
             }
-            collapseArray(i);
-            i--;
+        }catch (ConcurrentModificationException e) {
+            return false;
         }
         return true;
     }
