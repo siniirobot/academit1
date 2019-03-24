@@ -140,4 +140,21 @@ public class MyHashTable<T> implements Collection<T> {
     public void clear() {
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+        MyHashTable<?> that = (MyHashTable<?>) o;
+        return Arrays.equals(this.array, that.array);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(array);
+    }
 }
