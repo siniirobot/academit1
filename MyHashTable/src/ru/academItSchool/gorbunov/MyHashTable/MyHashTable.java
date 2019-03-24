@@ -53,19 +53,23 @@ public class MyHashTable<T> implements Collection<T> {
                     int tempEndList = currentIndex;
                     currentIndex++;
                     return array[tempEndList].get(tempListStep);
-                }else {
+                } else {
                     listStep++;
                     return array[currentIndex].get(listStep);
                 }
-            }else if (array[currentIndex] != null){
+            } else if (array[currentIndex] != null) {
                 int tempEndList = currentIndex;
                 currentIndex++;
                 return array[tempEndList].get(1);
-            }else {
+            } else {
                 currentIndex++;
                 return null;
             }
         }
+    }
+
+    private int getIndex(T o) {
+        return Math.abs(o.hashCode() % array.length);
     }
 
     @Override
@@ -85,7 +89,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyIterator();
     }
 
     @Override
@@ -100,6 +104,8 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
+        int index = getIndex(t);
+        array[index].add(t);
         return false;
     }
 
