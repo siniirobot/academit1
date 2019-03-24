@@ -74,7 +74,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public int size() {
-        return 0;
+        return count;
     }
 
     @Override
@@ -106,6 +106,8 @@ public class MyHashTable<T> implements Collection<T> {
     public boolean add(T t) {
         int index = getIndex(t);
         array[index].add(t);
+        modCount++;
+        count++;
         return false;
     }
 
