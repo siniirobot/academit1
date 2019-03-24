@@ -1,38 +1,43 @@
 package ru.academItSchool.gorbunov.MyHashTable;
 
-import java.util.Collection;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class MyHashTable<T> implements Collection<T> {
     private final int ARRAY_LENGTH = 100;
-    private Collection<T>[] array;
+    private List<T>[] array;
     private int count;
     private int modCount;
 
+    @SuppressWarnings("unchecked")
+    public MyHashTable() {
+        this.array = new List[ARRAY_LENGTH];
+        this.count = 0;
+        this.modCount = 0;
+    }
+
     /**
      * Класс необходимый для перебора списка.
-     *//*
+     */
     private class MyIterator implements Iterator<T> {
-        private int currentIndex = -1;
+        private int currentIndex = 0;
         private int modification = modCount;
+        private int listStep = 0;
 
-        *//**
+        /**
          * Проверяет есть ли следующий элемент в списке.
          *
          * @return boolean
-         *//*
+         */
         @Override
         public boolean hasNext() {
             return currentIndex + 1 != count;
         }
 
-        *//**
+        /**
          * Возвращает следующий элемент из списка.
          *
          * @return T
-         *//*
+         */
         @Override
         public T next() {
             if (modification != modCount) {
@@ -41,10 +46,27 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            currentIndex++;
-            return array[currentIndex];
+            if (array[currentIndex] != null && array[currentIndex].size() > 1) {
+                if (listStep == array[currentIndex].size()) {
+                    int tempListStep = listStep;
+                    listStep = 0;
+                    int tempEndList = currentIndex;
+                    currentIndex++;
+                    return array[tempEndList].get(tempListStep);
+                }else {
+                    listStep++;
+                    return array[currentIndex].get(listStep);
+                }
+            }else if (array[currentIndex] != null){
+                int tempEndList = currentIndex;
+                currentIndex++;
+                return array[tempEndList].get(1);
+            }else {
+                currentIndex++;
+                return null;
+            }
         }
-    }*/
+    }
 
     @Override
     public int size() {
