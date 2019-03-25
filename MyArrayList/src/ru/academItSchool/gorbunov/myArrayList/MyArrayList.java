@@ -517,12 +517,12 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         MyArrayList<?> that = (MyArrayList<?>) o;
-        return Arrays.equals(this.listElements, that.listElements);
+        return Arrays.equals(Arrays.copyOf(this.listElements, this.count), Arrays.copyOf(that.listElements, that.count));
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(this.listElements);
+        return Arrays.hashCode(Arrays.copyOf(this.listElements, this.count));
     }
 
     @Override
