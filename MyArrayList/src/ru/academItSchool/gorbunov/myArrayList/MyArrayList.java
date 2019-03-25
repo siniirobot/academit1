@@ -438,8 +438,8 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
-        T delElement = this.listElements[index -1];
-        collapseArray(index -1);
+        T delElement = this.listElements[index - 1];
+        collapseArray(index - 1);
         return delElement;
     }
 
