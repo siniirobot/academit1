@@ -135,13 +135,13 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
-                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                "10", "11", "12", "13", "Это нулевой элемент", "Это первый элемент", "Это второй элемент")},
+                        new MyArrayList<>("Это нулевой элемент", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                "10", "11", "12", "13", "Это первый элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         2,
                         new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
-                        new MyArrayList<>("Это нулевой элемент", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-                                "Это первый элемент", "Это второй элемент")},
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "0", "1", "2", "3", "4", "5",
+                                "6", "7", "8", "9", "10", "11", "12", "13", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         3,
                         new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"),
@@ -223,7 +223,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        "Это нулевой элемент"}
+                        "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        2,
+                        "Это второй элемент"}
         };
     }
 
@@ -236,6 +239,9 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         18,
                         "Это первый элемент"},
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        3,
+                        "Это первый элемент"}
         };
     }
 
@@ -245,7 +251,7 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         "Это не первый элемент",
-                        "Это нулевой элемент"}
+                        "Это первый элемент"}
         };
     }
 
@@ -269,7 +275,7 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
                         "1.5",
-                        new MyArrayList<>("1.5", "Это нулевой элемент", "Это первый элемент", "Это второй элемент")},
+                        new MyArrayList<>("Это нулевой элемент", "1.5", "Это первый элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         3,
                         "1.5",
@@ -296,10 +302,10 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         1,
-                        new MyArrayList<>("Это первый элемент", "Это второй элемент")},
+                        new MyArrayList<>("Это нулевой элемент", "Это второй элемент")},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         2,
-                        new MyArrayList<>("Это нулевой элемент", "Это второй элемент")}
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент")}
         };
     }
 
@@ -409,7 +415,6 @@ public class MyArrayListTest {
     public void testAddAll1(MyArrayList list, int index, MyArrayList list2, MyArrayList result) {
         list.addAll(index, list2);
         assertEquals(list, result);
-
     }
 
     @Test(dataProvider = "AddAll1Error", expectedExceptions = {IndexOutOfBoundsException.class})
@@ -443,7 +448,8 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "GetError", expectedExceptions = IndexOutOfBoundsException.class)
     public void testGetError(MyArrayList list, int index, String result) {
-        assertEquals(list.get(index), result);
+        Object expected = list.get(index);
+        assertEquals(expected, result);
     }
 
     @Test(dataProvider = "Set")

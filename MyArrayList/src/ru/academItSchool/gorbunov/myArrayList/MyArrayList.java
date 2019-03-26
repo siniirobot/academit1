@@ -94,9 +94,20 @@ public class MyArrayList<T> implements List<T> {
      *
      * @param index int
      */
-    private void throwExceptionForWrongIndex(int index) {
+    private void throwExceptionForWrongIndexForAdding(int index) {
         if (index > this.count || index < 0) {
-            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше количества строк матрицы");
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше длины списка");
+        }
+    }
+
+    /**
+     * Кидает исключения для индекса если он меньше нуля или больше длины массива.
+     *
+     * @param index int
+     */
+    private void throwExceptionForWrongIndex(int index) {
+        if (index >= this.count || index < 0) {
+            throw new IndexOutOfBoundsException("Индекс не может быть меньше нуля и больше длины списка");
         }
     }
 
@@ -134,7 +145,7 @@ public class MyArrayList<T> implements List<T> {
      * @param index int
      */
     private void collapseArray(int index) {
-        if (index != this.count - 1) {
+        if (index != this.count ) {
             System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
         }
         this.listElements[this.count] = null;
@@ -301,7 +312,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        throwExceptionForWrongIndex(index);
+        throwExceptionForWrongIndexForAdding(index);
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
@@ -311,8 +322,8 @@ public class MyArrayList<T> implements List<T> {
                     addToEnd(el);
                 }
             } else {
-                System.arraycopy(this.listElements, index - 1, this.listElements, index - 1 + c.size(), this.count - index + 1);
-                int i = index - 1;
+                System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
+                int i = index ;
                 for (T el : c) {
                     this.listElements[i] = el;
                     i++;
@@ -390,8 +401,8 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        throwExceptionForWrongIndex(index - 1);
-        return this.listElements[index - 1];
+        throwExceptionForWrongIndex(index);
+        return this.listElements[index];
     }
 
     /**
@@ -404,8 +415,8 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T set(int index, T element) {
         throwExceptionForWrongIndex(index);
-        T oldElement = this.listElements[index - 1];
-        this.listElements[index - 1] = element;
+        T oldElement = this.listElements[index];
+        this.listElements[index] = element;
         return oldElement;
     }
 
@@ -417,15 +428,15 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public void add(int index, T element) {
-        throwExceptionForWrongIndex(index);
+        throwExceptionForWrongIndexForAdding(index);
         if (this.count == this.listElements.length) {
             increaseCapacity();
         }
         if (index == this.count) {
             addToEnd(element);
         } else {
-            System.arraycopy(this.listElements, index - 1, this.listElements, index, this.count - index + 1);
-            this.listElements[index - 1] = element;
+            System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
+            this.listElements[index] = element;
             this.count++;
             this.modCount++;
         }
@@ -440,8 +451,8 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         throwExceptionForWrongIndex(index);
-        T delElement = this.listElements[index - 1];
-        collapseArray(index - 1);
+        T delElement = this.listElements[index];
+        collapseArray(index);
         return delElement;
     }
 
