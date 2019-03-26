@@ -145,7 +145,7 @@ public class MyArrayList<T> implements List<T> {
      * @param index int
      */
     private void collapseArray(int index) {
-        if (index != this.count ) {
+        if (index != this.count) {
             System.arraycopy(this.listElements, index + 1, this.listElements, index, this.listElements.length - index - 1);
         }
         this.listElements[this.count] = null;
@@ -160,8 +160,6 @@ public class MyArrayList<T> implements List<T> {
      */
     private void addToEnd(T o) {
         this.listElements[count] = o;
-        this.count++;
-        this.modCount++;
     }
 
     /**
@@ -247,6 +245,8 @@ public class MyArrayList<T> implements List<T> {
             increaseCapacity();
         }
         addToEnd(t);
+        this.count++;
+        this.modCount++;
         return true;
     }
 
@@ -296,6 +296,8 @@ public class MyArrayList<T> implements List<T> {
         try {
             for (T element : c) {
                 addToEnd(element);
+                this.count += c.size();
+                this.modCount++;
             }
         } catch (ConcurrentModificationException e) {
             return false;
@@ -320,10 +322,12 @@ public class MyArrayList<T> implements List<T> {
             if (index == this.count) {
                 for (T el : c) {
                     addToEnd(el);
+                    this.count += c.size();
+                    this.modCount++;
                 }
             } else {
                 System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
-                int i = index ;
+                int i = index;
                 for (T el : c) {
                     this.listElements[i] = el;
                     i++;
@@ -434,6 +438,8 @@ public class MyArrayList<T> implements List<T> {
         }
         if (index == this.count) {
             addToEnd(element);
+            this.count++;
+            this.modCount++;
         } else {
             System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
             this.listElements[index] = element;
