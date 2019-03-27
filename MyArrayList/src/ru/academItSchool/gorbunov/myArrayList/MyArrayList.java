@@ -366,8 +366,12 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        if (c.isEmpty()) {
+        if (Objects.equals(c, this)) {
             return false;
+        }
+        if (c.isEmpty()) {
+            clear();
+            return true;
         }
         for (int i = 0; i < this.count; i++) {
             if (c.contains(this.listElements[i])) {

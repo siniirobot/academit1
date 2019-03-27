@@ -194,10 +194,21 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
-                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент")},
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент"),
+                        true},
                 new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         new MyArrayList<>("0", "1", "3", "4", "5"),
-                        new MyArrayList<>("0", "1", "3", "1", "3", "4", "5")}
+                        new MyArrayList<>("0", "1", "3", "1", "3", "4", "5"),
+                        true},
+                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>(),
+                        new MyArrayList<>(),
+                        true},
+                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        false},
+
         };
     }
 
@@ -429,8 +440,8 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "RetainAll")
-    public void testRetainAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
-        list.retainAll(list2);
+    public void testRetainAll(MyArrayList list, MyArrayList list2, MyArrayList result, boolean boolResult) {
+        assertEquals(list.retainAll(list2), boolResult);
         assertEquals(list, result);
     }
 
