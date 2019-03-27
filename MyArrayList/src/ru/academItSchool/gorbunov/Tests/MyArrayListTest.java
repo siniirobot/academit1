@@ -418,7 +418,10 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "AddAll")
     public void testAddAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
+        System.out.println(list);
+        System.out.println(list2);
         list.addAll(list2);
+        System.out.println(list);
         assertEquals(list, result);
     }
 

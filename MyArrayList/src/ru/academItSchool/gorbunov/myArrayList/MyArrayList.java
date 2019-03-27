@@ -362,7 +362,7 @@ public class MyArrayList<T> implements List<T> {
      * Удаляет все элементы из списка кроме тех что содержатся в переданом списке
      *
      * @param c Collection
-     * @return boolean true если удалились все элементы false если нет
+     * @return boolean true если удалились все элементы false если не один элемент не был затронут
      */
     @Override
     public boolean retainAll(Collection<?> c) {
