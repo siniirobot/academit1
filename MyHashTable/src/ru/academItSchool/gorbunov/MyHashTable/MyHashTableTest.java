@@ -17,6 +17,17 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "Add")
+    public Object[][] add() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("2");
+        hashTable.add("3");
+        return new Object[][]{
+                new Object[]{hashTable, 3}
+        };
+    }
+
     @Test (dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(),result);
