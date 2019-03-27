@@ -290,18 +290,17 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        if (c.isEmpty()) {
+            return false;
+        }
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        try {
-            for (T element : c) {
-                addToEnd(element);
-                this.count += c.size();
-                this.modCount++;
-            }
-        } catch (ConcurrentModificationException e) {
-            return false;
+        for (T element : c) {
+            addToEnd(element);
         }
+        this.count += c.size();
+        this.modCount++;
         return true;
     }
 
@@ -315,29 +314,26 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         throwExceptionForWrongIndexForAdding(index);
+        if (c.isEmpty()) {
+            return false;
+        }
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        try {
-            if (index == this.count) {
-                for (T el : c) {
-                    addToEnd(el);
-                    this.count += c.size();
-                    this.modCount++;
-                }
-            } else {
-                System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
-                int i = index;
-                for (T el : c) {
-                    this.listElements[i] = el;
-                    i++;
-                }
-                modCount++;
-                this.count += c.size();
+        if (index == this.count) {
+            for (T el : c) {
+                addToEnd(el);
             }
-        } catch (ConcurrentModificationException e) {
-            return false;
+        } else {
+            System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
+            int i = index;
+            for (T el : c) {
+                this.listElements[i] = el;
+                i++;
+            }
         }
+        this.count += c.size();
+        this.modCount++;
         return true;
     }
 
@@ -349,16 +345,15 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean removeAll(Collection<?> c) {
-        try {
-            for (Object element : c) {
-                int index = indexOf(element);
-                while (index >= 0) {
-                    collapseArray(index);
-                    index = indexOf(element);
-                }
-            }
-        } catch (ConcurrentModificationException e) {
+        if (c.isEmpty()) {
             return false;
+        }
+        for (Object element : c) {
+            int index = indexOf(element);
+            while (index >= 0) {
+                collapseArray(index);
+                index = indexOf(element);
+            }
         }
         return true;
     }
@@ -371,16 +366,15 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        try {
-            for (int i = 0; i < this.count; i++) {
-                if (c.contains(this.listElements[i])) {
-                    continue;
-                }
-                collapseArray(i);
-                i--;
-            }
-        } catch (ConcurrentModificationException e) {
+        if (c.isEmpty()) {
             return false;
+        }
+        for (int i = 0; i < this.count; i++) {
+            if (c.contains(this.listElements[i])) {
+                continue;
+            }
+            collapseArray(i);
+            i--;
         }
         return true;
     }
@@ -438,14 +432,12 @@ public class MyArrayList<T> implements List<T> {
         }
         if (index == this.count) {
             addToEnd(element);
-            this.count++;
-            this.modCount++;
         } else {
             System.arraycopy(this.listElements, index, this.listElements, index + 1, this.count - index);
             this.listElements[index] = element;
-            this.count++;
-            this.modCount++;
         }
+        this.count++;
+        this.modCount++;
     }
 
     /**
