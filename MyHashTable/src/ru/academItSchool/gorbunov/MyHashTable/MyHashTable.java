@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.MyHashTable;
 import java.util.*;
 
 public class MyHashTable<T> implements Collection<T> {
-    private final int ARRAY_LENGTH = 5;
+    private final int ARRAY_LENGTH = 100;
     private List<T>[] array;
     private int count;
     private int modCount;
