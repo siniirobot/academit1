@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.MyHashTable;
 import java.util.*;
 
 public class MyHashTable<T> implements Collection<T> {
-    private final int ARRAY_LENGTH = 100;
+    private final int ARRAY_LENGTH = 5;
     private List<T>[] array;
     private int count;
     private int modCount;
@@ -19,9 +19,10 @@ public class MyHashTable<T> implements Collection<T> {
      * Класс необходимый для перебора списка.
      */
     private class MyIterator implements Iterator<T> {
-        private int currentIndex = 0;
+        private int currentIndex = -1;
         private int modification = modCount;
-        private int listStep = 0;
+        private int arrayIndex = 0;
+        private int listIndex = -1;
 
         /**
          * Проверяет есть ли следующий элемент в списке.
@@ -46,25 +47,28 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            if (array[currentIndex] != null && array[currentIndex].size() > 1) {
-                if (listStep == array[currentIndex].size()) {
-                    int tempListStep = listStep;
-                    listStep = 0;
-                    int tempEndList = currentIndex;
-                    currentIndex++;
-                    return array[tempEndList].get(tempListStep);
-                } else {
-                    listStep++;
-                    return array[currentIndex].get(listStep);
+            while (arrayIndex < array.length) {
+                if (array[arrayIndex] == null) {
+                    arrayIndex++;
+                    continue;
                 }
-            } else if (array[currentIndex] != null) {
-                int tempEndList = currentIndex;
-                currentIndex++;
-                return array[tempEndList].get(1);
-            } else {
-                currentIndex++;
-                return null;
+                if (array[arrayIndex].size() > 1) {
+                    listIndex++;
+                    if (listIndex == array[arrayIndex].size()) {
+                        listIndex = -1;
+                        arrayIndex++;
+                        continue;
+                    }
+                    currentIndex++;
+                    return array[arrayIndex].get(listIndex);
+                } else {
+                    int index = arrayIndex;
+                    arrayIndex++;
+                    currentIndex++;
+                    return array[index].get(0);
+                }
             }
+            return null;
         }
     }
 
@@ -159,5 +163,23 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public int hashCode() {
         return Arrays.hashCode(array);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                continue;
+            }
+            stringBuilder.append("[");
+            for (Object el : array[i]) {
+                stringBuilder.append(el.toString()).append(", ");
+            }
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("], ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.append("]").toString();
     }
 }

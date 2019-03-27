@@ -23,8 +23,14 @@ public class MyHashTableTest {
         hashTable.add("1");
         hashTable.add("2");
         hashTable.add("3");
+        hashTable.add("4");
+        hashTable.add("5");
+        hashTable.add("6");
+        hashTable.add("7");
+        hashTable.add("8");
+        hashTable.add("9");
         return new Object[][]{
-                new Object[]{hashTable, 3}
+                new Object[]{hashTable,"[[1], [2], [3], [4], [5], [6], [7], [8], [9]]"}
         };
     }
 
@@ -53,8 +59,12 @@ public class MyHashTableTest {
     public void testToArray1() {
     }
 
-    @Test
-    public void testAdd() {
+    @Test (dataProvider = "Add")
+    public void testAdd(MyHashTable myHashTable,String result) {
+        for (Object el: myHashTable) {
+            System.out.println(el);
+        }
+        assertEquals(myHashTable.toString(),result);
     }
 
     @Test
