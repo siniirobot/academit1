@@ -320,17 +320,13 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        if (index == this.count) {
-            for (T el : c) {
-                addToEnd(el);
-            }
-        } else {
+        int i = index;
+        if (index != this.count) {
             System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
-            int i = index;
-            for (T el : c) {
-                this.listElements[i] = el;
-                i++;
-            }
+        }
+        for (T el : c) {
+            this.listElements[i] = el;
+            i++;
         }
         this.count += c.size();
         this.modCount++;
