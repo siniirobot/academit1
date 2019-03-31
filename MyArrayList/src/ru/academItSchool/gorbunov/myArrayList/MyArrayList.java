@@ -169,7 +169,7 @@ public class MyArrayList<T> implements List<T> {
      */
     private void addCollection(int index, Collection<? extends T> c) {
         int i = index;
-        for (T el:c) {
+        for (T el : c) {
             this.listElements[i] = el;
             i++;
         }
@@ -306,10 +306,8 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
-        if (c.size() + this.count > this.listElements.length) {
-            ensureCapacity(c.size() + this.count);
-        }
-        addCollection(count,c);
+        ensureCapacity(c.size() + this.count);
+        addCollection(count, c);
         this.count += c.size();
         this.modCount++;
         return true;
@@ -328,13 +326,11 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
-        if (c.size() + this.count > this.listElements.length) {
-            ensureCapacity(c.size() + this.count);
-        }
+        ensureCapacity(c.size() + this.count);
         if (index != this.count) {
             System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
         }
-        addCollection(index,c);
+        addCollection(index, c);
         this.count += c.size();
         this.modCount++;
         return true;
