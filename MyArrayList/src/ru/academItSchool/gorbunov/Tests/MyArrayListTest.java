@@ -365,6 +365,38 @@ public class MyArrayListTest {
         };
     }
 
+    @DataProvider(name = "HashCode")
+    public Object[][] testHashCode() {
+        MyArrayList<Integer> intArray = new MyArrayList<>();
+        intArray.add(1);
+        intArray.add(2);
+        MyArrayList<Integer> intArray2 = new MyArrayList<>();
+        intArray2.add(1);
+        intArray2.add(2);
+        MyArrayList<String> line1 = new MyArrayList<>("1", "2");
+        MyArrayList<String> line2 = new MyArrayList<>("1", "2");
+        return new Object[][]{
+                new Object[]{intArray, intArray2},
+                new Object[]{line1, line2}
+        };
+    }
+
+    @DataProvider(name = "Equals")
+    public Object[][] testEquals() {
+        MyArrayList<Integer> intArray = new MyArrayList<>();
+        intArray.add(1);
+        intArray.add(2);
+        MyArrayList<Integer> intArray2 = new MyArrayList<>();
+        intArray2.add(1);
+        intArray2.add(2);
+        MyArrayList<String> line1 = new MyArrayList<>("1", "2");
+        MyArrayList<String> line2 = new MyArrayList<>("1", "2");
+        return new Object[][]{
+                new Object[]{intArray, intArray2},
+                new Object[]{line1, line2}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyArrayList list, int result) {
         assertEquals(list.size(), result);
@@ -386,7 +418,7 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "ToArray1")
-    public void testToArray1(MyArrayList list, String[] array, String[] result) {
+    public void testToArray1(MyArrayList list, Object[] array, String[] result) {
         assertEquals(list.toArray(array), result);
     }
 
@@ -516,5 +548,17 @@ public class MyArrayListTest {
     @Test(dataProvider = "ToString")
     public void testToString(MyArrayList list, String result) {
         assertEquals(list.toString(), result);
+    }
+
+    @Test(dataProvider = "HashCode")
+    public void testHashCode(MyArrayList list, MyArrayList list1) {
+        int expected = list.hashCode();
+        int actual = list1.hashCode();
+        assertEquals(actual, expected);
+    }
+
+    @Test(dataProvider = "Equals")
+    public void testEquals(MyArrayList list, MyArrayList list1) {
+        assertTrue(list.equals(list1));
     }
 }
