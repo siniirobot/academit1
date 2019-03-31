@@ -118,7 +118,7 @@ public class MyArrayList<T> implements List<T> {
      */
     public void ensureCapacity(int minCapacity) {
         throwIllegalArgumentException(minCapacity);
-        if (this.listElements.length <= minCapacity) {
+        if (this.listElements.length < minCapacity) {
             this.listElements = Arrays.copyOf(this.listElements, minCapacity);
         }
     }
