@@ -163,6 +163,19 @@ public class MyArrayList<T> implements List<T> {
     }
 
     /**
+     * Добавляет коллекцию в список.
+     *
+     * @param c Collection
+     */
+    private void addCollection(int index, Collection<? extends T> c) {
+        int i = index;
+        for (T el:c) {
+            this.listElements[i] = el;
+            i++;
+        }
+    }
+
+    /**
      * Возвращает размер массива
      *
      * @return int
@@ -296,9 +309,7 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        for (T element : c) {
-            addToEnd(element);
-        }
+        addCollection(count,c);
         this.count += c.size();
         this.modCount++;
         return true;
@@ -320,14 +331,10 @@ public class MyArrayList<T> implements List<T> {
         if (c.size() + this.count > this.listElements.length) {
             ensureCapacity(c.size() + this.count);
         }
-        int i = index;
         if (index != this.count) {
             System.arraycopy(this.listElements, index, this.listElements, index + c.size(), this.count - index);
         }
-        for (T el : c) {
-            this.listElements[i] = el;
-            i++;
-        }
+        addCollection(index,c);
         this.count += c.size();
         this.modCount++;
         return true;
