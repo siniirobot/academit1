@@ -531,12 +531,25 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         MyArrayList<?> that = (MyArrayList<?>) o;
-        return Arrays.equals(Arrays.copyOf(this.listElements, this.count), Arrays.copyOf(that.listElements, that.count));
+        if (!Objects.equals(this.count, that.count)) {
+            return false;
+        }
+        for (int i = 0; i < this.count; i++) {
+            if (!Objects.equals(that.listElements[i], this.listElements[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(Arrays.copyOf(this.listElements, this.count));
+        final int prime = 31;
+        int result = 1;
+        for (int i = 0; i < this.count; i++) {
+            result = prime * result + this.listElements[i].hashCode();
+        }
+        return result;
     }
 
     @Override
