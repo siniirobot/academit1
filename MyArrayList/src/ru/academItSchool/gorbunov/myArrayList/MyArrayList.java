@@ -531,7 +531,7 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         MyArrayList<?> that = (MyArrayList<?>) o;
-        if (!Objects.equals(this.count, that.count)) {
+        if (this.count != that.count) {
             return false;
         }
         for (int i = 0; i < this.count; i++) {

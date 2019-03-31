@@ -115,8 +115,8 @@ public class MyArrayListTest {
     public Object[][] addAll() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                        new MyArrayList<>("1", "0"),
-                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "1", "0")}
+                        new MyArrayList<>("1", "0",null),
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "1", "0",null)}
         };
     }
 
