@@ -72,8 +72,8 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new String[]{"0", "1", "2", "3"},
-                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", null
-                        }}
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", null}
+                }
         };
     }
 
@@ -418,7 +418,7 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "ToArray1")
-    public void testToArray1(MyArrayList list, Object[] array, String[] result) {
+    public void testToArray1(MyArrayList list, Object[] array, Object[] result) {
         assertEquals(list.toArray(array), result);
     }
 
