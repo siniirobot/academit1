@@ -47,6 +47,18 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "toArray")
+    public Object[][] toArray() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("0");
+        hashTable.add("1");
+        return new Object[][]{
+                new Object[]{hashTable,
+                        new Object[]{"0", "1"}
+                }
+        };
+    }
+
     @DataProvider(name = "Add")
     public Object[][] add() {
         MyHashTable<String> hashTable = new MyHashTable<>();
@@ -64,6 +76,7 @@ public class MyHashTableTest {
         };
     }
 
+
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(), result);
@@ -79,9 +92,9 @@ public class MyHashTableTest {
         assertEquals(myHashTable.contains(element), result);
     }
 
-    @Test (dataProvider = "toArray")
-    public void testToArray(MyHashTable myHashTable, Object result) {
-        assertEquals(myHashTable.toArray(),result);
+    @Test(dataProvider = "toArray")
+    public void testToArray(MyHashTable myHashTable, Object[] result) {
+        assertEquals(myHashTable.toArray(), result);
     }
 
     @Test
