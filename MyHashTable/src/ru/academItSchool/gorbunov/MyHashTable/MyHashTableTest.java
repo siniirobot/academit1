@@ -226,6 +226,31 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "Clear")
+    public Object[][] clear() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("4");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("5");
+        hashTable.add("a");
+
+        MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
+        return new Object[][]{
+                new Object[]{hashTable, hashTable1WithResult}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(), result);
@@ -285,7 +310,9 @@ public class MyHashTableTest {
         assertEquals(hashTable,hashTableResult);
     }
 
-    @Test
-    public void testClear() {
+    @Test(dataProvider = "clear")
+    public void testClear(MyHashTable hashTable, MyHashTable result) {
+        hashTable.clear();
+        assertEquals(hashTable,result);
     }
 }
