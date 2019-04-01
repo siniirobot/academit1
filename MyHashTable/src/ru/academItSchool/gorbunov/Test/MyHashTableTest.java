@@ -1,7 +1,8 @@
-package ru.academItSchool.gorbunov.MyHashTable;
+package ru.academItSchool.gorbunov.Test;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.academItSchool.gorbunov.MyHashTable.MyHashTable;
 
 import java.util.ArrayList;
 
@@ -78,10 +79,10 @@ public class MyHashTableTest {
         MyHashTable<String> hashTable = new MyHashTable<>();
         hashTable.add("0");
         hashTable.add("1");
+        Object[] array = new Object[]{"0", "1", "2", "3"};
+        Object[] result = new Object[]{"0", "1", null, "3"};
         return new Object[][]{
-                new Object[]{hashTable,
-                        new Object[]{"0", "1", "2", "3"},
-                        new Object[]{"0", "1", null, "3"}
+                new Object[]{hashTable, array, result
                 }
         };
     }
@@ -283,8 +284,9 @@ public class MyHashTableTest {
         assertEquals(myHashTable.toArray(), result);
     }
 
-    @Test(dataProvider = "toArray1")
+    @Test(dataProvider = "ToArray1")
     public void testToArray1(MyHashTable myHashTable, Object[] array, Object[] result) {
+        Object[] array2 = myHashTable.toArray(array);
         assertEquals(myHashTable.toArray(array), result);
     }
 
