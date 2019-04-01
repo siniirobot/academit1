@@ -93,7 +93,8 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        int index = getIndex((T)o);
+        return this.array[index] != null;
     }
 
     @Override
