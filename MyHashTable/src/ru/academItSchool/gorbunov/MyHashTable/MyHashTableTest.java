@@ -89,6 +89,24 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "Remove")
+    public Object[][] remove() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("4");
+        hashTable.add("5");
+
+        MyHashTable<String> hashTableWithout3 = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("2");
+        hashTable.add("4");
+        hashTable.add("5");
+        return new Object[][]{
+                new Object[]{hashTable, hashTableWithout3, "3", true}
+        };
+    }
 
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
@@ -120,8 +138,10 @@ public class MyHashTableTest {
         assertEquals(myHashTable.toString(), result);
     }
 
-    @Test
-    public void testRemove() {
+    @Test(dataProvider = "Remove")
+    public void testRemove(MyHashTable myHashTable, MyHashTable myHashTable2,String three,boolean result) {
+        assertEquals(myHashTable.remove(three),result);
+        assertEquals(myHashTable,myHashTable2);
     }
 
     @Test
