@@ -127,6 +127,105 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "AddAll")
+    public Object[][] addAll() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("4");
+        hashTable.add("5");
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("6");
+        stringArrayList.add("7");
+
+        MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
+        hashTable1WithResult.add("1");
+        hashTable1WithResult.add("2");
+        hashTable1WithResult.add("3");
+        hashTable1WithResult.add("4");
+        hashTable1WithResult.add("5");
+        hashTable1WithResult.add("6");
+        hashTable1WithResult.add("7");
+        return new Object[][]{
+                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+        };
+    }
+
+    @DataProvider(name = "RemoveAll")
+    public Object[][] RemoveAll() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("4");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("5");
+        hashTable.add("a");
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("1");
+        stringArrayList.add("a");
+
+        MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
+        hashTable1WithResult.add("2");
+        hashTable1WithResult.add("3");
+        hashTable1WithResult.add("4");
+        hashTable1WithResult.add("5");
+        return new Object[][]{
+                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+        };
+    }
+
+    @DataProvider(name = "RetainAll")
+    public Object[][] retainAll() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("4");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("5");
+        hashTable.add("a");
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("1");
+        stringArrayList.add("a");
+
+        MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("a");
+        return new Object[][]{
+                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(), result);
@@ -168,16 +267,22 @@ public class MyHashTableTest {
         assertEquals(hashTable.containsAll(arrayList),result);
     }
 
-    @Test
-    public void testAddAll() {
+    @Test(dataProvider = "AddAll")
+    public void testAddAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+        assertEquals(hashTable.addAll(arrayList),result);
+        assertEquals(hashTable,hashTableResult);
     }
 
-    @Test
-    public void testRemoveAll() {
+    @Test(dataProvider = "RemoveAll")
+    public void tesRemoveAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+        assertEquals(hashTable.removeAll(arrayList),result);
+        assertEquals(hashTable,hashTableResult);
     }
 
-    @Test
-    public void testRetainAll() {
+    @Test(dataProvider = "RetainAll")
+    public void testRetainAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+        assertEquals(hashTable.retainAll(arrayList),result);
+        assertEquals(hashTable,hashTableResult);
     }
 
     @Test
