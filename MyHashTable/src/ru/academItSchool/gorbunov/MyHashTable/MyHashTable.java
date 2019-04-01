@@ -93,7 +93,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        int index = getIndex((T)o);
+        int index = getIndex((T) o);
         return this.array[index] != null;
     }
 
@@ -104,7 +104,21 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] toArray = new Object[this.count];
+        for (int i = 0, j = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                if (this.array[i].size() > 1) {
+                    for (Object el : this.array[i]) {
+                        toArray[j] = el;
+                        j++;
+                    }
+                } else {
+                    toArray[j] = this.array[i].get(0);
+                    j++;
+                }
+            }
+        }
+        return toArray;
     }
 
     @Override
