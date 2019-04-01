@@ -3,6 +3,8 @@ package ru.academItSchool.gorbunov.MyHashTable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 import static org.testng.Assert.*;
 
 public class MyHashTableTest {
@@ -99,12 +101,29 @@ public class MyHashTableTest {
         hashTable.add("5");
 
         MyHashTable<String> hashTableWithout3 = new MyHashTable<>();
-        hashTable.add("1");
-        hashTable.add("2");
-        hashTable.add("4");
-        hashTable.add("5");
+        hashTableWithout3.add("1");
+        hashTableWithout3.add("2");
+        hashTableWithout3.add("4");
+        hashTableWithout3.add("5");
         return new Object[][]{
                 new Object[]{hashTable, hashTableWithout3, "3", true}
+        };
+    }
+
+    @DataProvider(name = "ContainsAll")
+    public Object[][] containsAll() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add("4");
+        hashTable.add("5");
+
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("1");
+        stringArrayList.add("2");
+        return new Object[][]{
+                new Object[]{hashTable, stringArrayList, true}
         };
     }
 
@@ -139,13 +158,14 @@ public class MyHashTableTest {
     }
 
     @Test(dataProvider = "Remove")
-    public void testRemove(MyHashTable myHashTable, MyHashTable myHashTable2,String three,boolean result) {
-        assertEquals(myHashTable.remove(three),result);
-        assertEquals(myHashTable,myHashTable2);
+    public void testRemove(MyHashTable myHashTable, MyHashTable myHashTable2, String three, boolean result) {
+        assertEquals(myHashTable.remove(three), result);
+        assertEquals(myHashTable, myHashTable2);
     }
 
-    @Test
-    public void testContainsAll() {
+    @Test(dataProvider = "ContainsAll")
+    public void testContainsAll(MyHashTable hashTable, ArrayList arrayList, boolean result) {
+        assertEquals(hashTable.containsAll(arrayList),result);
     }
 
     @Test
