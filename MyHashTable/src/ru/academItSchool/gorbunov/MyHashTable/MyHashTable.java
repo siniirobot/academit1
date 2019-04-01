@@ -102,28 +102,42 @@ public class MyHashTable<T> implements Collection<T> {
         return new MyIterator();
     }
 
-    @Override
-    public Object[] toArray() {
-        Object[] toArray = new Object[this.count];
+    private Object[] hashTableComponents() {
+        Object[] allComponents = new Object[this.count];
         for (int i = 0, j = 0; i < this.array.length; i++) {
             if (this.array[i] != null) {
                 if (this.array[i].size() > 1) {
                     for (Object el : this.array[i]) {
-                        toArray[j] = el;
+                        allComponents[j] = el;
                         j++;
                     }
                 } else {
-                    toArray[j] = this.array[i].get(0);
+                    allComponents[j] = this.array[i].get(0);
                     j++;
                 }
             }
         }
-        return toArray;
+        return allComponents;
     }
 
     @Override
+
+    public Object[] toArray() {
+        return hashTableComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        Object[] hashTableComponents = hashTableComponents();
+        if (a.length < this.count) {
+            return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
+        }
+        System.arraycopy(hashTableComponents, 0, a, 0, this.count);
+        if (a.length > this.count) {
+            a[this.count] = null;
+        }
+        return a;
     }
 
     @Override
