@@ -25,7 +25,7 @@ public class MyHashTableTest {
         hashTable.add("1");
         MyHashTable<String> hashTable2 = new MyHashTable<>();
         return new Object[][]{
-                new Object[]{hashTable, false},
+                new Object[]{hashTable,false},
                 new Object[]{hashTable2, true},
         };
     }

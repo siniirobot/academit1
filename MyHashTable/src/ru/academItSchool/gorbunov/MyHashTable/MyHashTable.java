@@ -81,9 +81,14 @@ public class MyHashTable<T> implements Collection<T> {
         return count;
     }
 
+    /**
+     * Проверяет пустой ли массив
+     *
+     * @return boolean
+     */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
@@ -167,6 +172,9 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public String toString() {
+        if (this.count <= 0) {
+            return "Список пуст";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (int i = 0; i < array.length; i++) {
