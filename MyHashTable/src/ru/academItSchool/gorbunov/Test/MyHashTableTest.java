@@ -79,10 +79,25 @@ public class MyHashTableTest {
         MyHashTable<String> hashTable = new MyHashTable<>();
         hashTable.add("0");
         hashTable.add("1");
-        Object[] array = new Object[]{"0", "1", "2", "3"};
-        Object[] result = new Object[]{"0", "1", null, "3"};
+        hashTable.add("2");
+        hashTable.add("3");
+
         return new Object[][]{
-                new Object[]{hashTable, array, result
+                new Object[]{hashTable,
+                        new Object[]{"0", "1", "2", "3"},
+                        new Object[]{"0", "1", "2", "3"}
+                },
+                new Object[]{hashTable,
+                        new Object[]{"0", "1",},
+                        new Object[]{"0", "1", "2", "3"}
+                },
+                new Object[]{hashTable,
+                        new Object[]{"0", "1", "2", "3", "4"},
+                        new Object[]{"0", "1", "2", "3", null}
+                },
+                new Object[]{hashTable,
+                        new Object[]{"0", "1", "2", "3", "4", "5", "6", "7"},
+                        new Object[]{"0", "1", "2", "3", null, "5", "6", "7"}
                 }
         };
     }
@@ -286,7 +301,13 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "ToArray1")
     public void testToArray1(MyHashTable myHashTable, Object[] array, Object[] result) {
-        Object[] array2 = myHashTable.toArray(array);
+        System.out.println(myHashTable);
+        for (Object el : array) {
+            System.out.println(el);
+        }
+        for (Object el : myHashTable.toArray(array)) {
+            System.out.println(el);
+        }
         assertEquals(myHashTable.toArray(array), result);
     }
 

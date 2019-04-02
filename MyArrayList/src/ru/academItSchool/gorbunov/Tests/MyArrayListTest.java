@@ -73,6 +73,18 @@ public class MyArrayListTest {
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new String[]{"0", "1", "2", "3"},
                         new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", null}
+                },
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new String[]{"0", "1"},
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент"}
+                },
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new String[]{"0", "1", "2"},
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент"}
+                },
+                new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
+                        new String[]{"0", "1", "2", "3", "4", "5", "6"},
+                        new String[]{"Это нулевой элемент", "Это первый элемент", "Это второй элемент", null, "4", "5", "6"}
                 }
         };
     }
@@ -115,8 +127,8 @@ public class MyArrayListTest {
     public Object[][] addAll() {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
-                        new MyArrayList<>("1", "0",null),
-                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "1", "0",null)}
+                        new MyArrayList<>("1", "0", null),
+                        new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент", "1", "0", null)}
         };
     }
 
@@ -419,7 +431,15 @@ public class MyArrayListTest {
 
     @Test(dataProvider = "ToArray1")
     public void testToArray1(MyArrayList list, Object[] array, Object[] result) {
+        System.out.println(list);
+        for (Object el : array) {
+            System.out.println(el);
+        }
+        for (Object el : list.toArray(array)) {
+            System.out.println(el);
+        }
         assertEquals(list.toArray(array), result);
+
     }
 
     @Test(dataProvider = "Add")
