@@ -202,14 +202,61 @@ public class MyHashTable<T> implements Collection<T> {
         return true;
     }
 
+    /**
+     * Удаляет все элементы из списка которые есть в данном списке
+     *
+     * @param c Collection
+     * @return boolean true если удалились все элементы false если нет
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (c.isEmpty()) {
+            return false;
+        }
+        int index;
+        boolean arrayListChanged = false;
+        for (Object element : c) {
+            index = getIndex((T) element);
+            if (array[index] == null || array[index].isEmpty()) {
+                continue;
+            }
+            while (array[index].remove((T) element)) {
+                arrayListChanged = true;
+                this.count--;
+                this.modCount--;
+            }
+        }
+        return arrayListChanged;
     }
 
+    /**
+     * Удаляет все элементы из списка кроме тех что содержатся в переданом списке
+     *
+     * @param c Collection
+     * @return boolean true если удалились все элементы false если не один элемент не был затронут
+     */
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        if (c.isEmpty()) {
+            clear();
+            return true;
+        }
+        boolean arrayListChanged = false;
+        for (int i = 0; i < this.array.length; i++) {
+            if (array[i] == null || array[i].isEmpty()) {
+                continue;
+            }
+            for(int j = 0;j < this.array[i].size();j++){
+                if (c.contains(this.array[i].get(j))) {
+                    continue;
+                }
+                this.array[i].remove(j);
+                arrayListChanged = true;
+                this.count--;
+                this.modCount--;
+            }
+        }
+        return arrayListChanged;
     }
 
     @Override
