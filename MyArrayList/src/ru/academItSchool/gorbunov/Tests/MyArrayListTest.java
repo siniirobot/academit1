@@ -220,6 +220,10 @@ public class MyArrayListTest {
                         new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         false},
+                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>("абракадабра"),
+                        new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        false},
 
         };
     }

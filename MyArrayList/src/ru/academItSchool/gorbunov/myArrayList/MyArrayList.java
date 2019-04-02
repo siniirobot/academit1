@@ -347,14 +347,16 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
+        boolean arrayListChanged = false;
         for (Object element : c) {
             int index = indexOf(element);
             while (index >= 0) {
+                arrayListChanged = true;
                 collapseArray(index);
                 index = indexOf(element);
             }
         }
-        return true;
+        return arrayListChanged;
     }
 
     /**
@@ -365,21 +367,20 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        if (Objects.equals(c, this)) {
-            return false;
-        }
         if (c.isEmpty()) {
             clear();
             return true;
         }
+        boolean arrayListChanged = false;
         for (int i = 0; i < this.count; i++) {
             if (c.contains(this.listElements[i])) {
                 continue;
             }
+            arrayListChanged = true;
             collapseArray(i);
             i--;
         }
-        return true;
+        return arrayListChanged;
     }
 
     /**
