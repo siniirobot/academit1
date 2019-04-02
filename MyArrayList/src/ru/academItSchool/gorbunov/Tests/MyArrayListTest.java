@@ -188,8 +188,10 @@ public class MyArrayListTest {
                         new MyArrayList<>("Это второй элемент")},
                 new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
                         new MyArrayList<>("0", "5", "1"),
-                        new MyArrayList<>("2", "3", "4", "6", "7", "8")}
-        };
+                        new MyArrayList<>("2", "3", "4", "6", "7", "8")},
+                new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
+                        new MyArrayList<>("абракадабра"),
+                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1")}};
     }
 
     @DataProvider(name = "RemoveAllError")
