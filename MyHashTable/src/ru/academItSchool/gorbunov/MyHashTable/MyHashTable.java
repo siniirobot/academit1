@@ -154,7 +154,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
-        int index = getIndex((T)o);
+        int index = getIndex((T) o);
         if (array[index] == null || array[index].isEmpty()) {
             return false;
         }
@@ -184,7 +184,22 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        if (c.isEmpty()) {
+            return false;
+        }
+        int index;
+        for (T el : c) {
+            index = getIndex(el);
+            if (array[index] == null) {
+                array[index] = new ArrayList<>();
+                array[index].add(el);
+            } else {
+                array[index].add(el);
+            }
+        }
+        this.count += c.size();
+        this.modCount++;
+        return true;
     }
 
     @Override
@@ -226,7 +241,7 @@ public class MyHashTable<T> implements Collection<T> {
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (List collection:this.array) {
+        for (List collection : this.array) {
             if (collection == null || collection.isEmpty()) {
                 continue;
             }
