@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.MyHashTable.MyHashTable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.testng.Assert.*;
 
@@ -151,7 +152,8 @@ public class MyHashTableTest {
         stringArrayList.add("1");
         stringArrayList.add("2");
         return new Object[][]{
-                new Object[]{hashTable, stringArrayList, true}
+                new Object[]{hashTable, stringArrayList, true},
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра")), false}
         };
     }
 

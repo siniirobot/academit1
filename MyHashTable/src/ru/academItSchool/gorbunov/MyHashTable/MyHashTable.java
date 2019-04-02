@@ -166,9 +166,20 @@ public class MyHashTable<T> implements Collection<T> {
         return false;
     }
 
+    /**
+     * Проверяет содержит ли список все элементы из данного списка
+     *
+     * @param c Collection
+     * @return boolean true если содержит все элементы false если нет
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (Object element : c) {
+            if (!contains(element)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
