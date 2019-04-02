@@ -179,7 +179,9 @@ public class MyHashTableTest {
         hashTable1WithResult.add("6");
         hashTable1WithResult.add("7");
         return new Object[][]{
-                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult},
+                new Object[]{hashTable, new ArrayList<>(), false, hashTable}
+
         };
     }
 
