@@ -185,13 +185,16 @@ public class MyArrayListTest {
         return new Object[][]{
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
-                        new MyArrayList<>("Это второй элемент")},
+                        new MyArrayList<>("Это второй элемент"),
+                        true},
                 new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
                         new MyArrayList<>("0", "5", "1"),
-                        new MyArrayList<>("2", "3", "4", "6", "7", "8")},
+                        new MyArrayList<>("2", "3", "4", "6", "7", "8"),
+                        true},
                 new Object[]{new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
                         new MyArrayList<>("абракадабра"),
-                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1")}};
+                        new MyArrayList<>("0", "1", "2", "3", "4", "5", "6", "0", "5", "7", "8", "1"),
+                        false}};
     }
 
     @DataProvider(name = "RemoveAllError")
@@ -498,8 +501,8 @@ public class MyArrayListTest {
     }
 
     @Test(dataProvider = "RemoveAll")
-    public void testRemoveAll(MyArrayList list, MyArrayList list2, MyArrayList result) {
-        list.removeAll(list2);
+    public void testRemoveAll(MyArrayList list, MyArrayList list2, MyArrayList result, boolean resultBool) {
+        assertEquals(list.removeAll(list2), resultBool);
         assertEquals(list, result);
     }
 
