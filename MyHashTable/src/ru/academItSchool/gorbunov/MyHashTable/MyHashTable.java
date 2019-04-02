@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.MyHashTable;
 import java.util.*;
 
 public class MyHashTable<T> implements Collection<T> {
-    private final int ARRAY_LENGTH = 100;
+    private final int ARRAY_LENGTH = 10;
     private List<T>[] array;
     private int count;
     private int modCount;
@@ -48,7 +48,7 @@ public class MyHashTable<T> implements Collection<T> {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
             while (arrayIndex < array.length) {
-                if (array[arrayIndex] == null) {
+                if (array[arrayIndex] == null || array[arrayIndex].isEmpty()) {
                     arrayIndex++;
                     continue;
                 }
@@ -154,6 +154,15 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
+        int index = getIndex((T)o);
+        if (array[index] == null || array[index].isEmpty()) {
+            return false;
+        }
+        if (array[index].remove(o)) {
+            this.count--;
+            this.modCount++;
+            return true;
+        }
         return false;
     }
 
@@ -206,12 +215,12 @@ public class MyHashTable<T> implements Collection<T> {
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
+        for (List collection:this.array) {
+            if (collection == null || collection.isEmpty()) {
                 continue;
             }
             stringBuilder.append("[");
-            for (Object el : array[i]) {
+            for (Object el : collection) {
                 stringBuilder.append(el.toString()).append(", ");
             }
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("], ");

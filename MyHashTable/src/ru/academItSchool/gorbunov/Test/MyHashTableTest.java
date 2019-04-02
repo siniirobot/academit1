@@ -318,7 +318,10 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "Remove")
     public void testRemove(MyHashTable myHashTable, MyHashTable myHashTable2, String three, boolean result) {
+        System.out.println(myHashTable);
         assertEquals(myHashTable.remove(three), result);
+        System.out.println(myHashTable);
+        System.out.println(myHashTable2);
         assertEquals(myHashTable, myHashTable2);
     }
 
