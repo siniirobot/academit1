@@ -261,7 +261,14 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] == null) {
+                continue;
+            }
+            this.array[i] = null;
+        }
+        this.count = 0;
+        this.modCount++;
     }
 
     @Override
