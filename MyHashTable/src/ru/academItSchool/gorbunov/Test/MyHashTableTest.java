@@ -106,20 +106,32 @@ public class MyHashTableTest {
     @DataProvider(name = "Add")
     public Object[][] add() {
         MyHashTable<String> hashTable = new MyHashTable<>();
-        hashTable.add("1");
-        hashTable.add("2");
-        hashTable.add("3");
-        hashTable.add("4");
-        hashTable.add("5");
-        hashTable.add("6");
-        hashTable.add("7");
-        hashTable.add("8");
-        hashTable.add("9");
+
         return new Object[][]{
-                new Object[]{hashTable, "[[1], [2], [3], [4], [5], [6], [7], [8], [9]]"}
+                /*new Object[]{hashTable,
+                        new Object[]{"[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]"},
+                        "dasds"},*/
+                new Object[]{hashTable,
+                        new Object[]{"a", "a", "2", "3", "a", "a", "a", "a", "1", "4", "a", "1", "5", "a"},
+                        "sdad"}
         };
     }
 
+    /*hashTable.add("1");
+            hashTable.add("a");
+            hashTable.add("a");
+            hashTable.add("2");
+            hashTable.add("3");
+            hashTable.add("a");
+            hashTable.add("a");
+            hashTable.add("a");
+            hashTable.add("a");
+            hashTable.add("1");
+            hashTable.add("4");
+            hashTable.add("a");
+            hashTable.add("1");
+            hashTable.add("5");
+            hashTable.add("a");*/
     @DataProvider(name = "Remove")
     public Object[][] remove() {
         MyHashTable<String> hashTable = new MyHashTable<>();
@@ -214,7 +226,8 @@ public class MyHashTableTest {
         hashTable1WithResult.add("4");
         hashTable1WithResult.add("5");
         return new Object[][]{
-                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult},
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра", "Джони Деб")), false, hashTable1WithResult}
         };
     }
 
@@ -316,7 +329,10 @@ public class MyHashTableTest {
     }
 
     @Test(dataProvider = "Add")
-    public void testAdd(MyHashTable myHashTable, String result) {
+    public void testAdd(MyHashTable myHashTable, Object[] elements, String result) {
+        for (Object el : elements) {
+            myHashTable.add(el);
+        }
         assertEquals(myHashTable.toString(), result);
     }
 
@@ -342,12 +358,17 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "RemoveAll")
     public void tesRemoveAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+        System.out.println(hashTable);
         assertEquals(hashTable.removeAll(arrayList), result);
+        System.out.println(hashTable);
+        System.out.println(hashTableResult);
         assertEquals(hashTable, hashTableResult);
     }
 
     @Test(dataProvider = "RetainAll")
-    public void testRetainAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+    public void testRetainAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable
+            hashTableResult) {
+
         assertEquals(hashTable.retainAll(arrayList), result);
         assertEquals(hashTable, hashTableResult);
     }

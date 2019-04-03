@@ -72,19 +72,29 @@ public class MyHashTable<T> implements Collection<T> {
         }
     }
 
-    /**
-     * Увеличивает вместимость списка до указаного размера.
-     *
-     * @param minCapacity int
-     */
-    public void ensureCapacity(int minCapacity) {
-        if (this.array.length < minCapacity) {
-            this.array = Arrays.copyOf(this.array, minCapacity);
-        }
+    private int getIndex(T o) {
+        return Math.abs(o.hashCode() % this.array.length);
     }
 
-    private int getIndex(T o) {
-        return Math.abs(o.hashCode() % array.length);
+    private void getRefactoringArray(int newSize) {
+        this.array = Arrays.copyOf(this.array, newSize);
+        List[] arrayWithNewSize = new List[newSize];
+        int index;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] == null || this.array[i].isEmpty()) {
+                continue;
+            }
+            for (T el : this.array[i]) {
+                index = getIndex(el);
+                if (arrayWithNewSize[index] == null) {
+                    arrayWithNewSize[index] = new ArrayList();
+                }
+                arrayWithNewSize[index].add(el);
+            }
+
+        }
+        this.modCount++;
+        this.array = arrayWithNewSize;
     }
 
     @Override
@@ -105,7 +115,15 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public boolean contains(Object o) {
         int index = getIndex((T) o);
-        return this.array[index] != null;
+        if (array[index] == null) {
+            return false;
+        }
+        for (Object el : this.array[index]) {
+            if (el.equals(o)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -116,16 +134,17 @@ public class MyHashTable<T> implements Collection<T> {
     private Object[] hashTableComponents() {
         Object[] allComponents = new Object[this.count];
         for (int i = 0, j = 0; i < this.array.length; i++) {
-            if (this.array[i] != null) {
-                if (this.array[i].size() > 1) {
-                    for (Object el : this.array[i]) {
-                        allComponents[j] = el;
-                        j++;
-                    }
-                } else {
-                    allComponents[j] = this.array[i].get(0);
+            if (this.array[i] == null || this.array[i].isEmpty()) {
+                continue;
+            }
+            if (this.array[i].size() > 1) {
+                for (Object el : this.array[i]) {
+                    allComponents[j] = el;
                     j++;
                 }
+            } else {
+                allComponents[j] = this.array[i].get(0);
+                j++;
             }
         }
         return allComponents;
@@ -152,8 +171,8 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
-        if(this.count == this.array.length) {
-            this.array = Arrays.copyOf(this.array, this.array.length * 2);
+        if (this.count == this.array.length) {
+            getRefactoringArray(this.array.length * 2);
         }
         int index = getIndex(t);
         if (array[index] == null) {
@@ -162,7 +181,7 @@ public class MyHashTable<T> implements Collection<T> {
         array[index].add(t);
         modCount++;
         count++;
-        return false;
+        return true;
     }
 
     @Override
