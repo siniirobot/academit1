@@ -72,6 +72,17 @@ public class MyHashTable<T> implements Collection<T> {
         }
     }
 
+    /**
+     * Увеличивает вместимость списка до указаного размера.
+     *
+     * @param minCapacity int
+     */
+    public void ensureCapacity(int minCapacity) {
+        if (this.array.length < minCapacity) {
+            this.array = Arrays.copyOf(this.array, minCapacity);
+        }
+    }
+
     private int getIndex(T o) {
         return Math.abs(o.hashCode() % array.length);
     }
@@ -121,7 +132,6 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     @Override
-
     public Object[] toArray() {
         return hashTableComponents();
     }
@@ -142,6 +152,9 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
+        if(this.count == this.array.length) {
+            this.array = Arrays.copyOf(this.array, this.array.length * 2);
+        }
         int index = getIndex(t);
         if (array[index] == null) {
             array[index] = new ArrayList<>();
@@ -186,6 +199,10 @@ public class MyHashTable<T> implements Collection<T> {
     public boolean addAll(Collection<? extends T> c) {
         if (c.isEmpty()) {
             return false;
+        }
+        int minCapacity = this.array.length + c.size();
+        if (this.array.length < minCapacity) {
+            this.array = Arrays.copyOf(this.array, minCapacity);
         }
         int index;
         for (T el : c) {

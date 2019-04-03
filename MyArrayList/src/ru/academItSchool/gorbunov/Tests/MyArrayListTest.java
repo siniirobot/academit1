@@ -209,6 +209,10 @@ public class MyArrayListTest {
     @DataProvider(name = "RetainAll")
     public Object[][] retainAll() {
         return new Object[][]{
+                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                        new MyArrayList<>("абракадабра"),
+                        new MyArrayList<>(),
+                        true},
                 new Object[]{new MyArrayList<>("Это нулевой элемент", "Это первый элемент", "Это второй элемент"),
                         new MyArrayList<>("Это первый элемент", "Это нулевой элемент"),
                         new MyArrayList<>("Это нулевой элемент", "Это первый элемент"),
@@ -225,9 +229,9 @@ public class MyArrayListTest {
                         new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
                         false},
-                new Object[]{new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
-                        new MyArrayList<>("абракадабра"),
-                        new MyArrayList<>("0", "1", "2", "2", "2", "3", "1", "2", "3", "4", "5"),
+                new Object[]{new MyArrayList<>(),
+                        new MyArrayList<>(),
+                        new MyArrayList<>(),
                         false},
 
         };
@@ -386,24 +390,8 @@ public class MyArrayListTest {
         };
     }
 
-    @DataProvider(name = "HashCode")
+    @DataProvider(name = "HashCodeAndEquals")
     public Object[][] testHashCode() {
-        MyArrayList<Integer> intArray = new MyArrayList<>();
-        intArray.add(1);
-        intArray.add(2);
-        MyArrayList<Integer> intArray2 = new MyArrayList<>();
-        intArray2.add(1);
-        intArray2.add(2);
-        MyArrayList<String> line1 = new MyArrayList<>("1", "2");
-        MyArrayList<String> line2 = new MyArrayList<>("1", "2");
-        return new Object[][]{
-                new Object[]{intArray, intArray2},
-                new Object[]{line1, line2}
-        };
-    }
-
-    @DataProvider(name = "Equals")
-    public Object[][] testEquals() {
         MyArrayList<Integer> intArray = new MyArrayList<>();
         intArray.add(1);
         intArray.add(2);
@@ -579,14 +567,14 @@ public class MyArrayListTest {
         assertEquals(list.toString(), result);
     }
 
-    @Test(dataProvider = "HashCode")
+    @Test(dataProvider = "HashCodeAndEquals")
     public void testHashCode(MyArrayList list, MyArrayList list1) {
         int expected = list.hashCode();
         int actual = list1.hashCode();
         assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "Equals")
+    @Test(dataProvider = "HashCodeAndEquals")
     public void testEquals(MyArrayList list, MyArrayList list1) {
         assertTrue(list.equals(list1));
     }
