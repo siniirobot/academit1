@@ -242,15 +242,15 @@ public class MyHashTable<T> implements Collection<T> {
             return true;
         }
         boolean arrayListChanged = false;
-        for (int i = 0; i < this.array.length; i++) {
-            if (array[i] == null || array[i].isEmpty()) {
+        for (List arr : this.array) {
+            if (arr == null || arr.isEmpty()) {
                 continue;
             }
-            for(int j = 0;j < this.array[i].size();j++){
-                if (c.contains(this.array[i].get(j))) {
+            for (int j = 0; j < arr.size(); j++) {
+                if (c.contains(arr.get(j))) {
                     continue;
                 }
-                this.array[i].remove(j);
+                arr.remove(j);
                 arrayListChanged = true;
                 this.count--;
                 this.modCount--;
