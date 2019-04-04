@@ -301,14 +301,6 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "ToArray1")
     public void testToArray1(MyHashTable myHashTable, Object[] array, Object[] result) {
-        System.out.println(myHashTable);
-        for (Object el : array) {
-            System.out.println(el);
-        }
-        System.out.println();
-        for (Object el : myHashTable.toArray(array)) {
-            System.out.println(el);
-        }
         assertEquals(myHashTable.toArray(array), result);
     }
 
@@ -322,10 +314,7 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "Remove")
     public void testRemove(MyHashTable myHashTable, MyHashTable myHashTable2, String three, boolean result) {
-        System.out.println(myHashTable);
         assertEquals(myHashTable.remove(three), result);
-        System.out.println(myHashTable);
-        System.out.println(myHashTable2);
         assertEquals(myHashTable, myHashTable2);
     }
 
@@ -342,10 +331,7 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "RemoveAll")
     public void tesRemoveAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
-        System.out.println(hashTable);
         assertEquals(hashTable.removeAll(arrayList), result);
-        System.out.println(hashTable);
-        System.out.println(hashTableResult);
         assertEquals(hashTable, hashTableResult);
     }
 

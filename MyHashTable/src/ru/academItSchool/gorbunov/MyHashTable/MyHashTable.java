@@ -8,6 +8,9 @@ public class MyHashTable<T> implements Collection<T> {
     private int count;
     private int modCount;
 
+    /**
+     * Конструктор для создания списка.
+     */
     @SuppressWarnings("unchecked")
     public MyHashTable() {
         this.array = new List[ARRAY_LENGTH];
@@ -72,60 +75,36 @@ public class MyHashTable<T> implements Collection<T> {
         }
     }
 
+    /**
+     * Вычисляет индекс в массиве с помощью хэшкода элемента и длины массива.
+     *
+     * @param o T элемент
+     * @return index в виде int
+     */
     private int getIndex(T o) {
         return Math.abs(o.hashCode() % this.array.length);
     }
 
-    private void getRefactoringArray(int newSize) {
-        T[] hashTableComponents = hashTableComponents();
-        this.array = new List[newSize];
-        int index;
-        for (T el:hashTableComponents) {
-            index = getIndex(el);
-            if (this.array[index] == null) {
-                this.array[index] = new ArrayList<>();
-            }
-            this.array[index].add(el);
+    /**
+     * Добавляет элемент в массив по индексу вычисленому через хэшкод, если данный индекс пустой создает там список.
+     *
+     * @param element T элемент который необходимо добавить в список.
+     */
+    private void getAddByIndex(T element) {
+        int index = getIndex(element);
+        if (this.array[index] == null) {
+            this.array[index] = new ArrayList<>();
         }
-        this.modCount++;
-    }
-
-    @Override
-    public int size() {
-        return count;
+        this.array[index].add(element);
     }
 
     /**
-     * Проверяет пустой ли массив
-     *
-     * @return boolean
+     * Все логические элементы списка помещаются в массив.
+     * @return T[] массив с элементами хэштаблицы
      */
-    @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
-    @Override
-    public boolean contains(Object o) {
-        int index = getIndex((T) o);
-        if (array[index] == null) {
-            return false;
-        }
-        for (Object el : this.array[index]) {
-            if (el.equals(o)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new MyIterator();
-    }
-
+    @SuppressWarnings("unchecked")
     private T[] hashTableComponents() {
-        T[] allComponents = (T[])new Object[this.count];
+        T[] allComponents = (T[]) new Object[this.count];
         for (int i = 0, j = 0; i < this.array.length; i++) {
             if (this.array[i] == null || this.array[i].isEmpty()) {
                 continue;
@@ -143,11 +122,79 @@ public class MyHashTable<T> implements Collection<T> {
         return allComponents;
     }
 
+    /**
+     * В случае когда масив переполнен увеличивает его и перераспределяет элементы по новым индексам.
+     *
+     * @param newSize int длина нового массива.
+     */
+    @SuppressWarnings("unchecked")
+    private void getRefactoringArray(int newSize) {
+        T[] hashTableComponents = hashTableComponents();
+        this.array = new List[newSize];
+        for (T el : hashTableComponents) {
+            getAddByIndex(el);
+        }
+        this.modCount++;
+    }
+
+    /**
+     * Выдает количесвто элементов в хэштаблице.
+     *
+     * @return int
+     */
+    @Override
+    public int size() {
+        return count;
+    }
+
+    /**
+     * Проверяет пустая ли хэштаблица
+     *
+     * @return boolean
+     */
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    /**
+     * Проверяет содержится ли данный элемент в хэштаблице
+     *
+     * @param o T искомы элемент
+     * @return true если искомы элемент есть, false если искомого элемента нет.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean contains(Object o) {
+        int index = getIndex((T) o);
+        if (array[index] == null) {
+            return false;
+        }
+        return array[index].contains(o);
+    }
+
+    /**
+     * Выдает иттератор хэштаблицы
+     * @return iterator
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new MyIterator();
+    }
+
+    /**
+     * @return Возвращает содержимое хэштаблицы в виде массива.
+     */
     @Override
     public Object[] toArray() {
         return hashTableComponents();
     }
 
+    /**
+     * @param a T1[] передаваемы масив
+     * @param <T1> тип переданого масива
+     * @return Возвращает содержимое хэштаблицы в виде массива того типа что передали и с содержимым переданого массива.
+     */
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
@@ -162,21 +209,27 @@ public class MyHashTable<T> implements Collection<T> {
         return a;
     }
 
+    /**
+     * Добавляет элемент в хэштаблицу.
+     * @param t добавляемый элемент
+     * @return true если элемент добавлен.
+     */
     @Override
     public boolean add(T t) {
         if (this.count == this.array.length) {
             getRefactoringArray(this.array.length * 2);
         }
-        int index = getIndex(t);
-        if (array[index] == null) {
-            array[index] = new ArrayList<>();
-        }
-        array[index].add(t);
+        getAddByIndex(t);
         modCount++;
         count++;
         return true;
     }
 
+    /**
+     * Удаляет элемент из хэштаблицы
+     * @param o удаляемый элемент
+     * @return true если удалось удалить элемент false если не удалось
+     */
     @Override
     public boolean remove(Object o) {
         int index = getIndex((T) o);
@@ -193,7 +246,6 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Проверяет содержит ли список все элементы из данного списка
-     *
      * @param c Collection
      * @return boolean true если содержит все элементы false если нет
      */
@@ -207,24 +259,22 @@ public class MyHashTable<T> implements Collection<T> {
         return true;
     }
 
+    /**
+     * Добавляет все элемменты из списка
+     * @param c список элементов
+     * @return true если добавил элементы false если передаваемый список пуст и хэштаблица не была изменена.
+     */
     @Override
     public boolean addAll(Collection<? extends T> c) {
         if (c.isEmpty()) {
             return false;
         }
-        int minCapacity = this.array.length + c.size();
+        int minCapacity = this.count + c.size();
         if (this.array.length < minCapacity) {
-            this.array = Arrays.copyOf(this.array, minCapacity);
+            getRefactoringArray(minCapacity);
         }
-        int index;
         for (T el : c) {
-            index = getIndex(el);
-            if (array[index] == null) {
-                array[index] = new ArrayList<>();
-                array[index].add(el);
-            } else {
-                array[index].add(el);
-            }
+            getAddByIndex(el);
         }
         this.count += c.size();
         this.modCount++;
@@ -232,10 +282,12 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     /**
-     * Удаляет все элементы из списка которые есть в данном списке
+     * Удаляет все элементы из хэштаблицы которые есть в данном списке
      *
      * @param c Collection
-     * @return boolean true если удалились все элементы false если нет
+     * @return boolean true если удалились все элементы false если список
+     * пуст или список совпадает с хэштаблицей по элементам
+     * то есть хэш таблица была не изменена
      */
     @Override
     public boolean removeAll(Collection<?> c) {
@@ -262,7 +314,8 @@ public class MyHashTable<T> implements Collection<T> {
      * Удаляет все элементы из списка кроме тех что содержатся в переданом списке
      *
      * @param c Collection
-     * @return boolean true если удалились все элементы false если не один элемент не был затронут
+     * @return boolean true если удалились все элементы false если не один элемент
+     * не был затронут
      */
     @Override
     public boolean retainAll(Collection<?> c) {
@@ -291,6 +344,9 @@ public class MyHashTable<T> implements Collection<T> {
         return arrayListChanged;
     }
 
+    /**
+     * Делает хэштаблицу пустой.
+     */
     @Override
     public void clear() {
         for (int i = 0; i < this.array.length; i++) {
