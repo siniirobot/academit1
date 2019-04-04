@@ -3,7 +3,6 @@ package ru.academItSchool.gorbunov.MyHashTable;
 import java.util.*;
 
 public class MyHashTable<T> implements Collection<T> {
-    private final int ARRAY_LENGTH = 10;
     private List<T>[] array;
     private int count;
     private int modCount;
@@ -13,7 +12,7 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @SuppressWarnings("unchecked")
     public MyHashTable() {
-        this.array = new List[ARRAY_LENGTH];
+        this.array = new List[10];
         this.count = 0;
         this.modCount = 0;
     }
@@ -103,7 +102,7 @@ public class MyHashTable<T> implements Collection<T> {
      * @return T[] массив с элементами хэштаблицы
      */
     @SuppressWarnings("unchecked")
-    private T[] hashTableComponents() {
+    private T[] getHashTableComponents() {
         T[] allComponents = (T[]) new Object[this.count];
         for (int i = 0, j = 0; i < this.array.length; i++) {
             if (this.array[i] == null || this.array[i].isEmpty()) {
@@ -129,7 +128,7 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @SuppressWarnings("unchecked")
     private void getRefactoringArray(int newSize) {
-        T[] hashTableComponents = hashTableComponents();
+        T[] hashTableComponents = getHashTableComponents();
         this.array = new List[newSize];
         for (T el : hashTableComponents) {
             getAddByIndex(el);
@@ -187,7 +186,7 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @Override
     public Object[] toArray() {
-        return hashTableComponents();
+        return getHashTableComponents();
     }
 
     /**
@@ -198,7 +197,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T[] hashTableComponents = hashTableComponents();
+        T[] hashTableComponents = getHashTableComponents();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
