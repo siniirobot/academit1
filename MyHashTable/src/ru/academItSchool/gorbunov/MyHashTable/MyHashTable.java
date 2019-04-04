@@ -230,6 +230,7 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o удаляемый элемент
      * @return true если удалось удалить элемент false если не удалось
      */
+    @SuppressWarnings("unchecked")
     @Override
     public boolean remove(Object o) {
         int index = getIndex((T) o);
@@ -289,6 +290,7 @@ public class MyHashTable<T> implements Collection<T> {
      * пуст или список совпадает с хэштаблицей по элементам
      * то есть хэш таблица была не изменена
      */
+    @SuppressWarnings("unchecked")
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c.isEmpty()) {
@@ -368,12 +370,25 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         MyHashTable<?> that = (MyHashTable<?>) o;
-        return Arrays.equals(this.array, that.array);
+        if(this.count != that.count) {
+            return false;
+        }
+        for (int i = 0; i < this.array.length; i++) {
+            if (!Objects.equals(that.array[i],this.array[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(array);
+        final int prime = 31;
+        int result = 1;
+        for (int i = 0; i < this.count; i++) {
+            result = prime * result + Objects.hashCode(this.array[i]);
+        }
+        return result;
     }
 
     @Override

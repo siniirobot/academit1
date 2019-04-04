@@ -279,6 +279,26 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "HashCodeAndEquals")
+    public Object[][] testHashCode() {
+        MyHashTable<Integer> intArray = new MyHashTable<>();
+        intArray.add(1);
+        intArray.add(2);
+        MyHashTable<Integer> intArray2 = new MyHashTable<>();
+        intArray2.add(1);
+        intArray2.add(2);
+        MyHashTable<String> line1 = new MyHashTable<>();
+        line1.add("1");
+        line1.add("2");
+        MyHashTable<String> line2 = new MyHashTable<>();
+        line2.add("1");
+        line2.add("2");
+        return new Object[][]{
+                new Object[]{intArray, intArray2},
+                new Object[]{line1, line2}
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(), result);
@@ -346,5 +366,17 @@ public class MyHashTableTest {
     public void testClear(MyHashTable hashTable, MyHashTable result) {
         hashTable.clear();
         assertEquals(hashTable, result);
+    }
+
+    @Test(dataProvider = "HashCodeAndEquals")
+    public void testHashCode(MyHashTable list, MyHashTable list1) {
+        int expected = list.hashCode();
+        int actual = list1.hashCode();
+        assertEquals(actual, expected);
+    }
+
+    @Test(dataProvider = "HashCodeAndEquals")
+    public void testEquals(MyHashTable list, MyHashTable list1) {
+        assertTrue(list.equals(list1));
     }
 }
