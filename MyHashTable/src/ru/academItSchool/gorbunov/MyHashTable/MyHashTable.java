@@ -99,6 +99,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Все логические элементы списка помещаются в массив.
+     *
      * @return T[] массив с элементами хэштаблицы
      */
     @SuppressWarnings("unchecked")
@@ -174,6 +175,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Выдает иттератор хэштаблицы
+     *
      * @return iterator
      */
     @Override
@@ -190,7 +192,7 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     /**
-     * @param a T1[] передаваемы масив
+     * @param a    T1[] передаваемы масив
      * @param <T1> тип переданого масива
      * @return Возвращает содержимое хэштаблицы в виде массива того типа что передали и с содержимым переданого массива.
      */
@@ -210,6 +212,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Добавляет элемент в хэштаблицу.
+     *
      * @param t добавляемый элемент
      * @return true если элемент добавлен.
      */
@@ -226,6 +229,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Удаляет элемент из хэштаблицы
+     *
      * @param o удаляемый элемент
      * @return true если удалось удалить элемент false если не удалось
      */
@@ -246,6 +250,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Проверяет содержит ли список все элементы из данного списка
+     *
      * @param c Collection
      * @return boolean true если содержит все элементы false если нет
      */
@@ -261,6 +266,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     /**
      * Добавляет все элемменты из списка
+     *
      * @param c список элементов
      * @return true если добавил элементы false если передаваемый список пуст и хэштаблица не была изменена.
      */
@@ -369,11 +375,11 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         MyHashTable<?> that = (MyHashTable<?>) o;
-        if(this.count != that.count) {
+        if (this.count != that.count) {
             return false;
         }
         for (int i = 0; i < this.array.length; i++) {
-            if (!Objects.equals(that.array[i],this.array[i])) {
+            if (!Objects.equals(that.array[i], this.array[i])) {
                 return false;
             }
         }
