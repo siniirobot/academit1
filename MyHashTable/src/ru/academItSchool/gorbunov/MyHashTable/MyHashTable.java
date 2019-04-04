@@ -77,24 +77,17 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     private void getRefactoringArray(int newSize) {
-        this.array = Arrays.copyOf(this.array, newSize);
-        List[] arrayWithNewSize = new List[newSize];
+        T[] hashTableComponents = hashTableComponents();
+        this.array = new List[newSize];
         int index;
-        for (int i = 0; i < this.array.length; i++) {
-            if (this.array[i] == null || this.array[i].isEmpty()) {
-                continue;
+        for (T el:hashTableComponents) {
+            index = getIndex(el);
+            if (this.array[index] == null) {
+                this.array[index] = new ArrayList<>();
             }
-            for (T el : this.array[i]) {
-                index = getIndex(el);
-                if (arrayWithNewSize[index] == null) {
-                    arrayWithNewSize[index] = new ArrayList();
-                }
-                arrayWithNewSize[index].add(el);
-            }
-
+            this.array[index].add(el);
         }
         this.modCount++;
-        this.array = arrayWithNewSize;
     }
 
     @Override
@@ -131,14 +124,14 @@ public class MyHashTable<T> implements Collection<T> {
         return new MyIterator();
     }
 
-    private Object[] hashTableComponents() {
-        Object[] allComponents = new Object[this.count];
+    private T[] hashTableComponents() {
+        T[] allComponents = (T[])new Object[this.count];
         for (int i = 0, j = 0; i < this.array.length; i++) {
             if (this.array[i] == null || this.array[i].isEmpty()) {
                 continue;
             }
             if (this.array[i].size() > 1) {
-                for (Object el : this.array[i]) {
+                for (T el : this.array[i]) {
                     allComponents[j] = el;
                     j++;
                 }
@@ -158,7 +151,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        Object[] hashTableComponents = hashTableComponents();
+        T[] hashTableComponents = hashTableComponents();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
@@ -256,7 +249,7 @@ public class MyHashTable<T> implements Collection<T> {
             if (array[index] == null || array[index].isEmpty()) {
                 continue;
             }
-            while (array[index].remove((T) element)) {
+            while (array[index].remove(element)) {
                 arrayListChanged = true;
                 this.count--;
                 this.modCount--;
@@ -274,6 +267,9 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c.isEmpty()) {
+            if (isEmpty()) {
+                return false;
+            }
             clear();
             return true;
         }

@@ -70,7 +70,7 @@ public class MyHashTableTest {
         hashTable.add("13");
         return new Object[][]{
                 new Object[]{hashTable,
-                        new Object[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"}
+                        new Object[]{"10", "0", "11", "1", "12", "2", "13", "3", "4", "5", "6", "7", "8", "9"}
                 }
         };
     }
@@ -86,52 +86,35 @@ public class MyHashTableTest {
         return new Object[][]{
                 new Object[]{hashTable,
                         new Object[]{"0", "1", "2", "3"},
-                        new Object[]{"0", "1", "2", "3"}
+                        new Object[]{"2", "3", "0", "1"}
                 },
                 new Object[]{hashTable,
                         new Object[]{"0", "1",},
-                        new Object[]{"0", "1", "2", "3"}
+                        new Object[]{"2", "3", "0", "1"}
                 },
                 new Object[]{hashTable,
                         new Object[]{"0", "1", "2", "3", "4"},
-                        new Object[]{"0", "1", "2", "3", null}
+                        new Object[]{"2", "3", "0", "1", null}
                 },
                 new Object[]{hashTable,
                         new Object[]{"0", "1", "2", "3", "4", "5", "6", "7"},
-                        new Object[]{"0", "1", "2", "3", null, "5", "6", "7"}
+                        new Object[]{"2", "3", "0", "1", null, "5", "6", "7"}
                 }
         };
     }
 
     @DataProvider(name = "Add")
     public Object[][] add() {
-        MyHashTable<String> hashTable = new MyHashTable<>();
-
         return new Object[][]{
-                /*new Object[]{hashTable,
-                        new Object[]{"[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]"},
-                        "dasds"},*/
-                new Object[]{hashTable,
+                new Object[]{new MyHashTable<>(),
+                        new Object[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"},
+                        "[[2], [3], [4], [5], [6], [7], [8], [9], [1]]"},
+                new Object[]{new MyHashTable<>(),
                         new Object[]{"a", "a", "2", "3", "a", "a", "a", "a", "1", "4", "a", "1", "5", "a"},
-                        "sdad"}
+                        "[[1, 1], [2], [3], [4], [5], [a, a, a, a, a, a, a, a]]"}
         };
     }
 
-    /*hashTable.add("1");
-            hashTable.add("a");
-            hashTable.add("a");
-            hashTable.add("2");
-            hashTable.add("3");
-            hashTable.add("a");
-            hashTable.add("a");
-            hashTable.add("a");
-            hashTable.add("a");
-            hashTable.add("1");
-            hashTable.add("4");
-            hashTable.add("a");
-            hashTable.add("1");
-            hashTable.add("5");
-            hashTable.add("a");*/
     @DataProvider(name = "Remove")
     public Object[][] remove() {
         MyHashTable<String> hashTable = new MyHashTable<>();
@@ -233,41 +216,41 @@ public class MyHashTableTest {
 
     @DataProvider(name = "RetainAll")
     public Object[][] retainAll() {
-        MyHashTable<String> hashTable = new MyHashTable<>();
-        hashTable.add("1");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("2");
-        hashTable.add("3");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("1");
-        hashTable.add("4");
-        hashTable.add("a");
-        hashTable.add("1");
-        hashTable.add("5");
-        hashTable.add("a");
+        MyHashTable<String> hashTableRetainAll = new MyHashTable<>();
+        hashTableRetainAll.add("1");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("2");
+        hashTableRetainAll.add("3");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("1");
+        hashTableRetainAll.add("4");
+        hashTableRetainAll.add("a");
+        hashTableRetainAll.add("1");
+        hashTableRetainAll.add("5");
+        hashTableRetainAll.add("a");
 
         ArrayList<String> stringArrayList = new ArrayList<>();
         stringArrayList.add("1");
         stringArrayList.add("a");
 
-        MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
-        hashTable.add("1");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("a");
-        hashTable.add("1");
-        hashTable.add("a");
-        hashTable.add("1");
-        hashTable.add("a");
+        MyHashTable<String> hashTableWithResult = new MyHashTable<>();
+        hashTableWithResult.add("1");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("1");
+        hashTableWithResult.add("a");
+        hashTableWithResult.add("1");
+        hashTableWithResult.add("a");
         return new Object[][]{
-                new Object[]{hashTable, stringArrayList, true, hashTable1WithResult}
+                new Object[]{hashTableRetainAll, stringArrayList, true, hashTableWithResult}
         };
     }
 
@@ -322,6 +305,7 @@ public class MyHashTableTest {
         for (Object el : array) {
             System.out.println(el);
         }
+        System.out.println();
         for (Object el : myHashTable.toArray(array)) {
             System.out.println(el);
         }
@@ -368,7 +352,6 @@ public class MyHashTableTest {
     @Test(dataProvider = "RetainAll")
     public void testRetainAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable
             hashTableResult) {
-
         assertEquals(hashTable.retainAll(arrayList), result);
         assertEquals(hashTable, hashTableResult);
     }
