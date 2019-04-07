@@ -89,7 +89,7 @@ public class MyHashTable<T> implements Collection<T> {
      *
      * @param element T элемент который необходимо добавить в список.
      */
-    private void getAddByIndex(T element) {
+    private void addByHashCode(T element) {
         int index = getIndex(element);
         if (this.array[index] == null) {
             this.array[index] = new ArrayList<>();
@@ -132,7 +132,7 @@ public class MyHashTable<T> implements Collection<T> {
         T[] hashTableComponents = getHashTableComponents();
         this.array = new List[newSize];
         for (T el : hashTableComponents) {
-            getAddByIndex(el);
+            addByHashCode(el);
         }
         this.modCount++;
     }
@@ -217,7 +217,7 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @Override
     public boolean add(T t) {
-        getAddByIndex(t);
+        addByHashCode(t);
         modCount++;
         count++;
         return true;
@@ -271,7 +271,7 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         for (T el : c) {
-            getAddByIndex(el);
+            addByHashCode(el);
         }
         this.count += c.size();
         this.modCount++;
