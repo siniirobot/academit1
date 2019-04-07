@@ -26,28 +26,35 @@ public class MyHashTableTest {
         MyHashTable<String> hashTable = new MyHashTable<>();
         hashTable.add("1");
         MyHashTable<String> hashTable2 = new MyHashTable<>();
+        MyHashTable<String> hashTable3 = new MyHashTable<>();
+        hashTable3.add(null);
         return new Object[][]{
                 new Object[]{hashTable, false},
                 new Object[]{hashTable2, true},
+                new Object[]{hashTable3, false}
         };
     }
 
     @DataProvider(name = "Contains")
     public Object[][] contains() {
         MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add(null);
         hashTable.add("0");
         hashTable.add("1");
         hashTable.add("2");
         hashTable.add("3");
         hashTable.add("4");
         hashTable.add("5");
+        hashTable.add(null);
         hashTable.add("6");
         hashTable.add("7");
         hashTable.add("8");
         hashTable.add("9");
+        hashTable.add(null);
         return new Object[][]{
                 new Object[]{hashTable, "6", true},
-                new Object[]{hashTable, "66", false}
+                new Object[]{hashTable, "66", false},
+                new Object[]{hashTable, null, true}
         };
     }
 
@@ -124,16 +131,34 @@ public class MyHashTableTest {
         hashTable.add("1");
         hashTable.add("2");
         hashTable.add("3");
+        hashTable.add(null);
         hashTable.add("4");
         hashTable.add("5");
+
+        MyHashTable<String> hashTable2 = new MyHashTable<>();
+        hashTable2.add("1");
+        hashTable2.add("2");
+        hashTable2.add("3");
+        hashTable2.add(null);
+        hashTable2.add("4");
+        hashTable2.add("5");
 
         MyHashTable<String> hashTableWithout3 = new MyHashTable<>();
         hashTableWithout3.add("1");
         hashTableWithout3.add("2");
+        hashTableWithout3.add(null);
         hashTableWithout3.add("4");
         hashTableWithout3.add("5");
+
+        MyHashTable<String> hashTableWithoutNull = new MyHashTable<>();
+        hashTableWithoutNull.add("1");
+        hashTableWithoutNull.add("2");
+        hashTableWithoutNull.add("3");
+        hashTableWithoutNull.add("4");
+        hashTableWithoutNull.add("5");
         return new Object[][]{
-                new Object[]{hashTable, hashTableWithout3, "3", true}
+                new Object[]{hashTable, hashTableWithout3, "3", true},
+                new Object[]{hashTable2, hashTableWithoutNull, null, true}
         };
     }
 
@@ -143,6 +168,7 @@ public class MyHashTableTest {
         hashTable.add("1");
         hashTable.add("2");
         hashTable.add("3");
+        hashTable.add(null);
         hashTable.add("4");
         hashTable.add("5");
 
@@ -151,7 +177,8 @@ public class MyHashTableTest {
         stringArrayList.add("2");
         return new Object[][]{
                 new Object[]{hashTable, stringArrayList, true},
-                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра")), false}
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра")), false},
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList(null, null)), true}
         };
     }
 
@@ -191,7 +218,7 @@ public class MyHashTableTest {
         return new Object[][]{
                 new Object[]{hashTable, stringArrayList, true, hashTable1WithResult},
                 new Object[]{hashTable, new ArrayList<>(), false, hashTable},
-                new Object[]{hashTable, new ArrayList<>(Arrays.asList(null,null,null,null)), true, hashTable1WithNull}
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList(null, null, null, null)), true, hashTable1WithNull}
 
         };
     }
@@ -215,6 +242,23 @@ public class MyHashTableTest {
         hashTable.add("5");
         hashTable.add("a");
 
+        MyHashTable<String> hashTable2 = new MyHashTable<>();
+        hashTable2.add("1");
+        hashTable2.add(null);
+        hashTable2.add("2");
+        hashTable2.add("3");
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add("4");
+        hashTable2.add(null);
+        hashTable2.add("5");
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
+
         ArrayList<String> stringArrayList = new ArrayList<>();
         stringArrayList.add("1");
         stringArrayList.add("a");
@@ -226,7 +270,8 @@ public class MyHashTableTest {
         hashTable1WithResult.add("5");
         return new Object[][]{
                 new Object[]{hashTable, stringArrayList, true, hashTable1WithResult},
-                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра", "Джони Деб")), false, hashTable1WithResult}
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList("абракадабра", "Джони Деб")), false, hashTable1WithResult},
+                new Object[]{hashTable2, new ArrayList<>(Arrays.asList(null, "1")), true, hashTable1WithResult}
         };
     }
 
@@ -249,6 +294,24 @@ public class MyHashTableTest {
         hashTableRetainAll.add("5");
         hashTableRetainAll.add("a");
 
+        MyHashTable<String> hashTableRetainAll2 = new MyHashTable<>();
+        hashTableRetainAll2.add("1");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("2");
+        hashTableRetainAll2.add("3");
+        hashTableRetainAll2.add(null);
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("1");
+        hashTableRetainAll2.add("4");
+        hashTableRetainAll2.add("a");
+        hashTableRetainAll2.add("1");
+        hashTableRetainAll2.add("5");
+        hashTableRetainAll2.add("a");
+
         ArrayList<String> stringArrayList = new ArrayList<>();
         stringArrayList.add("1");
         stringArrayList.add("a");
@@ -265,8 +328,14 @@ public class MyHashTableTest {
         hashTableWithResult.add("a");
         hashTableWithResult.add("1");
         hashTableWithResult.add("a");
+
+        MyHashTable<String> hashTableWithResult2 = new MyHashTable<>();
+        hashTableWithResult2.add(null);
+        hashTableWithResult2.add("3");
         return new Object[][]{
-                new Object[]{hashTableRetainAll, stringArrayList, true, hashTableWithResult}
+                new Object[]{hashTableRetainAll, stringArrayList, true, hashTableWithResult},
+                new Object[]{hashTableRetainAll2, new ArrayList<>(Arrays.asList(null, "3")), true, hashTableWithResult2}
+
         };
     }
 
@@ -288,6 +357,10 @@ public class MyHashTableTest {
         hashTable.add("1");
         hashTable.add("5");
         hashTable.add("a");
+        hashTable.add(null);
+        hashTable.add(null);
+        hashTable.add(null);
+        hashTable.add(null);
 
         MyHashTable<String> hashTable1WithResult = new MyHashTable<>();
         return new Object[][]{

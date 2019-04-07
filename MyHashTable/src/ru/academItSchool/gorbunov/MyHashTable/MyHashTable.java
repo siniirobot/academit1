@@ -324,18 +324,16 @@ public class MyHashTable<T> implements Collection<T> {
             return true;
         }
         boolean arrayListChanged = false;
-        for (List arr : this.array) {
-            if (arr == null || arr.isEmpty()) {
+        for (List list : this.array) {
+            if (list == null || list.isEmpty()) {
                 continue;
             }
-            for (int j = 0; j < arr.size(); j++) {
-                if (c.contains(arr.get(j))) {
-                    continue;
-                }
-                arr.remove(j);
+            int listSize = list.size();
+            if (list.retainAll(c)) {
                 arrayListChanged = true;
-                this.count--;
-                this.modCount--;
+                listSize -= list.size();
+                this.count -= listSize;
+                this.modCount++;
             }
         }
         return arrayListChanged;
@@ -393,7 +391,7 @@ public class MyHashTable<T> implements Collection<T> {
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (T el:this) {
+        for (T el : this) {
             stringBuilder.append(String.valueOf(el)).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
