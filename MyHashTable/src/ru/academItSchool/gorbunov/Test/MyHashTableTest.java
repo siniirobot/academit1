@@ -362,7 +362,7 @@ public class MyHashTableTest {
         assertEquals(hashTable, hashTableResult);
     }
 
-    @Test(dataProvider = "clear")
+    @Test(dataProvider = "Clear")
     public void testClear(MyHashTable hashTable, MyHashTable result) {
         hashTable.clear();
         assertEquals(hashTable, result);
