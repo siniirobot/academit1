@@ -308,7 +308,7 @@ public class MyHashTable<T> implements Collection<T> {
             while (array[index].remove(element)) {
                 arrayListChanged = true;
                 this.count--;
-                this.modCount--;
+                this.modCount++;
             }
         }
         return arrayListChanged;
