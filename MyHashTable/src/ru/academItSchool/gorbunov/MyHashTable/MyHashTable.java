@@ -96,12 +96,12 @@ public class MyHashTable<T> implements Collection<T> {
         }
         this.array[index].add(element);
     }
-
-    /**
+/*
+    *//**
      * Все логические элементы списка помещаются в массив.
      *
      * @return T[] массив с элементами хэштаблицы
-     */
+     *//*
     @SuppressWarnings("unchecked")
     private T[] getHashTableComponents() {
         T[] allComponents = (T[]) new Object[this.count];
@@ -122,11 +122,11 @@ public class MyHashTable<T> implements Collection<T> {
         return allComponents;
     }
 
-    /**
+    *//**
      * В случае когда масив переполнен увеличивает его и перераспределяет элементы по новым индексам.
      *
      * @param newSize int длина нового массива.
-     */
+     *//*
     @SuppressWarnings("unchecked")
     private void getRefactoringArray(int newSize) {
         T[] hashTableComponents = getHashTableComponents();
@@ -135,7 +135,7 @@ public class MyHashTable<T> implements Collection<T> {
             addByHashCode(el);
         }
         this.modCount++;
-    }
+    }*/
 
     /**
      * Выдает количесвто элементов в хэштаблице.
@@ -185,9 +185,16 @@ public class MyHashTable<T> implements Collection<T> {
     /**
      * @return Возвращает содержимое хэштаблицы в виде массива.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object[] toArray() {
-        return getHashTableComponents();
+        T[] hashTableComponents = (T[]) new  Object[this.count];
+        int i = 0;
+        for (T el: this) {
+            hashTableComponents[i] = el;
+            i++;
+        }
+        return hashTableComponents;
     }
 
     /**
@@ -198,7 +205,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T[] hashTableComponents = getHashTableComponents();
+        T[] hashTableComponents = (T[]) toArray();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
