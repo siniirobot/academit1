@@ -80,7 +80,7 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o T элемент
      * @return index в виде int
      */
-    private int getIndex(T o) {
+    private int getIndex(Object o) {
         return Math.abs(o.hashCode() % this.array.length);
     }
 
@@ -163,10 +163,9 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o T искомы элемент
      * @return true если искомы элемент есть, false если искомого элемента нет.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
-        int index = getIndex((T) o);
+        int index = getIndex(o);
         if (array[index] == null) {
             return false;
         }
@@ -233,10 +232,9 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o удаляемый элемент
      * @return true если удалось удалить элемент false если не удалось
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean remove(Object o) {
-        int index = getIndex((T) o);
+        int index = getIndex(o);
         if (array[index] == null || array[index].isEmpty()) {
             return false;
         }
@@ -295,7 +293,6 @@ public class MyHashTable<T> implements Collection<T> {
      * пуст или список совпадает с хэштаблицей по элементам
      * то есть хэш таблица была не изменена
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c.isEmpty()) {
@@ -304,7 +301,7 @@ public class MyHashTable<T> implements Collection<T> {
         int index;
         boolean arrayListChanged = false;
         for (Object element : c) {
-            index = getIndex((T) element);
+            index = getIndex(element);
             if (array[index] == null || array[index].isEmpty()) {
                 continue;
             }
