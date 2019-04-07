@@ -96,8 +96,8 @@ public class MyHashTable<T> implements Collection<T> {
         }
         this.array[index].add(element);
     }
-/*
-    *//**
+    /*
+     *//**
      * Все логические элементы списка помещаются в массив.
      *
      * @return T[] массив с элементами хэштаблицы
@@ -188,9 +188,9 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public Object[] toArray() {
-        T[] hashTableComponents = (T[]) new  Object[this.count];
+        T[] hashTableComponents = (T[]) new Object[this.count];
         int i = 0;
-        for (T el: this) {
+        for (T el : this) {
             hashTableComponents[i] = el;
             i++;
         }
@@ -352,9 +352,6 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public void clear() {
         for (int i = 0; i < this.array.length; i++) {
-            if (this.array[i] == null) {
-                continue;
-            }
             this.array[i] = null;
         }
         this.count = 0;
