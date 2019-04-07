@@ -16,8 +16,14 @@ public class MyHashTableTest {
         hashTable.add("1");
         hashTable.add("2");
         hashTable.add("3");
+        MyHashTable<String> hashTable2 = new MyHashTable<>();
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
         return new Object[][]{
-                new Object[]{hashTable, 3}
+                new Object[]{hashTable, 3},
+                new Object[]{hashTable2, 4}
         };
     }
 
@@ -75,9 +81,16 @@ public class MyHashTableTest {
         hashTable.add("11");
         hashTable.add("12");
         hashTable.add("13");
+        MyHashTable<String> hashTable2 = new MyHashTable<>();
+        hashTable2.add(null);
+        hashTable2.add(null);
+        hashTable2.add(null);
         return new Object[][]{
                 new Object[]{hashTable,
-                        new Object[]{"10", "0", "11", "1", "12", "2", "13", "3", "4", "5", "6", "7", "8", "9"}
+                        new Object[]{"2", "13", "3", "4", "5", "6", "7", "8", "9", "10", "0", "11", "1", "12"}
+                },
+                new Object[]{hashTable2,
+                        new Object[]{null, null, null}
                 }
         };
     }
@@ -118,7 +131,7 @@ public class MyHashTableTest {
                         "[2, 3, 4, 5, 6, 7, 8, 9, 1]"},
                 new Object[]{new MyHashTable<>(),
                         new Object[]{"a", "a", "2", "3", "a", "a", "a", "a", "1", "4", "a", "1", "5", "a"},
-                        "[1, 1, 2, 3, 4, 5, a, a, a, a, a, a, a, a]"},
+                        "[2, 3, 4, 5, a, a, a, a, a, a, a, a, 1, 1]"},
                 new Object[]{new MyHashTable<>(),
                         new Object[]{null, null, null, null},
                         "[null, null, null, null]"}
