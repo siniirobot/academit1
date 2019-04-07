@@ -81,7 +81,7 @@ public class MyHashTable<T> implements Collection<T> {
      * @return index в виде int
      */
     private int getIndex(Object o) {
-        return Math.abs(o.hashCode() % this.array.length);
+        return Math.abs(Objects.hashCode(o) % this.array.length);
     }
 
     /**
@@ -400,7 +400,12 @@ public class MyHashTable<T> implements Collection<T> {
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (List collection : this.array) {
+        for (T el:this) {
+            stringBuilder.append(String.valueOf(el)).append(", ");
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.append("]").toString();
+        /*for (List collection : this.array) {
             if (collection == null || collection.isEmpty()) {
                 continue;
             }
@@ -411,6 +416,6 @@ public class MyHashTable<T> implements Collection<T> {
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("], ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-        return stringBuilder.append("]").toString();
+        return stringBuilder.append("]").toString();*/
     }
 }

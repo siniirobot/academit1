@@ -108,10 +108,13 @@ public class MyHashTableTest {
         return new Object[][]{
                 new Object[]{new MyHashTable<>(),
                         new Object[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"},
-                        "[[2], [3], [4], [5], [6], [7], [8], [9], [1]]"},
+                        "[2, 3, 4, 5, 6, 7, 8, 9, 1]"},
                 new Object[]{new MyHashTable<>(),
                         new Object[]{"a", "a", "2", "3", "a", "a", "a", "a", "1", "4", "a", "1", "5", "a"},
-                        "[[1, 1], [2], [3], [4], [5], [a, a, a, a, a, a, a, a]]"}
+                        "[1, 1, 2, 3, 4, 5, a, a, a, a, a, a, a, a]"},
+                new Object[]{new MyHashTable<>(),
+                        new Object[]{null, null, null, null},
+                        "[null, null, null, null]"}
         };
     }
 
