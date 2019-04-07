@@ -176,9 +176,22 @@ public class MyHashTableTest {
         hashTable1WithResult.add("5");
         hashTable1WithResult.add("6");
         hashTable1WithResult.add("7");
+        MyHashTable<String> hashTable1WithNull = new MyHashTable<>();
+        hashTable1WithNull.add("1");
+        hashTable1WithNull.add("2");
+        hashTable1WithNull.add("3");
+        hashTable1WithNull.add("4");
+        hashTable1WithNull.add("6");
+        hashTable1WithNull.add("7");
+        hashTable1WithNull.add("5");
+        hashTable1WithNull.add(null);
+        hashTable1WithNull.add(null);
+        hashTable1WithNull.add(null);
+        hashTable1WithNull.add(null);
         return new Object[][]{
                 new Object[]{hashTable, stringArrayList, true, hashTable1WithResult},
-                new Object[]{hashTable, new ArrayList<>(), false, hashTable}
+                new Object[]{hashTable, new ArrayList<>(), false, hashTable},
+                new Object[]{hashTable, new ArrayList<>(Arrays.asList(null,null,null,null)), true, hashTable1WithNull}
 
         };
     }
@@ -348,7 +361,10 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "AddAll")
     public void testAddAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
+        System.out.println(hashTable);
         assertEquals(hashTable.addAll(arrayList), result);
+        System.out.println(hashTable);
+        System.out.println(hashTableResult);
         assertEquals(hashTable, hashTableResult);
     }
 

@@ -217,9 +217,6 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @Override
     public boolean add(T t) {
-        if (this.count == this.array.length) {
-            getRefactoringArray(this.array.length * 2);
-        }
         getAddByIndex(t);
         modCount++;
         count++;
@@ -272,10 +269,6 @@ public class MyHashTable<T> implements Collection<T> {
     public boolean addAll(Collection<? extends T> c) {
         if (c.isEmpty()) {
             return false;
-        }
-        int minCapacity = this.count + c.size();
-        if (this.array.length < minCapacity) {
-            getRefactoringArray(minCapacity);
         }
         for (T el : c) {
             getAddByIndex(el);
@@ -405,17 +398,5 @@ public class MyHashTable<T> implements Collection<T> {
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.append("]").toString();
-        /*for (List collection : this.array) {
-            if (collection == null || collection.isEmpty()) {
-                continue;
-            }
-            stringBuilder.append("[");
-            for (Object el : collection) {
-                stringBuilder.append(el.toString()).append(", ");
-            }
-            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("], ");
-        }
-        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-        return stringBuilder.append("]").toString();*/
     }
 }
