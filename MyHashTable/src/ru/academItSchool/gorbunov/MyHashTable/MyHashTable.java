@@ -49,26 +49,19 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            while (arrayIndex < array.length) {
+            for (;arrayIndex < array.length;) {
                 if (array[arrayIndex] == null || array[arrayIndex].isEmpty()) {
                     arrayIndex++;
                     continue;
                 }
-                if (array[arrayIndex].size() > 1) {
-                    listIndex++;
-                    if (listIndex == array[arrayIndex].size()) {
-                        listIndex = -1;
-                        arrayIndex++;
-                        continue;
-                    }
-                    currentIndex++;
-                    return array[arrayIndex].get(listIndex);
-                } else {
-                    int index = arrayIndex;
+                listIndex++;
+                if (listIndex == array[arrayIndex].size()) {
+                    listIndex = -1;
                     arrayIndex++;
-                    currentIndex++;
-                    return array[index].get(0);
+                    continue;
                 }
+                currentIndex++;
+                return array[arrayIndex].get(listIndex);
             }
             return null;
         }
@@ -80,8 +73,8 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o T элемент
      * @return index в виде int
      */
-    private int getIndex(T o) {
-        return Math.abs(o.hashCode() % this.array.length);
+    private int getIndex(Object o) {
+        return Math.abs(Objects.hashCode(o) % this.array.length);
     }
 
     /**
@@ -89,19 +82,19 @@ public class MyHashTable<T> implements Collection<T> {
      *
      * @param element T элемент который необходимо добавить в список.
      */
-    private void getAddByIndex(T element) {
+    private void addByHashCode(T element) {
         int index = getIndex(element);
         if (this.array[index] == null) {
             this.array[index] = new ArrayList<>();
         }
         this.array[index].add(element);
     }
-
-    /**
+    /*
+     *//**
      * Все логические элементы списка помещаются в массив.
      *
      * @return T[] массив с элементами хэштаблицы
-     */
+     *//*
     @SuppressWarnings("unchecked")
     private T[] getHashTableComponents() {
         T[] allComponents = (T[]) new Object[this.count];
@@ -122,20 +115,20 @@ public class MyHashTable<T> implements Collection<T> {
         return allComponents;
     }
 
-    /**
+    *//**
      * В случае когда масив переполнен увеличивает его и перераспределяет элементы по новым индексам.
      *
      * @param newSize int длина нового массива.
-     */
+     *//*
     @SuppressWarnings("unchecked")
     private void getRefactoringArray(int newSize) {
         T[] hashTableComponents = getHashTableComponents();
         this.array = new List[newSize];
         for (T el : hashTableComponents) {
-            getAddByIndex(el);
+            addByHashCode(el);
         }
         this.modCount++;
-    }
+    }*/
 
     /**
      * Выдает количесвто элементов в хэштаблице.
@@ -163,10 +156,9 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o T искомы элемент
      * @return true если искомы элемент есть, false если искомого элемента нет.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
-        int index = getIndex((T) o);
+        int index = getIndex(o);
         if (array[index] == null) {
             return false;
         }
@@ -186,9 +178,16 @@ public class MyHashTable<T> implements Collection<T> {
     /**
      * @return Возвращает содержимое хэштаблицы в виде массива.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object[] toArray() {
-        return getHashTableComponents();
+        T[] hashTableComponents = (T[]) new Object[this.count];
+        int i = 0;
+        for (T el : this) {
+            hashTableComponents[i] = el;
+            i++;
+        }
+        return hashTableComponents;
     }
 
     /**
@@ -199,7 +198,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T[] hashTableComponents = getHashTableComponents();
+        T[] hashTableComponents = (T[]) toArray();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
@@ -218,10 +217,7 @@ public class MyHashTable<T> implements Collection<T> {
      */
     @Override
     public boolean add(T t) {
-        if (this.count == this.array.length) {
-            getRefactoringArray(this.array.length * 2);
-        }
-        getAddByIndex(t);
+        addByHashCode(t);
         modCount++;
         count++;
         return true;
@@ -233,10 +229,9 @@ public class MyHashTable<T> implements Collection<T> {
      * @param o удаляемый элемент
      * @return true если удалось удалить элемент false если не удалось
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean remove(Object o) {
-        int index = getIndex((T) o);
+        int index = getIndex(o);
         if (array[index] == null || array[index].isEmpty()) {
             return false;
         }
@@ -275,12 +270,8 @@ public class MyHashTable<T> implements Collection<T> {
         if (c.isEmpty()) {
             return false;
         }
-        int minCapacity = this.count + c.size();
-        if (this.array.length < minCapacity) {
-            getRefactoringArray(minCapacity);
-        }
         for (T el : c) {
-            getAddByIndex(el);
+            addByHashCode(el);
         }
         this.count += c.size();
         this.modCount++;
@@ -295,7 +286,6 @@ public class MyHashTable<T> implements Collection<T> {
      * пуст или список совпадает с хэштаблицей по элементам
      * то есть хэш таблица была не изменена
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c.isEmpty()) {
@@ -304,14 +294,14 @@ public class MyHashTable<T> implements Collection<T> {
         int index;
         boolean arrayListChanged = false;
         for (Object element : c) {
-            index = getIndex((T) element);
+            index = getIndex(element);
             if (array[index] == null || array[index].isEmpty()) {
                 continue;
             }
             while (array[index].remove(element)) {
                 arrayListChanged = true;
                 this.count--;
-                this.modCount--;
+                this.modCount++;
             }
         }
         return arrayListChanged;
@@ -334,18 +324,16 @@ public class MyHashTable<T> implements Collection<T> {
             return true;
         }
         boolean arrayListChanged = false;
-        for (List arr : this.array) {
-            if (arr == null || arr.isEmpty()) {
+        for (List list : this.array) {
+            if (list == null || list.isEmpty()) {
                 continue;
             }
-            for (int j = 0; j < arr.size(); j++) {
-                if (c.contains(arr.get(j))) {
-                    continue;
-                }
-                arr.remove(j);
+            int listSize = list.size();
+            if (list.retainAll(c)) {
                 arrayListChanged = true;
-                this.count--;
-                this.modCount--;
+                listSize -= list.size();
+                this.count -= listSize;
+                this.modCount++;
             }
         }
         return arrayListChanged;
@@ -357,9 +345,6 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public void clear() {
         for (int i = 0; i < this.array.length; i++) {
-            if (this.array[i] == null) {
-                continue;
-            }
             this.array[i] = null;
         }
         this.count = 0;
@@ -403,15 +388,8 @@ public class MyHashTable<T> implements Collection<T> {
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (List collection : this.array) {
-            if (collection == null || collection.isEmpty()) {
-                continue;
-            }
-            stringBuilder.append("[");
-            for (Object el : collection) {
-                stringBuilder.append(el.toString()).append(", ");
-            }
-            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).append("], ");
+        for (T el : this) {
+            stringBuilder.append(String.valueOf(el)).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.append("]").toString();
