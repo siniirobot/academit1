@@ -24,7 +24,7 @@ public class MyHashTable<T> implements Collection<T> {
         private int currentIndex = -1;
         private int modification = modCount;
         private int arrayIndex = 0;
-        private int listIndex = -1;
+        private int listIndex = 0;
 
         /**
          * Проверяет есть ли следующий элемент в списке.
@@ -49,19 +49,20 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            for (;arrayIndex < array.length;) {
+            while ( arrayIndex < array.length ) {
                 if (array[arrayIndex] == null || array[arrayIndex].isEmpty()) {
                     arrayIndex++;
                     continue;
                 }
-                listIndex++;
+                int elementIndex = listIndex;
                 if (listIndex == array[arrayIndex].size()) {
-                    listIndex = -1;
                     arrayIndex++;
+                    listIndex = -1;
                     continue;
                 }
+                listIndex++;
                 currentIndex++;
-                return array[arrayIndex].get(listIndex);
+                return array[arrayIndex].get(elementIndex);
             }
             return null;
         }
@@ -90,32 +91,7 @@ public class MyHashTable<T> implements Collection<T> {
         this.array[index].add(element);
     }
     /*
-     *//**
-     * Все логические элементы списка помещаются в массив.
-     *
-     * @return T[] массив с элементами хэштаблицы
-     *//*
-    @SuppressWarnings("unchecked")
-    private T[] getHashTableComponents() {
-        T[] allComponents = (T[]) new Object[this.count];
-        for (int i = 0, j = 0; i < this.array.length; i++) {
-            if (this.array[i] == null || this.array[i].isEmpty()) {
-                continue;
-            }
-            if (this.array[i].size() > 1) {
-                for (T el : this.array[i]) {
-                    allComponents[j] = el;
-                    j++;
-                }
-            } else {
-                allComponents[j] = this.array[i].get(0);
-                j++;
-            }
-        }
-        return allComponents;
-    }
-
-    *//**
+    /**
      * В случае когда масив переполнен увеличивает его и перераспределяет элементы по новым индексам.
      *
      * @param newSize int длина нового массива.
