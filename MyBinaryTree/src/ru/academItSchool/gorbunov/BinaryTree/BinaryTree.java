@@ -7,20 +7,17 @@ public class BinaryTree {
         private MyTreeNode<T> left;
         private MyTreeNode<T> right;
         private T data;
-
-        public MyTreeNode() {
-        }
-
+        
         public MyTreeNode(T data) {
             this.data = data;
         }
 
         public MyTreeNode(T data, MyTreeNode<T> node) {
             this.data = data;
-            if (new CompareForTreeNode().compare(this.data,node.data) < 0) {
+            if (new CompareForTreeNode().compare(this.data, node.data) < 0) {
                 this.left = node;
                 this.right = null;
-            }else {
+            } else {
                 this.left = null;
                 this.right = node;
             }

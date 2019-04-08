@@ -49,7 +49,7 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            while ( arrayIndex < array.length ) {
+            while (arrayIndex < array.length) {
                 if (array[arrayIndex] == null || array[arrayIndex].isEmpty()) {
                     arrayIndex++;
                     continue;
@@ -57,7 +57,7 @@ public class MyHashTable<T> implements Collection<T> {
                 int elementIndex = listIndex;
                 if (listIndex == array[arrayIndex].size()) {
                     arrayIndex++;
-                    listIndex = -1;
+                    listIndex = 0;
                     continue;
                 }
                 listIndex++;
@@ -90,21 +90,6 @@ public class MyHashTable<T> implements Collection<T> {
         }
         this.array[index].add(element);
     }
-    /*
-    /**
-     * В случае когда масив переполнен увеличивает его и перераспределяет элементы по новым индексам.
-     *
-     * @param newSize int длина нового массива.
-     *//*
-    @SuppressWarnings("unchecked")
-    private void getRefactoringArray(int newSize) {
-        T[] hashTableComponents = getHashTableComponents();
-        this.array = new List[newSize];
-        for (T el : hashTableComponents) {
-            addByHashCode(el);
-        }
-        this.modCount++;
-    }*/
 
     /**
      * Выдает количесвто элементов в хэштаблице.
@@ -154,10 +139,9 @@ public class MyHashTable<T> implements Collection<T> {
     /**
      * @return Возвращает содержимое хэштаблицы в виде массива.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public Object[] toArray() {
-        T[] hashTableComponents = (T[]) new Object[this.count];
+        Object[] hashTableComponents = new Object[this.count];
         int i = 0;
         for (T el : this) {
             hashTableComponents[i] = el;
@@ -174,7 +158,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T[] hashTableComponents = (T[]) toArray();
+        Object[] hashTableComponents = toArray();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
@@ -290,6 +274,7 @@ public class MyHashTable<T> implements Collection<T> {
      * @return boolean true если удалились все элементы false если не один элемент
      * не был затронут
      */
+    @SuppressWarnings("unchecked")
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c.isEmpty()) {
@@ -359,8 +344,8 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public String toString() {
-        if (this.count <= 0) {
-            return "Список пуст";
+        if (isEmpty()) {
+            return "Таблица пуста";
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
