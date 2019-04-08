@@ -447,10 +447,7 @@ public class MyHashTableTest {
 
     @Test(dataProvider = "AddAll")
     public void testAddAll(MyHashTable hashTable, ArrayList arrayList, boolean result, MyHashTable hashTableResult) {
-        System.out.println(hashTable);
         assertEquals(hashTable.addAll(arrayList), result);
-        System.out.println(hashTable);
-        System.out.println(hashTableResult);
         assertEquals(hashTable, hashTableResult);
     }
 

@@ -49,26 +49,19 @@ public class MyHashTable<T> implements Collection<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("Следующего элемента нет.");
             }
-            while (arrayIndex < array.length) {
+            for (;arrayIndex < array.length;) {
                 if (array[arrayIndex] == null || array[arrayIndex].isEmpty()) {
                     arrayIndex++;
                     continue;
                 }
-                if (array[arrayIndex].size() > 1) {
-                    listIndex++;
-                    if (listIndex == array[arrayIndex].size()) {
-                        listIndex = -1;
-                        arrayIndex++;
-                        continue;
-                    }
-                    currentIndex++;
-                    return array[arrayIndex].get(listIndex);
-                } else {
-                    int index = arrayIndex;
+                listIndex++;
+                if (listIndex == array[arrayIndex].size()) {
+                    listIndex = -1;
                     arrayIndex++;
-                    currentIndex++;
-                    return array[index].get(0);
+                    continue;
                 }
+                currentIndex++;
+                return array[arrayIndex].get(listIndex);
             }
             return null;
         }
