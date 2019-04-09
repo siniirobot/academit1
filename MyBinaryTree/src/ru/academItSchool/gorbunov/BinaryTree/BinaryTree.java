@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.util.Comparator;
 
-public class BinaryTree {
-    private class MyTreeNode<T> {
+public class BinaryTree <T> {
+    private class MyTreeNode<T extends BinaryTree> {
         private MyTreeNode<T> left;
         private MyTreeNode<T> right;
         private T data;
@@ -29,12 +29,6 @@ public class BinaryTree {
             this.left = leftNode;
         }
 
-        public class CompareForTreeNode implements Comparator<T> {
-            public int compare(T val1, T val2) {
-                return ((Comparable<? super T>) val1).compareTo(val2);
-            }
-        }
-
         public MyTreeNode<T> getLeft() {
             return left;
         }
@@ -57,6 +51,12 @@ public class BinaryTree {
 
         public void setRight(MyTreeNode<T> right) {
             this.right = right;
+        }
+    }
+
+    public class CompareForTreeNode<T extends BinaryTree> implements Comparator<T> {
+        public int compare(T val1, T val2) {
+            return ((Comparable<? super T>) val1).compareTo(val2);
         }
     }
 }
