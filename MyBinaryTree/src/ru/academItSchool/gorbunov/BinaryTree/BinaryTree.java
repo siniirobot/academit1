@@ -1,62 +1,72 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
-import java.util.Comparator;
+import java.awt.*;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class BinaryTree <T> {
-    private class MyTreeNode<T extends BinaryTree> {
-        private MyTreeNode<T> left;
-        private MyTreeNode<T> right;
-        private T data;
-        
-        public MyTreeNode(T data) {
-            this.data = data;
-        }
+public class BinaryTree<T extends Comparable<T>> {
+    private Edge<T> root;
+    private int size = 0;
 
-        public MyTreeNode(T data, MyTreeNode<T> node) {
-            this.data = data;
-            if (new CompareForTreeNode().compare(this.data, node.data) < 0) {
-                this.left = node;
-                this.right = null;
-            } else {
-                this.left = null;
-                this.right = node;
-            }
-        }
-
-        public MyTreeNode(T data, MyTreeNode<T> leftNode, MyTreeNode<T> rightNode) {
-            this.data = data;
-            this.right = rightNode;
-            this.left = leftNode;
-        }
-
-        public MyTreeNode<T> getLeft() {
-            return left;
-        }
-
-        public void setLeft(MyTreeNode<T> left) {
-            this.left = left;
-        }
-
-        public T getData() {
-            return data;
-        }
-
-        public void setData(T data) {
-            this.data = data;
-        }
-
-        public MyTreeNode<T> getRight() {
-            return right;
-        }
-
-        public void setRight(MyTreeNode<T> right) {
-            this.right = right;
-        }
+    public int getSize() {
+        return size;
     }
 
-    public class CompareForTreeNode<T extends BinaryTree> implements Comparator<T> {
-        public int compare(T val1, T val2) {
-            return ((Comparable<? super T>) val1).compareTo(val2);
+    public boolean add(Edge<T> leaf) {
+        if (this.root == null) {
+            this.root = leaf;
+            size++;
+            return true;
         }
+        Edge<T> edge = root;
+        while (edge.getLeft() != null || edge.getRight() != null) {
+            if (leaf.compareTo(edge) < 0) {
+                if (edge.getLeft() == null) {
+                    edge.setLeft(leaf);
+                    size++;
+                    return true;
+                } else {
+                    edge = edge.getLeft();
+                }
+            } else {
+                if (edge.getRight() == null) {
+                    edge.setRight(leaf);
+                    size++;
+                    return true;
+                } else {
+                    edge = edge.getRight();
+                }
+            }
+        }
+        if (leaf.compareTo(edge) < 0) {
+            edge.setLeft(leaf);
+        } else {
+            edge.setRight(leaf);
+        }
+        size++;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.root == null) {
+            stringBuilder.append("Дерево пусто.");
+            return stringBuilder.toString();
+        }
+        Queue<Edge> queue = new PriorityQueue<>();
+        queue.add(this.root);
+        while (queue.size() > 0) {
+            Edge leaf = queue.peek();
+            queue.remove();
+            stringBuilder.append(String.valueOf(leaf.getData())).append(", ");
+            if (leaf.getLeft() != null) {
+                queue.add(leaf.getLeft());
+            }
+            if (leaf.getRight() != null) {
+                queue.add(leaf.getRight());
+            }
+        }
+        return stringBuilder.toString();
     }
 }
