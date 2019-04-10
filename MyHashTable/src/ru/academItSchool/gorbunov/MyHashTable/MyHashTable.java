@@ -8,7 +8,7 @@ public class MyHashTable<T> implements Collection<T> {
     private int modCount;
 
     /**
-     * Конструктор для создания хэштаблицы.
+     * Конструктор для инициализации пустой хэштаблицы.
      */
     @SuppressWarnings("unchecked")
     public MyHashTable() {
@@ -242,7 +242,7 @@ public class MyHashTable<T> implements Collection<T> {
      * Удаляет все элементы из хэштаблицы которые есть в данном списке
      *
      * @param c Collection
-     * @return boolean true если удалились все элементы false если список
+     * @return boolean true если удалилился хотя бы один элемент false если список
      * пуст или список совпадает с хэштаблицей по элементам
      * то есть хэш таблица была не изменена
      */
@@ -270,7 +270,7 @@ public class MyHashTable<T> implements Collection<T> {
      * Удаляет все элементы из хэштаблицы кроме тех что содержатся в переданом списке
      *
      * @param c Collection
-     * @return boolean true если удалились все элементы false если не один элемент
+     * @return boolean true если удалился хлья бы один элемент false если не один элемент
      * не был затронут
      */
     @SuppressWarnings("unchecked")
@@ -349,7 +349,7 @@ public class MyHashTable<T> implements Collection<T> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (T el : this) {
-            stringBuilder.append(String.valueOf(el)).append(", ");
+            stringBuilder.append(el).append(", ");
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.append("]").toString();
