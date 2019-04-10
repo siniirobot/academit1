@@ -158,7 +158,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        Object[] hashTableComponents = toArray();
+        T1[] hashTableComponents = (T1[]) toArray();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
@@ -262,7 +262,7 @@ public class MyHashTable<T> implements Collection<T> {
                 this.count -= listSize - list.size();
             }
         }
-        if (arrayListChanged){
+        if (arrayListChanged) {
             this.modCount++;
         }
         return arrayListChanged;
@@ -295,7 +295,7 @@ public class MyHashTable<T> implements Collection<T> {
                 this.count -= listSize - list.size();
             }
         }
-        if (arrayListChanged){
+        if (arrayListChanged) {
             this.modCount++;
         }
         return arrayListChanged;
@@ -322,7 +322,7 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         MyHashTable<?> that = (MyHashTable<?>) o;
-        return Arrays.equals(that.array,this.array);
+        return Arrays.equals(that.array, this.array);
     }
 
     @Override
