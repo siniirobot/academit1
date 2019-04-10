@@ -252,7 +252,7 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         boolean arrayListChanged = false;
-        for (List list : this.array) {
+        for (List<T> list : this.array) {
             if (list == null || list.isEmpty()) {
                 continue;
             }
@@ -285,7 +285,7 @@ public class MyHashTable<T> implements Collection<T> {
             return true;
         }
         boolean arrayListChanged = false;
-        for (List list : this.array) {
+        for (List<T> list : this.array) {
             if (list == null || list.isEmpty()) {
                 continue;
             }
