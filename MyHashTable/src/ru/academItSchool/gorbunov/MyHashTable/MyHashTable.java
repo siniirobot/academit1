@@ -158,7 +158,7 @@ public class MyHashTable<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        T1[] hashTableComponents = (T1[]) toArray();
+        Object[] hashTableComponents = toArray();
         if (a.length < this.count) {
             return (T1[]) Arrays.copyOf(hashTableComponents, this.count, a.getClass());
         }
