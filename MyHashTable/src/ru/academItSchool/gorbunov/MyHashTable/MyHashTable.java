@@ -252,14 +252,15 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         boolean arrayListChanged = false;
-        for (Object element : c) {
-            int index = getIndex(element);
-            if (array[index] == null || array[index].isEmpty()) {
+        for (List list : this.array) {
+            if (list == null || list.isEmpty()) {
                 continue;
             }
-            while (array[index].remove(element)) {
+            int listSize = list.size();
+            if (list.removeAll(c)) {
                 arrayListChanged = true;
-                this.count--;
+                listSize -= list.size();
+                this.count -= listSize;
                 this.modCount++;
             }
         }
@@ -273,7 +274,6 @@ public class MyHashTable<T> implements Collection<T> {
      * @return boolean true если удалился хлья бы один элемент false если не один элемент
      * не был затронут
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c.isEmpty()) {
