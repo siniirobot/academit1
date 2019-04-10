@@ -251,10 +251,9 @@ public class MyHashTable<T> implements Collection<T> {
         if (c.isEmpty()) {
             return false;
         }
-        int index;
         boolean arrayListChanged = false;
         for (Object element : c) {
-            index = getIndex(element);
+            int index = getIndex(element);
             if (array[index] == null || array[index].isEmpty()) {
                 continue;
             }
