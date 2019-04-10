@@ -259,8 +259,7 @@ public class MyHashTable<T> implements Collection<T> {
             int listSize = list.size();
             if (list.removeAll(c)) {
                 arrayListChanged = true;
-                listSize -= list.size();
-                this.count -= listSize;
+                this.count -= listSize - list.size();
                 this.modCount++;
             }
         }
@@ -291,8 +290,7 @@ public class MyHashTable<T> implements Collection<T> {
             int listSize = list.size();
             if (list.retainAll(c)) {
                 arrayListChanged = true;
-                listSize -= list.size();
-                this.count -= listSize;
+                this.count -= listSize - list.size();
                 this.modCount++;
             }
         }
