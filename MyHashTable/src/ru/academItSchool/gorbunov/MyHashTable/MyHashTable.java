@@ -322,25 +322,12 @@ public class MyHashTable<T> implements Collection<T> {
             return false;
         }
         MyHashTable<?> that = (MyHashTable<?>) o;
-        if (this.count != that.count) {
-            return false;
-        }
-        for (int i = 0; i < this.array.length; i++) {
-            if (!Objects.equals(that.array[i], this.array[i])) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.equals(that.array,this.array);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        for (int i = 0; i < this.count; i++) {
-            result = prime * result + Objects.hashCode(this.array[i]);
-        }
-        return result;
+        return Arrays.hashCode(this.array);
     }
 
     @Override
