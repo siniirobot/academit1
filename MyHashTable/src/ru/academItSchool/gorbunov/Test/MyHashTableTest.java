@@ -401,6 +401,35 @@ public class MyHashTableTest {
         };
     }
 
+    @DataProvider(name = "ToString")
+    public Object[][] ToString() {
+        MyHashTable<String> hashTable = new MyHashTable<>();
+        hashTable.add("1");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("2");
+        hashTable.add("3");
+        hashTable.add(null);
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("4");
+        hashTable.add("a");
+        hashTable.add("1");
+        hashTable.add("5");
+        hashTable.add("a");
+        hashTable.add(null);
+        hashTable.add(null);
+        hashTable.add(null);
+        hashTable.add(null);
+
+        return new Object[][]{
+                new Object[]{hashTable, "[2, null, null, null, null, null, 3, 4, 5, a, a, a, a, a, a, a, a, 1, 1, 1]"},
+        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(MyHashTable table, int result) {
         assertEquals(table.size(), result);
@@ -480,5 +509,10 @@ public class MyHashTableTest {
     @Test(dataProvider = "HashCodeAndEquals")
     public void testEquals(MyHashTable list, MyHashTable list1) {
         assertTrue(list.equals(list1));
+    }
+
+    @Test(dataProvider = "ToString")
+    public void testToString(MyHashTable list, String result) {
+        assertEquals(list.toString(),result);
     }
 }
