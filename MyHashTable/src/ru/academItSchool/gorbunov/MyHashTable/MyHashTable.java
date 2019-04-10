@@ -8,7 +8,7 @@ public class MyHashTable<T> implements Collection<T> {
     private int modCount;
 
     /**
-     * Конструктор для создания списка.
+     * Конструктор для создания хэштаблицы.
      */
     @SuppressWarnings("unchecked")
     public MyHashTable() {
@@ -18,7 +18,7 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     /**
-     * Класс необходимый для перебора списка.
+     * Класс необходимый для перебора элементов хэштаблицы.
      */
     private class MyIterator implements Iterator<T> {
         private int currentIndex = -1;
@@ -27,7 +27,7 @@ public class MyHashTable<T> implements Collection<T> {
         private int listIndex = 0;
 
         /**
-         * Проверяет есть ли следующий элемент в списке.
+         * Проверяет есть ли следующий элемент в хэщтаблице.
          *
          * @return boolean
          */
@@ -37,7 +37,7 @@ public class MyHashTable<T> implements Collection<T> {
         }
 
         /**
-         * Возвращает следующий элемент из списка.
+         * Возвращает следующий элемент из хэштаблцы.
          *
          * @return T
          */
@@ -204,7 +204,7 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     /**
-     * Проверяет содержит ли список все элементы из данного списка
+     * Проверяет содержит ли хэштаблца все элементы из данного списка
      *
      * @param c Collection
      * @return boolean true если содержит все элементы false если нет
@@ -268,7 +268,7 @@ public class MyHashTable<T> implements Collection<T> {
     }
 
     /**
-     * Удаляет все элементы из списка кроме тех что содержатся в переданом списке
+     * Удаляет все элементы из хэштаблицы кроме тех что содержатся в переданом списке
      *
      * @param c Collection
      * @return boolean true если удалились все элементы false если не один элемент
