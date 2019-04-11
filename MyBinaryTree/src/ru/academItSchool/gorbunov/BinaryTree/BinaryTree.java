@@ -1,8 +1,10 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
 
 public class BinaryTree<T extends Comparable<T>> {
     private Edge<T> root;
@@ -74,6 +76,76 @@ public class BinaryTree<T extends Comparable<T>> {
         return edge.getData() == data;
     }
 
+    public boolean delete(T data) {
+        if (this.root == null) {
+            return false;
+        }
+        Edge<T> edge = this.root;
+        Edge<T> parentEdge = edge;
+        while (edge.getLeft() != null || edge.getRight() != null) {
+            if (edge.getData() == data) {
+                if (edge.getLeft() == null || edge.getRight() == null) {
+                    if (edge.getLeft() == null) {
+                        parentEdge.setRight(edge.getRight());
+                        this.size--;
+                        return true;
+                    } else {
+                        parentEdge.setRight(edge.getLeft());
+                        this.size--;
+                        return true;
+                    }
+                } else {
+                    Edge<T> leafParent = parentEdge;
+                    Edge<T> leaf = edge;
+                    parentEdge = edge;
+                    edge = edge.getRight();
+                    if (edge.getLeft() == null) {
+                        leafParent.setRight(edge);
+                        edge.setLeft(leaf.getLeft());
+                        this.size--;
+                        return true;
+                    }
+                    while (edge.getLeft() != null) {
+                        parentEdge = edge;
+                        edge = edge.getLeft();
+                    }
+                    parentEdge.setLeft(edge.getRight());
+                    leafParent.setLeft(edge);
+                    edge.setLeft(leaf.getLeft());
+                    edge.setRight(leaf.getRight());
+                    this.size--;
+                    return true;
+                }
+            } else {
+                if (data.compareTo(edge.getData()) < 0) {
+                    if (edge.getLeft() != null) {
+                        parentEdge = edge;
+                        edge = edge.getLeft();
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (edge.getRight() != null) {
+                        parentEdge = edge;
+                        edge = edge.getRight();
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        if (parentEdge.getLeft() != null && parentEdge.getLeft().getData() == data) {
+            parentEdge.setLeft(null);
+            this.size--;
+            return true;
+        } else if (parentEdge.getRight() != null && parentEdge.getRight().getData() == data) {
+            parentEdge.setRight(null);
+            this.size--;
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -81,17 +153,17 @@ public class BinaryTree<T extends Comparable<T>> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        Queue<Edge> queue = new PriorityQueue<>();
-        queue.add(this.root);
-        while (queue.size() > 0) {
-            Edge leaf = queue.peek();
-            queue.remove();
+        LinkedList<Edge> linkedList = new LinkedList<>();
+        linkedList.add(this.root);
+        while (linkedList.size() > 0) {
+            Edge leaf = linkedList.peek();
+            linkedList.remove();
             stringBuilder.append(leaf.getData()).append(", ");
             if (leaf.getLeft() != null) {
-                queue.add(leaf.getLeft());
+                linkedList.add(leaf.getLeft());
             }
             if (leaf.getRight() != null) {
-                queue.add(leaf.getRight());
+                linkedList.add(leaf.getRight());
             }
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
