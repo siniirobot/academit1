@@ -47,6 +47,33 @@ public class BinaryTree<T extends Comparable<T>> {
         return true;
     }
 
+    public boolean search(T data) {
+        if (this.root == null) {
+            return false;
+        }
+        Edge<T> edge = this.root;
+        while (edge.getLeft() != null || edge.getRight() != null) {
+            if (edge.getData() == data) {
+                return true;
+            }
+            if (data.compareTo(edge.getData()) < 0) {
+                if (edge.getLeft() != null) {
+                    edge = edge.getLeft();
+                } else {
+                    return false;
+                }
+            } else {
+                if (edge.getRight() != null) {
+                    edge = edge.getRight();
+                } else {
+                    return false;
+                }
+            }
+
+        }
+        return edge.getData() == data;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -59,7 +86,7 @@ public class BinaryTree<T extends Comparable<T>> {
         while (queue.size() > 0) {
             Edge leaf = queue.peek();
             queue.remove();
-            stringBuilder.append(String.valueOf(leaf.getData())).append(", ");
+            stringBuilder.append(leaf.getData()).append(", ");
             if (leaf.getLeft() != null) {
                 queue.add(leaf.getLeft());
             }
@@ -67,6 +94,7 @@ public class BinaryTree<T extends Comparable<T>> {
                 queue.add(leaf.getRight());
             }
         }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
 }

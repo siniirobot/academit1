@@ -16,7 +16,7 @@ public class Edge<T extends Comparable<T>> implements Comparable<Edge<T>> {
         this.right = null;
     }
 
-    public Edge(T data, Edge edge) {
+    public Edge(T data, Edge <T> edge) {
         this.data = data;
         if (compareTo(edge) < 0) {
             this.left = edge;
