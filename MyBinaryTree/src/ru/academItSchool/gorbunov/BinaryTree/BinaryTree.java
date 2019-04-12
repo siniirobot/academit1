@@ -1,9 +1,7 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 
 public class BinaryTree<T extends Comparable<T>> {
@@ -83,40 +81,7 @@ public class BinaryTree<T extends Comparable<T>> {
         Edge<T> edge = this.root;
         Edge<T> parentEdge = edge;
         while (edge.getLeft() != null || edge.getRight() != null) {
-            if (edge.getData() == data) {
-                if (edge.getLeft() == null || edge.getRight() == null) {
-                    if (edge.getLeft() == null) {
-                        parentEdge.setRight(edge.getRight());
-                        this.size--;
-                        return true;
-                    } else {
-                        parentEdge.setRight(edge.getLeft());
-                        this.size--;
-                        return true;
-                    }
-                } else {
-                    Edge<T> leafParent = parentEdge;
-                    Edge<T> leaf = edge;
-                    parentEdge = edge;
-                    edge = edge.getRight();
-                    if (edge.getLeft() == null) {
-                        leafParent.setRight(edge);
-                        edge.setLeft(leaf.getLeft());
-                        this.size--;
-                        return true;
-                    }
-                    while (edge.getLeft() != null) {
-                        parentEdge = edge;
-                        edge = edge.getLeft();
-                    }
-                    parentEdge.setLeft(edge.getRight());
-                    leafParent.setLeft(edge);
-                    edge.setLeft(leaf.getLeft());
-                    edge.setRight(leaf.getRight());
-                    this.size--;
-                    return true;
-                }
-            } else {
+            if (edge.getData() != data) {
                 if (data.compareTo(edge.getData()) < 0) {
                     if (edge.getLeft() != null) {
                         parentEdge = edge;
@@ -132,16 +97,50 @@ public class BinaryTree<T extends Comparable<T>> {
                         return false;
                     }
                 }
+            } else if (edge.getLeft() == null && edge.getRight() == null) {
+                if (parentEdge.getLeft() != null && parentEdge.getLeft().getData() == data) {
+                    parentEdge.setLeft(null);
+                } else {
+                    parentEdge.setRight(null);
+                }
+                this.size--;
+                return true;
+            } else if (edge.getLeft() != null && edge.getRight() != null) {
+                Edge<T> leafParent = parentEdge;
+                Edge<T> leaf = edge;
+                parentEdge = edge;
+                edge = edge.getRight();
+                if (edge.getLeft() != null) {
+                    while (edge.getLeft() != null) {
+                        parentEdge = edge;
+                        edge = edge.getLeft();
+                    }
+                    parentEdge.setLeft(edge.getRight());
+                }
+                if (this.root.getData() == data) {
+                    this.root = edge;
+                } else {
+                    if (leafParent.getRight() != null && leafParent.getRight().getData() == data) {
+                        leafParent.setRight(edge);
+                    } else {
+                        leafParent.setLeft(edge);
+                    }
+                }
+                edge.setLeft(leaf.getLeft());
+                if (!parentEdge.equals(leaf)) {
+                    edge.setRight(leaf.getRight());
+                }
+                this.size--;
+                return true;
+            } else {
+                if (edge.getLeft() == null) {
+                    parentEdge.setRight(edge.getRight());
+                } else {
+                    parentEdge.setRight(edge.getLeft());
+                }
+                this.size--;
+                return true;
             }
-        }
-        if (parentEdge.getLeft() != null && parentEdge.getLeft().getData() == data) {
-            parentEdge.setLeft(null);
-            this.size--;
-            return true;
-        } else if (parentEdge.getRight() != null && parentEdge.getRight().getData() == data) {
-            parentEdge.setRight(null);
-            this.size--;
-            return true;
         }
         return false;
     }
@@ -156,7 +155,7 @@ public class BinaryTree<T extends Comparable<T>> {
         LinkedList<Edge> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() > 0) {
-            Edge leaf = linkedList.peek();
+            Edge<?> leaf = linkedList.peek();
             linkedList.remove();
             stringBuilder.append(leaf.getData()).append(", ");
             if (leaf.getLeft() != null) {
@@ -168,5 +167,52 @@ public class BinaryTree<T extends Comparable<T>> {
         }
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BinaryTree<?> that = (BinaryTree<?>) o;
+        if (this.size != that.size) {
+            return false;
+        }
+        Edge<?> edgeThis = this.root;
+        Edge<?> edgeThat = that.root;
+        Stack<Edge<?>> stack = new Stack<>();
+        stack.push(edgeThis);
+        stack.push(edgeThat);
+        while (stack.size() > 0) {
+            Edge<?> leafThat = stack.pop();
+            Edge<?> leafThis = stack.pop();
+            if (!leafThis.equals(leafThat)) {
+                return false;
+            }
+            stack.push(leafThis.getRight());
+            stack.push(leafThat.getRight());
+            stack.push(leafThis.getLeft());
+            stack.push(leafThat.getLeft());
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        Edge<?> edge = this.root;
+        Stack<Edge<?>> stack = new Stack<>();
+        stack.push(edge);
+        while (stack.size() > 0) {
+            Edge<?> leaf = stack.pop();
+            result = prime * result + leaf.hashCode();
+            stack.push(leaf.getRight());
+            stack.push(leaf.getLeft());
+        }
+        return result;
     }
 }
