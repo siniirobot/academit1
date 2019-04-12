@@ -8,6 +8,19 @@ import ru.academItSchool.gorbunov.BinaryTree.Edge;
 import static org.testng.Assert.assertEquals;
 
 public class BinaryTreeTest {
+
+    @DataProvider(name = "Size")
+    public Object[][] size() {
+        return new Object[][]{
+                new Object[]{new BinaryTree<Integer>(),
+                        new Object[]{0, 1, 2, 3, 4, 5, 6, 25, 18, 0, 12, 34},
+                        12},
+                new Object[]{new BinaryTree<String>(),
+                        new Object[]{"0", "1", "", "4564646456", "dada", "4546", "12151545454"},
+                        7}
+        };
+    }
+
     @DataProvider(name = "Add")
     public Object[][] add() {
         return new Object[][]{
@@ -73,12 +86,19 @@ public class BinaryTreeTest {
         };
     }
 
-    @Test(dataProvider = "Add")
-    public void testSize(BinaryTree binaryTree, Object[] arr, String result) {
+    @Test(dataProvider = "Size")
+    public void testSize(BinaryTree binaryTree, Object[] arr, int result) {
         for (Object el : arr) {
             binaryTree.add(new Edge<>((Comparable) el));
         }
-        System.out.println(binaryTree.toString());
+        assertEquals(binaryTree.getSize(), result);
+    }
+
+    @Test(dataProvider = "Add")
+    public void testAdd(BinaryTree binaryTree, Object[] arr, String result) {
+        for (Object el : arr) {
+            binaryTree.add(new Edge<>((Comparable) el));
+        }
         assertEquals(binaryTree.toString(), result);
     }
 
