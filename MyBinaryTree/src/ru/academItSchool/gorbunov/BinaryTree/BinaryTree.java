@@ -80,7 +80,7 @@ public class BinaryTree<T extends Comparable<T>> {
         }
         Edge<T> edge = this.root;
         Edge<T> parentEdge = edge;
-        while (edge.getLeft() != null || edge.getRight() != null) {
+        while (edge.getLeft() != null || edge.getRight() != null || edge.getData() == data) {
             if (edge.getData() != data) {
                 if (data.compareTo(edge.getData()) < 0) {
                     if (edge.getLeft() != null) {

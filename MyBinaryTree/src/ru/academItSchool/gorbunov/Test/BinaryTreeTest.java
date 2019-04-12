@@ -39,7 +39,7 @@ public class BinaryTreeTest {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
                         new Object[]{9, 6, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15},
-                        14,
+                        7,
                         true},
                 new Object[]{new BinaryTree<Integer>(),
                         new Object[]{9, 6, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15},
