@@ -86,6 +86,15 @@ public class BinaryTreeTest {
         };
     }
 
+    @DataProvider(name = "Bypass")
+    public Object[][] getBypass() {
+        return new Object[][]{
+                new Object[]{new BinaryTree<Integer>(),
+                        new Object[]{9, 6, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}
+                        /*"9,6,17,3,8,14,20,1,4,7,12,19,21,2,5,11,14,18,10,13,15"*/},
+                        };
+    }
+
     @Test(dataProvider = "Size")
     public void testSize(BinaryTree binaryTree, Object[] arr, int result) {
         for (Object el : arr) {
@@ -116,5 +125,29 @@ public class BinaryTreeTest {
             binaryTree.add(new Edge<>((Comparable) el));
         }
         assertEquals(binaryTree.delete((Comparable) find), result);
+    }
+
+    @Test(dataProvider = "Bypass")
+    public void testGetWideBypass(BinaryTree binaryTree, Object[] arr) {
+        for (Object el : arr) {
+            binaryTree.add(new Edge<>((Comparable) el));
+        }
+        binaryTree.getWideBypass();
+    }
+
+    @Test(dataProvider = "Bypass")
+    public void testGetDepthCrawlByStack(BinaryTree binaryTree, Object[] arr) {
+        for (Object el : arr) {
+            binaryTree.add(new Edge<>((Comparable) el));
+        }
+        binaryTree.getDepthCrawlByStack();
+    }
+
+    @Test(dataProvider = "Bypass")
+    public void testGetDepthCrawlByRecursion(BinaryTree binaryTree, Object[] arr) {
+        for (Object el : arr) {
+            binaryTree.add(new Edge<>((Comparable) el));
+        }
+        binaryTree.getDepthCrawlByRecursion();
     }
 }

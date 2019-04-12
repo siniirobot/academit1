@@ -1,8 +1,6 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
-import java.awt.*;
 import java.util.*;
-
 
 public class BinaryTree<T extends Comparable<T>> {
     private Edge<T> root;
@@ -214,5 +212,63 @@ public class BinaryTree<T extends Comparable<T>> {
             stack.push(leaf.getLeft());
         }
         return result;
+    }
+
+    public void getWideBypass() {
+        LinkedList<Edge> linkedList = new LinkedList<>();
+        linkedList.add(this.root);
+        while (linkedList.size() != 0) {
+            Edge<?> leaf = linkedList.peek();
+            linkedList.remove();
+            System.out.print(leaf.getData() + ", ");
+            if (leaf.getLeft() != null) {
+                linkedList.add(leaf.getLeft());
+            }
+            if (leaf.getRight() != null) {
+                linkedList.add(leaf.getRight());
+            }
+        }
+        System.out.println();
+    }
+
+    public void getDepthCrawlByStack() {
+        Stack<Edge<T>> stack = new Stack<>();
+        stack.push(this.root);
+        while (stack.size() != 0) {
+            Edge<?> leaf = stack.pop();
+            System.out.print(leaf.getData() + ", ");
+            if (leaf.getRight() != null) {
+                stack.push(leaf.getRight());
+            }
+            if (leaf.getLeft() != null) {
+                stack.push(leaf.getLeft());
+            }
+        }
+        System.out.println();
+    }
+
+    public void getDepthCrawlByRecursion() {
+        getDepthCrawlByRecursion(this.root);
+    }
+
+    private void getDepthCrawlByRecursion(Edge<T> edge) {
+        System.out.print(edge.getData() + ", ");
+        for (Edge<T> child : getChild(edge)) {
+            if (child == null) {
+                continue;
+            }
+            getDepthCrawlByRecursion(child);
+        }
+    }
+
+    private Edge<T>[] getChild(Edge<T> edge) {
+        Edge<T>[] children = new Edge[2];
+        if (edge.getLeft() != null) {
+            children[0] = edge.getLeft();
+        }
+        if (edge.getRight() != null) {
+            children[1] = edge.getRight();
+        }
+        return children;
     }
 }
