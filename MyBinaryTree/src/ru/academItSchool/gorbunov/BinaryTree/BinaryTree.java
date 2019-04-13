@@ -26,9 +26,10 @@ public class BinaryTree<T> {
             size++;
             return;
         }
+
         Node<T> node = root;
         while (node.getLeft() != null || node.getRight() != null) {
-            if (this.comparator.compare(leaf.getData(), node.getData()) < 0) {
+            if (this.comparator.compare(leaf.getData(),node.getData()) < 0) {
                 if (node.getLeft() == null) {
                     node.setLeft(leaf);
                     size++;

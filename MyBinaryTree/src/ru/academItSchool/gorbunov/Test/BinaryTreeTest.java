@@ -120,7 +120,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Add")
     public void testAdd(BinaryTree binaryTree, Object[] arr, String result) {
         for (Object el : arr) {
-            binaryTree.add(new Node<>((Comparable) el));
+            binaryTree.add(new Node<>(el));
         }
         assertEquals(binaryTree.toString(), result);
     }
