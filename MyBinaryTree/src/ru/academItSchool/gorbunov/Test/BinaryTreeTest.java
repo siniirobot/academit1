@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.BinaryTree.BinaryTree;
 import ru.academItSchool.gorbunov.BinaryTree.Node;
 
+import java.util.Comparator;
+
 import static org.testng.Assert.assertEquals;
 
 public class BinaryTreeTest {
@@ -24,7 +26,18 @@ public class BinaryTreeTest {
     @DataProvider(name = "Add")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{new BinaryTree<Integer>(),
+                new Object[]{new BinaryTree<Integer>(new Comparator<Integer>() {
+                    @Override
+                    public int compare(Integer o1, Integer o2) {
+                        if (o1 < o2) {
+                            return -1;
+                        } else if (o1.equals(o2)) {
+                            return 0;
+                        } else {
+                            return 1;
+                        }
+                    }
+                }),
                         new Object[]{25, 35, 18, 19, 29, 39, 6, 25, 18, 0, 12, 39},
                         "25, 18, 35, 6, 19, 29, 39, 0, 12, 18, 25, 39"},
                 new Object[]{new BinaryTree<String>(),
@@ -92,7 +105,7 @@ public class BinaryTreeTest {
                 new Object[]{new BinaryTree<Integer>(),
                         new Object[]{9, 1, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}
                         /*"9,6,17,3,8,14,20,1,4,7,12,19,21,2,5,11,14,18,10,13,15"*/},
-                        };
+        };
     }
 
     @Test(dataProvider = "Size")
