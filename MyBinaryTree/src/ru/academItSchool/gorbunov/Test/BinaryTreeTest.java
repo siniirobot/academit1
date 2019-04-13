@@ -10,6 +10,18 @@ import java.util.Comparator;
 import static org.testng.Assert.assertEquals;
 
 public class BinaryTreeTest {
+    private Comparator<Integer> comparatorInteger  = new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            if (o1 < o2) {
+                return -1;
+            } else if (o1.equals(o2)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+    };
 
     @DataProvider(name = "Size")
     public Object[][] size() {
@@ -26,18 +38,7 @@ public class BinaryTreeTest {
     @DataProvider(name = "Add")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{new BinaryTree<Integer>(new Comparator<Integer>() {
-                    @Override
-                    public int compare(Integer o1, Integer o2) {
-                        if (o1 < o2) {
-                            return -1;
-                        } else if (o1.equals(o2)) {
-                            return 0;
-                        } else {
-                            return 1;
-                        }
-                    }
-                }),
+                new Object[]{new BinaryTree<Integer>(comparatorInteger),
                         new Object[]{25, 35, 18, 19, 29, 39, 6, 25, 18, 0, 12, 39},
                         "25, 18, 35, 6, 19, 29, 39, 0, 12, 18, 25, 39"},
                 new Object[]{new BinaryTree<String>(),
