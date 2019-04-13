@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.Test;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.BinaryTree.BinaryTree;
-import ru.academItSchool.gorbunov.BinaryTree.Edge;
+import ru.academItSchool.gorbunov.BinaryTree.Node;
 
 import static org.testng.Assert.assertEquals;
 
@@ -98,7 +98,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Size")
     public void testSize(BinaryTree binaryTree, Object[] arr, int result) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         assertEquals(binaryTree.getSize(), result);
     }
@@ -106,7 +106,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Add")
     public void testAdd(BinaryTree binaryTree, Object[] arr, String result) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         assertEquals(binaryTree.toString(), result);
     }
@@ -114,7 +114,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Search")
     public void testSearch(BinaryTree binaryTree, Object[] arr, Object find, boolean result) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         assertEquals(binaryTree.search((Comparable) find), result);
     }
@@ -122,7 +122,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Delete")
     public void testDelete(BinaryTree binaryTree, Object[] arr, Object find, boolean result) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         assertEquals(binaryTree.delete((Comparable) find), result);
     }
@@ -130,7 +130,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Bypass")
     public void testGetWideBypass(BinaryTree binaryTree, Object[] arr) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         binaryTree.getWideBypass();
     }
@@ -138,7 +138,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Bypass")
     public void testGetDepthCrawlByStack(BinaryTree binaryTree, Object[] arr) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         binaryTree.getDepthCrawlByStack();
     }
@@ -146,7 +146,7 @@ public class BinaryTreeTest {
     @Test(dataProvider = "Bypass")
     public void testGetDepthCrawlByRecursion(BinaryTree binaryTree, Object[] arr) {
         for (Object el : arr) {
-            binaryTree.add(new Edge<>((Comparable) el));
+            binaryTree.add(new Node<>((Comparable) el));
         }
         binaryTree.getDepthCrawlByRecursion();
     }
