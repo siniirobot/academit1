@@ -90,7 +90,7 @@ public class BinaryTreeTest {
     public Object[][] getBypass() {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
-                        new Object[]{9, "1", 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}
+                        new Object[]{9, 1, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}
                         /*"9,6,17,3,8,14,20,1,4,7,12,19,21,2,5,11,14,18,10,13,15"*/},
                         };
     }

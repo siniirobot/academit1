@@ -10,10 +10,11 @@ public class BinaryTree<T extends Comparable<T>> {
         return size;
     }
 
-    public void add(Edge<T> leaf) {
+    public boolean add(Edge<T> leaf) {
         if (this.root == null) {
             this.root = leaf;
             size++;
+            return true;
         }
         Edge<T> edge = root;
         while (edge.getLeft() != null || edge.getRight() != null) {
@@ -21,6 +22,7 @@ public class BinaryTree<T extends Comparable<T>> {
                 if (edge.getLeft() == null) {
                     edge.setLeft(leaf);
                     size++;
+                    return true;
                 } else {
                     edge = edge.getLeft();
                 }
@@ -28,6 +30,7 @@ public class BinaryTree<T extends Comparable<T>> {
                 if (edge.getRight() == null) {
                     edge.setRight(leaf);
                     size++;
+                    return true;
                 } else {
                     edge = edge.getRight();
                 }
@@ -39,6 +42,7 @@ public class BinaryTree<T extends Comparable<T>> {
             edge.setRight(leaf);
         }
         size++;
+        return true;
     }
 
     public boolean search(T data) {
