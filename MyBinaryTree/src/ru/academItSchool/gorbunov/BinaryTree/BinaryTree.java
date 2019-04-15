@@ -169,9 +169,9 @@ public class BinaryTree<T> {
                 }
             }else {
                 if (node.getLeft() != null) {
-                    parentNode.setLeft(node.getLeft());
+                    parentNode.setRight(node.getLeft());
                 } else {
-                    parentNode.setLeft(node.getRight());
+                    parentNode.setRight(node.getRight());
                 }
             }
 
