@@ -16,6 +16,26 @@ public class BinaryTree<T> {
         this.comparator = comparator;
     }
 
+    public int compare(T o1, T o2) {
+        if (this.comparator != null) {
+            return this.comparator.compare(o1, o2);
+        } else {
+            if (o1 == null || o2 == null) {
+                if (o1 == null) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } else {
+                if (((Comparable<T>) o1).compareTo(o2) < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        }
+    }
+
     public int getSize() {
         return size;
     }
@@ -29,7 +49,7 @@ public class BinaryTree<T> {
 
         Node<T> node = root;
         while (node.getLeft() != null || node.getRight() != null) {
-            if (this.comparator.compare(leaf.getData(),node.getData()) < 0) {
+            if (compare(leaf.getData(), node.getData()) < 0) {
                 if (node.getLeft() == null) {
                     node.setLeft(leaf);
                     size++;
@@ -47,7 +67,7 @@ public class BinaryTree<T> {
                 }
             }
         }
-        if (this.comparator.compare(leaf.getData(), node.getData()) < 0) {
+        if (compare(leaf.getData(), node.getData()) < 0) {
             node.setLeft(leaf);
         } else {
             node.setRight(leaf);
@@ -64,7 +84,7 @@ public class BinaryTree<T> {
             if (node.getData() == data) {
                 return true;
             }
-            if (this.comparator.compare(data, node.getData()) < 0) {
+            if (compare(data, node.getData()) < 0) {
                 if (node.getLeft() != null) {
                     node = node.getLeft();
                 } else {
@@ -87,70 +107,77 @@ public class BinaryTree<T> {
             return false;
         }
         Node<T> node = this.root;
-        Node<T> parentNode = node;
-        while (node.getLeft() != null || node.getRight() != null || node.getData() == data) {
-            if (node.getData() != data) {
-                if (this.comparator.compare(data, node.getData()) < 0) {
-                    if (node.getLeft() != null) {
-                        parentNode = node;
-                        node = node.getLeft();
-                    } else {
-                        return false;
-                    }
-                } else {
-                    if (node.getRight() != null) {
-                        parentNode = node;
-                        node = node.getRight();
-                    } else {
-                        return false;
-                    }
-                }
-            } else if (node.getLeft() == null && node.getRight() == null) {
-                if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
-                    parentNode.setLeft(null);
-                } else {
-                    parentNode.setRight(null);
-                }
-                this.size--;
-                return true;
-            } else if (node.getLeft() != null && node.getRight() != null) {
-                Node<T> leafParent = parentNode;
-                Node<T> leaf = node;
-                parentNode = node;
-                node = node.getRight();
+        Node<T> parentNode = null;
+        while (node.getData() != data) {
+            if (compare(data, node.getData()) < 0) {
                 if (node.getLeft() != null) {
-                    while (node.getLeft() != null) {
-                        parentNode = node;
-                        node = node.getLeft();
-                    }
-                    parentNode.setLeft(node.getRight());
-                }
-                if (this.root.getData() == data) {
-                    this.root = node;
+                    parentNode = node;
+                    node = node.getLeft();
                 } else {
-                    if (leafParent.getRight() != null && leafParent.getRight().getData() == data) {
-                        leafParent.setRight(node);
-                    } else {
-                        leafParent.setLeft(node);
-                    }
+                    return false;
                 }
-                node.setLeft(leaf.getLeft());
-                if (!parentNode.equals(leaf)) {
-                    node.setRight(leaf.getRight());
-                }
-                this.size--;
-                return true;
             } else {
-                if (node.getLeft() == null) {
-                    parentNode.setRight(node.getRight());
+                if (node.getRight() != null) {
+                    parentNode = node;
+                    node = node.getRight();
                 } else {
-                    parentNode.setRight(node.getLeft());
+                    return false;
                 }
-                this.size--;
-                return true;
             }
         }
-        return false;
+        if (parentNode == null || node.getLeft() != null && node.getRight() != null) {
+            Node<T> leafParent = parentNode;
+            Node<T> leaf = node;
+            parentNode = node;
+            node = node.getRight();
+            if (node.getLeft() != null) {
+                while (node.getLeft() != null) {
+                    parentNode = node;
+                    node = node.getLeft();
+                }
+                parentNode.setLeft(node.getRight());
+            }
+            if (this.root.getData() == data) {
+                this.root = node;
+            } else {
+                if (leafParent.getRight() != null && leafParent.getRight().getData() == data) {
+                    leafParent.setRight(node);
+                } else {
+                    leafParent.setLeft(node);
+                }
+            }
+            node.setLeft(leaf.getLeft());
+            if (!parentNode.equals(leaf)) {
+                node.setRight(leaf.getRight());
+            }
+            this.size--;
+            return true;
+        } else if (node.getLeft() == null && node.getRight() == null) {
+            if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
+                parentNode.setLeft(null);
+            } else {
+                parentNode.setRight(null);
+            }
+            this.size--;
+            return true;
+        } else {
+            if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
+                if (node.getLeft() != null) {
+                    parentNode.setLeft(node.getLeft());
+                } else {
+                    parentNode.setLeft(node.getRight());
+                }
+            }else {
+                if (node.getLeft() != null) {
+                    parentNode.setLeft(node.getLeft());
+                } else {
+                    parentNode.setLeft(node.getRight());
+                }
+            }
+
+            this.size--;
+            return true;
+        }
     }
 
     @Override
