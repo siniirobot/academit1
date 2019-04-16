@@ -46,7 +46,6 @@ public class BinaryTree<T> {
             size++;
             return;
         }
-
         Node<T> node = root;
         while (node.getLeft() != null || node.getRight() != null) {
             if (compare(leaf.getData(), node.getData()) < 0) {
