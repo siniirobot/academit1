@@ -23,15 +23,13 @@ public class BinaryTree<T> {
             if (o1 == null || o2 == null) {
                 if (o1 == null) {
                     return -1;
-                } else {
-                    return 1;
                 }
+                return 1;
             } else {
                 if (((Comparable<T>) o1).compareTo(o2) < 0) {
                     return -1;
-                } else {
-                    return 1;
                 }
+                return 1;
             }
         }
     }
@@ -53,17 +51,15 @@ public class BinaryTree<T> {
                     node.setLeft(leaf);
                     size++;
                     return;
-                } else {
-                    node = node.getLeft();
                 }
+                node = node.getLeft();
             } else {
                 if (node.getRight() == null) {
                     node.setRight(leaf);
                     size++;
                     return;
-                } else {
-                    node = node.getRight();
                 }
+                node = node.getRight();
             }
         }
         if (compare(leaf.getData(), node.getData()) < 0) {
@@ -84,19 +80,16 @@ public class BinaryTree<T> {
                 return true;
             }
             if (compare(data, node.getData()) < 0) {
-                if (node.getLeft() != null) {
-                    node = node.getLeft();
-                } else {
+                if (node.getLeft() == null) {
                     return false;
                 }
+                node = node.getLeft();
             } else {
-                if (node.getRight() != null) {
-                    node = node.getRight();
-                } else {
+                if (node.getRight() == null) {
                     return false;
                 }
+                node = node.getRight();
             }
-
         }
         return node.getData() == data;
     }
@@ -109,19 +102,17 @@ public class BinaryTree<T> {
         Node<T> parentNode = null;
         while (node.getData() != data) {
             if (compare(data, node.getData()) < 0) {
-                if (node.getLeft() != null) {
-                    parentNode = node;
-                    node = node.getLeft();
-                } else {
+                if (node.getLeft() == null) {
                     return false;
                 }
+                parentNode = node;
+                node = node.getLeft();
             } else {
-                if (node.getRight() != null) {
-                    parentNode = node;
-                    node = node.getRight();
-                } else {
+                if (node.getRight() == null) {
                     return false;
                 }
+                parentNode = node;
+                node = node.getRight();
             }
         }
         if (node.getLeft() != null && node.getRight() != null) {
@@ -272,7 +263,7 @@ public class BinaryTree<T> {
         Stack<Node<T>> stack = new Stack<>();
         stack.push(this.root);
         while (stack.size() != 0) {
-            Node<?> leaf = stack.pop();
+            Node<T> leaf = stack.pop();
             System.out.print(leaf.getData() + ", ");
             if (leaf.getRight() != null) {
                 stack.push(leaf.getRight());
