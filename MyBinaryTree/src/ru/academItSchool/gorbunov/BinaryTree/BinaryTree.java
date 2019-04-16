@@ -23,13 +23,13 @@ public class BinaryTree<T> {
             if (o1 == null || o2 == null) {
                 if (o1 == null) {
                     return -1;
+                } else if (o2 == null) {
+                    return 1;
+                } else {
+                    return 0;
                 }
-                return 1;
             } else {
-                if (((Comparable<T>) o1).compareTo(o2) < 0) {
-                    return -1;
-                }
-                return 1;
+                return ((Comparable<T>) o1).compareTo(o2);
             }
         }
     }
