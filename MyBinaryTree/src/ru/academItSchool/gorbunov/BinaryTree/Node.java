@@ -48,8 +48,8 @@ public class Node<T> {
         }
         Node<?> node = (Node<?>) o;
         return Objects.equals(this.data, node.data) &&
-                this.left.equals(node.left) &&
-                this.right.equals(node.right);
+                Objects.equals(this.left, node.left) &&
+                Objects.equals(this.right, node.right);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class Node<T> {
         final int prime = 31;
         int result = 1;
         result = prime * result + Objects.hashCode(this.data);
-        result = prime * result + this.left.hashCode();
-        result = prime * result + this.right.hashCode();
+        result = prime * result + Objects.hashCode(this.left);
+        result = prime * result + Objects.hashCode(this.right);
         return result;
     }
 }
