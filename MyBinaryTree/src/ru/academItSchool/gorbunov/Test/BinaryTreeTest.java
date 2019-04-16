@@ -65,8 +65,8 @@ public class BinaryTreeTest {
     public Object[][] delete() {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
-                        new Object[]{9, 6, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15},
-                        8,
+                        new Object[]{9,11},
+                        9,
                         true},
                 new Object[]{new BinaryTree<Integer>(),
                         new Object[]{9, 6, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15},

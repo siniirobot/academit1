@@ -125,7 +125,7 @@ public class BinaryTree<T> {
                 }
             }
         }
-        if (parentNode == null || node.getLeft() != null && node.getRight() != null) {
+        if (node.getLeft() != null && node.getRight() != null) {
             Node<T> leafParent = parentNode;
             Node<T> leaf = node;
             parentNode = node;
@@ -152,29 +152,30 @@ public class BinaryTree<T> {
             }
             this.size--;
             return true;
-        } else if (node.getLeft() == null && node.getRight() == null) {
-            if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
-                parentNode.setLeft(null);
-            } else {
-                parentNode.setRight(null);
-            }
-            this.size--;
-            return true;
         } else {
-            if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
-                if (node.getLeft() != null) {
-                    parentNode.setLeft(node.getLeft());
+            if (parentNode != null) {
+                if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
+                    if (node.getLeft() != null) {
+                        parentNode.setLeft(node.getLeft());
+                    } else {
+                        parentNode.setLeft(node.getRight());
+                    }
                 } else {
-                    parentNode.setLeft(node.getRight());
+                    if (node.getLeft() != null) {
+                        parentNode.setRight(node.getLeft());
+                    } else {
+                        parentNode.setRight(node.getRight());
+                    }
                 }
-            }else {
+            } else {
                 if (node.getLeft() != null) {
-                    parentNode.setRight(node.getLeft());
+                    this.root = node.getLeft();
+                } else if (node.getRight() != null) {
+                    this.root = node.getRight();
                 } else {
-                    parentNode.setRight(node.getRight());
+                    this.root = null;
                 }
             }
-
             this.size--;
             return true;
         }
