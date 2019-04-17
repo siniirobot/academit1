@@ -177,7 +177,7 @@ public class BinaryTree<T> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        getWideBypass(x->stringBuilder.append(x).append(", "));
+        getWideBypass(x -> stringBuilder.append(x).append(", "));
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
@@ -196,7 +196,7 @@ public class BinaryTree<T> {
         }
         Node<?> nodeThis = this.root;
         Node<?> nodeThat = that.root;
-        Stack<Node<?>> stack = new Stack<>();
+        Deque<Node<?>> stack = new LinkedList<>();
         stack.push(nodeThis);
         stack.push(nodeThat);
         while (stack.size() > 0) {
@@ -205,10 +205,18 @@ public class BinaryTree<T> {
             if (!leafThis.equals(leafThat)) {
                 return false;
             }
-            stack.push(leafThis.getRight());
-            stack.push(leafThat.getRight());
-            stack.push(leafThis.getLeft());
-            stack.push(leafThat.getLeft());
+            if (leafThis.getRight() != null) {
+                stack.push(leafThis.getRight());
+            }
+            if (leafThat.getRight() != null) {
+                stack.push(leafThat.getRight());
+            }
+            if (leafThis.getLeft() != null) {
+                stack.push(leafThis.getLeft());
+            }
+            if (leafThat.getLeft() != null) {
+                stack.push(leafThat.getLeft());
+            }
         }
         return true;
     }
