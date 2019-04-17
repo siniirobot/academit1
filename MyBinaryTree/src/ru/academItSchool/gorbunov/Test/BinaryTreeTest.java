@@ -6,6 +6,7 @@ import ru.academItSchool.gorbunov.BinaryTree.BinaryTree;
 import ru.academItSchool.gorbunov.BinaryTree.Node;
 
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 import static org.testng.Assert.assertEquals;
 
@@ -69,7 +70,7 @@ public class BinaryTreeTest {
     public Object[][] delete() {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
-                        new Object[]{9, 11,4},
+                        new Object[]{9, 11, 4},
                         9,
                         true},
                 new Object[]{new BinaryTree<Integer>(),
@@ -108,8 +109,9 @@ public class BinaryTreeTest {
     public Object[][] getBypass() {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
-                        new Object[]{9, 1, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}
-                        /*"9,6,17,3,8,14,20,1,4,7,12,19,21,2,5,11,14,18,10,13,15"*/},
+                        new Object[]{9, 1, 17, 3, 8, 16, 20, 1, 4, 7, 12, 19, 21, 2, 5, 11, 14, 18, 10, 13, 15}},
+                new Object[]{new BinaryTree<Integer>(),
+                        new Object[]{}},
         };
     }
 
@@ -150,7 +152,12 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        binaryTree.getWideBypass();
+        binaryTree.getWideBypass(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println(o + ", ");
+            }
+        });
     }
 
     @Test(dataProvider = "Bypass")
@@ -158,7 +165,12 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        binaryTree.getDepthCrawlByStack();
+        binaryTree.getDepthCrawlByStack(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println(o + ", ");
+            }
+        });
     }
 
     @Test(dataProvider = "Bypass")
@@ -166,6 +178,11 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        binaryTree.getDepthCrawlByRecursion();
+        binaryTree.getDepthCrawlByRecursion(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                System.out.println(o + ", ");
+            }
+        });
     }
 }

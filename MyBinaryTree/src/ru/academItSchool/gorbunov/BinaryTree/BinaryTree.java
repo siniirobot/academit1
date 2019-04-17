@@ -1,6 +1,7 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class BinaryTree<T> {
     private Node<T> root;
@@ -240,13 +241,16 @@ public class BinaryTree<T> {
         return result;
     }
 
-    public void getWideBypass() {
-        LinkedList<Node> linkedList = new LinkedList<>();
+    public void getWideBypass(Consumer<T> consumer) {
+        LinkedList<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() != 0) {
-            Node<?> leaf = linkedList.peek();
+            Node<T> leaf = linkedList.peek();
             linkedList.remove();
-            System.out.print(leaf.getData() + ", ");
+            if (leaf == null) {
+                return;
+            }
+            consumer.accept(leaf.getData());
             if (leaf.getLeft() != null) {
                 linkedList.add(leaf.getLeft());
             }
@@ -254,15 +258,14 @@ public class BinaryTree<T> {
                 linkedList.add(leaf.getRight());
             }
         }
-        System.out.println();
     }
 
-    public void getDepthCrawlByStack() {
+    public void getDepthCrawlByStack(Consumer<T> consumer) {
         Stack<Node<T>> stack = new Stack<>();
         stack.push(this.root);
         while (stack.size() != 0) {
             Node<T> leaf = stack.pop();
-            System.out.print(leaf.getData() + ", ");
+            consumer.accept(leaf.getData());
             if (leaf.getRight() != null) {
                 stack.push(leaf.getRight());
             }
@@ -273,17 +276,20 @@ public class BinaryTree<T> {
         System.out.println();
     }
 
-    public void getDepthCrawlByRecursion() {
-        getDepthCrawlByRecursion(this.root);
+    public void getDepthCrawlByRecursion(Consumer<T> consumer) {
+        getDepthCrawlByRecursion(this.root, consumer);
     }
 
-    private void getDepthCrawlByRecursion(Node<T> node) {
-        System.out.print(node.getData() + ", ");
+    private void getDepthCrawlByRecursion(Node<T> node, Consumer<T> consumer) {
+        if (node == null) {
+            return;
+        }
+        consumer.accept(node.getData());
         for (Node<T> child : getChild(node)) {
             if (child == null) {
                 continue;
             }
-            getDepthCrawlByRecursion(child);
+            getDepthCrawlByRecursion(child, consumer);
         }
     }
 
