@@ -144,6 +144,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
+        System.out.println(binaryTree.toString());
         assertEquals(binaryTree.delete(find), result);
     }
 

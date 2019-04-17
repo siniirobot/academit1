@@ -177,19 +177,12 @@ public class BinaryTree<T> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        LinkedList<Node> linkedList = new LinkedList<>();
-        linkedList.add(this.root);
-        while (linkedList.size() > 0) {
-            Node<?> leaf = linkedList.peek();
-            linkedList.remove();
-            stringBuilder.append(leaf.getData()).append(", ");
-            if (leaf.getLeft() != null) {
-                linkedList.add(leaf.getLeft());
+        getWideBypass(new Consumer<T>() {
+            @Override
+            public void accept(T t) {
+                stringBuilder.append(t).append(", ");
             }
-            if (leaf.getRight() != null) {
-                linkedList.add(leaf.getRight());
-            }
-        }
+        });
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
