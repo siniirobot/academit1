@@ -242,11 +242,10 @@ public class BinaryTree<T> {
     }
 
     public void getWideBypass(Consumer<T> consumer) {
-        LinkedList<Node<T>> linkedList = new LinkedList<>();
+        Queue<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() != 0) {
-            Node<T> leaf = linkedList.peek();
-            linkedList.remove();
+            Node<T> leaf = linkedList.remove();
             if (leaf == null) {
                 return;
             }
@@ -265,6 +264,9 @@ public class BinaryTree<T> {
         stack.push(this.root);
         while (stack.size() != 0) {
             Node<T> leaf = stack.pop();
+            if (leaf == null) {
+                return;
+            }
             consumer.accept(leaf.getData());
             if (leaf.getRight() != null) {
                 stack.push(leaf.getRight());
