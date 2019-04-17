@@ -20,14 +20,12 @@ public class BinaryTree<T> {
         if (this.comparator != null) {
             return this.comparator.compare(o1, o2);
         } else {
+            if (Objects.equals(o1, o2)) {
+                return 0;
+            }
             if (o1 == null || o2 == null) {
-                if (o1 == null) {
-                    return -1;
-                } else if (o2 == null) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+                return (o1 == null) ? 1 : 1;
+
             } else {
                 return ((Comparable<T>) o1).compareTo(o2);
             }
