@@ -96,8 +96,9 @@ public class BinaryTree<T> {
         }
         Node<T> node = this.root;
         Node<T> parentNode = null;
-        while (node.getData() != data) {
-            if (compare(data, node.getData()) < 0) {
+        int requiredNode = compare(data, node.getData());
+        while (requiredNode != 0) {
+            if (requiredNode < 0) {
                 if (node.getLeft() == null) {
                     return false;
                 }
@@ -110,6 +111,7 @@ public class BinaryTree<T> {
                 parentNode = node;
                 node = node.getRight();
             }
+            requiredNode = compare(data, node.getData());
         }
         if (node.getLeft() != null && node.getRight() != null) {
             Node<T> leafParent = parentNode;
@@ -123,24 +125,24 @@ public class BinaryTree<T> {
                 }
                 parentNode.setLeft(node.getRight());
             }
-            if (this.root.getData() == data) {
+            if (leafParent == null) {
                 this.root = node;
             } else {
-                if (leafParent.getRight() != null && leafParent.getRight().getData() == data) {
+                if (leafParent.getRight() != null && compare(data, leafParent.getRight().getData()) == 0) {
                     leafParent.setRight(node);
                 } else {
                     leafParent.setLeft(node);
                 }
             }
             node.setLeft(leaf.getLeft());
-            if (!parentNode.equals(leaf)) {
+            if (compare(leaf.getData(), parentNode.getData()) != 0) {
                 node.setRight(leaf.getRight());
             }
             this.size--;
             return true;
         } else {
             if (parentNode != null) {
-                if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
+                if (parentNode.getLeft() != null && compare(data, parentNode.getLeft().getData()) == 0) {
                     if (node.getLeft() != null) {
                         parentNode.setLeft(node.getLeft());
                     } else {

@@ -69,7 +69,7 @@ public class BinaryTreeTest {
     public Object[][] delete() {
         return new Object[][]{
                 new Object[]{new BinaryTree<Integer>(),
-                        new Object[]{9, 11},
+                        new Object[]{9, 11,4},
                         9,
                         true},
                 new Object[]{new BinaryTree<Integer>(),
