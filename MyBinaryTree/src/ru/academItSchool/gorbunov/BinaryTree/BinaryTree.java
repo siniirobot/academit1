@@ -72,10 +72,10 @@ public class BinaryTree<T> {
         }
         Node<T> node = this.root;
         while (node.getLeft() != null || node.getRight() != null) {
-            if (node.getData() == data) {
+            int search = compare(data, node.getData());
+            if (search == 0) {
                 return true;
-            }
-            if (compare(data, node.getData()) < 0) {
+            } else if (search < 0) {
                 if (node.getLeft() == null) {
                     return false;
                 }
@@ -87,7 +87,7 @@ public class BinaryTree<T> {
                 node = node.getRight();
             }
         }
-        return node.getData() == data;
+        return compare(data, node.getData()) == 0;
     }
 
     public boolean delete(T data) {
