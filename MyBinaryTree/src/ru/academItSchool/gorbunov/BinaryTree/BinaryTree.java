@@ -287,22 +287,11 @@ public class BinaryTree<T> {
             return;
         }
         consumer.accept(node.getData());
-        for (Node<T> child : getChild(node)) {
-            if (child == null) {
-                continue;
-            }
-            getDepthCrawlByRecursion(child, consumer);
-        }
-    }
-
-    private Node<T>[] getChild(Node<T> node) {
-        Node<T>[] children = new Node[2];
         if (node.getLeft() != null) {
-            children[0] = node.getLeft();
+            getDepthCrawlByRecursion(node.getLeft(), consumer);
         }
         if (node.getRight() != null) {
-            children[1] = node.getRight();
+            getDepthCrawlByRecursion(node.getRight(), consumer);
         }
-        return children;
     }
 }
