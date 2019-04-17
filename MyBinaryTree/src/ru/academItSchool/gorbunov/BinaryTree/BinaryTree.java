@@ -177,12 +177,7 @@ public class BinaryTree<T> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        getWideBypass(new Consumer<T>() {
-            @Override
-            public void accept(T t) {
-                stringBuilder.append(t).append(", ");
-            }
-        });
+        getWideBypass(x->stringBuilder.append(x).append(", "));
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
