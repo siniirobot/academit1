@@ -260,7 +260,7 @@ public class BinaryTree<T> {
     }
 
     public void getDepthCrawlByStack(Consumer<T> consumer) {
-        Stack<Node<T>> stack = new Stack<>();
+        Deque<Node<T>> stack = new LinkedList<>();
         stack.push(this.root);
         while (stack.size() != 0) {
             Node<T> leaf = stack.pop();
@@ -275,7 +275,6 @@ public class BinaryTree<T> {
                 stack.push(leaf.getLeft());
             }
         }
-        System.out.println();
     }
 
     public void getDepthCrawlByRecursion(Consumer<T> consumer) {
