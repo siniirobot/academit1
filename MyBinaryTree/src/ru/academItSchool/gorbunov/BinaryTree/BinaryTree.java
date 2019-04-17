@@ -24,11 +24,9 @@ public class BinaryTree<T> {
                 return 0;
             }
             if (o1 == null || o2 == null) {
-                return (o1 == null) ? 1 : 1;
-
-            } else {
-                return ((Comparable<T>) o1).compareTo(o2);
+                return (o1 == null) ? -1 : 1;
             }
+            return ((Comparable<T>) o1).compareTo(o2);
         }
     }
 
@@ -36,34 +34,34 @@ public class BinaryTree<T> {
         return size;
     }
 
-    public void add(Node<T> leaf) {
+    public void add(T data) {
         if (this.root == null) {
-            this.root = leaf;
+            this.root = new Node<>(data);
             size++;
             return;
         }
         Node<T> node = root;
         while (node.getLeft() != null || node.getRight() != null) {
-            if (compare(leaf.getData(), node.getData()) < 0) {
+            if (compare(data, node.getData()) < 0) {
                 if (node.getLeft() == null) {
-                    node.setLeft(leaf);
+                    node.setLeft(new Node<>(data));
                     size++;
                     return;
                 }
                 node = node.getLeft();
             } else {
                 if (node.getRight() == null) {
-                    node.setRight(leaf);
+                    node.setRight(new Node<>(data));
                     size++;
                     return;
                 }
                 node = node.getRight();
             }
         }
-        if (compare(leaf.getData(), node.getData()) < 0) {
-            node.setLeft(leaf);
+        if (compare(data, node.getData()) < 0) {
+            node.setLeft(new Node<>(data));
         } else {
-            node.setRight(leaf);
+            node.setRight(new Node<>(data));
         }
         size++;
     }
