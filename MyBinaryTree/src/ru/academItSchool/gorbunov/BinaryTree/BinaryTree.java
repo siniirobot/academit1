@@ -2,6 +2,8 @@ package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BinaryTree<T> {
     private Node<T> root;
@@ -226,13 +228,20 @@ public class BinaryTree<T> {
         final int prime = 31;
         int result = 1;
         Node<?> node = this.root;
-        Stack<Node<?>> stack = new Stack<>();
+        Deque<Node<?>> stack = new LinkedList<>();
         stack.push(node);
         while (stack.size() > 0) {
             Node<?> leaf = stack.pop();
+            if (leaf == null) {
+                continue;
+            }
             result = prime * result + leaf.hashCode();
-            stack.push(leaf.getRight());
-            stack.push(leaf.getLeft());
+            if (leaf.getRight() != null) {
+                stack.push(leaf.getRight());
+            }
+            if (leaf.getLeft() != null) {
+                stack.push(leaf.getLeft());
+            }
         }
         return result;
     }
