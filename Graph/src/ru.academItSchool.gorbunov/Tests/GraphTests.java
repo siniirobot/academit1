@@ -1,3 +1,5 @@
+package ru.academItSchool.gorbunov.Tests;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Graph.Graph;
