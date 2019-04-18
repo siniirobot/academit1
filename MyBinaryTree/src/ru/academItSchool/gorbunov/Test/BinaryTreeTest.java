@@ -144,7 +144,6 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        int binaryHash = binaryTree.hashCode();
         assertEquals(binaryTree.delete(find), result);
     }
 
@@ -153,6 +152,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
+        int binaryHash = binaryTree.hashCode();
         binaryTree.getWideBypass(new Consumer() {
             @Override
             public void accept(Object o) {
