@@ -2,8 +2,6 @@ package ru.academItSchool.gorbunov.BinaryTree;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class BinaryTree<T> {
     private Node<T> root;
@@ -22,15 +20,14 @@ public class BinaryTree<T> {
     public int compare(T o1, T o2) {
         if (this.comparator != null) {
             return this.comparator.compare(o1, o2);
-        } else {
-            if (Objects.equals(o1, o2)) {
-                return 0;
-            }
-            if (o1 == null || o2 == null) {
-                return (o1 == null) ? -1 : 1;
-            }
-            return ((Comparable<T>) o1).compareTo(o2);
         }
+        if (Objects.equals(o1, o2)) {
+            return 0;
+        }
+        if (o1 == null || o2 == null) {
+            return (o1 == null) ? -1 : 1;
+        }
+        return ((Comparable<T>) o1).compareTo(o2);
     }
 
     public int getSize() {
@@ -78,7 +75,8 @@ public class BinaryTree<T> {
             int search = compare(data, node.getData());
             if (search == 0) {
                 return true;
-            } else if (search < 0) {
+            }
+            if (search < 0) {
                 if (node.getLeft() == null) {
                     return false;
                 }
