@@ -24,10 +24,11 @@ public class Graph {
         Queue queue = new LinkedList();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(this.matrix[i]);
+            boolean chain = true;
+            if (visited[i]) {
+                continue;
+            }
             while (queue.size() > 0) {
-                if (visited[i]) {
-                    continue;
-                }
                 visited[i] = true;
                 int[] top = (int[]) queue.remove();
                 consumer.accept(top);
@@ -38,6 +39,7 @@ public class Graph {
                     queue.add(this.matrix[j]);
                 }
             }
+            chain = false;
         }
     }
 }
