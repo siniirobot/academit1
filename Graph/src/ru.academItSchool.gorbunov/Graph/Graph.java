@@ -22,14 +22,22 @@ public class Graph {
     public void getWideBypass(Consumer consumer) {
         boolean[] visited = visited(this.matrix.length);
         Queue queue = new LinkedList();
-        int i = 0;
-        queue.add(this.matrix[i]);
-        for (; i < this.matrix.length; i++) {
-            int[] top = (int[]) queue.remove();
-            if (visited[i]) {
-                continue;
+        for (int i = 0; i < this.matrix.length; i++) {
+            queue.add(this.matrix[i]);
+            while (queue.size() > 0) {
+                if (visited[i]) {
+                    continue;
+                }
+                visited[i] = true;
+                int[] top = (int[]) queue.remove();
+                consumer.accept(top);
+                for(int j = 0; j < top.length;j++) {
+                    if (top[j] == 0) {
+                        continue;
+                    }
+                    queue.add(this.matrix[j]);
+                }
             }
-
         }
     }
 }
