@@ -1,5 +1,8 @@
 package ru.academItSchool.gorbunov.Graph;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
@@ -11,7 +14,7 @@ public class Graph {
         this.matrix = matrix;
     }
 
-    private boolean[] visited(int length) {
+    private boolean[] filling(int length) {
         boolean[] visited = new boolean[length];
         for (boolean top : visited) {
             top = false;
@@ -19,27 +22,48 @@ public class Graph {
         return visited;
     }
 
+    private boolean visited(int[] top, boolean[] visited) {
+        for (int i = 0; i < this.matrix.length; i++) {
+            if (Arrays.equals(this.matrix[i], top)) {
+                if (visited[i]) {
+                    return true;
+                }
+                visited[i] = true;
+                return false;
+            }
+        }
+        throw new NullPointerException("Такой вершины нет в массиве.");
+    }
+
     public void getWideBypass(Consumer consumer) {
-        boolean[] visited = visited(this.matrix.length);
+        boolean[] visited = filling(this.matrix.length);
         Queue queue = new LinkedList();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(this.matrix[i]);
-            boolean chain = true;
-            if (visited[i]) {
-                continue;
-            }
+            ArrayList<Integer> chain = new ArrayList<>();
+
             while (queue.size() > 0) {
-                visited[i] = true;
                 int[] top = (int[]) queue.remove();
-                consumer.accept(top);
-                for(int j = 0; j < top.length;j++) {
+                if (visited(top, visited)) {
+                    continue;
+                }
+                for (int k = 0; k < this.matrix.length; k++) {
+                    if (Arrays.equals(this.matrix[k], top)) {
+                        chain.add(k);
+                        break;
+                    }
+                }
+                for (int j = 0; j < top.length; j++) {
                     if (top[j] == 0) {
                         continue;
                     }
                     queue.add(this.matrix[j]);
                 }
             }
-            chain = false;
+            if (!chain.isEmpty()) {
+                consumer.accept(chain.toArray());
+                chain.clear();
+            }
         }
     }
 }
