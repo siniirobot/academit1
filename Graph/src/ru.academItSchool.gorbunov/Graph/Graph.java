@@ -12,14 +12,6 @@ public class Graph {
         this.matrix = matrix;
     }
 
-    private boolean[] getFilling(int length) {
-        boolean[] visited = new boolean[length];
-        for (boolean top : visited) {
-            top = false;
-        }
-        return visited;
-    }
-
     private boolean isVisited(int topIndex, boolean[] visited) {
         if (visited[topIndex]) {
             return true;
@@ -29,7 +21,7 @@ public class Graph {
     }
 
     public void wideBypass(IntConsumer consumer) {
-        boolean[] visited = getFilling(this.matrix.length);
+        boolean[] visited = new boolean[this.matrix.length];
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(i);
@@ -50,7 +42,7 @@ public class Graph {
     }
 
     public void depthCrawlByStack(IntConsumer consumer) {
-        boolean[] visited = getFilling(this.matrix.length);
+        boolean[] visited = new boolean[this.matrix.length];
         Deque<Integer> stack = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
             stack.push(i);
