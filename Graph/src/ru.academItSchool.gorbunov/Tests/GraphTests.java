@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import static org.testng.Assert.assertEquals;
 
 public class GraphTests {
-    @DataProvider(name = "GetWideBypass")
+    @DataProvider(name = "Bypass")
     public Object[][] getWideBypass() {
         return new Object[][]{
                 new Object[]{new Graph(new int[][]{
@@ -23,12 +23,33 @@ public class GraphTests {
                         {0,0,0,0,0,0,0},
                         {0,0,0,0,0,0,1},
                         {0,0,0,0,0,1,0}})},
+                new Object[]{new Graph(new int[][]{
+                        {0,1,0,0,0,0,0},
+                        {1,0,1,1,1,1,0},
+                        {0,1,0,0,0,0,1},
+                        {0,1,0,0,0,1,0},
+                        {0,1,0,0,0,1,0},
+                        {0,1,0,0,1,0,1},
+                        {0,0,1,0,0,1,0}})},
         };
     }
 
-    @Test(dataProvider = "GetWideBypass")
+    @Test(dataProvider = "Bypass")
     public void testGetWideBypass(Graph graph) {
         graph.getWideBypass(new Consumer() {
+            @Override
+            public void accept(Object o) {
+                for (Object el: (Object[]) o) {
+                    System.out.print((int)el);
+                }
+                System.out.println();
+            }
+        });
+    }
+
+    @Test(dataProvider = "Bypass")
+    public void testGetDepthCrawl(Graph graph) {
+        graph.getDepthCrawl(new Consumer() {
             @Override
             public void accept(Object o) {
                 for (Object el: (Object[]) o) {

@@ -22,42 +22,57 @@ public class Graph {
         return visited;
     }
 
-    private boolean visited(int[] top, boolean[] visited) {
-        for (int i = 0; i < this.matrix.length; i++) {
-            if (Arrays.equals(this.matrix[i], top)) {
-                if (visited[i]) {
-                    return true;
-                }
-                visited[i] = true;
-                return false;
-            }
+    private boolean visited(int topIndex, boolean[] visited) {
+        if (visited[topIndex]) {
+            return true;
         }
-        throw new NullPointerException("Такой вершины нет в массиве.");
+        visited[topIndex] = true;
+        return false;
     }
 
     public void getWideBypass(Consumer consumer) {
         boolean[] visited = filling(this.matrix.length);
-        Queue queue = new LinkedList();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
-            queue.add(this.matrix[i]);
+            queue.add(i);
             ArrayList<Integer> chain = new ArrayList<>();
-
             while (queue.size() > 0) {
-                int[] top = (int[]) queue.remove();
-                if (visited(top, visited)) {
+                int topIndex = queue.remove();
+                if (visited(topIndex, visited)) {
                     continue;
                 }
-                for (int k = 0; k < this.matrix.length; k++) {
-                    if (Arrays.equals(this.matrix[k], top)) {
-                        chain.add(k);
-                        break;
-                    }
-                }
-                for (int j = 0; j < top.length; j++) {
-                    if (top[j] == 0) {
+                chain.add(topIndex);
+                for (int j = 0; j < this.matrix[topIndex].length; j++) {
+                    if (this.matrix[topIndex][j] == 0 || queue.contains(j)) {
                         continue;
                     }
-                    queue.add(this.matrix[j]);
+                    queue.add(j);
+                }
+            }
+            if (!chain.isEmpty()) {
+                consumer.accept(chain.toArray());
+                chain.clear();
+            }
+        }
+    }
+
+    public void getDepthCrawl(Consumer consumer) {
+        boolean[] visited = filling(this.matrix.length);
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < this.matrix.length; i++) {
+            queue.add(i);
+            ArrayList<Integer> chain = new ArrayList<>();
+            while (!queue.isEmpty()) {
+                int topIndex = queue.remove();
+                if (visited(topIndex, visited)) {
+                    continue;
+                }
+                chain.add(topIndex);
+                for (int j = 0; j < this.matrix.length; j++) {
+                    if (this.matrix[j][topIndex] == 0 || queue.contains(j)) {
+                        continue;
+                    }
+                    queue.add(j);
                 }
             }
             if (!chain.isEmpty()) {
