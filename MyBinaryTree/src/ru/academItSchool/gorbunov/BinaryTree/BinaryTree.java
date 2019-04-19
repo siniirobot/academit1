@@ -66,7 +66,7 @@ public class BinaryTree<T> {
         size++;
     }
 
-    public boolean search(T data) {
+    public boolean isSearch(T data) {
         if (this.root == null) {
             return false;
         }
@@ -91,7 +91,7 @@ public class BinaryTree<T> {
         return compare(data, node.getData()) == 0;
     }
 
-    public boolean delete(T data) {
+    public boolean isDelete(T data) {
         if (this.root == null) {
             return false;
         }
@@ -177,7 +177,7 @@ public class BinaryTree<T> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        getWideBypass(x -> stringBuilder.append(x).append(", "));
+        wideBypass(x -> stringBuilder.append(x).append(", "));
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
@@ -244,7 +244,7 @@ public class BinaryTree<T> {
         return result;
     }
 
-    public void getWideBypass(Consumer<T> consumer) {
+    public void wideBypass(Consumer<T> consumer) {
         Queue<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() != 0) {
@@ -262,7 +262,7 @@ public class BinaryTree<T> {
         }
     }
 
-    public void getDepthCrawlByStack(Consumer<T> consumer) {
+    public void depthCrawlByStack(Consumer<T> consumer) {
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(this.root);
         while (stack.size() != 0) {
@@ -280,20 +280,20 @@ public class BinaryTree<T> {
         }
     }
 
-    public void getDepthCrawlByRecursion(Consumer<T> consumer) {
-        getDepthCrawlByRecursion(this.root, consumer);
+    public void depthCrawlByRecursion(Consumer<T> consumer) {
+        depthCrawlByRecursion(this.root, consumer);
     }
 
-    private void getDepthCrawlByRecursion(Node<T> node, Consumer<T> consumer) {
+    private void depthCrawlByRecursion(Node<T> node, Consumer<T> consumer) {
         if (node == null) {
             return;
         }
         consumer.accept(node.getData());
         if (node.getLeft() != null) {
-            getDepthCrawlByRecursion(node.getLeft(), consumer);
+            depthCrawlByRecursion(node.getLeft(), consumer);
         }
         if (node.getRight() != null) {
-            getDepthCrawlByRecursion(node.getRight(), consumer);
+            depthCrawlByRecursion(node.getRight(), consumer);
         }
     }
 }

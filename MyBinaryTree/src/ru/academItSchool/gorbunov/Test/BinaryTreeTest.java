@@ -3,7 +3,6 @@ package ru.academItSchool.gorbunov.Test;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.BinaryTree.BinaryTree;
-import ru.academItSchool.gorbunov.BinaryTree.Node;
 
 import java.util.Comparator;
 import java.util.function.Consumer;
@@ -136,7 +135,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        assertEquals(binaryTree.search((Comparable) find), result);
+        assertEquals(binaryTree.isSearch((Comparable) find), result);
     }
 
     @Test(dataProvider = "Delete")
@@ -144,7 +143,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        assertEquals(binaryTree.delete(find), result);
+        assertEquals(binaryTree.isDelete(find), result);
     }
 
     @Test(dataProvider = "Bypass")
@@ -153,7 +152,7 @@ public class BinaryTreeTest {
             binaryTree.add(el);
         }
         int binaryHash = binaryTree.hashCode();
-        binaryTree.getWideBypass(new Consumer() {
+        binaryTree.wideBypass(new Consumer() {
             @Override
             public void accept(Object o) {
                 System.out.println(o + ", ");
@@ -166,7 +165,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        binaryTree.getDepthCrawlByStack(new Consumer() {
+        binaryTree.depthCrawlByStack(new Consumer() {
             @Override
             public void accept(Object o) {
                 System.out.println(o + ", ");
@@ -179,7 +178,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        binaryTree.getDepthCrawlByRecursion(new Consumer() {
+        binaryTree.depthCrawlByRecursion(new Consumer() {
             @Override
             public void accept(Object o) {
                 System.out.println(o + ", ");

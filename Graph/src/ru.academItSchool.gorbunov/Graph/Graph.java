@@ -1,9 +1,8 @@
 package ru.academItSchool.gorbunov.Graph;
 
-import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 public class Graph {
@@ -13,7 +12,7 @@ public class Graph {
         this.matrix = matrix;
     }
 
-    private boolean[] filling(int length) {
+    private boolean[] getFilling(int length) {
         boolean[] visited = new boolean[length];
         for (boolean top : visited) {
             top = false;
@@ -21,7 +20,7 @@ public class Graph {
         return visited;
     }
 
-    private boolean visited(int topIndex, boolean[] visited) {
+    private boolean isVisited(int topIndex, boolean[] visited) {
         if (visited[topIndex]) {
             return true;
         }
@@ -29,14 +28,14 @@ public class Graph {
         return false;
     }
 
-    public void getWideBypass(IntConsumer consumer) {
-        boolean[] visited = filling(this.matrix.length);
+    public void wideBypass(IntConsumer consumer) {
+        boolean[] visited = getFilling(this.matrix.length);
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(i);
             while (queue.size() > 0) {
                 int topIndex = queue.remove();
-                if (visited(topIndex, visited)) {
+                if (isVisited(topIndex, visited)) {
                     continue;
                 }
                 consumer.accept(topIndex);
@@ -50,14 +49,14 @@ public class Graph {
         }
     }
 
-    public void getDepthCrawl(IntConsumer consumer) {
-        boolean[] visited = filling(this.matrix.length);
-        Queue<Integer> queue = new LinkedList<>();
+    public void depthCrawlByStack(IntConsumer consumer) {
+        boolean[] visited = getFilling(this.matrix.length);
+        Deque<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(i);
             while (!queue.isEmpty()) {
                 int topIndex = queue.remove();
-                if (visited(topIndex, visited)) {
+                if (isVisited(topIndex, visited)) {
                     continue;
                 }
                 consumer.accept(topIndex);
