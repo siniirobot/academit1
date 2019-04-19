@@ -11,14 +11,6 @@ public class GraphTests {
     public Object[][] getWideBypass() {
         return new Object[][]{
                 new Object[]{new Graph(new int[][]{
-                        {0, 1, 1, 0, 0, 0, 0},
-                        {1, 0, 1, 0, 0, 0, 0},
-                        {1, 1, 0, 1, 0, 0, 0},
-                        {0, 0, 1, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 1},
-                        {0, 0, 0, 0, 0, 1, 0}})},
-                new Object[]{new Graph(new int[][]{
                         {0, 1, 0, 0, 0, 0, 0},
                         {1, 0, 1, 1, 1, 1, 0},
                         {0, 1, 0, 0, 0, 0, 1},
@@ -26,6 +18,14 @@ public class GraphTests {
                         {0, 1, 0, 0, 0, 1, 0},
                         {0, 1, 0, 0, 1, 0, 1},
                         {0, 0, 1, 0, 0, 1, 0}})},
+                new Object[]{new Graph(new int[][]{
+                        {0, 1, 1, 0, 0, 0, 0},
+                        {1, 0, 1, 0, 0, 0, 0},
+                        {1, 1, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 1},
+                        {0, 0, 0, 0, 0, 1, 0}})},
         };
     }
 
@@ -37,5 +37,10 @@ public class GraphTests {
     @Test(dataProvider = "Bypass")
     public void testGetDepthCrawl(Graph graph) {
         graph.depthCrawlByStack(x -> System.out.println(x));
+    }
+
+    @Test(dataProvider = "Bypass")
+    public void testGetDepthCrawlByRecursion(Graph graph) {
+        graph.depthCrawlByRecursion(x -> System.out.println(x));
     }
 }
