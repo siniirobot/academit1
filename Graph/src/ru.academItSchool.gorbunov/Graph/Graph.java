@@ -3,7 +3,6 @@ package ru.academItSchool.gorbunov.Graph;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
 public class Graph {
@@ -22,6 +21,9 @@ public class Graph {
     }
 
     public void wideBypass(IntConsumer consumer) {
+        if (this.matrix.length == 0) {
+            return;
+        }
         boolean[] visited = new boolean[this.matrix.length];
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
@@ -43,6 +45,9 @@ public class Graph {
     }
 
     public void depthCrawlByStack(IntConsumer consumer) {
+        if (this.matrix.length == 0) {
+            return;
+        }
         boolean[] visited = new boolean[this.matrix.length];
         Deque<Integer> stack = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
@@ -64,6 +69,9 @@ public class Graph {
     }
 
     public void depthCrawlByRecursion(IntConsumer consumer) {
+        if (this.matrix.length == 0) {
+            return;
+        }
         boolean[] visited = new boolean[this.matrix.length];
         for (int i = 0;i< this.matrix.length;i++) {
             depthCrawlByRecursion(i, consumer, visited);
@@ -81,6 +89,5 @@ public class Graph {
             }
             depthCrawlByRecursion(i,consumer,visited);
         }
-
     }
 }

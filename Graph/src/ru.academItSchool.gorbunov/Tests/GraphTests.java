@@ -26,6 +26,7 @@ public class GraphTests {
                         {0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 1},
                         {0, 0, 0, 0, 0, 1, 0}})},
+                new Object[]{new Graph(new int[0][0])},
         };
     }
 
