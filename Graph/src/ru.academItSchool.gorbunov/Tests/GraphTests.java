@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import static org.testng.Assert.assertEquals;
 
@@ -36,27 +37,11 @@ public class GraphTests {
 
     @Test(dataProvider = "Bypass")
     public void testGetWideBypass(Graph graph) {
-        graph.getWideBypass(new Consumer() {
-            @Override
-            public void accept(Object o) {
-                for (Object el: (Object[]) o) {
-                    System.out.print((int)el);
-                }
-                System.out.println();
-            }
-        });
+        graph.getWideBypass(x-> System.out.println(x));
     }
 
     @Test(dataProvider = "Bypass")
     public void testGetDepthCrawl(Graph graph) {
-        graph.getDepthCrawl(new Consumer() {
-            @Override
-            public void accept(Object o) {
-                for (Object el: (Object[]) o) {
-                    System.out.print((int)el);
-                }
-                System.out.println();
-            }
-        });
+        graph.getDepthCrawl(x-> System.out.println(x));
     }
 }
