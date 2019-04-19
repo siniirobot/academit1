@@ -40,7 +40,7 @@ public class Graph {
                 }
                 consumer.accept(topIndex);
                 for (int j = 0; j < this.matrix[topIndex].length; j++) {
-                    if (this.matrix[topIndex][j] == 0 || queue.contains(j)) {
+                    if (this.matrix[topIndex][j] == 0) {
                         continue;
                     }
                     queue.add(j);
@@ -51,20 +51,20 @@ public class Graph {
 
     public void depthCrawlByStack(IntConsumer consumer) {
         boolean[] visited = getFilling(this.matrix.length);
-        Deque<Integer> queue = new LinkedList<>();
+        Deque<Integer> stack = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
-            queue.add(i);
-            while (!queue.isEmpty()) {
-                int topIndex = queue.remove();
+            stack.push(i);
+            while (!stack.isEmpty()) {
+                int topIndex = stack.pop();
                 if (isVisited(topIndex, visited)) {
                     continue;
                 }
                 consumer.accept(topIndex);
-                for (int j = 0; j < this.matrix.length; j++) {
-                    if (this.matrix[j][topIndex] == 0 || queue.contains(j)) {
+                for (int j = this.matrix.length - 1; j>= 0; j--) {
+                    if (this.matrix[j][topIndex] == 0) {
                         continue;
                     }
-                    queue.add(j);
+                    stack.push(j);
                 }
             }
         }

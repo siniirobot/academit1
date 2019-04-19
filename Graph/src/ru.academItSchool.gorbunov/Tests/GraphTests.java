@@ -11,31 +11,31 @@ public class GraphTests {
     public Object[][] getWideBypass() {
         return new Object[][]{
                 new Object[]{new Graph(new int[][]{
-                        {0,1,1,0,0,0,0},
-                        {1,0,1,0,0,0,0},
-                        {1,1,0,1,0,0,0},
-                        {0,0,1,0,0,0,0},
-                        {0,0,0,0,0,0,0},
-                        {0,0,0,0,0,0,1},
-                        {0,0,0,0,0,1,0}})},
+                        {0, 1, 1, 0, 0, 0, 0},
+                        {1, 0, 1, 0, 0, 0, 0},
+                        {1, 1, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 1},
+                        {0, 0, 0, 0, 0, 1, 0}})},
                 new Object[]{new Graph(new int[][]{
-                        {0,1,0,0,0,0,0},
-                        {1,0,1,1,1,1,0},
-                        {0,1,0,0,0,0,1},
-                        {0,1,0,0,0,1,0},
-                        {0,1,0,0,0,1,0},
-                        {0,1,0,0,1,0,1},
-                        {0,0,1,0,0,1,0}})},
+                        {0, 1, 0, 0, 0, 0, 0},
+                        {1, 0, 1, 1, 1, 1, 0},
+                        {0, 1, 0, 0, 0, 0, 1},
+                        {0, 1, 0, 0, 0, 0, 0},
+                        {0, 1, 0, 0, 0, 1, 0},
+                        {0, 1, 0, 0, 1, 0, 1},
+                        {0, 0, 1, 0, 0, 1, 0}})},
         };
     }
 
     @Test(dataProvider = "Bypass")
     public void testGetWideBypass(Graph graph) {
-        graph.wideBypass(x-> System.out.println(x));
+        graph.wideBypass(x -> System.out.println(x));
     }
 
     @Test(dataProvider = "Bypass")
     public void testGetDepthCrawl(Graph graph) {
-        graph.depthCrawlByStack(x-> System.out.println(x));
+        graph.depthCrawlByStack(x -> System.out.println(x));
     }
 }
