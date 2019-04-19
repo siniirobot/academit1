@@ -73,7 +73,7 @@ public class Graph {
             return;
         }
         boolean[] visited = new boolean[this.matrix.length];
-        for (int i = 0;i< this.matrix.length;i++) {
+        for (int i = 0; i < this.matrix.length; i++) {
             depthCrawlByRecursion(i, consumer, visited);
         }
     }
@@ -87,7 +87,7 @@ public class Graph {
             if (this.matrix[i][topIndex] == 0) {
                 continue;
             }
-            depthCrawlByRecursion(i,consumer,visited);
+            depthCrawlByRecursion(i, consumer, visited);
         }
     }
 }
