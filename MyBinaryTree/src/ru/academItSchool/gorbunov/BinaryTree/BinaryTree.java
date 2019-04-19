@@ -17,7 +17,7 @@ public class BinaryTree<T> {
         this.comparator = comparator;
     }
 
-    public int compare(T o1, T o2) {
+    public int getCompare(T o1, T o2) {
         if (this.comparator != null) {
             return this.comparator.compare(o1, o2);
         }
@@ -42,7 +42,7 @@ public class BinaryTree<T> {
         }
         Node<T> node = root;
         while (node.getLeft() != null || node.getRight() != null) {
-            if (compare(data, node.getData()) < 0) {
+            if (getCompare(data, node.getData()) < 0) {
                 if (node.getLeft() == null) {
                     node.setLeft(new Node<>(data));
                     size++;
@@ -58,7 +58,7 @@ public class BinaryTree<T> {
                 node = node.getRight();
             }
         }
-        if (compare(data, node.getData()) < 0) {
+        if (getCompare(data, node.getData()) < 0) {
             node.setLeft(new Node<>(data));
         } else {
             node.setRight(new Node<>(data));
@@ -72,7 +72,7 @@ public class BinaryTree<T> {
         }
         Node<T> node = this.root;
         while (node.getLeft() != null || node.getRight() != null) {
-            int search = compare(data, node.getData());
+            int search = getCompare(data, node.getData());
             if (search == 0) {
                 return true;
             }
@@ -88,7 +88,7 @@ public class BinaryTree<T> {
                 node = node.getRight();
             }
         }
-        return compare(data, node.getData()) == 0;
+        return getCompare(data, node.getData()) == 0;
     }
 
     public boolean isDelete(T data) {
@@ -97,7 +97,7 @@ public class BinaryTree<T> {
         }
         Node<T> node = this.root;
         Node<T> parentNode = null;
-        int requiredNode = compare(data, node.getData());
+        int requiredNode = getCompare(data, node.getData());
         while (requiredNode != 0) {
             if (requiredNode < 0) {
                 if (node.getLeft() == null) {
@@ -112,7 +112,7 @@ public class BinaryTree<T> {
                 parentNode = node;
                 node = node.getRight();
             }
-            requiredNode = compare(data, node.getData());
+            requiredNode = getCompare(data, node.getData());
         }
         if (node.getLeft() != null && node.getRight() != null) {
             Node<T> leafParent = parentNode;
@@ -129,21 +129,21 @@ public class BinaryTree<T> {
             if (leafParent == null) {
                 this.root = node;
             } else {
-                if (leafParent.getRight() != null && compare(data, leafParent.getRight().getData()) == 0) {
+                if (leafParent.getRight() != null && getCompare(data, leafParent.getRight().getData()) == 0) {
                     leafParent.setRight(node);
                 } else {
                     leafParent.setLeft(node);
                 }
             }
             node.setLeft(leaf.getLeft());
-            if (compare(leaf.getData(), parentNode.getData()) != 0) {
+            if (getCompare(leaf.getData(), parentNode.getData()) != 0) {
                 node.setRight(leaf.getRight());
             }
             this.size--;
             return true;
         } else {
             if (parentNode != null) {
-                if (parentNode.getLeft() != null && compare(data, parentNode.getLeft().getData()) == 0) {
+                if (parentNode.getLeft() != null && getCompare(data, parentNode.getLeft().getData()) == 0) {
                     if (node.getLeft() != null) {
                         parentNode.setLeft(node.getLeft());
                     } else {
