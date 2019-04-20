@@ -55,6 +55,16 @@ public class BinaryTree<T> {
         size++;
     }
 
+    public int compare(T o1, T o2 ) {
+        if (comparator != null) {
+            return this.comparator.compare(o1,o2);
+        }else {
+            if (o1 == null) {
+
+            }
+        }
+    }
+
     public boolean search(T data) {
         if (this.root == null) {
             return false;
