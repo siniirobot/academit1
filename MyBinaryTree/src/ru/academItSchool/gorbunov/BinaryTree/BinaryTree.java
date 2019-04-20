@@ -1,63 +1,284 @@
 package ru.academItSchool.gorbunov.BinaryTree;
 
-import java.util.Comparator;
+import java.util.*;
 
 public class BinaryTree<T> {
-    private class MyTreeNode<T> {
-        private MyTreeNode<T> left;
-        private MyTreeNode<T> right;
-        private T data;
+    private Node<T> root;
+    private int size = 0;
+    private Comparator<T> comparator;
 
-        public MyTreeNode(T data) {
-            this.data = data;
+    public BinaryTree() {
+        this.root = null;
+    }
+
+    public BinaryTree(Comparator<T> comparator) {
+        this.root = null;
+        this.comparator = comparator;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void add(Node<T> leaf) {
+        if (this.root == null) {
+            this.root = leaf;
+            size++;
+            return;
         }
 
-        public MyTreeNode(T data, MyTreeNode<T> node) {
-            this.data = data;
-            if (new CompareForTreeNode().compare(this.data, node.data) < 0) {
-                this.left = node;
-                this.right = null;
+        Node<T> node = root;
+        while (node.getLeft() != null || node.getRight() != null) {
+            if (this.comparator.compare(leaf.getData(),node.getData()) < 0) {
+                if (node.getLeft() == null) {
+                    node.setLeft(leaf);
+                    size++;
+                    return;
+                } else {
+                    node = node.getLeft();
+                }
             } else {
-                this.left = null;
-                this.right = node;
+                if (node.getRight() == null) {
+                    node.setRight(leaf);
+                    size++;
+                    return;
+                } else {
+                    node = node.getRight();
+                }
             }
         }
-
-        public MyTreeNode(T data, MyTreeNode<T> leftNode, MyTreeNode<T> rightNode) {
-            this.data = data;
-            this.right = rightNode;
-            this.left = leftNode;
+        if (this.comparator.compare(leaf.getData(), node.getData()) < 0) {
+            node.setLeft(leaf);
+        } else {
+            node.setRight(leaf);
         }
+        size++;
+    }
 
-        public MyTreeNode<T> getLeft() {
-            return left;
+    public boolean search(T data) {
+        if (this.root == null) {
+            return false;
         }
+        Node<T> node = this.root;
+        while (node.getLeft() != null || node.getRight() != null) {
+            if (node.getData() == data) {
+                return true;
+            }
+            if (this.comparator.compare(data, node.getData()) < 0) {
+                if (node.getLeft() != null) {
+                    node = node.getLeft();
+                } else {
+                    return false;
+                }
+            } else {
+                if (node.getRight() != null) {
+                    node = node.getRight();
+                } else {
+                    return false;
+                }
+            }
 
-        public void setLeft(MyTreeNode<T> left) {
-            this.left = left;
         }
+        return node.getData() == data;
+    }
 
-        public T getData() {
-            return data;
+    public boolean delete(T data) {
+        if (this.root == null) {
+            return false;
         }
-
-        public void setData(T data) {
-            this.data = data;
+        Node<T> node = this.root;
+        Node<T> parentNode = node;
+        while (node.getLeft() != null || node.getRight() != null || node.getData() == data) {
+            if (node.getData() != data) {
+                if (this.comparator.compare(data, node.getData()) < 0) {
+                    if (node.getLeft() != null) {
+                        parentNode = node;
+                        node = node.getLeft();
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (node.getRight() != null) {
+                        parentNode = node;
+                        node = node.getRight();
+                    } else {
+                        return false;
+                    }
+                }
+            } else if (node.getLeft() == null && node.getRight() == null) {
+                if (parentNode.getLeft() != null && parentNode.getLeft().getData() == data) {
+                    parentNode.setLeft(null);
+                } else {
+                    parentNode.setRight(null);
+                }
+                this.size--;
+                return true;
+            } else if (node.getLeft() != null && node.getRight() != null) {
+                Node<T> leafParent = parentNode;
+                Node<T> leaf = node;
+                parentNode = node;
+                node = node.getRight();
+                if (node.getLeft() != null) {
+                    while (node.getLeft() != null) {
+                        parentNode = node;
+                        node = node.getLeft();
+                    }
+                    parentNode.setLeft(node.getRight());
+                }
+                if (this.root.getData() == data) {
+                    this.root = node;
+                } else {
+                    if (leafParent.getRight() != null && leafParent.getRight().getData() == data) {
+                        leafParent.setRight(node);
+                    } else {
+                        leafParent.setLeft(node);
+                    }
+                }
+                node.setLeft(leaf.getLeft());
+                if (!parentNode.equals(leaf)) {
+                    node.setRight(leaf.getRight());
+                }
+                this.size--;
+                return true;
+            } else {
+                if (node.getLeft() == null) {
+                    parentNode.setRight(node.getRight());
+                } else {
+                    parentNode.setRight(node.getLeft());
+                }
+                this.size--;
+                return true;
+            }
         }
+        return false;
+    }
 
-        public MyTreeNode<T> getRight() {
-            return right;
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.root == null) {
+            stringBuilder.append("Дерево пусто.");
+            return stringBuilder.toString();
         }
+        LinkedList<Node> linkedList = new LinkedList<>();
+        linkedList.add(this.root);
+        while (linkedList.size() > 0) {
+            Node<?> leaf = linkedList.peek();
+            linkedList.remove();
+            stringBuilder.append(leaf.getData()).append(", ");
+            if (leaf.getLeft() != null) {
+                linkedList.add(leaf.getLeft());
+            }
+            if (leaf.getRight() != null) {
+                linkedList.add(leaf.getRight());
+            }
+        }
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        return stringBuilder.toString();
+    }
 
-        public void setRight(MyTreeNode<T> right) {
-            this.right = right;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BinaryTree<?> that = (BinaryTree<?>) o;
+        if (this.size != that.size) {
+            return false;
+        }
+        Node<?> nodeThis = this.root;
+        Node<?> nodeThat = that.root;
+        Stack<Node<?>> stack = new Stack<>();
+        stack.push(nodeThis);
+        stack.push(nodeThat);
+        while (stack.size() > 0) {
+            Node<?> leafThat = stack.pop();
+            Node<?> leafThis = stack.pop();
+            if (!leafThis.equals(leafThat)) {
+                return false;
+            }
+            stack.push(leafThis.getRight());
+            stack.push(leafThat.getRight());
+            stack.push(leafThis.getLeft());
+            stack.push(leafThat.getLeft());
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        Node<?> node = this.root;
+        Stack<Node<?>> stack = new Stack<>();
+        stack.push(node);
+        while (stack.size() > 0) {
+            Node<?> leaf = stack.pop();
+            result = prime * result + leaf.hashCode();
+            stack.push(leaf.getRight());
+            stack.push(leaf.getLeft());
+        }
+        return result;
+    }
+
+    public void getWideBypass() {
+        LinkedList<Node> linkedList = new LinkedList<>();
+        linkedList.add(this.root);
+        while (linkedList.size() != 0) {
+            Node<?> leaf = linkedList.peek();
+            linkedList.remove();
+            System.out.print(leaf.getData() + ", ");
+            if (leaf.getLeft() != null) {
+                linkedList.add(leaf.getLeft());
+            }
+            if (leaf.getRight() != null) {
+                linkedList.add(leaf.getRight());
+            }
+        }
+        System.out.println();
+    }
+
+    public void getDepthCrawlByStack() {
+        Stack<Node<T>> stack = new Stack<>();
+        stack.push(this.root);
+        while (stack.size() != 0) {
+            Node<?> leaf = stack.pop();
+            System.out.print(leaf.getData() + ", ");
+            if (leaf.getRight() != null) {
+                stack.push(leaf.getRight());
+            }
+            if (leaf.getLeft() != null) {
+                stack.push(leaf.getLeft());
+            }
+        }
+        System.out.println();
+    }
+
+    public void getDepthCrawlByRecursion() {
+        getDepthCrawlByRecursion(this.root);
+    }
+
+    private void getDepthCrawlByRecursion(Node<T> node) {
+        System.out.print(node.getData() + ", ");
+        for (Node<T> child : getChild(node)) {
+            if (child == null) {
+                continue;
+            }
+            getDepthCrawlByRecursion(child);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public class CompareForTreeNode implements Comparator<T> {
-        public int compare(T val1, T val2) {
-            return ((Comparable<? super T>) val1).compareTo(val2);
+    private Node<T>[] getChild(Node<T> node) {
+        Node<T>[] children = new Node[2];
+        if (node.getLeft() != null) {
+            children[0] = node.getLeft();
         }
+        if (node.getRight() != null) {
+            children[1] = node.getRight();
+        }
+        return children;
     }
 }
