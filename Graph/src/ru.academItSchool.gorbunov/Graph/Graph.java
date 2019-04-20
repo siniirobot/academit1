@@ -28,7 +28,7 @@ public class Graph {
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
             queue.add(i);
-            while (queue.size() > 0) {
+            while (!queue.isEmpty()) {
                 int topIndex = queue.remove();
                 if (isVisited(topIndex, visited)) {
                     continue;
