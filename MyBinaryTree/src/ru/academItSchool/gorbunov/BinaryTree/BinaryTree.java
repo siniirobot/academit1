@@ -245,13 +245,13 @@ public class BinaryTree<T> {
     }
 
     public void wideBypass(Consumer<T> consumer) {
+        if (this.root == null) {
+            return;
+        }
         Queue<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() != 0) {
             Node<T> temp = linkedList.remove();
-            if (temp == null) {
-                return;
-            }
             consumer.accept(temp.getData());
             if (temp.getLeft() != null) {
                 linkedList.add(temp.getLeft());
@@ -263,13 +263,13 @@ public class BinaryTree<T> {
     }
 
     public void depthCrawlByStack(Consumer<T> consumer) {
+        if (this.root == null) {
+            return;
+        }
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(this.root);
         while (stack.size() != 0) {
             Node<T> temp = stack.pop();
-            if (temp == null) {
-                return;
-            }
             consumer.accept(temp.getData());
             if (temp.getRight() != null) {
                 stack.push(temp.getRight());
