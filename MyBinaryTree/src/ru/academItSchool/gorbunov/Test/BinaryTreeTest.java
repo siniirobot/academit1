@@ -146,7 +146,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        assertEquals(binaryTree.isDelete(find), result);
+        assertEquals(binaryTree.delete(find), result);
     }
 
     @Test(dataProvider = "Bypass")

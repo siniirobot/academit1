@@ -92,7 +92,7 @@ public class BinaryTree<T> {
         return compare(data, node.getData()) == 0;
     }
 
-    public boolean isDelete(T data) {
+    public boolean delete(T data) {
         if (this.root == null) {
             return false;
         }
