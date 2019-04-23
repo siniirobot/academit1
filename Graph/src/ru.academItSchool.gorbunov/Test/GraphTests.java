@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Classes;
+package ru.academItSchool.gorbunov.Test;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

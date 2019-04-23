@@ -30,9 +30,10 @@ public class Graph {
             queue.add(i);
             while (!queue.isEmpty()) {
                 int topIndex = queue.remove();
-                if (isVisited(topIndex, visited)) {
+                if (visited[topIndex]) {
                     continue;
                 }
+                visited[topIndex] = true;
                 consumer.accept(topIndex);
                 for (int j = 0; j < this.matrix[topIndex].length; j++) {
                     if (this.matrix[topIndex][j] == 0) {
@@ -54,9 +55,10 @@ public class Graph {
             stack.push(i);
             while (!stack.isEmpty()) {
                 int topIndex = stack.pop();
-                if (isVisited(topIndex, visited)) {
+                if (visited[topIndex]) {
                     continue;
                 }
+                visited[topIndex] = true;
                 consumer.accept(topIndex);
                 for (int j = this.matrix.length - 1; j >= 0; j--) {
                     if (this.matrix[j][topIndex] == 0) {
@@ -79,9 +81,10 @@ public class Graph {
     }
 
     private void depthCrawlByRecursion(int topIndex, IntConsumer consumer, boolean[] visited) {
-        if (isVisited(topIndex, visited)) {
+        if (visited[topIndex]) {
             return;
         }
+        visited[topIndex] = true;
         consumer.accept(topIndex);
         for (int i = 0; i < this.matrix[topIndex].length; i++) {
             if (this.matrix[i][topIndex] == 0) {
