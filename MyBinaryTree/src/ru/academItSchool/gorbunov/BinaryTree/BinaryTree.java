@@ -115,8 +115,8 @@ public class BinaryTree<T> {
             requiredNode = getCompare(data, node.getData());
         }
         if (node.getLeft() != null && node.getRight() != null) {
-            Node<T> leafParent = parentNode;
-            Node<T> leaf = node;
+            Node<T> tempParent = parentNode;
+            Node<T> temp = node;
             parentNode = node;
             node = node.getRight();
             if (node.getLeft() != null) {
@@ -126,18 +126,18 @@ public class BinaryTree<T> {
                 }
                 parentNode.setLeft(node.getRight());
             }
-            if (leafParent == null) {
+            if (tempParent == null) {
                 this.root = node;
             } else {
-                if (leafParent.getRight() != null && getCompare(data, leafParent.getRight().getData()) == 0) {
-                    leafParent.setRight(node);
+                if (tempParent.getRight() != null && getCompare(data, tempParent.getRight().getData()) == 0) {
+                    tempParent.setRight(node);
                 } else {
-                    leafParent.setLeft(node);
+                    tempParent.setLeft(node);
                 }
             }
-            node.setLeft(leaf.getLeft());
-            if (getCompare(leaf.getData(), parentNode.getData()) != 0) {
-                node.setRight(leaf.getRight());
+            node.setLeft(temp.getLeft());
+            if (getCompare(temp.getData(), parentNode.getData()) != 0) {
+                node.setRight(temp.getRight());
             }
             this.size--;
             return true;
@@ -229,16 +229,16 @@ public class BinaryTree<T> {
         Deque<Node<?>> stack = new LinkedList<>();
         stack.push(node);
         while (stack.size() > 0) {
-            Node<?> leaf = stack.pop();
-            if (leaf == null) {
+            Node<?> temp = stack.pop();
+            if (temp == null) {
                 continue;
             }
-            result = prime * result + leaf.hashCode();
-            if (leaf.getRight() != null) {
-                stack.push(leaf.getRight());
+            result = prime * result + temp.hashCode();
+            if (temp.getRight() != null) {
+                stack.push(temp.getRight());
             }
-            if (leaf.getLeft() != null) {
-                stack.push(leaf.getLeft());
+            if (temp.getLeft() != null) {
+                stack.push(temp.getLeft());
             }
         }
         return result;
@@ -248,16 +248,16 @@ public class BinaryTree<T> {
         Queue<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
         while (linkedList.size() != 0) {
-            Node<T> leaf = linkedList.remove();
-            if (leaf == null) {
+            Node<T> temp = linkedList.remove();
+            if (temp == null) {
                 return;
             }
-            consumer.accept(leaf.getData());
-            if (leaf.getLeft() != null) {
-                linkedList.add(leaf.getLeft());
+            consumer.accept(temp.getData());
+            if (temp.getLeft() != null) {
+                linkedList.add(temp.getLeft());
             }
-            if (leaf.getRight() != null) {
-                linkedList.add(leaf.getRight());
+            if (temp.getRight() != null) {
+                linkedList.add(temp.getRight());
             }
         }
     }
@@ -266,16 +266,16 @@ public class BinaryTree<T> {
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(this.root);
         while (stack.size() != 0) {
-            Node<T> leaf = stack.pop();
-            if (leaf == null) {
+            Node<T> temp = stack.pop();
+            if (temp == null) {
                 return;
             }
-            consumer.accept(leaf.getData());
-            if (leaf.getRight() != null) {
-                stack.push(leaf.getRight());
+            consumer.accept(temp.getData());
+            if (temp.getRight() != null) {
+                stack.push(temp.getRight());
             }
-            if (leaf.getLeft() != null) {
-                stack.push(leaf.getLeft());
+            if (temp.getLeft() != null) {
+                stack.push(temp.getLeft());
             }
         }
     }
