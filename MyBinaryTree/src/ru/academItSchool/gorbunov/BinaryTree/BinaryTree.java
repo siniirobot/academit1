@@ -42,7 +42,7 @@ public class BinaryTree<T> {
             return;
         }
         Node<T> node = root;
-        while (node.getLeft() != null || node.getRight() != null) {
+        while (true) {
             if (compare(data, node.getData()) < 0) {
                 if (node.getLeft() == null) {
                     node.setLeft(new Node<>(data));
@@ -59,12 +59,6 @@ public class BinaryTree<T> {
                 node = node.getRight();
             }
         }
-        if (compare(data, node.getData()) < 0) {
-            node.setLeft(new Node<>(data));
-        } else {
-            node.setRight(new Node<>(data));
-        }
-        size++;
     }
 
     public boolean isSearch(T data) {
@@ -72,11 +66,8 @@ public class BinaryTree<T> {
             return false;
         }
         Node<T> node = this.root;
-        while (node.getLeft() != null || node.getRight() != null) {
-            int search = compare(data, node.getData());
-            if (search == 0) {
-                return true;
-            }
+        int search;
+        while ((search = compare(data, node.getData())) != 0) {
             if (search < 0) {
                 if (node.getLeft() == null) {
                     return false;
@@ -89,7 +80,7 @@ public class BinaryTree<T> {
                 node = node.getRight();
             }
         }
-        return compare(data, node.getData()) == 0;
+        return true;
     }
 
     public boolean delete(T data) {
