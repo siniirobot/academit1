@@ -169,7 +169,7 @@ public class BinaryTree<T> {
             stringBuilder.append("Дерево пусто.");
             return stringBuilder.toString();
         }
-        wideBypass(x -> stringBuilder.append(x).append(", "));
+        depthCrawlByStack(x -> stringBuilder.append(x).append(", "));
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
