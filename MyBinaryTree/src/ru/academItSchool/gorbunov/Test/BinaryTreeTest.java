@@ -124,9 +124,12 @@ public class BinaryTreeTest {
 
     @Test(dataProvider = "Add")
     public void testAdd(BinaryTree binaryTree, Object[] arr, String result) {
+        BinaryTree binaryTree1 = new BinaryTree();
         for (Object el : arr) {
             binaryTree.add(el);
+            binaryTree1.add(el);
         }
+        binaryTree.equals(binaryTree1);
         assertEquals(binaryTree.toString(), result);
     }
 
@@ -143,7 +146,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        assertEquals(binaryTree.isDelete(find), result);
+        assertEquals(binaryTree.delete(find), result);
     }
 
     @Test(dataProvider = "Bypass")
