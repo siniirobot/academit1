@@ -106,34 +106,7 @@ public class BinaryTree<T> {
             }
             requiredNode = compare(data, node.getData());
         }
-        if (node.getLeft() != null && node.getRight() != null) {
-            Node<T> tempParent = parentNode;
-            Node<T> temp = node;
-            parentNode = node;
-            node = node.getRight();
-            if (node.getLeft() != null) {
-                while (node.getLeft() != null) {
-                    parentNode = node;
-                    node = node.getLeft();
-                }
-                parentNode.setLeft(node.getRight());
-            }
-            if (tempParent == null) {
-                this.root = node;
-            } else {
-                if (tempParent.getRight() != null && compare(data, tempParent.getRight().getData()) == 0) {
-                    tempParent.setRight(node);
-                } else {
-                    tempParent.setLeft(node);
-                }
-            }
-            node.setLeft(temp.getLeft());
-            if (compare(temp.getData(), parentNode.getData()) != 0) {
-                node.setRight(temp.getRight());
-            }
-            this.size--;
-            return true;
-        } else {
+        if (node.getLeft() == null || node.getRight() == null) {
             if (parentNode != null) {
                 if (parentNode.getLeft() != null && compare(data, parentNode.getLeft().getData()) == 0) {
                     if (node.getLeft() != null) {
@@ -160,6 +133,32 @@ public class BinaryTree<T> {
             this.size--;
             return true;
         }
+        Node<T> tempParent = parentNode;
+        Node<T> temp = node;
+        parentNode = node;
+        node = node.getRight();
+        if (node.getLeft() != null) {
+            while (node.getLeft() != null) {
+                parentNode = node;
+                node = node.getLeft();
+            }
+            parentNode.setLeft(node.getRight());
+        }
+        if (tempParent == null) {
+            this.root = node;
+        } else {
+            if (tempParent.getRight() != null && compare(data, tempParent.getRight().getData()) == 0) {
+                tempParent.setRight(node);
+            } else {
+                tempParent.setLeft(node);
+            }
+        }
+        node.setLeft(temp.getLeft());
+        if (compare(temp.getData(), parentNode.getData()) != 0) {
+            node.setRight(temp.getRight());
+        }
+        this.size--;
+        return true;
     }
 
     public void wideBypass(Consumer<T> consumer) {
