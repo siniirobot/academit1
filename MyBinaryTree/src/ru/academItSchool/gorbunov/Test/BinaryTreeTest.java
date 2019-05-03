@@ -138,7 +138,7 @@ public class BinaryTreeTest {
         for (Object el : arr) {
             binaryTree.add(el);
         }
-        assertEquals(binaryTree.isSearch((Comparable) find), result);
+        assertEquals(binaryTree.contains((Comparable) find), result);
     }
 
     @Test(dataProvider = "Delete")

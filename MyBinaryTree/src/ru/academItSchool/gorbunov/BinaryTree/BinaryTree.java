@@ -61,7 +61,7 @@ public class BinaryTree<T> {
         }
     }
 
-    public boolean isSearch(T data) {
+    public boolean contains(T data) {
         if (this.root == null) {
             return false;
         }
