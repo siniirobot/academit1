@@ -154,7 +154,7 @@ public class BinaryTree<T> {
             }
         }
         node.setLeft(temp.getLeft());
-        if (compare(temp.getData(), parentNode.getData()) != 0) {
+        if (temp != parentNode) {
             node.setRight(temp.getRight());
         }
         this.size--;
