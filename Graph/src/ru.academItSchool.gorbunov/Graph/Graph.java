@@ -12,14 +12,6 @@ public class Graph {
         this.matrix = matrix;
     }
 
-    private boolean isVisited(int topIndex, boolean[] visited) {
-        if (visited[topIndex]) {
-            return true;
-        }
-        visited[topIndex] = true;
-        return false;
-    }
-
     public void wideBypass(IntConsumer consumer) {
         if (this.matrix.length == 0) {
             return;
@@ -87,7 +79,7 @@ public class Graph {
         visited[topIndex] = true;
         consumer.accept(topIndex);
         for (int i = 0; i < this.matrix[topIndex].length; i++) {
-            if (this.matrix[i][topIndex] == 0) {
+            if (this.matrix[i][topIndex] == 0 || visited[i]) {
                 continue;
             }
             depthCrawlByRecursion(i, consumer, visited);
