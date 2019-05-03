@@ -89,9 +89,9 @@ public class BinaryTree<T> {
         }
         Node<T> node = this.root;
         Node<T> parentNode = null;
-        int requiredNode = compare(data, node.getData());
-        while (requiredNode != 0) {
-            if (requiredNode < 0) {
+        int compareResult = compare(data, node.getData());
+        while (compareResult != 0) {
+            if (compareResult < 0) {
                 if (node.getLeft() == null) {
                     return false;
                 }
@@ -104,7 +104,7 @@ public class BinaryTree<T> {
                 parentNode = node;
                 node = node.getRight();
             }
-            requiredNode = compare(data, node.getData());
+            compareResult = compare(data, node.getData());
         }
         if (node.getLeft() == null || node.getRight() == null) {
             if (parentNode != null) {
