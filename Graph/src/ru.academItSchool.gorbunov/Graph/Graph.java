@@ -19,16 +19,16 @@ public class Graph {
         boolean[] visited = new boolean[this.matrix.length];
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
+            if (visited[i]) {
+                continue;
+            }
             queue.add(i);
             while (!queue.isEmpty()) {
                 int topIndex = queue.remove();
-                if (visited[topIndex]) {
-                    continue;
-                }
                 visited[topIndex] = true;
                 consumer.accept(topIndex);
                 for (int j = 0; j < this.matrix[topIndex].length; j++) {
-                    if (this.matrix[topIndex][j] == 0) {
+                    if (this.matrix[topIndex][j] == 0 || visited[j] || queue.contains(j)) {
                         continue;
                     }
                     queue.add(j);
@@ -44,16 +44,16 @@ public class Graph {
         boolean[] visited = new boolean[this.matrix.length];
         Deque<Integer> stack = new LinkedList<>();
         for (int i = 0; i < this.matrix.length; i++) {
+            if (visited[i]) {
+                continue;
+            }
             stack.push(i);
             while (!stack.isEmpty()) {
                 int topIndex = stack.pop();
-                if (visited[topIndex]) {
-                    continue;
-                }
                 visited[topIndex] = true;
                 consumer.accept(topIndex);
                 for (int j = this.matrix.length - 1; j >= 0; j--) {
-                    if (this.matrix[j][topIndex] == 0) {
+                    if (this.matrix[j][topIndex] == 0 || visited[j] || stack.contains(j)) {
                         continue;
                     }
                     stack.push(j);
