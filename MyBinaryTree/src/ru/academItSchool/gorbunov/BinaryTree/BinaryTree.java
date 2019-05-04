@@ -133,29 +133,27 @@ public class BinaryTree<T> {
             this.size--;
             return true;
         }
-        Node<T> tempParent = parentNode;
-        Node<T> temp = node;
-        parentNode = node;
-        node = node.getRight();
-        if (node.getLeft() != null) {
-            while (node.getLeft() != null) {
-                parentNode = node;
-                node = node.getLeft();
+        Node<T> tempParent = node;
+        Node<T> temp = node.getRight();
+        if (temp.getLeft() != null) {
+            while (temp.getLeft() != null) {
+                tempParent = temp;
+                temp = temp.getLeft();
             }
-            parentNode.setLeft(node.getRight());
+            tempParent.setLeft(temp.getRight());
         }
-        if (tempParent == null) {
-            this.root = node;
+        if (parentNode == null) {
+            this.root = temp;
         } else {
-            if (tempParent.getRight() != null && compare(data, tempParent.getRight().getData()) == 0) {
-                tempParent.setRight(node);
+            if (parentNode.getRight() != null && compare(data, parentNode.getRight().getData()) == 0) {
+                parentNode.setRight(temp);
             } else {
-                tempParent.setLeft(node);
+                parentNode.setLeft(temp);
             }
         }
-        node.setLeft(temp.getLeft());
-        if (temp != parentNode) {
-            node.setRight(temp.getRight());
+        temp.setLeft(node.getLeft());
+        if (node != tempParent) {
+            temp.setRight(node.getRight());
         }
         this.size--;
         return true;
