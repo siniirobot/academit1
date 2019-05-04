@@ -24,11 +24,11 @@ public class Graph {
             }
             queue.add(i);
             while (!queue.isEmpty()) {
-                int topIndex = queue.remove();
-                visited[topIndex] = true;
-                consumer.accept(topIndex);
-                for (int j = 0; j < this.matrix[topIndex].length; j++) {
-                    if (this.matrix[topIndex][j] == 0 || visited[j] || queue.contains(j)) {
+                int vertexIndex = queue.remove();
+                visited[vertexIndex] = true;
+                consumer.accept(vertexIndex);
+                for (int j = 0; j < this.matrix[vertexIndex].length; j++) {
+                    if (this.matrix[vertexIndex][j] == 0 || visited[j] || queue.contains(j)) {
                         continue;
                     }
                     queue.add(j);
@@ -49,11 +49,11 @@ public class Graph {
             }
             stack.push(i);
             while (!stack.isEmpty()) {
-                int topIndex = stack.pop();
-                visited[topIndex] = true;
-                consumer.accept(topIndex);
+                int vertexIndex = stack.pop();
+                visited[vertexIndex] = true;
+                consumer.accept(vertexIndex);
                 for (int j = this.matrix.length - 1; j >= 0; j--) {
-                    if (this.matrix[j][topIndex] == 0 || visited[j] || stack.contains(j)) {
+                    if (this.matrix[j][vertexIndex] == 0 || visited[j] || stack.contains(j)) {
                         continue;
                     }
                     stack.push(j);
@@ -75,14 +75,14 @@ public class Graph {
         }
     }
 
-    private void depthCrawlByRecursion(int topIndex, IntConsumer consumer, boolean[] visited) {
-        if (visited[topIndex]) {
+    private void depthCrawlByRecursion(int vertexIndex, IntConsumer consumer, boolean[] visited) {
+        if (visited[vertexIndex]) {
             return;
         }
-        visited[topIndex] = true;
-        consumer.accept(topIndex);
-        for (int i = 0; i < this.matrix[topIndex].length; i++) {
-            if (this.matrix[i][topIndex] == 0 || visited[i]) {
+        visited[vertexIndex] = true;
+        consumer.accept(vertexIndex);
+        for (int i = 0; i < this.matrix[vertexIndex].length; i++) {
+            if (this.matrix[i][vertexIndex] == 0 || visited[i]) {
                 continue;
             }
             depthCrawlByRecursion(i, consumer, visited);
