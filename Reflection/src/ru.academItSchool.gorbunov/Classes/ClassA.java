@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Classes;
 
 public class ClassA {
-    private int a;
+    public int a;
     private String b;
 
     public ClassA(int a, String b) {

@@ -6,6 +6,7 @@ import ru.academItSchool.gorbunov.Classes.ClassB;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class Reflection {
@@ -24,12 +25,14 @@ public class Reflection {
         Constructor constructorB = b.getConstructor(int.class,String.class);
         ClassB classB = (ClassB) constructorB.newInstance(2,"Intel");
 
-        Field fieldA = classA.getClass().getField("a");
+        Field fieldA = a.getField("a");
         fieldA.setAccessible(true);
-        Field fieldB = classB.getClass().getField("b");
+        Field fieldB = classB.getClass().getDeclaredField("b");
         fieldB.setAccessible(true);
         fieldA.set(classA,25);
         fieldB.set(classB,"Селерон");
 
+        Method methodClassA = a.getMethod("getA");
+        System.out.println(methodClassA.invoke(classA));
     }
 }
