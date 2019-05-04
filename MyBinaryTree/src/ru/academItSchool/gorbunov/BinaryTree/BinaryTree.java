@@ -108,7 +108,7 @@ public class BinaryTree<T> {
         }
         if (node.getLeft() == null || node.getRight() == null) {
             if (parentNode != null) {
-                if (parentNode.getLeft() != null && compare(data, parentNode.getLeft().getData()) == 0) {
+                if (parentNode.getLeft() == node) {
                     if (node.getLeft() != null) {
                         parentNode.setLeft(node.getLeft());
                     } else {
@@ -145,7 +145,7 @@ public class BinaryTree<T> {
         if (parentNode == null) {
             this.root = temp;
         } else {
-            if (parentNode.getRight() != null && compare(data, parentNode.getRight().getData()) == 0) {
+            if (parentNode.getRight() == node) {
                 parentNode.setRight(temp);
             } else {
                 parentNode.setLeft(temp);
