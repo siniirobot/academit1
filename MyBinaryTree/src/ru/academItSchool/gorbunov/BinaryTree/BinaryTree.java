@@ -22,9 +22,11 @@ public class BinaryTree<T> {
         if (this.comparator != null) {
             return this.comparator.compare(o1, o2);
         }
+
         if (o1 == null && o2 == null) {
             return 0;
         }
+
         if (o1 == null || o2 == null) {
             return (o1 == null) ? -1 : 1;
         }
@@ -41,21 +43,27 @@ public class BinaryTree<T> {
             size++;
             return;
         }
+
         Node<T> node = root;
+
         while (true) {
             if (compare(data, node.getData()) < 0) {
+
                 if (node.getLeft() == null) {
                     node.setLeft(new Node<>(data));
                     size++;
                     return;
                 }
+
                 node = node.getLeft();
             } else {
+
                 if (node.getRight() == null) {
                     node.setRight(new Node<>(data));
                     size++;
                     return;
                 }
+
                 node = node.getRight();
             }
         }
@@ -65,21 +73,28 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return false;
         }
+
         Node<T> node = this.root;
         int search;
+
         while ((search = compare(data, node.getData())) != 0) {
             if (search < 0) {
+
                 if (node.getLeft() == null) {
                     return false;
                 }
+
                 node = node.getLeft();
             } else {
+
                 if (node.getRight() == null) {
                     return false;
                 }
+
                 node = node.getRight();
             }
         }
+
         return true;
     }
 
@@ -87,41 +102,54 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return false;
         }
+
         Node<T> node = this.root;
         Node<T> parentNode = null;
         int compareResult = compare(data, node.getData());
+
         while (compareResult != 0) {
             if (compareResult < 0) {
+
                 if (node.getLeft() == null) {
                     return false;
                 }
+
                 parentNode = node;
                 node = node.getLeft();
             } else {
+
                 if (node.getRight() == null) {
                     return false;
                 }
+
                 parentNode = node;
                 node = node.getRight();
             }
             compareResult = compare(data, node.getData());
         }
+
         if (node.getLeft() == null || node.getRight() == null) {
             if (parentNode != null) {
+
                 if (parentNode.getLeft() == node) {
+
                     if (node.getLeft() != null) {
                         parentNode.setLeft(node.getLeft());
                     } else {
                         parentNode.setLeft(node.getRight());
                     }
+
                 } else {
+
                     if (node.getLeft() != null) {
                         parentNode.setRight(node.getLeft());
                     } else {
                         parentNode.setRight(node.getRight());
                     }
+
                 }
             } else {
+
                 if (node.getLeft() != null) {
                     this.root = node.getLeft();
                 } else if (node.getRight() != null) {
@@ -129,32 +157,43 @@ public class BinaryTree<T> {
                 } else {
                     this.root = null;
                 }
+
             }
             this.size--;
             return true;
         }
+
         Node<T> tempParent = node;
         Node<T> temp = node.getRight();
+
         if (temp.getLeft() != null) {
+
             while (temp.getLeft() != null) {
                 tempParent = temp;
                 temp = temp.getLeft();
             }
+
             tempParent.setLeft(temp.getRight());
         }
+
         if (parentNode == null) {
             this.root = temp;
         } else {
+
             if (parentNode.getRight() == node) {
                 parentNode.setRight(temp);
             } else {
                 parentNode.setLeft(temp);
             }
+
         }
+
         temp.setLeft(node.getLeft());
+
         if (node != tempParent) {
             temp.setRight(node.getRight());
         }
+
         this.size--;
         return true;
     }
@@ -163,14 +202,18 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return;
         }
+
         Queue<Node<T>> linkedList = new LinkedList<>();
         linkedList.add(this.root);
+
         while (linkedList.size() != 0) {
             Node<T> temp = linkedList.remove();
             consumer.accept(temp.getData());
+
             if (temp.getLeft() != null) {
                 linkedList.add(temp.getLeft());
             }
+
             if (temp.getRight() != null) {
                 linkedList.add(temp.getRight());
             }
@@ -181,14 +224,18 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return;
         }
+
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(this.root);
+
         while (stack.size() != 0) {
             Node<T> temp = stack.pop();
             consumer.accept(temp.getData());
+
             if (temp.getRight() != null) {
                 stack.push(temp.getRight());
             }
+
             if (temp.getLeft() != null) {
                 stack.push(temp.getLeft());
             }
@@ -203,10 +250,13 @@ public class BinaryTree<T> {
         if (node == null) {
             return;
         }
+
         consumer.accept(node.getData());
+
         if (node.getLeft() != null) {
             depthCrawlByRecursion(node.getLeft(), consumer);
         }
+
         if (node.getRight() != null) {
             depthCrawlByRecursion(node.getRight(), consumer);
         }
