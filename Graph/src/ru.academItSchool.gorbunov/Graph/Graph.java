@@ -16,21 +16,31 @@ public class Graph {
         if (this.matrix.length == 0) {
             return;
         }
+
         boolean[] visited = new boolean[this.matrix.length];
         Queue<Integer> queue = new LinkedList<>();
+
         for (int i = 0; i < this.matrix.length; i++) {
             if (visited[i]) {
                 continue;
             }
+
             queue.add(i);
+
             while (!queue.isEmpty()) {
+
                 int vertexIndex = queue.remove();
+                if (visited[vertexIndex]) {
+                    continue;
+                }
                 visited[vertexIndex] = true;
                 consumer.accept(vertexIndex);
+
                 for (int j = 0; j < this.matrix[vertexIndex].length; j++) {
-                    if (this.matrix[vertexIndex][j] == 0 || visited[j] || queue.contains(j)) {
+                    if (this.matrix[vertexIndex][j] == 0 || visited[j]) {
                         continue;
                     }
+
                     queue.add(j);
                 }
             }
@@ -41,21 +51,28 @@ public class Graph {
         if (this.matrix.length == 0) {
             return;
         }
+
         boolean[] visited = new boolean[this.matrix.length];
         Deque<Integer> stack = new LinkedList<>();
+
         for (int i = 0; i < this.matrix.length; i++) {
             if (visited[i]) {
                 continue;
             }
+
             stack.push(i);
+
             while (!stack.isEmpty()) {
+
                 int vertexIndex = stack.pop();
                 visited[vertexIndex] = true;
                 consumer.accept(vertexIndex);
+
                 for (int j = this.matrix.length - 1; j >= 0; j--) {
                     if (this.matrix[j][vertexIndex] == 0 || visited[j] || stack.contains(j)) {
                         continue;
                     }
+
                     stack.push(j);
                 }
             }
@@ -66,11 +83,14 @@ public class Graph {
         if (this.matrix.length == 0) {
             return;
         }
+
         boolean[] visited = new boolean[this.matrix.length];
+
         for (int i = 0; i < this.matrix.length; i++) {
             if (visited[i]) {
                 continue;
             }
+
             depthCrawlByRecursion(i, consumer, visited);
         }
     }
@@ -79,12 +99,15 @@ public class Graph {
         if (visited[vertexIndex]) {
             return;
         }
+
         visited[vertexIndex] = true;
         consumer.accept(vertexIndex);
+
         for (int i = 0; i < this.matrix[vertexIndex].length; i++) {
             if (this.matrix[i][vertexIndex] == 0 || visited[i]) {
                 continue;
             }
+
             depthCrawlByRecursion(i, consumer, visited);
         }
     }
