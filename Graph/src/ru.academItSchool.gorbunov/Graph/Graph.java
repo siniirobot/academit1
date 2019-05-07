@@ -28,11 +28,12 @@ public class Graph {
             queue.add(i);
 
             while (!queue.isEmpty()) {
-
                 int vertexIndex = queue.remove();
+
                 if (visited[vertexIndex]) {
                     continue;
                 }
+
                 visited[vertexIndex] = true;
                 consumer.accept(vertexIndex);
 
@@ -63,13 +64,17 @@ public class Graph {
             stack.push(i);
 
             while (!stack.isEmpty()) {
-
                 int vertexIndex = stack.pop();
+
+                if (visited[vertexIndex]) {
+                    continue;
+                }
+
                 visited[vertexIndex] = true;
                 consumer.accept(vertexIndex);
 
                 for (int j = this.matrix.length - 1; j >= 0; j--) {
-                    if (this.matrix[j][vertexIndex] == 0 || visited[j] || stack.contains(j)) {
+                    if (this.matrix[j][vertexIndex] == 0 || visited[j]) {
                         continue;
                     }
 
