@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 public class SerializationWithOverriding implements Serializable {
     private int[][] matrix;
+    static final long serialVersionUID = 2L;
 
     public SerializationWithOverriding(int n) {
         if (n % 2 != 0) {
