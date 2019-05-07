@@ -13,6 +13,7 @@ public class InputOutputStreams {
              PrintWriter out = new PrintWriter("Строки.txt")) {
             int read;
             byte[] res = new byte[1000000];
+
             while ((read = inputStream.read(res)) != -1) {
                 bufferedOutputStream.write(res, 0, read);
                 bufferedOutputStream.flush();
@@ -21,6 +22,7 @@ public class InputOutputStreams {
             for (int i = 1; i <= 100; i++) {
                 out.println("Строка " + i);
             }
+
             out.print("Это последняя строка.");
             out.println("Но это еще не конец.");
             out.printf("Тут %d строка", 101);
