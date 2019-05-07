@@ -145,8 +145,8 @@ public class BinaryTree<T> {
                 } else {
                     this.root = null;
                 }
-
             }
+
             this.size--;
             return true;
         }

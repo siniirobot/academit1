@@ -9,7 +9,7 @@ public class Task2 {
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (lock){
+                synchronized (lock) {
                     for (int i = 0; i <= 100; i++) {
                         numbers.add(i, numbers.size());
                     }
@@ -20,7 +20,7 @@ public class Task2 {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (lock){
+                synchronized (lock) {
                     for (int i = 0; i <= 100; i++) {
                         numbers.add(i, numbers.size());
                     }
