@@ -16,33 +16,33 @@ public class ProducerConsumerManager {
 
     public void start() {
         for (int i = 0; i <= this.producersCount; i++) {
-            Thread t = new Thread(()->{
-               try {
-                   int j = 1;
+            Thread t = new Thread(() -> {
+                try {
+                    int j = 1;
 
-                   while (true) {
-                       String el = "Элемент" + j;
-                       j++;
-                       Thread.sleep(2000);
+                    while (true) {
+                        String el = "Элемент" + j;
+                        j++;
+                        Thread.sleep(2000);
 
-                       synchronized (queue) {
-                           while (queue.size() >= MAX_CAPACITY) {
-                               queue.wait();
-                           }
+                        synchronized (queue) {
+                            while (queue.size() >= MAX_CAPACITY) {
+                                queue.wait();
+                            }
 
-                           queue.offer(el);
-                           System.out.println("Размер очереди производителя - " + queue.size());
-                           queue.notifyAll();
-                       }
-                   }
-               }catch (InterruptedException ignored){
-               }
+                            queue.offer(el);
+                            System.out.println("Размер очереди производителя - " + queue.size());
+                            queue.notifyAll();
+                        }
+                    }
+                } catch (InterruptedException ignored) {
+                }
             });
             t.start();
         }
 
         for (int i = 0; i <= this.consumerCount; i++) {
-            Thread t = new Thread(()->{
+            Thread t = new Thread(() -> {
                 try {
                     while (true) {
                         Thread.sleep(2000);
@@ -58,7 +58,7 @@ public class ProducerConsumerManager {
                             queue.notifyAll();
                         }
                     }
-                }catch (InterruptedException ignored){
+                } catch (InterruptedException ignored) {
 
                 }
             });
