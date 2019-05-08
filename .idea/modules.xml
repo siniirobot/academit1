@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/MyBinaryTree/MyBinaryTree.iml" filepath="$PROJECT_DIR$/MyBinaryTree/MyBinaryTree.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyHashTable/MyHashTable.iml" filepath="$PROJECT_DIR$/MyHashTable/MyHashTable.iml" />
       <module fileurl="file://$PROJECT_DIR$/Person/Person.iml" filepath="$PROJECT_DIR$/Person/Person.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProducerConsumerManager/ProducerConsumerManager.iml" filepath="$PROJECT_DIR$/ProducerConsumerManager/ProducerConsumerManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/Reflection/Reflection.iml" filepath="$PROJECT_DIR$/Reflection/Reflection.iml" />
       <module fileurl="file://$PROJECT_DIR$/Serializable/Serializable.iml" filepath="$PROJECT_DIR$/Serializable/Serializable.iml" />
       <module fileurl="file://$PROJECT_DIR$/shapes/shapes.iml" filepath="$PROJECT_DIR$/shapes/shapes.iml" />
