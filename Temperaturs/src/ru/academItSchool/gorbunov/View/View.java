@@ -5,6 +5,8 @@ import ru.academItSchool.gorbunov.Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class View {
     public static final Character CELSIUS = '\u2103';
@@ -21,7 +23,6 @@ public class View {
     private JButton calc;
     private JPanel endLine;
     private JLabel result;
-    private JOptionPane warning;
 
     public void view(Container container) {
         firstLine = new JPanel();
@@ -30,6 +31,15 @@ public class View {
                 new Character[]{CELSIUS, FAHRENHEIT, KELVIN}
         );
         textField = new JTextField("0", 11);
+        textField.addActionListener((e)->{
+            try{
+                Controller controller = new Controller(this.textField, result,
+                        (Character) fromComBox.getSelectedItem(), (Character) toComBox.getSelectedItem());
+                controller.actionPerformed(e);
+            }catch (IllegalArgumentException e1) {
+                JOptionPane.showMessageDialog(null,e1.getMessage());
+            }
+        });
         toLabel = new JLabel("Перевести в");
         toComBox = new JComboBox<>(
                 new Character[]{CELSIUS, FAHRENHEIT, KELVIN}
@@ -52,7 +62,6 @@ public class View {
         mainPanel.add(endLine, BorderLayout.CENTER);
         container.add(mainPanel);
 
-        warning = new JOptionPane();
         calc.addActionListener((e) -> {
             Controller controller = new Controller(this.textField, result,
                     (Character) fromComBox.getSelectedItem(), (Character) toComBox.getSelectedItem());

@@ -17,6 +17,13 @@ public class Controller extends AbstractAction {
 
     public Controller(JTextField temperature, JLabel result, Character from, Character to) {
         this.temperature = temperature;
+        String text = this.temperature.getText();
+        for (int i =0; i < text.length();i++) {
+            if (Character.isDigit(text.charAt(i)) || text.charAt(i) == '.') {
+                continue;
+            }
+            throw new IllegalArgumentException("Введите температуру цифрами.");
+        }
         this.result = result;
         this.from = from;
         this.to = to;
