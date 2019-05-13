@@ -51,12 +51,12 @@ public class View {
         mainPanel.add(endLine, BorderLayout.CENTER);
         container.add(mainPanel);
 
-        ActionListener calcResult = (e) -> {
+        ActionListener calcResult = (event) -> {
             try {
                 controller.calculateResult(textField, result, (Character) fromComBox.getSelectedItem(),
                         (Character) toComBox.getSelectedItem());
-            } catch (IllegalArgumentException e1) {
-                JOptionPane.showMessageDialog(null, e1.getMessage());
+            } catch (IllegalArgumentException error) {
+                JOptionPane.showMessageDialog(null, error.getMessage());
             }
         };
 
