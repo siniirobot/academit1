@@ -12,10 +12,12 @@ public class Controller {
             if (Character.isDigit(text.charAt(i))) {
                 continue;
             }
+
             if ((text.charAt(i) == '.' && !onePoint)) {
                 onePoint = true;
                 continue;
             }
+
             throw new IllegalArgumentException("Введите температуру целочисленным или вещественным числом.");
 
         }
