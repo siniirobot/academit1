@@ -1,18 +1,14 @@
 package ru.academItSchool.gorbunov.View;
 
 import ru.academItSchool.gorbunov.Controller.Controller;
+import ru.academItSchool.gorbunov.Model.Model;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class View {
-    public static final Character CELSIUS = '\u2103';
-    public static final Character FAHRENHEIT = '\u2109';
-    public static final Character KELVIN = '\u212A';
-
+    private Controller controller = new Controller();
     private static JPanel mainPanel;
     private JPanel firstLine;
     private JLabel fromLabel;
@@ -27,24 +23,17 @@ public class View {
     public void view(Container container) {
         firstLine = new JPanel();
         fromLabel = new JLabel("Перевести из");
-        fromComBox = new JComboBox<>(
-                new Character[]{CELSIUS, FAHRENHEIT, KELVIN}
-        );
         textField = new JTextField("0", 11);
-        textField.addActionListener((e)->{
-            try{
-                Controller controller = new Controller(this.textField, result,
-                        (Character) fromComBox.getSelectedItem(), (Character) toComBox.getSelectedItem());
-                controller.actionPerformed(e);
-            }catch (IllegalArgumentException e1) {
-                JOptionPane.showMessageDialog(null,e1.getMessage());
-            }
-        });
         toLabel = new JLabel("Перевести в");
-        toComBox = new JComboBox<>(
-                new Character[]{CELSIUS, FAHRENHEIT, KELVIN}
-        );
         calc = new JButton("Вычислить");
+
+        fromComBox = new JComboBox<>(
+                new Character[]{Model.CELSIUS, Model.FAHRENHEIT, Model.KELVIN}
+        );
+
+        toComBox = new JComboBox<>(
+                new Character[]{Model.CELSIUS, Model.FAHRENHEIT, Model.KELVIN}
+        );
 
         firstLine.add(fromLabel);
         firstLine.add(fromComBox);
@@ -62,10 +51,16 @@ public class View {
         mainPanel.add(endLine, BorderLayout.CENTER);
         container.add(mainPanel);
 
-        calc.addActionListener((e) -> {
-            Controller controller = new Controller(this.textField, result,
-                    (Character) fromComBox.getSelectedItem(), (Character) toComBox.getSelectedItem());
-            controller.actionPerformed(e);
-        });
+        ActionListener calcResult = (e) -> {
+            try {
+                controller.calculateResult(textField, result, (Character) fromComBox.getSelectedItem(),
+                        (Character) toComBox.getSelectedItem());
+            } catch (IllegalArgumentException e1) {
+                JOptionPane.showMessageDialog(null, e1.getMessage());
+            }
+        };
+
+        textField.addActionListener(calcResult);
+        calc.addActionListener(calcResult);
     }
 }
