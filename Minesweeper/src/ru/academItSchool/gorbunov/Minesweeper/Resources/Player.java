@@ -7,13 +7,11 @@ public class Player {
     private String name;
     private Time time;
     private String difficult;
-    private int gameField;
 
-    public Player(String name, Time time, String difficult, int gameField) {
+    public Player(String name, Time time, String difficult) {
         this.name = name;
         this.time = time;
         this.difficult = difficult;
-        this.gameField = gameField;
     }
 
     public String getDifficult() {
@@ -40,14 +38,6 @@ public class Player {
         this.time = time;
     }
 
-    public int getGameField() {
-        return gameField;
-    }
-
-    public void setGameField(int gameField) {
-        this.gameField = gameField;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -59,10 +49,9 @@ public class Player {
         }
         Player player = (Player) o;
 
-        return gameField == player.gameField &&
-                Objects.equals(name, player.name) &&
+        return Objects.equals(name, player.name) &&
                 Objects.equals(time, player.time) &&
-                Objects.equals(difficult,player.difficult);
+                Objects.equals(difficult, player.difficult);
     }
 
     @Override
@@ -71,7 +60,6 @@ public class Player {
         int result = 1;
         result = prime * result + this.name.hashCode();
         result = prime * result + this.time.hashCode();
-        result = prime * result + this.gameField;
         result = prime * result + this.difficult.hashCode();
         return result;
     }
