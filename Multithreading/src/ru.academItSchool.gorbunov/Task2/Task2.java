@@ -6,24 +6,18 @@ public class Task2 {
     public static void main(String[] args) throws InterruptedException {
         final LinkedList<Integer> numbers = new LinkedList<>();
         final Object lock = new Object();
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (lock) {
-                    for (int i = 0; i <= 100; i++) {
-                        numbers.add(i, numbers.size());
-                    }
+        Thread thread1 = new Thread(() -> {
+            synchronized (lock) {
+                for (int i = 0; i <= 101; i++) {
+                    numbers.add(i, numbers.size());
                 }
             }
         });
 
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (lock) {
-                    for (int i = 0; i <= 100; i++) {
-                        numbers.add(i, numbers.size());
-                    }
+        Thread thread2 = new Thread(() -> {
+            synchronized (lock) {
+                for (int i = 0; i <= 100; i++) {
+                    numbers.add(i, numbers.size());
                 }
             }
         });

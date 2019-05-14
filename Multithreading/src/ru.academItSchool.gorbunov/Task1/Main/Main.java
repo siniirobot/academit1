@@ -1,8 +1,8 @@
-package ru.academItSchool.gorbunov.Task1.main;
+package ru.academItSchool.gorbunov.Task1.Main;
 
 import ru.academItSchool.gorbunov.Task1.Thread.ThreadOneToTen;
 
-public class main {
+public class Main {
     public static void main(String[] args) throws InterruptedException {
         Thread threadOneToTen = new Thread(new ThreadOneToTen());
         threadOneToTen.start();
