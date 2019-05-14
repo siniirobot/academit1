@@ -5,7 +5,7 @@ import ru.academItSchool.gorbunov.Model.Model;
 import javax.swing.*;
 
 public class Controller {
-    public void throwExceptionForLetters(String text) {
+    private void throwExceptionForLetters(String text) {
         boolean onePoint = false;
         boolean oneMinus = false;
 
