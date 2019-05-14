@@ -3,10 +3,12 @@ package ru.academItSchool.gorbunov.Controller;
 import ru.academItSchool.gorbunov.Model.Model;
 
 import javax.swing.*;
+import java.util.function.BinaryOperator;
 
 public class Controller {
     public void throwExceptionForLetters(String text) {
         boolean onePoint = false;
+        boolean oneMinus = false;
 
         for (int i = 0; i < text.length(); i++) {
             if (Character.isDigit(text.charAt(i))) {
@@ -15,6 +17,11 @@ public class Controller {
 
             if ((text.charAt(i) == '.' && !onePoint)) {
                 onePoint = true;
+                continue;
+            }
+
+            if ((text.charAt(i) == '-' && !oneMinus)) {
+                oneMinus = true;
                 continue;
             }
 
