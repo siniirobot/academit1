@@ -6,17 +6,16 @@ import java.io.*;
 
 public class FullSerializable {
     public static void main(String[] args) {
-        SerializationWithoutOverriding myMatrix = new SerializationWithoutOverriding(5);
+        SerializationWithoutOverriding myMatrix = new SerializationWithoutOverriding(6);
 
-        try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("out.bin"))) {
+        System.out.println(myMatrix.toString());
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out.bin"))) {
             out.writeObject(myMatrix);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try (ObjectInputStream in = new ObjectInputStream(
-                new FileInputStream("out.bin"))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("out.bin"))) {
             SerializationWithoutOverriding a = (SerializationWithoutOverriding) in.readObject();
         } catch (IOException e) {
             e.printStackTrace();
