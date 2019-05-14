@@ -11,25 +11,8 @@ public class SerializationWithOverriding implements Serializable {
     private int[][] matrix;
     static final long serialVersionUID = 2L;
 
-    public SerializationWithOverriding(int n) {
-        if (n % 2 != 0) {
-            throw new IllegalArgumentException("Матрица должна быть симметрична то есть делимо на 2");
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        this.matrix = new int[n][n];
-
-        for (int i = 0, m = n - 1; i < (n / 2); i++, m--) {
-
-            for (int j = 0, k = n - 1; j < (n / 2); j++, k--) {
-                System.out.println("Введите цифру " + i + " - ряда матрицы под порядковым номером " + j);
-
-                this.matrix[i][j] = scanner.nextInt();
-                this.matrix[i][k] = this.matrix[i][j];
-            }
-
-            this.matrix[m] = this.matrix[i];
-        }
+    public SerializationWithOverriding(int[][] n) {
+        this.matrix = n;
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {

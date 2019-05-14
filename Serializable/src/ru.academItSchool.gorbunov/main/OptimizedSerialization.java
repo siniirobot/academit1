@@ -6,7 +6,12 @@ import java.io.*;
 
 public class OptimizedSerialization {
     public static void main(String[] args) {
-        SerializationWithOverriding myMatrix = new SerializationWithOverriding(6);
+        SerializationWithOverriding myMatrix = new SerializationWithOverriding(new int[][]{
+                {0,1,2,3},
+                {0,1,2,3},
+                {0,1,2,3},
+                {0,1,2,3}
+        });
         System.out.println(myMatrix);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out2.bin"))) {
             out.writeObject(myMatrix);
