@@ -8,15 +8,13 @@ public class OptimizedSerialization {
     public static void main(String[] args) {
         SerializationWithOverriding myMatrix = new SerializationWithOverriding(6);
         System.out.println(myMatrix);
-        try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("out2.bin"))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out2.bin"))) {
             out.writeObject(myMatrix);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try (ObjectInputStream in = new ObjectInputStream(
-                new FileInputStream("out2.bin"))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("out2.bin"))) {
             SerializationWithOverriding a = (SerializationWithOverriding) in.readObject();
             System.out.println(a);
         } catch (FileNotFoundException e) {
