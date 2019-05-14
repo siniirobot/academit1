@@ -3,7 +3,6 @@ package ru.academItSchool.gorbunov.Controller;
 import ru.academItSchool.gorbunov.Model.Model;
 
 import javax.swing.*;
-import java.util.function.BinaryOperator;
 
 public class Controller {
     public void throwExceptionForLetters(String text) {
