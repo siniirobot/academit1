@@ -15,7 +15,7 @@ public class ProducerConsumerManager {
     }
 
     public void start() {
-        for (int i = 0; i <= this.producersCount; i++) {
+        for (int i = 0; i < this.producersCount; i++) {
             Thread t = new Thread(() -> {
                 try {
                     int j = 1;
@@ -23,7 +23,7 @@ public class ProducerConsumerManager {
                     while (true) {
                         String el = "Элемент" + j;
                         j++;
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
 
                         synchronized (queue) {
                             while (queue.size() >= MAX_CAPACITY) {
@@ -41,11 +41,11 @@ public class ProducerConsumerManager {
             t.start();
         }
 
-        for (int i = 0; i <= this.consumerCount; i++) {
+        for (int i = 0; i < this.consumerCount; i++) {
             Thread t = new Thread(() -> {
                 try {
                     while (true) {
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
 
                         synchronized (queue) {
                             while (queue.isEmpty()) {
