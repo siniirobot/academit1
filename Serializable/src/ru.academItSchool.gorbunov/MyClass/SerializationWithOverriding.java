@@ -29,17 +29,17 @@ public class SerializationWithOverriding implements Serializable {
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         Object[] copy = ((Object[]) in.readObject());
-
         int step = copy.length;
         int len = 0;
+
         while (step != 0) {
             len++;
             step -= len;
         }
 
+        this.matrix = new int[len][len];
         int i = 0;
         int pos = 0;
-        this.matrix = new int[len][len];
 
         while (i < this.matrix.length) {
             for (int j = 0; j <= i; j++) {
