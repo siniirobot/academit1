@@ -17,18 +17,24 @@ public class SerializationWithOverriding implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        ArrayList<Integer> copy = new ArrayList<>();
+        ArrayList<Byte> copy = new ArrayList<>();
+
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j <= i; j++) {
-                copy.add(this.matrix[i][j]);
+                copy.add((byte) this.matrix[i][j]);
             }
         }
+        byte[] arr = new byte[copy.size()];
 
-        out.writeObject(copy.toArray());
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = copy.get(i);
+        }
+
+        out.writeObject(arr);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        Object[] copy = ((Object[]) in.readObject());
+        byte[] copy = (byte[]) in.readObject();
         int step = copy.length;
         int len = 0;
 
