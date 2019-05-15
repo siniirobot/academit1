@@ -1,14 +1,23 @@
 package ru.academItSchool.gorbunov.main;
 
+import ru.academItSchool.gorbunov.MyClass.SerializationWithOverriding;
 import ru.academItSchool.gorbunov.MyClass.SerializationWithoutOverriding;
 
 import java.io.*;
 
 public class FullSerializable {
     public static void main(String[] args) {
-        SerializationWithoutOverriding myMatrix = new SerializationWithoutOverriding(6);
+        SerializationWithoutOverriding myMatrix = new SerializationWithoutOverriding(new int[][]{
+                {0, 1, 0, 1, 0, 0, 0, -1},
+                {1, 0, 1, 0, 0, 0, -1, 0},
+                {0, 1, 0, 1, 0, -1, 0, 0},
+                {1, 0, 1, 0, -1, 0, 0, 0},
+                {0, 0, 0, -1, 0, 1, 0, 1},
+                {0, 0, -1, 0, 1, 0, 1, 0},
+                {0, -1, 0, 0, 0, 1, 0, 1},
+                {-1, 0, 0, 0, 1, 0, 1, 0}
+        });
 
-        System.out.println(myMatrix.toString());
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out.bin"))) {
             out.writeObject(myMatrix);
         } catch (IOException e) {
