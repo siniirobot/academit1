@@ -2,26 +2,16 @@ package ru.academItSchool.gorbunov.Minesweeper.Resources;
 
 import java.io.*;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class HighScores {
     private Player[] highScores;
     private PlayerCompare playerCompare;
-    private BufferedInputStream easyIn;
-    private BufferedOutputStream easyOut;
-    private BufferedInputStream normIn;
-    private BufferedOutputStream normOut;
-    private BufferedInputStream hardIn;
-    private BufferedOutputStream hardOut;
+
 
     public HighScores(Player[] highScores) throws FileNotFoundException {
         this.highScores = highScores;
         this.playerCompare = new PlayerCompare();
-        this.easyIn = new BufferedInputStream(new FileInputStream("Easy.txt"));
-        this.easyOut = new BufferedOutputStream(new FileOutputStream("Easy.txt"));
-        this.normIn = new BufferedInputStream(new FileInputStream("Norm.txt"));
-        this.normOut = new BufferedOutputStream(new FileOutputStream("Norm.txt"));
-        this.hardIn = new BufferedInputStream(new FileInputStream("Hard.txt"));
-        this.hardOut = new BufferedOutputStream(new FileOutputStream("Hard.txt"));
     }
 
     public Player[] getHighScores() {
@@ -38,54 +28,6 @@ public class HighScores {
 
     public void setPlayerCompare(PlayerCompare playerCompare) {
         this.playerCompare = playerCompare;
-    }
-
-    public BufferedInputStream getEasyIn() {
-        return easyIn;
-    }
-
-    public void setEasyIn(BufferedInputStream easyIn) {
-        this.easyIn = easyIn;
-    }
-
-    public BufferedOutputStream getEasyOut() {
-        return easyOut;
-    }
-
-    public void setEasyOut(BufferedOutputStream easyOut) {
-        this.easyOut = easyOut;
-    }
-
-    public BufferedInputStream getNormIn() {
-        return normIn;
-    }
-
-    public void setNormIn(BufferedInputStream normIn) {
-        this.normIn = normIn;
-    }
-
-    public BufferedOutputStream getNormOut() {
-        return normOut;
-    }
-
-    public void setNormOut(BufferedOutputStream normOut) {
-        this.normOut = normOut;
-    }
-
-    public BufferedInputStream getHardIn() {
-        return hardIn;
-    }
-
-    public void setHardIn(BufferedInputStream hardIn) {
-        this.hardIn = hardIn;
-    }
-
-    public BufferedOutputStream getHardOut() {
-        return hardOut;
-    }
-
-    public void setHardOut(BufferedOutputStream hardOut) {
-        this.hardOut = hardOut;
     }
 
     public class PlayerCompare implements Comparator<Player> {
@@ -112,21 +54,34 @@ public class HighScores {
                 file = "Hard.txt";
                 break;
         }
+
         try (FileInputStream in = new FileInputStream(file);
              FileOutputStream out = new FileOutputStream(file)) {
-            byte[] players = new byte[10];
-
-            if (in.available() == 0) {
-                out.write((byte[]) players);
-            }
-            int read;
-            byte[] res = new byte[in.available()];
-            while ((read = in.read(res, 0, res.length)) != -1) {
-
+            int read = 0;
+            while ((read = in.read()) != -1) {
+                System.out.println();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (Scanner in = new Scanner(new FileInputStream(file));
+             PrintWriter out = new PrintWriter(file)) {
+            if (!in.hasNextLine()) {
+                out.println("Имя 1 игрока - " + player.getName());
+                out.println("Время 1 игрока - " + player.getTime());
+            } else {
+                while (in.hasNextLine()) {
+                    String line = in.nextLine();
+                    for (int i = 1; i != 10; i++) {
+
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
