@@ -19,14 +19,14 @@ public class SerializationWithOverriding implements Serializable {
     private void writeObject(ObjectOutputStream out) throws IOException {
         int len = 0;
 
-        for (int i = 0; i <= this.matrix.length;i++) {
+        for (int i = 0; i <= this.matrix.length; i++) {
             len += i;
         }
 
         int[] copyInArr = new int[len];
 
-        for (int i = 0,k = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j <= i; j++,k++) {
+        for (int i = 0, k = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j <= i; j++, k++) {
                 copyInArr[k] = this.matrix[i][j];
             }
         }
@@ -39,21 +39,21 @@ public class SerializationWithOverriding implements Serializable {
         int step = copy.length;
         int len = 0;
 
-        for (;step != 0;len++) {
+        for (; step != 0; len++) {
             step -= len;
         }
 
-        this.matrix = new int[len -1][len -1];
+        this.matrix = new int[len - 1][len - 1];
         int i = 0;
         int pos = 0;
 
         while (i < this.matrix.length) {
             for (int j = 0; j <= i; j++) {
                 if (j != i) {
-                    this.matrix[i][j] =  copy[j + pos];
-                    this.matrix[j][i] =  copy[j + pos];
+                    this.matrix[i][j] = copy[j + pos];
+                    this.matrix[j][i] = copy[j + pos];
                 } else {
-                    this.matrix[i][j] =  copy[j + pos];
+                    this.matrix[i][j] = copy[j + pos];
                 }
             }
 

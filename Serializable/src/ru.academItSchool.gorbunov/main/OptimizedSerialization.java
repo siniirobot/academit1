@@ -26,7 +26,7 @@ public class OptimizedSerialization {
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("out2.bin"))) {
             SerializationWithOverriding a = (SerializationWithOverriding) in.readObject();
-            System.out.println(myMatrix);
+            System.out.println(a);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
