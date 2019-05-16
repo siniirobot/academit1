@@ -17,43 +17,43 @@ public class SerializationWithOverriding implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        ArrayList<Byte> copy = new ArrayList<>();
+        int len = 0;
 
-        for (int i = 0; i < this.matrix.length; i++) {
-            for (int j = 0; j <= i; j++) {
-                copy.add((byte) this.matrix[i][j]);
+        for (int i = 0; i <= this.matrix.length;i++) {
+            len += i;
+        }
+
+        int[] copyInArr = new int[len];
+
+        for (int i = 0,k = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j <= i; j++,k++) {
+                copyInArr[k] = this.matrix[i][j];
             }
         }
-        byte[] arr = new byte[copy.size()];
 
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = copy.get(i);
-        }
-
-        out.writeObject(arr);
+        out.writeObject(copyInArr);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        byte[] copy = (byte[]) in.readObject();
+        int[] copy = (int[]) in.readObject();
         int step = copy.length;
         int len = 0;
 
-        while (step != 0) {
-            len++;
+        for (;step != 0;len++) {
             step -= len;
         }
 
-        this.matrix = new int[len][len];
+        this.matrix = new int[len -1][len -1];
         int i = 0;
         int pos = 0;
 
         while (i < this.matrix.length) {
             for (int j = 0; j <= i; j++) {
                 if (j != i) {
-                    this.matrix[i][j] = (int) copy[j + pos];
-                    this.matrix[j][i] = (int) copy[j + pos];
+                    this.matrix[i][j] =  copy[j + pos];
+                    this.matrix[j][i] =  copy[j + pos];
                 } else {
-                    this.matrix[i][j] = (int) copy[j + pos];
+                    this.matrix[i][j] =  copy[j + pos];
                 }
             }
 
