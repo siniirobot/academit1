@@ -8,7 +8,7 @@ public class OptimizedSerialization {
     public static void main(String[] args) {
         SerializationWithOverriding myMatrix = new SerializationWithOverriding(new int[][]{
                 {0, 1, 0, 1, 0, 0, 0, -1},
-                {1, 0, 1, 0, 0, 0, -1, 0},
+                {1, 154564654, 1, 0, 0, 0, -1, 0},
                 {0, 1, 0, 1, 0, -1, 0, 0},
                 {1, 0, 1, 0, -1, 0, 0, 0},
                 {0, 0, 0, -1, 0, 1, 0, 1},
@@ -19,12 +19,14 @@ public class OptimizedSerialization {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out2.bin"))) {
             out.writeObject(myMatrix);
+            System.out.println(myMatrix);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("out2.bin"))) {
             SerializationWithOverriding a = (SerializationWithOverriding) in.readObject();
+            System.out.println(myMatrix);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

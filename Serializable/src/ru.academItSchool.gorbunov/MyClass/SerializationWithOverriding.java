@@ -23,11 +23,11 @@ public class SerializationWithOverriding implements Serializable {
             len += i;
         }
 
-        int[] copyInArr = new int[len];
+        byte[] copyInArr = new byte[len];
 
         for (int i = 0,k = 0; i < this.matrix.length; i++) {
             for (int j = 0; j <= i; j++,k++) {
-                copyInArr[k] = this.matrix[i][j];
+                copyInArr[k] =(byte) this.matrix[i][j];
             }
         }
 
@@ -35,7 +35,7 @@ public class SerializationWithOverriding implements Serializable {
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        int[] copy = (int[]) in.readObject();
+        byte[] copy = (byte[])  in.readObject();
         int step = copy.length;
         int len = 0;
 
@@ -50,10 +50,10 @@ public class SerializationWithOverriding implements Serializable {
         while (i < this.matrix.length) {
             for (int j = 0; j <= i; j++) {
                 if (j != i) {
-                    this.matrix[i][j] =  copy[j + pos];
-                    this.matrix[j][i] =  copy[j + pos];
+                    this.matrix[i][j] =  (int)copy[j + pos];
+                    this.matrix[j][i] =  (int)copy[j + pos];
                 } else {
-                    this.matrix[i][j] =  copy[j + pos];
+                    this.matrix[i][j] =  (int)copy[j + pos];
                 }
             }
 
