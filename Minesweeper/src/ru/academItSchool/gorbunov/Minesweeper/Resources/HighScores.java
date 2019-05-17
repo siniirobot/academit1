@@ -1,17 +1,15 @@
 package ru.academItSchool.gorbunov.Minesweeper.Resources;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class HighScores {
     private Player[] highScores;
-    private PlayerCompare playerCompare;
 
 
-    public HighScores(Player[] highScores) throws FileNotFoundException {
-        this.highScores = highScores;
-        this.playerCompare = new PlayerCompare();
+    public HighScores() {
+        this.highScores = new Player[10];
     }
 
     public Player[] getHighScores() {
@@ -20,24 +18,6 @@ public class HighScores {
 
     public void setHighScores(Player[] highScores) {
         this.highScores = highScores;
-    }
-
-    public PlayerCompare getPlayerCompare() {
-        return playerCompare;
-    }
-
-    public void setPlayerCompare(PlayerCompare playerCompare) {
-        this.playerCompare = playerCompare;
-    }
-
-    public class PlayerCompare implements Comparator<Player> {
-        @Override
-        public int compare(Player o1, Player o2) {
-            if (o1.equals(o2)) {
-                return 0;
-            }
-            return (o1.getTime().after(o2.getTime())) ? 1 : 0;
-        }
     }
 
     public void add(Player player) {
@@ -55,34 +35,56 @@ public class HighScores {
                 break;
         }
 
-        try (FileInputStream in = new FileInputStream(file);
-             FileOutputStream out = new FileOutputStream(file)) {
-            int read = 0;
-            while ((read = in.read()) != -1) {
-                System.out.println();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
 
-        try (Scanner in = new Scanner(new FileInputStream(file));
-             PrintWriter out = new PrintWriter(file)) {
-            if (!in.hasNextLine()) {
-                out.println("Имя 1 игрока - " + player.getName());
-                out.println("Время 1 игрока - " + player.getTime());
+            if (in.available() == 0) {
+                this.highScores[0] = player;
+                out.writeObject(this.highScores);
             } else {
-                while (in.hasNextLine()) {
-                    String line = in.nextLine();
-                    for (int i = 1; i != 10; i++) {
+                this.highScores = (Player[]) in.readObject();
 
+                if (this.highScores[9] != null && this.highScores[9].getTime().before(player.getTime())) {
+                    throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
+                }
+
+                Player exPlayer = null;
+
+                for (int i = this.highScores.length - 1; i >= 0; i--) {
+                    if (this.highScores[i] == null) {
+                        continue;
+                    }
+
+                    if (this.highScores[i].getTime().after(player.getTime())) {
+                        this.highScores[i] = exPlayer;
+                        exPlayer = this.highScores[i--];
+                    } else {
+                        this.highScores[i] = player;
                     }
                 }
             }
 
-        } catch (FileNotFoundException e) {
+            out.writeObject(this.highScores);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(this.highScores[0].getDifficult()).append(System.lineSeparator());
+        stringBuilder.append("    Имя:    ").append("    Время:    ").append(System.lineSeparator());
+        stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+        for (Player player:this.highScores) {
+            if (player != null) {
+                stringBuilder.append("/ ").append(player.getName()).append("    ").append(player.getTime()).append(" /").append(System.lineSeparator());
+            }
+        }
+        stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+        return stringBuilder.toString();
     }
 }
