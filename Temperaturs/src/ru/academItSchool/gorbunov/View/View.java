@@ -20,7 +20,25 @@ public class View {
     private JPanel endLine;
     private JLabel result;
 
-    public void view(Container container) {
+    public void startGUI() {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
+                JFrame frame = new JFrame("Temperatures master");
+                frame.setSize(540, 100);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                Image icon = Toolkit.getDefaultToolkit().getImage("icon.png");
+                getGUIContent(frame.getContentPane());
+                frame.setIconImage(icon);
+                frame.setResizable(false);
+                frame.setVisible(true);
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    private void getGUIContent(Container container) {
         firstLine = new JPanel();
         fromLabel = new JLabel("Перевести из");
         textField = new JTextField("0", 11);
