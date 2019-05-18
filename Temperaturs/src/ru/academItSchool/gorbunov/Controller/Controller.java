@@ -29,12 +29,11 @@ public class Controller {
         }
     }
 
-    public void calculateResult(JTextField temperature, JLabel result, Character from, Character to) {
-        String text = temperature.getText();
-        throwExceptionForLetters(text);
+    public String calculateResult(String temperature, Character from, Character to) {
+        throwExceptionForLetters(temperature);
 
         Model model = new Model();
 
-        result.setText(((Double) model.changeTemperature((Double.parseDouble(text)), from, to)).toString());
+        return (((Double) model.changeTemperature((Double.parseDouble(temperature)), from, to)).toString());
     }
 }

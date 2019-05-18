@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,29 +17,49 @@ public class SerializationWithOverriding implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        int[][] copy = new int[this.matrix.length / 2][this.matrix.length / 2];
+        int len = 0;
 
-        for (int i = 0; i < copy.length; i++) {
-            copy[i] = Arrays.copyOf(this.matrix[i], copy.length);
+        for (int i = 0; i <= this.matrix.length; i++) {
+            len += i;
         }
 
-        out.writeObject(copy);
+        int[] copyInArr = new int[len];
+
+        for (int i = 0, k = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j <= i; j++, k++) {
+                copyInArr[k] = this.matrix[i][j];
+            }
+        }
+
+        out.writeObject(copyInArr);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        this.matrix = (int[][]) in.readObject();
-        int[][] copy = new int[this.matrix.length * 2][this.matrix.length * 2];
+        int[] copy = (int[]) in.readObject();
+        int step = copy.length;
+        int len = 0;
 
-        for (int i = 0, k = copy.length - 1; i < this.matrix.length; i++, k--) {
-            for (int j = 0, m = copy[i].length - 1; j < this.matrix[i].length; j++, m--) {
-                copy[i][j] = this.matrix[i][j];
-                copy[i][m] = this.matrix[i][j];
-            }
-
-            copy[k] = copy[i];
+        for (; step != 0; len++) {
+            step -= len;
         }
 
-        this.matrix = copy;
+        this.matrix = new int[len - 1][len - 1];
+        int i = 0;
+        int pos = 0;
+
+        while (i < this.matrix.length) {
+            for (int j = 0; j <= i; j++) {
+                if (j != i) {
+                    this.matrix[i][j] = copy[j + pos];
+                    this.matrix[j][i] = copy[j + pos];
+                } else {
+                    this.matrix[i][j] = copy[j + pos];
+                }
+            }
+
+            i++;
+            pos += i;
+        }
     }
 
     public String toString() {

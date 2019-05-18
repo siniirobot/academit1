@@ -7,14 +7,19 @@ import java.io.*;
 public class OptimizedSerialization {
     public static void main(String[] args) {
         SerializationWithOverriding myMatrix = new SerializationWithOverriding(new int[][]{
-                {0,1,2,3},
-                {0,1,2,3},
-                {0,1,2,3},
-                {0,1,2,3}
+                {0, 1, 0, 1, 0, 0, 0, -1},
+                {1, 154564654, 1, 0, 0, 0, -1, 0},
+                {0, 1, 0, 1, 0, -1, 0, 0},
+                {1, 0, 1, 0, -1, 0, 0, 0},
+                {0, 0, 0, -1, 0, 1, 0, 1},
+                {0, 0, -1, 0, 1, 0, 1, 0},
+                {0, -1, 0, 0, 0, 1, 0, 1},
+                {-1, 0, 0, 0, 1, 0, 1, 0}
         });
-        System.out.println(myMatrix);
+
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out2.bin"))) {
             out.writeObject(myMatrix);
+            System.out.println(myMatrix);
         } catch (IOException e) {
             e.printStackTrace();
         }

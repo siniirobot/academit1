@@ -53,8 +53,8 @@ public class View {
 
         ActionListener calcResult = (event) -> {
             try {
-                controller.calculateResult(textField, result, (Character) fromComBox.getSelectedItem(),
-                        (Character) toComBox.getSelectedItem());
+                result.setText(controller.calculateResult(textField.getText(), (Character) fromComBox.getSelectedItem(),
+                        (Character) toComBox.getSelectedItem()));
             } catch (IllegalArgumentException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage());
             }

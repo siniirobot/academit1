@@ -1,9 +1,11 @@
 package ru.academItSchool.gorbunov.Minesweeper.Resources;
 
+import java.io.Serializable;
 import java.sql.Time;
+import java.time.OffsetTime;
 import java.util.Objects;
 
-public class Player {
+public class Player implements Serializable {
     private String name;
     private Time time;
     private String difficult;
