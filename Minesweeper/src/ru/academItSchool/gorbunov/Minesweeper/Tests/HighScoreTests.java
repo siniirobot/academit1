@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Player;
 
+import java.io.IOException;
 import java.sql.Time;
-import java.time.OffsetTime;
 
 public class HighScoreTests {
     @DataProvider(name = "AddToTable")
@@ -17,10 +17,14 @@ public class HighScoreTests {
     }
 
     @Test(dataProvider = "AddToTable")
-    public void testSize(Player player){
+    public void testSize(Player player) throws IOException {
         HighScores highScore = new HighScores();
 
         highScore.add(player);
-        System.out.println(highScore);
+        highScore.add(new Player("siniirobot",Time.valueOf("25:04:22"),"easy"));
+
+        highScore.printHighScores("hard");
+        highScore.printHighScores("easy");
+        highScore.printHighScores("norm");
     }
 }
