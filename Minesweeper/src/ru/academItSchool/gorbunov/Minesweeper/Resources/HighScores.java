@@ -1,29 +1,12 @@
 package ru.academItSchool.gorbunov.Minesweeper.Resources;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class HighScores {
-    private Player[] highScores;
-
-
-    public HighScores() {
-        this.highScores = new Player[10];
-    }
-
-    public Player[] getHighScores() {
-        return highScores;
-    }
-
-    public void setHighScores(Player[] highScores) {
-        this.highScores = highScores;
-    }
-
-    public void add(Player player) {
+    private String getFileName(String difficult) {
         String file = "";
 
-        switch (player.getDifficult()) {
+        switch (difficult) {
             case "easy":
                 file = "Easy.txt";
                 break;
@@ -35,56 +18,82 @@ public class HighScores {
                 break;
         }
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+        return file;
+    }
 
-            if (in.available() == 0) {
-                this.highScores[0] = player;
-                out.writeObject(this.highScores);
-            } else {
-                this.highScores = (Player[]) in.readObject();
+    private ObjectInputStream openFile(String difficult) throws IOException {
 
-                if (this.highScores[9] != null && this.highScores[9].getTime().before(player.getTime())) {
-                    throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
-                }
+        return new ObjectInputStream(new FileInputStream(difficult));
+    }
 
-                Player exPlayer = null;
+    private ObjectOutputStream closeFile(String difficult) throws IOException {
+        return new ObjectOutputStream(new FileOutputStream(difficult));
+    }
 
-                for (int i = this.highScores.length - 1; i >= 0; i--) {
-                    if (this.highScores[i] == null) {
-                        continue;
-                    }
+    public void add(Player player) {
+        Player[] highScores = new Player[10];
+        String fileName = getFileName(player.getDifficult());
 
-                    if (this.highScores[i].getTime().after(player.getTime())) {
-                        this.highScores[i] = exPlayer;
-                        exPlayer = this.highScores[i--];
-                    } else {
-                        this.highScores[i] = player;
-                    }
-                }
+        try {
+            ObjectInputStream readFile = openFile(fileName);
+            highScores = (Player[]) readFile.readObject();
+
+            if (highScores[9] != null && highScores[9].getTime().before(player.getTime())) {
+                throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
             }
 
-            out.writeObject(this.highScores);
+            for (int i = highScores.length - 1; i > 0; i--) {
+                if (highScores[i - 1] == null) {
+                    continue;
+                }
+
+                if (highScores[i - 1].getTime().after(player.getTime())) {
+                    highScores[i] = highScores[i - 1];
+                    highScores[i - 1] = player;
+                } else {
+                    highScores[i] = player;
+                    break;
+                }
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            highScores[0] = player;
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ObjectOutputStream writeFile = closeFile(fileName);
+            writeFile.writeObject(highScores);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+    public void printHighScores(String difficult) {
+        String fileName = getFileName(difficult);
 
-        stringBuilder.append(this.highScores[0].getDifficult()).append(System.lineSeparator());
-        stringBuilder.append("    Имя:    ").append("    Время:    ").append(System.lineSeparator());
-        stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
-        for (Player player:this.highScores) {
-            if (player != null) {
-                stringBuilder.append("/ ").append(player.getName()).append("    ").append(player.getTime()).append(" /").append(System.lineSeparator());
+        try {
+            ObjectInputStream readFile = openFile(fileName);
+            Player[] highScores = (Player[]) readFile.readObject();
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append("Сложность - ").append(difficult).append(System.lineSeparator());
+            stringBuilder.append("    Имя:    ").append("    Время:    ").append(System.lineSeparator());
+            stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+            for (int i = 0; i < highScores.length; i++) {
+                if (highScores[i] != null) {
+                    stringBuilder.append("// ").append(i + 1).append(" - ").append(highScores[i].getName()).append("    ")
+                            .append(highScores[i].getTime()).append(" //").append(System.lineSeparator());
+                }
             }
+            stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+            System.out.println(stringBuilder.toString());
+        } catch (IOException e) {
+            System.out.println("Таблица еще пуста.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
-        return stringBuilder.toString();
     }
 }

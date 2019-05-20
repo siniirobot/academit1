@@ -19,7 +19,7 @@ public class OptimizedSerialization {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("out2.bin"))) {
             out.writeObject(myMatrix);
-            System.out.println(myMatrix);
+            out.writeObject(myMatrix);
         } catch (IOException e) {
             e.printStackTrace();
         }
