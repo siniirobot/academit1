@@ -2,23 +2,16 @@ package ru.academItSchool.gorbunov.View;
 
 import ru.academItSchool.gorbunov.Controller.Controller;
 import ru.academItSchool.gorbunov.Model.Model;
+import ru.academItSchool.gorbunov.Model.TemperatureConversion;
+import ru.academItSchool.gorbunov.Model.TemperatureScales.Celsius;
+import ru.academItSchool.gorbunov.Model.TemperatureScales.Fahrenheit;
+import ru.academItSchool.gorbunov.Model.TemperatureScales.Kelvin;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class View {
-    private Controller controller = new Controller();
-    private static JPanel mainPanel;
-    private JPanel firstLine;
-    private JLabel fromLabel;
-    private JComboBox<Character> fromComBox;
-    private JTextField textField;
-    private JLabel toLabel;
-    private JComboBox<Character> toComBox;
-    private JButton calc;
-    private JPanel endLine;
-    private JLabel result;
 
     public void startGUI() {
         SwingUtilities.invokeLater(() -> {
@@ -39,18 +32,21 @@ public class View {
     }
 
     private void getGUIContent(Container container) {
-        firstLine = new JPanel();
-        fromLabel = new JLabel("Перевести из");
-        textField = new JTextField("0", 11);
-        toLabel = new JLabel("Перевести в");
-        calc = new JButton("Вычислить");
+        JPanel firstLine = new JPanel();
+        JLabel fromLabel = new JLabel("Перевести из");
+        JTextField textField = new JTextField("0", 11);
+        JLabel toLabel = new JLabel("Перевести в");
+        JButton calc = new JButton("Вычислить");
 
-        fromComBox = new JComboBox<>(
-                new Character[]{Model.CELSIUS, Model.FAHRENHEIT, Model.KELVIN}
+        Model model = new Model();
+
+
+        JComboBox fromComBox = new JComboBox<>(
+                model.getCharArray()
         );
 
-        toComBox = new JComboBox<>(
-                new Character[]{Model.CELSIUS, Model.FAHRENHEIT, Model.KELVIN}
+        JComboBox toComBox = new JComboBox<>(
+                model.getCharArray()
         );
 
         firstLine.add(fromLabel);
@@ -60,14 +56,18 @@ public class View {
         firstLine.add(toComBox);
         firstLine.add(calc);
 
-        endLine = new JPanel();
-        result = new JLabel();
+        JPanel endLine = new JPanel();
+        JLabel result = new JLabel();
+
         endLine.add(result);
 
-        mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel();
+
         mainPanel.add(firstLine, BorderLayout.LINE_START);
         mainPanel.add(endLine, BorderLayout.CENTER);
         container.add(mainPanel);
+
+        Controller controller = new Controller();
 
         ActionListener calcResult = (event) -> {
             try {

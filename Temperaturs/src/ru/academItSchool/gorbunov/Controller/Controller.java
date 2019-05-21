@@ -2,8 +2,6 @@ package ru.academItSchool.gorbunov.Controller;
 
 import ru.academItSchool.gorbunov.Model.Model;
 
-import javax.swing.*;
-
 public class Controller {
     private void throwExceptionForLetters(String text) {
         boolean onePoint = false;
@@ -34,6 +32,6 @@ public class Controller {
 
         Model model = new Model();
 
-        return (((Double) model.changeTemperature((Double.parseDouble(temperature)), from, to)).toString());
+        return ((Double) model.changeTemperature((Double.parseDouble(temperature)), from, to)).toString();
     }
 }
