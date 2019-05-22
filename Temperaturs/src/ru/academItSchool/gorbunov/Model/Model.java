@@ -15,30 +15,26 @@ public class Model {
         };
     }
 
-    public Character[] getCharArray() {
+    public TemperatureConversion getScale(Character character) {
+        TemperatureConversion scale = null;
+
+        for (TemperatureConversion sc: this.temperatureConversions) {
+            if (sc.getChar().equals(character)) {
+                scale = sc;
+            }
+        }
+        return scale;
+    }
+
+    public Character[] getToCharArray() {
         Character[] charArray = new Character[this.temperatureConversions.length];
-        for (int i = 0; i < charArray.length;i++) {
+        for (int i = 0; i < charArray.length; i++) {
             charArray[i] = this.temperatureConversions[i].getChar();
         }
         return charArray;
     }
 
-    public double changeTemperature(double temperature, Character from, Character to) {
-        for (TemperatureConversion scale : this.temperatureConversions) {
-            if (scale.getChar().equals(from)) {
-                switch (to) {
-                    case '\u2103':
-                        temperature = scale.getCelsius(temperature);
-                        break;
-                    case '\u2109':
-                        temperature = scale.getFahrenheit(temperature);
-                        break;
-                    case '\u212A':
-                        temperature = scale.getKelvin(temperature);
-                        break;
-                }
-            }
-        }
-        return temperature;
+    public double changeTemperature(double temperature, TemperatureConversion from, TemperatureConversion to) {
+      return from.changeTemperatureTo(temperature,to);
     }
 }

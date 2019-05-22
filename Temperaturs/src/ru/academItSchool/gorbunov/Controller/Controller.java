@@ -32,6 +32,6 @@ public class Controller {
 
         Model model = new Model();
 
-        return ((Double) model.changeTemperature((Double.parseDouble(temperature)), from, to)).toString();
+        return ((Double) model.changeTemperature((Double.parseDouble(temperature)), model.getScale(from), model.getScale(to))).toString();
     }
 }

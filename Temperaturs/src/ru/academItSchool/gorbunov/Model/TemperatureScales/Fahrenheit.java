@@ -2,6 +2,7 @@ package ru.academItSchool.gorbunov.Model.TemperatureScales;
 
 import ru.academItSchool.gorbunov.Model.TemperatureConversion;
 
+
 public class Fahrenheit implements TemperatureConversion {
     @Override
     public Character getChar() {
@@ -9,8 +10,8 @@ public class Fahrenheit implements TemperatureConversion {
     }
 
     @Override
-    public double getKelvin(double temperature) {
-        double result = (temperature - 32) * 5 / 9 + 273.15;
+    public double changeTemperatureTo(double temperature, TemperatureConversion to) {
+        double result = (to.toCelsius(temperature) - 32) * 5 / 9;
 
         catchAbsoluteZero(result);
 
@@ -18,19 +19,8 @@ public class Fahrenheit implements TemperatureConversion {
     }
 
     @Override
-    public double getFahrenheit(double temperature) {
-        catchAbsoluteZero(temperature);
-
-        return temperature;
-    }
-
-    @Override
-    public double getCelsius(double temperature) {
-        double result = (temperature - 32) * 5 / 9;
-
-        catchAbsoluteZero(result);
-
-        return result;
+    public double toCelsius(double temperature) {
+        return (temperature * 9 / 5) + 32;
     }
 
     @Override

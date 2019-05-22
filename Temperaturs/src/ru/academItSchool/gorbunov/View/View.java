@@ -2,10 +2,6 @@ package ru.academItSchool.gorbunov.View;
 
 import ru.academItSchool.gorbunov.Controller.Controller;
 import ru.academItSchool.gorbunov.Model.Model;
-import ru.academItSchool.gorbunov.Model.TemperatureConversion;
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Celsius;
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Fahrenheit;
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Kelvin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,11 +38,11 @@ public class View {
 
 
         JComboBox fromComBox = new JComboBox<>(
-                model.getCharArray()
+                model.getToCharArray()
         );
 
         JComboBox toComBox = new JComboBox<>(
-                model.getCharArray()
+                model.getToCharArray()
         );
 
         firstLine.add(fromLabel);

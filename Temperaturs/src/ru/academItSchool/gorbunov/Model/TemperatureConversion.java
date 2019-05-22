@@ -3,11 +3,9 @@ package ru.academItSchool.gorbunov.Model;
 public interface TemperatureConversion {
     Character getChar();
 
-    double getKelvin(double temperature);
+    double changeTemperatureTo(double temperature, TemperatureConversion to);
 
-    double getFahrenheit(double temperature);
-
-    double getCelsius(double temperature);
+    double toCelsius(double temperature);
 
     void catchAbsoluteZero(double result);
 }

@@ -9,15 +9,8 @@ public class Kelvin implements TemperatureConversion {
     }
 
     @Override
-    public double getKelvin(double temperature) {
-        catchAbsoluteZero(temperature);
-
-        return temperature;
-    }
-
-    @Override
-    public double getFahrenheit(double temperature) {
-        double result = (temperature - 273.15) * 9 / 5 + 32;
+    public double changeTemperatureTo(double temperature, TemperatureConversion to) {
+        double result = to.toCelsius(temperature) - 273.15;
 
         catchAbsoluteZero(result);
 
@@ -25,12 +18,8 @@ public class Kelvin implements TemperatureConversion {
     }
 
     @Override
-    public double getCelsius(double temperature) {
-        double result = temperature - 273.15;
-
-        catchAbsoluteZero(result);
-
-        return result;
+    public double toCelsius(double temperature) {
+        return temperature + 273.15;
     }
 
     @Override
