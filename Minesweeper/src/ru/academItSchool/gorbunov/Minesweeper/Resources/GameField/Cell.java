@@ -24,4 +24,9 @@ public class Cell {
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
+
+    @Override
+    public String toString() {
+        return character.toString();
+    }
 }

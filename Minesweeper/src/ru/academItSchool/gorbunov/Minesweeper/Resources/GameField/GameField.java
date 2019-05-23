@@ -1,5 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.Resources.GameField;
 
+import java.util.Arrays;
+
 public class GameField {
     private Cell[][] gameField;
     private int mineCount;
@@ -71,5 +73,26 @@ public class GameField {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder line = new StringBuilder();
+
+        for (int i = 0; i < this.gameField.length * 2 + 1; i++) {
+            line.append("-");
+        }
+        line.append(System.lineSeparator());
+
+        for (int i = 0; i < this.gameField.length; i++) {
+            stringBuilder.append("|");
+            for (int j = 0; j < this.gameField[i].length; j++) {
+                stringBuilder.append(this.gameField[i][j]).append("|");
+            }
+            stringBuilder.append(System.lineSeparator());
+            stringBuilder.append(line);
+        }
+        return stringBuilder.toString();
     }
 }

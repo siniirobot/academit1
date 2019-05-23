@@ -34,8 +34,10 @@ public class GameFieldTest {
 
         GameField norm = new GameField(16,16,40);
         norm.fillMinesInField();
-        norm.fillMinesInField();
+        norm.fillNumbersInField();
 
         easy.fillNumbersInField();
+
+        System.out.println(norm);
     }
 }
