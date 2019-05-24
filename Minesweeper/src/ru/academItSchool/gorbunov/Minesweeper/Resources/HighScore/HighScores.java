@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources;
+package ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore;
 
 import java.io.*;
 

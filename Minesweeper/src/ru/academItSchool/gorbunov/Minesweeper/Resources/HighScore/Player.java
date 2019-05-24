@@ -1,8 +1,7 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources;
+package ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.time.OffsetTime;
 import java.util.Objects;
 
 public class Player implements Serializable {

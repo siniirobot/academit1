@@ -1,5 +1,5 @@
 package ru.academItSchool.gorbunov.Minesweeper.Text;
 
-public class TextMenu {
+public class StartMenu {
 
 }

@@ -4,11 +4,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.GameField.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScores;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Player;
-
-import java.io.IOException;
-import java.sql.Time;
 
 public class GameFieldTest {
     @DataProvider(name = "FillMineInGameField")
@@ -21,14 +16,14 @@ public class GameFieldTest {
     @Test(dataProvider = "FillMineInGameField")
     public void testSize(int height, int width, int mineCount) {
         GameField easy = new GameField(height, width, mineCount, new Cell[][]{
-                {new Cell('\uD83D'), null, null, null, null, null, new Cell('\uD83D'), new Cell('\uD83D'), null},
+                {new Cell('\uD83D',new int[]{0,0}), null, null, null, null, null, new Cell('\uD83D',new int[]{0,6}), new Cell('\uD83D',new int[]{0,7}), null},
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
-                {null, new Cell('\uD83D'), null, null, new Cell('\uD83D'), null, null, null, null},
-                {null, null, null, null, null, new Cell('\uD83D'), null, new Cell('\uD83D'), null},
-                {null, null, null, null, null, null, null, new Cell('\uD83D'), null},
+                {null, new Cell('\uD83D',new int[]{3,1}), null, null, new Cell('\uD83D',new int[]{3,4}), null, null, null, null},
+                {null, null, null, null, null, new Cell('\uD83D',new int[]{4,5}), null, new Cell('\uD83D',new int[]{4,7}), null},
+                {null, null, null, null, null, null, null, new Cell('\uD83D',new int[]{5,7}), null},
                 {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, new Cell('\uD83D'), new Cell('\uD83D'), null, null, null,},
+                {null, null, null, null, new Cell('\uD83D',new int[]{7,4}), new Cell('\uD83D',new int[]{7,5}), null, null, null,},
                 {null, null, null, null, null, null, null, null, null},
         });
 

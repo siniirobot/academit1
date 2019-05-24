@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScores;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Player;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore.HighScores;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore.Player;
 
 import java.io.IOException;
 import java.sql.Time;

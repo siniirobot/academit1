@@ -2,11 +2,13 @@ package ru.academItSchool.gorbunov.Minesweeper.Resources.GameField;
 
 public class Cell {
     private Character character;
+    private int[] coordinate;
     private boolean isVisible;
 
-    public Cell(Character character) {
+    public Cell(Character character,int[] coordinate) {
         this.character = character;
-        isVisible = false;
+        this.coordinate = coordinate;
+        this.isVisible = false;
     }
 
     public Character getCharacter() {
@@ -28,5 +30,13 @@ public class Cell {
     @Override
     public String toString() {
         return character.toString();
+    }
+
+    public int[] getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(int[] coordinate) {
+        this.coordinate = coordinate;
     }
 }
