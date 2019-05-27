@@ -23,7 +23,6 @@ public class Controller {
             }
 
             throw new IllegalArgumentException("Введите температуру целочисленным или вещественным числом.");
-
         }
     }
 
