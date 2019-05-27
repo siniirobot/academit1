@@ -1,15 +1,13 @@
-package ru.academItSchool.gorbunov.Model.TemperatureScales;
+package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
-import ru.academItSchool.gorbunov.Model.TemperatureConversion;
-
-public class Celsius implements TemperatureConversion {
+public class CelsiusConverter implements TemperatureConverter {
     @Override
     public Character getChar() {
         return '\u2103';
     }
 
     @Override
-    public double changeTemperatureTo(double temperature, TemperatureConversion to) {
+    public double changeTemperatureTo(double temperature, TemperatureConverter to) {
         return to.toCelsius(temperature);
     }
 

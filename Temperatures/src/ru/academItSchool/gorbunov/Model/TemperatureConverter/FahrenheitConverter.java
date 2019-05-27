@@ -1,16 +1,15 @@
-package ru.academItSchool.gorbunov.Model.TemperatureScales;
+package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
-import ru.academItSchool.gorbunov.Model.TemperatureConversion;
 
-public class Kelvin implements TemperatureConversion {
+public class FahrenheitConverter implements TemperatureConverter {
     @Override
     public Character getChar() {
-        return '\u212A';
+        return '\u2109';
     }
 
     @Override
-    public double changeTemperatureTo(double temperature, TemperatureConversion to) {
-        double result = to.toCelsius(temperature) - 273.15;
+    public double changeTemperatureTo(double temperature, TemperatureConverter to) {
+        double result = (to.toCelsius(temperature) - 32) * 5 / 9;
 
         catchAbsoluteZero(result);
 
@@ -19,12 +18,12 @@ public class Kelvin implements TemperatureConversion {
 
     @Override
     public double toCelsius(double temperature) {
-        return temperature + 273.15;
+        return (temperature * 9 / 5) + 32;
     }
 
     @Override
     public void catchAbsoluteZero(double result) {
-        if (result < 0) {
+        if (result < -459.67) {
             throw new IllegalArgumentException(" Эта температура ниже абсолютного нуля.");
         }
     }

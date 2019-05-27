@@ -1,24 +1,25 @@
 package ru.academItSchool.gorbunov.Model;
 
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Celsius;
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Fahrenheit;
-import ru.academItSchool.gorbunov.Model.TemperatureScales.Kelvin;
+import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter;
+import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter.Celsius;
+import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter.Fahrenheit;
+import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter.Kelvin;
 
 public class Model {
-    private TemperatureConversion[] temperatureConversions;
+    private TemperatureConverter[] temperatureConversions;
 
     public Model() {
-        this.temperatureConversions = new TemperatureConversion[]{
+        this.temperatureConversions = new TemperatureConverter[]{
                 new Celsius(),
                 new Fahrenheit(),
                 new Kelvin(),
         };
     }
 
-    public TemperatureConversion getScale(Character character) {
-        TemperatureConversion scale = null;
+    public TemperatureConverter getScale(Character character) {
+        TemperatureConverter scale = null;
 
-        for (TemperatureConversion sc: this.temperatureConversions) {
+        for (TemperatureConverter sc: this.temperatureConversions) {
             if (sc.getChar().equals(character)) {
                 scale = sc;
             }
@@ -34,7 +35,7 @@ public class Model {
         return charArray;
     }
 
-    public double changeTemperature(double temperature, TemperatureConversion from, TemperatureConversion to) {
+    public double changeTemperature(double temperature, TemperatureConverter from, TemperatureConverter to) {
       return from.changeTemperatureTo(temperature,to);
     }
 }
