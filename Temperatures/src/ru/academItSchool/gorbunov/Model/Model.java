@@ -5,6 +5,8 @@ import ru.academItSchool.gorbunov.Model.TemperatureConverter.FahrenheitConverter
 import ru.academItSchool.gorbunov.Model.TemperatureConverter.KelvinConverter;
 import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter;
 
+import java.util.Arrays;
+
 public class Model {
     private TemperatureConverter[] temperatureConversions;
 
@@ -17,22 +19,12 @@ public class Model {
     }
 
     private TemperatureConverter getScale(String character) {
-        TemperatureConverter scale = null;
-
-        for (TemperatureConverter sc : this.temperatureConversions) {
-            if (sc.getStringChar().equals(character)) {
-                scale = sc;
-            }
-        }
-        return scale;
+        return Arrays.stream(this.temperatureConversions)
+                .filter(x->x.getStringChar().equals(character)).findFirst().orElse(null);
     }
 
     public String[] getToStringArray() {
-        String[] charArray = new String[this.temperatureConversions.length];
-        for (int i = 0; i < charArray.length; i++) {
-            charArray[i] = this.temperatureConversions[i].getStringChar();
-        }
-        return charArray;
+        return Arrays.stream(this.temperatureConversions).map(TemperatureConverter::getStringChar).toArray(String[]::new);
     }
 
     public double changeTemperature(String temperature, String from, String to) {
