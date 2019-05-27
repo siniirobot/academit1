@@ -16,7 +16,7 @@ public class Model {
         };
     }
 
-    public TemperatureConverter getScale(String character) {
+    private TemperatureConverter getScale(String character) {
         TemperatureConverter scale = null;
 
         for (TemperatureConverter sc : this.temperatureConversions) {
@@ -35,7 +35,32 @@ public class Model {
         return charArray;
     }
 
-    public double changeTemperature(double temperature, TemperatureConverter from, TemperatureConverter to) {
-        return from.changeTemperatureTo(temperature, to);
+    public double changeTemperature(String temperature, String from, String to) {
+        throwExceptionForLetters(temperature);
+
+        return getScale(from).changeTemperatureTo(Double.parseDouble(temperature), getScale(to));
+    }
+
+    private void throwExceptionForLetters(String text) {
+        boolean onePoint = false;
+        boolean oneMinus = false;
+
+        for (int i = 0; i < text.length(); i++) {
+            if (Character.isDigit(text.charAt(i))) {
+                continue;
+            }
+
+            if ((text.charAt(i) == '.' && !onePoint)) {
+                onePoint = true;
+                continue;
+            }
+
+            if ((text.charAt(i) == '-' && !oneMinus)) {
+                oneMinus = true;
+                continue;
+            }
+
+            throw new IllegalArgumentException("Введите температуру целочисленным или вещественным числом.");
+        }
     }
 }
