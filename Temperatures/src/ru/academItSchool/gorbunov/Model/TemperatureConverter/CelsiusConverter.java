@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
 public class CelsiusConverter implements TemperatureConverter {
     @Override
-    public Character getChar() {
-        return '\u2103';
+    public String getStringChar() {
+        return "\u2103";
     }
 
     @Override

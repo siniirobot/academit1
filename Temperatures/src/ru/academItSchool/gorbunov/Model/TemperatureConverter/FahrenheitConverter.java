@@ -3,8 +3,8 @@ package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
 public class FahrenheitConverter implements TemperatureConverter {
     @Override
-    public Character getChar() {
-        return '\u2109';
+    public String getStringChar() {
+        return "\u2109";
     }
 
     @Override

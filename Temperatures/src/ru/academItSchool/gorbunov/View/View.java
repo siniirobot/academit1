@@ -38,11 +38,11 @@ public class View {
 
 
         JComboBox fromComBox = new JComboBox<>(
-                model.getToCharArray()
+                model.getToStringArray()
         );
 
         JComboBox toComBox = new JComboBox<>(
-                model.getToCharArray()
+                model.getToStringArray()
         );
 
         firstLine.add(fromLabel);
@@ -67,8 +67,8 @@ public class View {
 
         ActionListener calcResult = (event) -> {
             try {
-                result.setText(controller.calculateResult(textField.getText(), (Character) fromComBox.getSelectedItem(),
-                        (Character) toComBox.getSelectedItem()));
+                result.setText(controller.calculateResult(textField.getText(), (String) fromComBox.getSelectedItem(),
+                        (String) toComBox.getSelectedItem()));
             } catch (IllegalArgumentException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage());
             }

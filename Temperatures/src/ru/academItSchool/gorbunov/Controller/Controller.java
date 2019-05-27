@@ -26,9 +26,8 @@ public class Controller {
         }
     }
 
-    public String calculateResult(String temperature, Character from, Character to) {
+    public String calculateResult(String temperature, String from, String to) {
         throwExceptionForLetters(temperature);
-
         Model model = new Model();
 
         return ((Double) model.changeTemperature((Double.parseDouble(temperature)), model.getScale(from), model.getScale(to))).toString();

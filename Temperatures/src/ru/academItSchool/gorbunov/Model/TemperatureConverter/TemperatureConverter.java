@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
 public interface TemperatureConverter {
-    Character getChar();
+    String getStringChar();
 
     double changeTemperatureTo(double temperature, TemperatureConverter to);
 

@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
 public class KelvinConverter implements TemperatureConverter {
     @Override
-    public Character getChar() {
-        return '\u212A';
+    public String getStringChar() {
+        return "\u212A";
     }
 
     @Override
