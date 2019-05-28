@@ -6,6 +6,8 @@ import ru.academItSchool.gorbunov.Model.TemperatureConverter.KelvinConverter;
 import ru.academItSchool.gorbunov.Model.TemperatureConverter.TemperatureConverter;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Model {
     private TemperatureConverter[] temperatureConversions;
@@ -20,38 +22,22 @@ public class Model {
 
     private TemperatureConverter getScale(String character) {
         return Arrays.stream(this.temperatureConversions)
-                .filter(x->x.getStringChar().equals(character)).findFirst().orElse(null);
+                .filter(x -> x.getStringChar().equals(character)).findFirst().orElse(null);
     }
 
     public String[] getToStringArray() {
         return Arrays.stream(this.temperatureConversions).map(TemperatureConverter::getStringChar).toArray(String[]::new);
     }
 
-    public double changeTemperature(String temperature, String from, String to) {
+    public String changeTemperature(String temperature, String from, String to) {
         throwExceptionForLetters(temperature);
 
-        return getScale(from).changeTemperatureTo(Double.parseDouble(temperature), getScale(to));
+        return ((Double) getScale(from).changeTemperatureTo(Double.parseDouble(temperature), getScale(to))).toString();
     }
 
     private void throwExceptionForLetters(String text) {
-        boolean onePoint = false;
-        boolean oneMinus = false;
-
-        for (int i = 0; i < text.length(); i++) {
-            if (Character.isDigit(text.charAt(i))) {
-                continue;
-            }
-
-            if ((text.charAt(i) == '.' && !onePoint)) {
-                onePoint = true;
-                continue;
-            }
-
-            if ((text.charAt(i) == '-' && !oneMinus)) {
-                oneMinus = true;
-                continue;
-            }
-
+        Matcher matcher = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+").matcher(text);
+        if (!matcher.matches()) {
             throw new IllegalArgumentException("Введите температуру целочисленным или вещественным числом.");
         }
     }

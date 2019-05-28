@@ -10,7 +10,7 @@ public class KelvinConverter implements TemperatureConverter {
     public double changeTemperatureTo(double temperature, TemperatureConverter to) {
         double result = to.toCelsius(temperature) - 273.15;
 
-        catchAbsoluteZero(result);
+        throwAbsoluteZero(result);
 
         return result;
     }
@@ -21,7 +21,7 @@ public class KelvinConverter implements TemperatureConverter {
     }
 
     @Override
-    public void catchAbsoluteZero(double result) {
+    public void throwAbsoluteZero(double result) {
         if (result < 0) {
             throw new IllegalArgumentException(" Эта температура ниже абсолютного нуля.");
         }

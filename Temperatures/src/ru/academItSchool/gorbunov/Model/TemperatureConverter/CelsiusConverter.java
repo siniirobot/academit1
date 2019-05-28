@@ -13,13 +13,13 @@ public class CelsiusConverter implements TemperatureConverter {
 
     @Override
     public double toCelsius(double temperature) {
-        catchAbsoluteZero(temperature);
+        throwAbsoluteZero(temperature);
 
         return temperature;
     }
 
     @Override
-    public void catchAbsoluteZero(double result) {
+    public void throwAbsoluteZero(double result) {
         if (result < -273.15) {
             throw new IllegalArgumentException(" Эта температура ниже абсолютного нуля.");
         }
