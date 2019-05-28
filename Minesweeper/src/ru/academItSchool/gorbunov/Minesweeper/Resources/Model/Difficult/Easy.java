@@ -1,6 +1,6 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources.Difficult;
+package ru.academItSchool.gorbunov.Minesweeper.Resources.Model.Difficult;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.GameField.GameField;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.GameField.GameField;
 
 public class Easy implements Difficult {
     private String name;

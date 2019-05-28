@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore.HighScores;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.HighScore.Player;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.HighScore.HighScores;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.HighScore.Player;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -17,7 +17,7 @@ public class HighScoreTests {
     }
 
     @Test(dataProvider = "AddToTable")
-    public void testSize(Player player) throws IOException {
+    public void testSize(Player player) {
         HighScores highScore = new HighScores();
 
         highScore.add(player);

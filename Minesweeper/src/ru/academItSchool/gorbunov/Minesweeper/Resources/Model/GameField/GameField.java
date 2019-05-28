@@ -1,18 +1,15 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources.GameField;
+package ru.academItSchool.gorbunov.Minesweeper.Resources.Model.GameField;
 
-import java.util.Arrays;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Characters;
 
 public class GameField {
     private Cell[][] gameField;
     private int mineCount;
+    private Characters characters;
 
     public GameField(int height, int width, int mineCount) {
         this.gameField = new Cell[height][width];
-        this.mineCount = mineCount;
-    }
-
-    public GameField(int height, int width, int mineCount, Cell[][] matrixWithMine) {
-        this.gameField = matrixWithMine;
         this.mineCount = mineCount;
     }
 
@@ -42,13 +39,14 @@ public class GameField {
                     continue;
                 }
 
-                this.gameField[j][randomPlace] = new Cell('\u0489',new int[]{j,randomPlace});
+                this.gameField[j][randomPlace] = this.characters.getCell()[10];
                 i--;
             }
         }
     }
 
     public void fillNumbersInField() {
+        Characters characters = new Characters();
         for (int i = 0; i < this.gameField.length; i++) {
             for (int j = 0; j < this.gameField[i].length; j++) {
                 if (this.gameField[i][j] != null) {
@@ -72,22 +70,20 @@ public class GameField {
                         if (j + m == this.gameField[i].length) {
                             continue;
                         }
-                        if (this.gameField[i + k][j + m] != null && this.gameField[i + k][j + m].getCharacter().equals('\u0489')) {
+                        if (this.gameField[i + k][j + m] != null &&
+                                this.gameField[i + k][j + m].getChar() == characters.getCell()[10].getChar()) {
                             number++;
                         }
                     }
                 }
-                if (number == 0) {
-                    this.gameField[i][j] = new Cell('\u0020',new int[] {i,j});
-                } else {
-                    this.gameField[i][j] = new Cell(Character.forDigit(number, 10),new int[]{i,j});
-                }
+                this.gameField[i][j] = this.characters.getCell()[number];
             }
         }
     }
 
     @Override
     public String toString() {
+        Characters characters = new Characters();
         boolean prodaction = false;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
@@ -96,7 +92,7 @@ public class GameField {
         stringBuilder.append(space).append(" |");
 
         for (int i = 1; i <= this.gameField.length; i++) {
-            stringBuilder.append(String.format("%2d|",i));
+            stringBuilder.append(String.format("%2d|", i));
         }
 
         stringBuilder.append(System.lineSeparator());
@@ -109,16 +105,16 @@ public class GameField {
         stringBuilder.append(line);
 
         for (int i = 0; i < this.gameField.length; i++) {
-            stringBuilder.append(space).append(String.format("%2d|",i + 1));
+            stringBuilder.append(space).append(String.format("%2d|", i + 1));
 
             for (int j = 0; j < this.gameField[i].length; j++) {
                 if (prodaction) {
-                    stringBuilder.append(String.format("%2s|",this.gameField[i][j]));
+                    stringBuilder.append(String.format("%2s|", this.gameField[i][j].getChar()));
                 } else {
                     if (this.gameField[i][j].isVisible()) {
-                        stringBuilder.append(this.gameField[i][j]).append("|");
+                        stringBuilder.append(this.gameField[i][j].getChar()).append("|");
                     } else {
-                        stringBuilder.append(" ").append("| ");
+                        stringBuilder.append(characters.getCell()[9]).append("| ");
                     }
                 }
             }

@@ -1,37 +1,16 @@
-package ru.academItSchool.gorbunov.Minesweeper.Text.Model;
+package ru.academItSchool.gorbunov.Minesweeper.Resources.Model;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Difficult.Easy;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.GameField.Cell;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.Text.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Characters;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.Difficult.Easy;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.GameField.GameField;
+import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.Exceptions.Boom;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class Model {
-
-    public void tryGame() {
-        Easy easy = new Easy();
-        System.out.println(easy.getGameField());
-
-        Scanner scanner = new Scanner(System.in);
-
-
-        while (true) {
-            int line = scanner.nextInt();
-            int column = scanner.nextInt();
-            String command = scanner.next();
-            try {
-                clickMove(command, easy.getGameField(), line, column);
-            } catch (Boom e) {
-                System.out.println(e);
-            }
-            System.out.println(easy.getGameField());
-        }
-
-
-    }
+    Characters characters = new Characters();
 
     public void clickMove(String command, GameField gameField, int line, int column) throws Boom {
         switch (command) {
@@ -49,11 +28,11 @@ public class Model {
             return;
         }
 
-        if (cell.getCharacter().equals('\u0489')) {
-            cell.setVisible(true);
+        if (cell.getChar() == characters.getCell()[10].getChar()) {
+            cell.setVisible();
             throw new Boom("Поздравляю вы взорвали себя!");
-        } else if (!cell.getCharacter().equals('\u0020')) {
-            cell.setVisible(true);
+        } else if (cell.getChar() != characters.getCell()[0].getChar()) {
+            cell.setVisible();
         } else {
             Queue<Integer[]> queue = new LinkedList<>();
             queue.add(new Integer[]{line, column});
@@ -78,9 +57,10 @@ public class Model {
                         if (j + tempColumn == gameField.getGameField()[i].length) {
                             continue;
                         }
-                        gameField.getGameField()[i + tempLine][j + tempColumn].setVisible(true);
+                        gameField.getGameField()[i + tempLine][j + tempColumn].setVisible();
 
-                        if (gameField.getGameField()[i + tempLine][j + tempColumn].getCharacter().equals('\u0020')) {
+                        if (gameField.getGameField()[i + tempLine][j + tempColumn].getChar() ==
+                                characters.getCell()[0].getChar()) {
                             queue.add(new Integer[]{i + tempLine, j + tempColumn});
                         }
                     }
@@ -95,14 +75,14 @@ public class Model {
             return;
         }
 
-        if (cell.getCharacter().equals('\u06e9')) {
-            cell.setCharacter('\u003f');
+        if (cell.getChar() == characters.getCell()[11].getChar()) {
+            gameField.getGameField()[line][column] = characters.getCell()[12];
         }
 
-        if (cell.getCharacter().equals('\u003f')) {
-            cell.setCharacter('\u0020');
+        if (cell.getChar() == characters.getCell()[12].getChar()) {
+            gameField.getGameField()[line][column] = characters.getCell()[9];
         }
 
-        cell.setCharacter('\u06e9');
+        gameField.getGameField()[line][column] = characters.getCell()[12];
     }
 }
