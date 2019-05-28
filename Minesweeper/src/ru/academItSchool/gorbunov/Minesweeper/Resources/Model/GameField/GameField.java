@@ -6,7 +6,7 @@ import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Characters;
 public class GameField {
     private Cell[][] gameField;
     private int mineCount;
-    private Characters characters;
+    private Characters characters = new Characters();
 
     public GameField(int height, int width, int mineCount) {
         this.gameField = new Cell[height][width];
@@ -114,7 +114,7 @@ public class GameField {
                     if (this.gameField[i][j].isVisible()) {
                         stringBuilder.append(this.gameField[i][j].getChar()).append("|");
                     } else {
-                        stringBuilder.append(characters.getCell()[9]).append("| ");
+                        stringBuilder.append(characters.getCell()[9].getChar()).append("| ");
                     }
                 }
             }

@@ -1,7 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Resources.Model;
 
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.Difficult.Easy;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.Exceptions.Boom;
@@ -10,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Model {
-    Characters characters = new Characters();
+    private Characters characters = new Characters();
 
     public void clickMove(String command, GameField gameField, int line, int column) throws Boom {
         switch (command) {
