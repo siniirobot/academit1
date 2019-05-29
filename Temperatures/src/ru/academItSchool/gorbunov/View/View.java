@@ -5,7 +5,6 @@ import ru.academItSchool.gorbunov.Model.Model;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 
 public class View {
     private Model model = new Model();
