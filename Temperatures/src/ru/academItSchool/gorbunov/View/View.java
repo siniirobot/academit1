@@ -15,10 +15,11 @@ public class View {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
                 JFrame frame = new JFrame("Temperatures master");
-                frame.setSize(540, 100);
+                getGUIContent(frame.getContentPane());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 Image icon = Toolkit.getDefaultToolkit().getImage("icon.png");
-                getGUIContent(frame.getContentPane());
+                frame.pack();
+                frame.setLocationRelativeTo(null);
                 frame.setIconImage(icon);
                 frame.setResizable(false);
                 frame.setVisible(true);
@@ -56,8 +57,9 @@ public class View {
 
         JPanel mainPanel = new JPanel();
 
-        mainPanel.add(firstLine, BorderLayout.LINE_START);
-        mainPanel.add(endLine, BorderLayout.CENTER);
+        mainPanel.setLayout(new GridLayout(2,1));
+        mainPanel.add(firstLine);
+        mainPanel.add(endLine);
         container.add(mainPanel);
 
         ActionListener calcResult = (event) -> {
