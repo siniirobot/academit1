@@ -2,7 +2,7 @@ package ru.academItSchool.gorbunov.Model.TemperatureConverter;
 
 public class KelvinConverter implements TemperatureConverter {
     @Override
-    public String getStringChar() {
+    public String getScaleChar() {
         return "\u212A";
     }
 

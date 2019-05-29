@@ -38,11 +38,11 @@ public class View {
 
 
         JComboBox fromComBox = new JComboBox<>(
-                model.getToStringArray()
+                model.getScaleArray()
         );
 
         JComboBox toComBox = new JComboBox<>(
-                model.getToStringArray()
+                model.getScaleArray()
         );
 
         firstLine.add(fromLabel);
