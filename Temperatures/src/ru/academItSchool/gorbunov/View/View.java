@@ -1,6 +1,5 @@
 package ru.academItSchool.gorbunov.View;
 
-import ru.academItSchool.gorbunov.Controller.Controller;
 import ru.academItSchool.gorbunov.Model.Model;
 
 import javax.swing.*;
@@ -8,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class View {
+    private Model model = new Model();
 
     public void startGUI() {
         SwingUtilities.invokeLater(() -> {
@@ -22,7 +22,7 @@ public class View {
                 frame.setIconImage(icon);
                 frame.setResizable(false);
                 frame.setVisible(true);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         });
     }
@@ -33,9 +33,6 @@ public class View {
         JTextField textField = new JTextField("0", 11);
         JLabel toLabel = new JLabel("Перевести в");
         JButton calc = new JButton("Вычислить");
-
-        Model model = new Model();
-
 
         JComboBox fromComBox = new JComboBox<>(
                 model.getScaleArray()
@@ -63,12 +60,13 @@ public class View {
         mainPanel.add(endLine, BorderLayout.CENTER);
         container.add(mainPanel);
 
-        Controller controller = new Controller();
-
         ActionListener calcResult = (event) -> {
             try {
-                result.setText(controller.calculateResult(textField.getText(), (String) fromComBox.getSelectedItem(),
-                        (String) toComBox.getSelectedItem()));
+                model.throwExceptionForLetters(textField.getText());
+
+                result.setText(((Double)model.changeTemperature(Double.parseDouble(textField.getText()),
+                        model.getScale((String) fromComBox.getSelectedItem()),
+                        model.getScale((String) toComBox.getSelectedItem()))).toString());
             } catch (IllegalArgumentException error) {
                 JOptionPane.showMessageDialog(null, error.getMessage());
             }

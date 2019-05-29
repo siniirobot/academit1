@@ -20,7 +20,7 @@ public class Model {
         };
     }
 
-    private TemperatureConverter getScale(String character) {
+    public TemperatureConverter getScale(String character) {
         return Arrays
                 .stream(this.temperatureConversions)
                 .filter(x -> x.getScaleChar().equals(character))
@@ -35,13 +35,11 @@ public class Model {
                 .toArray(String[]::new);
     }
 
-    public String changeTemperature(String temperature, String from, String to) {
-        throwExceptionForLetters(temperature);
-
-        return ((Double) getScale(from).changeTemperatureTo(Double.parseDouble(temperature), getScale(to))).toString();
+    public double changeTemperature(double temperature, TemperatureConverter from, TemperatureConverter to) {
+        return from.changeTemperatureTo(temperature, to);
     }
 
-    private void throwExceptionForLetters(String text) {
+    public void throwExceptionForLetters(String text) {
         Matcher matcher = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+").matcher(text);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Введите температуру целочисленным или вещественным числом.");
