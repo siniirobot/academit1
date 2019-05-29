@@ -21,12 +21,18 @@ public class Model {
     }
 
     private TemperatureConverter getScale(String character) {
-        return Arrays.stream(this.temperatureConversions)
-                .filter(x -> x.getScaleChar().equals(character)).findFirst().orElse(null);
+        return Arrays
+                .stream(this.temperatureConversions)
+                .filter(x -> x.getScaleChar().equals(character))
+                .findFirst()
+                .orElse(null);
     }
 
     public String[] getScaleArray() {
-        return Arrays.stream(this.temperatureConversions).map(TemperatureConverter::getScaleChar).toArray(String[]::new);
+        return Arrays
+                .stream(this.temperatureConversions)
+                .map(TemperatureConverter::getScaleChar)
+                .toArray(String[]::new);
     }
 
     public String changeTemperature(String temperature, String from, String to) {
