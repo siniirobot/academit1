@@ -5,6 +5,7 @@ import ru.academItSchool.gorbunov.Model.Model;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
 public class View {
     private Model model = new Model();
@@ -57,7 +58,7 @@ public class View {
 
         JPanel mainPanel = new JPanel();
 
-        mainPanel.setLayout(new GridLayout(2,1));
+        mainPanel.setLayout(new GridLayout(2, 1));
         mainPanel.add(firstLine);
         mainPanel.add(endLine);
         container.add(mainPanel);
@@ -66,7 +67,7 @@ public class View {
             try {
                 model.throwExceptionForLetters(textField.getText());
 
-                result.setText(((Double)model.changeTemperature(Double.parseDouble(textField.getText()),
+                result.setText(((Double) model.changeTemperature(Double.parseDouble(textField.getText()),
                         model.getScale((String) fromComBox.getSelectedItem()),
                         model.getScale((String) toComBox.getSelectedItem()))).toString());
             } catch (IllegalArgumentException error) {
