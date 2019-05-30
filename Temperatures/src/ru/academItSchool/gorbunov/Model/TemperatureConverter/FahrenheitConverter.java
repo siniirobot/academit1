@@ -9,9 +9,9 @@ public class FahrenheitConverter implements TemperatureConverter {
 
     @Override
     public double changeTemperatureTo(double temperature, TemperatureConverter to) {
+        throwAbsoluteZeroInput(temperature);
         double result = (to.toCelsius(temperature) - 32) * 5 / 9;
-
-        throwAbsoluteZero(result);
+        to.throwAbsoluteZeroOutput(result);
 
         return result;
     }
@@ -22,9 +22,16 @@ public class FahrenheitConverter implements TemperatureConverter {
     }
 
     @Override
-    public void throwAbsoluteZero(double result) {
-        if (result < -459.67) {
-            throw new IllegalArgumentException(" Эта температура ниже абсолютного нуля.");
+    public void throwAbsoluteZeroOutput(double temperature) {
+        if (temperature < -459.67) {
+            throw new IllegalArgumentException("Температура получилась ниже абсолютного нуля.");
+        }
+    }
+
+    @Override
+    public void throwAbsoluteZeroInput(double temperature) {
+        if (temperature < -459.67) {
+            throw new IllegalArgumentException("Введеная температура ниже абсолютного нуля.");
         }
     }
 }

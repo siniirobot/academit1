@@ -8,20 +8,28 @@ public class CelsiusConverter implements TemperatureConverter {
 
     @Override
     public double changeTemperatureTo(double temperature, TemperatureConverter to) {
-        return to.toCelsius(temperature);
+        throwAbsoluteZeroInput(temperature);
+        double result = to.toCelsius(temperature);
+        to.throwAbsoluteZeroOutput(result);
+        return result;
     }
 
     @Override
     public double toCelsius(double temperature) {
-        throwAbsoluteZero(temperature);
-
         return temperature;
     }
 
     @Override
-    public void throwAbsoluteZero(double result) {
-        if (result < -273.15) {
-            throw new IllegalArgumentException(" Эта температура ниже абсолютного нуля.");
+    public void throwAbsoluteZeroOutput(double temperature) {
+        if (temperature < -273.15) {
+            throw new IllegalArgumentException("Температура получилась ниже абсолютного нуля.");
+        }
+    }
+
+    @Override
+    public void throwAbsoluteZeroInput(double temperature) {
+        if (temperature < -273.15) {
+            throw new IllegalArgumentException("Введеная температура ниже абсолютного нуля.");
         }
     }
 }

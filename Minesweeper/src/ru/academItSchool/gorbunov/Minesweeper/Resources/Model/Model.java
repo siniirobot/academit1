@@ -76,6 +76,7 @@ public class Model {
 
         if (cell.getChar() == characters.getCell()[11].getChar()) {
             gameField.getGameField()[line][column] = characters.getCell()[12];
+            gameField.setMineCount(gameField.getMineCount() + 1);
         }
 
         if (cell.getChar() == characters.getCell()[12].getChar()) {
@@ -83,5 +84,6 @@ public class Model {
         }
 
         gameField.getGameField()[line][column] = characters.getCell()[12];
+        gameField.setMineCount(gameField.getMineCount() - 1);
     }
 }

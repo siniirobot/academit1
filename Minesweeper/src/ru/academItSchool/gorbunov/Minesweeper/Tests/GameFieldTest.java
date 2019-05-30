@@ -15,8 +15,6 @@ public class GameFieldTest {
 
     @Test(dataProvider = "FillMineInGameField")
     public void testSize(int height, int width, int mineCount) {
-
-
         GameField norm = new GameField(16,16,40);
         norm.fillMinesInField();
         norm.fillNumbersInField();

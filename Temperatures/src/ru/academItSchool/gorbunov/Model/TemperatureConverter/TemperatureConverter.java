@@ -7,5 +7,8 @@ public interface TemperatureConverter {
 
     double toCelsius(double temperature);
 
-    void throwAbsoluteZero(double result);
+    void throwAbsoluteZeroOutput(double temperature);
+
+    void throwAbsoluteZeroInput(double temperature);
+
 }

@@ -38,7 +38,7 @@ public class HighScores {
             ObjectInputStream readFile = openFile(fileName);
             highScores = (Player[]) readFile.readObject();
 
-            if (highScores[9] != null && highScores[9].getTime().before(player.getTime())) {
+            if (highScores[9] != null && highScores[9].getTime() < player.getTime()) {
                 throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
             }
 
@@ -47,7 +47,7 @@ public class HighScores {
                     continue;
                 }
 
-                if (highScores[i - 1].getTime().after(player.getTime())) {
+                if (highScores[i - 1].getTime() > (player.getTime())) {
                     highScores[i] = highScores[i - 1];
                     highScores[i - 1] = player;
                 } else {

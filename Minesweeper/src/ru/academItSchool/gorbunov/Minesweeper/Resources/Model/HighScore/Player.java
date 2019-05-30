@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Player implements Serializable {
     private String name;
-    private Time time;
+    private int time;
     private String difficult;
 
-    public Player(String name, Time time, String difficult) {
+    public Player(String name, int time, String difficult) {
         this.name = name;
         this.time = time;
         this.difficult = difficult;
@@ -31,11 +31,11 @@ public class Player implements Serializable {
         this.name = name;
     }
 
-    public Time getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -60,7 +60,7 @@ public class Player implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + this.name.hashCode();
-        result = prime * result + this.time.hashCode();
+        result = prime * result + this.time;
         result = prime * result + this.difficult.hashCode();
         return result;
     }
