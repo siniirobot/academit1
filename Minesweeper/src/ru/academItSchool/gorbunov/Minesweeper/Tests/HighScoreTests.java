@@ -9,16 +9,15 @@ public class HighScoreTests {
     @DataProvider(name = "AddToTable")
     public Object[][] size() {
         return new Object[][]{
-                new Object[] {new Player("PIT", 25,"easy")}
+                new Object[] {}
         };
     }
 
     @Test(dataProvider = "AddToTable")
-    public void testSize(Player player) {
+    public void testSize() {
         HighScores highScore = new HighScores();
 
-        highScore.add(player);
-        highScore.add(new Player("siniirobot",99,"easy"));
+        highScore.add(new Player("Xewewt",0,"easy"));
 
         highScore.printHighScores("easy");
         highScore.printHighScores("norm");

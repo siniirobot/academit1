@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Text.View;
 
-public class PrintMenues {
+public class PrintMenus {
     public String getMainMenu() {
         return ("||//////////////////////||") + (System.lineSeparator()) +
                 ("||        САПЕР!        ||") + (System.lineSeparator()) +

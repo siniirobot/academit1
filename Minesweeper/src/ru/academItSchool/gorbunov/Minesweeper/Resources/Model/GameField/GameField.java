@@ -84,7 +84,7 @@ public class GameField {
     @Override
     public String toString() {
         Characters characters = new Characters();
-        boolean prodaction = false;
+        boolean prodaction = true;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
         StringBuilder space = new StringBuilder("   ");
@@ -112,9 +112,9 @@ public class GameField {
                     stringBuilder.append(String.format("%2s|", this.gameField[i][j].getChar()));
                 } else {
                     if (this.gameField[i][j].isVisible()) {
-                        stringBuilder.append(this.gameField[i][j].getChar()).append("|");
+                        stringBuilder.append(String.format("%2s|", this.gameField[i][j].getChar()));
                     } else {
-                        stringBuilder.append(characters.getCell()[9].getChar()).append("| ");
+                        stringBuilder.append(String.format("%2s|",characters.getCell()[9].getChar()));
                     }
                 }
             }

@@ -29,7 +29,7 @@ public class Model {
 
         if (cell.getChar() == characters.getCell()[10].getChar()) {
             cell.setVisible();
-            throw new Boom("Поздравляю вы взорвали себя!");
+            System.out.println("Вы взорвали себя.");
         } else if (cell.getChar() != characters.getCell()[0].getChar()) {
             cell.setVisible();
         } else {
@@ -38,8 +38,8 @@ public class Model {
 
             while (!queue.isEmpty()) {
                 Integer[] temp = queue.remove();
-                int tempLine = temp[1];
-                int tempColumn = temp[2];
+                int tempLine = temp[0];
+                int tempColumn = temp[1];
 
                 for (int i = -1; i <= 1; i++) {
                     if (i + tempLine < 0) {
