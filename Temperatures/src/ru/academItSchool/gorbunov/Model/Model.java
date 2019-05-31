@@ -36,7 +36,7 @@ public class Model {
     }
 
     public double changeTemperature(double temperature, TemperatureConverter from, TemperatureConverter to) {
-        return from.changeTemperatureTo(temperature, to);
+        return to.changeTemperatureTo(temperature, from);
     }
 
     public void throwExceptionForLetters(String text) {

@@ -7,16 +7,16 @@ public class KelvinConverter implements TemperatureConverter {
     }
 
     @Override
-    public double changeTemperatureTo(double temperature, TemperatureConverter to) {
-        throwAbsoluteZeroInput(temperature);
-        double result = to.toCelsius(temperature) - 273.15;
-        to.throwAbsoluteZeroOutput(result);
+    public double changeTemperatureTo(double temperature, TemperatureConverter from) {
+        from.throwAbsoluteZeroInput(temperature);
+        double result = from.toCelsius(temperature) + 273.15;
+        throwAbsoluteZeroOutput(result);
         return result;
     }
 
     @Override
     public double toCelsius(double temperature) {
-        return temperature + 273.15;
+        return temperature - 273.15;
     }
 
     @Override

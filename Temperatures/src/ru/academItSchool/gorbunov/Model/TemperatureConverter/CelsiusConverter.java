@@ -7,10 +7,10 @@ public class CelsiusConverter implements TemperatureConverter {
     }
 
     @Override
-    public double changeTemperatureTo(double temperature, TemperatureConverter to) {
-        throwAbsoluteZeroInput(temperature);
-        double result = to.toCelsius(temperature);
-        to.throwAbsoluteZeroOutput(result);
+    public double changeTemperatureTo(double temperature, TemperatureConverter from) {
+        from.throwAbsoluteZeroInput(temperature);
+        double result = from.toCelsius(temperature);
+        throwAbsoluteZeroOutput(result);
         return result;
     }
 
