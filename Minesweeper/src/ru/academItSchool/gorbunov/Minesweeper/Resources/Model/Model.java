@@ -41,6 +41,10 @@ public class Model {
                 int tempLine = temp[0];
                 int tempColumn = temp[1];
 
+                if (gameField.getGameField()[tempLine][tempColumn].isVisible()) {
+                    continue;
+                }
+
                 for (int i = -1; i <= 1; i++) {
                     if (i + tempLine < 0) {
                         i++;
@@ -53,7 +57,7 @@ public class Model {
                             j++;
                         }
 
-                        if (j + tempColumn == gameField.getGameField()[i].length) {
+                        if (j + tempColumn == gameField.getGameField()[i + tempLine].length) {
                             continue;
                         }
                         gameField.getGameField()[i + tempLine][j + tempColumn].setVisible();
