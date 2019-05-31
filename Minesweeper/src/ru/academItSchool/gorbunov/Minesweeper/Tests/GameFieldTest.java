@@ -2,7 +2,6 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.GameField.GameField;
 
 public class GameFieldTest {
