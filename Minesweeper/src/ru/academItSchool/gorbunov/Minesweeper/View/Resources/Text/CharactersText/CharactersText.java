@@ -1,13 +1,14 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText;
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
 
 public class CharactersText implements Characters {
-    private CellText[] characters;
+    private Object[] characters;
 
     public CharactersText() {
-        this.characters = new CellText[]{
-                openEmptyCell = new CellText('\u0020'),
+        this.characters = new Object[]{
+                /*openEmptyCell = new CellInterface('\u0020'),
                 one,
                 two,
                 three,
@@ -19,39 +20,39 @@ public class CharactersText implements Characters {
                 closeCell,
                 mine,
                 flag,
-                questionMark,
-                /*new CellText('\u0020'),
-                new CellText('\u0031'),
-                new CellText('\u0033'),
-                new CellText('\u0033'),
-                new CellText('\u0034'),
-                new CellText('\u0035'),
-                new CellText('\u0036'),
-                new CellText('\u0037'),
-                new CellText('\u0038'),
-                new CellText('\u034f'),
-                new CellText('\u0489'),
-                new CellText('\u06e9'),
-                new CellText('\u003f'),*/
+                questionMark,*/
+                ('\u0020'),
+                ('\u0031'),
+                ('\u0033'),
+                ('\u0033'),
+               ('\u0034'),
+                ('\u0035'),
+                ('\u0036'),
+                ('\u0037'),
+                ('\u0038'),
+                ('\u034f'),
+                ('\u0489'),
+                ('\u06e9'),
+                ('\u003f'),
         };
 
     }
 
-    private CellText openEmptyCell = new CellText('\u0020');
-    private CellText one = new CellText('\u0031');
-    private CellText two = new CellText('\u0032');
-    private CellText three = new CellText('\u0033');
-    private CellText four = new CellText('\u0034');
-    private CellText five = new CellText('\u0035');
-    private CellText six = new CellText('\u0036');
-    private CellText seven = new CellText('\u0037');
-    private CellText eight = new CellText('\u0038');
-    private CellText closeCell = new CellText('\u034f');
-    private CellText mine = new CellText('\u0489');
-    private CellText flag = new CellText('\u06e9');
-    private CellText questionMark = new CellText('\u003f');
+    private Cell openEmptyCell = new Cell('\u0020');
+    private Cell one = new Cell('\u0031');
+    private Cell two = new Cell('\u0032');
+    private Cell three = new Cell('\u0033');
+    private Cell four = new Cell('\u0034');
+    private Cell five = new Cell('\u0035');
+    private Cell six = new Cell('\u0036');
+    private Cell seven = new Cell('\u0037');
+    private Cell eight = new Cell('\u0038');
+    private Cell closeCell = new Cell('\u034f');
+    private Cell mine = new Cell('\u0489');
+    private Cell flag = new Cell('\u06e9');
+    private Cell questionMark = new Cell('\u003f');
 
-    public CellText[] getCharacters() {
+    public Object[] getCharacters() {
         return this.characters;
     }
 }

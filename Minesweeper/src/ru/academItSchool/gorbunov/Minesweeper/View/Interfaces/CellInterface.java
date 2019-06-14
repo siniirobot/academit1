@@ -1,8 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Interfaces;
 
-public interface Cell {
+public interface CellInterface {
     Object getContent();
-
 
     void setMine();
 
@@ -10,7 +9,7 @@ public interface Cell {
 
     boolean isVisible();
 
-    void setVisible();
+    void setVisible(boolean visible);
 
     void setContent(Object content);
 }

@@ -1,23 +1,23 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.CharactersImage;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.CellInterface;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CellText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
 
 public class CharactersImage implements Characters {
-    private CellText openEmptyCell = new CellText('\u0020');
-    private CellText one = new CellText('\u0031');
-    private CellText two = new CellText('\u0032');
-    private CellText three = new CellText('\u0033');
-    private CellText four = new CellText('\u0034');
-    private CellText five = new CellText('\u0035');
-    private CellText six = new CellText('\u0036');
-    private CellText seven = new CellText('\u0037');
-    private CellText eight = new CellText('\u0038');
-    private CellText closeCell = new CellText('\u034f');
-    private CellText mine = new CellText('\u0489');
-    private CellText flag = new CellText('\u06e9');
-    private CellText questionMark = new CellText('\u003f');
+    private Cell openEmptyCell = new Cell('\u0020');
+    private Cell one = new Cell('\u0031');
+    private Cell two = new Cell('\u0032');
+    private Cell three = new Cell('\u0033');
+    private Cell four = new Cell('\u0034');
+    private Cell five = new Cell('\u0035');
+    private Cell six = new Cell('\u0036');
+    private Cell seven = new Cell('\u0037');
+    private Cell eight = new Cell('\u0038');
+    private Cell closeCell = new Cell('\u034f');
+    private Cell mine = new Cell('\u0489');
+    private Cell flag = new Cell('\u06e9');
+    private Cell questionMark = new Cell('\u003f');
 
 
     public Cell[] getCharacters() {

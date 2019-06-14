@@ -1,10 +1,10 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.CharactersImage;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.CellInterface;
 
 import java.awt.*;
 
-public class CellImage implements Cell {
+public class CellImage implements CellInterface {
     private Image content;
     private boolean isMine;
     private boolean isVisible;
@@ -15,8 +15,8 @@ public class CellImage implements Cell {
         this.isVisible = false;
     }
 
-    public void setVisible() {
-        isVisible = true;
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CellImage implements Cell {
 
     @Override
     public Object getContent() {
-        return content;
+        return this.content;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.CellInterface;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -37,12 +39,12 @@ public class Model {
             return;
         }
 
-        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10].getContent())) {
-            gameField.getGameField()[line][column].setVisible();
-            gameField.getGameField()[line][column].setContent(characters.getCharacters()[10].getContent());
+        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10])) {
+            gameField.getGameField()[line][column].setVisible(true);
+            gameField.getGameField()[line][column].setContent(characters.getCharacters()[10]);
             throw new Boom("Вы взорвали себя.");
-        } else if (!gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[0].getContent())) {
-            gameField.getGameField()[line][column].setVisible();
+        } else if (!gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[0])) {
+            gameField.getGameField()[line][column].setVisible(true);
         } else {
             Queue<Integer[]> queue = new LinkedList<>();
             queue.add(new Integer[]{line, column});
@@ -71,8 +73,8 @@ public class Model {
                         }
 
                         if (!gameField.getGameField()[i + tempLine][j + tempColumn].getContent().equals(
-                                characters.getCharacters()[0].getContent()) || (i == 0 && j == 0)) {
-                            gameField.getGameField()[i + tempLine][j + tempColumn].setVisible();
+                                characters.getCharacters()[0]) || (i == 0 && j == 0)) {
+                            gameField.getGameField()[i + tempLine][j + tempColumn].setVisible(true);
                         }
 
                         if (!gameField.getGameField()[i + tempLine][j + tempColumn].isVisible()) {
@@ -87,30 +89,33 @@ public class Model {
 
     private void rightClickOnCell(int line, int column) {
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11])) {
-            gameField.getGameField()[line][column].setContent(characters.getCharacters()[12].getContent());
-            if (gameField.getGameField()[line][column].isMine()) {
-                gameField.setMineCount(gameField.getMineCount() + 1);
-                this.printCountMine++;
-            } else {
-                this.printCountMine++;
-            }
+            gameField.getGameField()[line][column].setContent(characters.getCharacters()[12]);
+            getUpMineCount(gameField.getGameField()[line][column]);
             return;
         }
 
-        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12].getContent())) {
-            gameField.getGameField()[line][column].setContent(characters.getCharacters()[9].getContent());
-            if (gameField.getGameField()[line][column].isMine()) {
-                gameField.setMineCount(gameField.getMineCount() + 1);
-                this.printCountMine++;
-            } else {
-                this.printCountMine++;
-            }
+        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12])) {
+            gameField.getCountMineInArea(line,column);
+            gameField.getGameField()[line][column].setVisible(false);
             return;
         }
 
-        gameField.getGameField()[line][column].setContent(characters.getCharacters()[11].getContent());
-        gameField.getGameField()[line][column].setVisible();
-        if (gameField.getGameField()[line][column].isMine()) {
+        gameField.getGameField()[line][column].setContent(characters.getCharacters()[11]);
+        gameField.getGameField()[line][column].setVisible(true);
+        getDownMineCount(gameField.getGameField()[line][column]);
+    }
+
+    private void getUpMineCount(Cell cell) {
+        if (cell.isMine()) {
+            gameField.setMineCount(gameField.getMineCount() + 1);
+            this.printCountMine++;
+        } else {
+            this.printCountMine++;
+        }
+    }
+
+    private void getDownMineCount(Cell cell) {
+        if (cell.isMine()) {
             gameField.setMineCount(gameField.getMineCount() - 1);
             this.printCountMine--;
         } else {
@@ -118,6 +123,8 @@ public class Model {
         }
     }
 }
+
+
 
 /*
 if (gameField.getGameField()[line][column].isVisible()) {

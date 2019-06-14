@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.GameField;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
 public class GameField {
@@ -40,7 +40,7 @@ public class GameField {
                     continue;
                 }
 
-                this.gameField[j][randomPlace] = this.characters.getCharacters()[10];
+                this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10]);
                 this.gameField[j][randomPlace].setMine();
                 i--;
             }
@@ -50,15 +50,17 @@ public class GameField {
     public void fillNumbersInField() {
         for (int i = 0; i < this.gameField.length; i++) {
             for (int j = 0; j < this.gameField[i].length; j++) {
-                if (this.gameField[i][j] != null) {
-                    continue;
-                }
                 getCountMineInArea(i, j);
             }
         }
     }
 
     public void getCountMineInArea(int line, int column) {
+        if (this.gameField[line][column] != null && this.gameField[line][column].isMine()) {
+            this.gameField[line][column] = new Cell(this.characters.getCharacters()[10]);
+            return;
+        }
+
         int number = 0;
 
         for (int k = -1; k <= 1; k++) {
@@ -82,7 +84,7 @@ public class GameField {
                 }
             }
         }
-        this.gameField[line][column] = this.characters.getCharacters()[number];
+        this.gameField[line][column] = new Cell(this.characters.getCharacters()[number]);
     }
 
     @Override
@@ -117,7 +119,7 @@ public class GameField {
                     if (this.gameField[i][j].isVisible()) {
                         stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
                     } else {
-                        stringBuilder.append(String.format("%2s|", characters.getCharacters()[9].getContent()));
+                        stringBuilder.append(String.format("%2s|", characters.getCharacters()[9]));
                     }
                 }
             }

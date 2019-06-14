@@ -1,44 +1,36 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText;
+package ru.academItSchool.gorbunov.Minesweeper.View.Resources;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
-
-public class CellText implements Cell {
-    private char content;
+public class Cell  {
+    private Object content;
     private boolean isMine;
     private boolean isVisible;
 
-    public CellText(char content) {
+    public Cell(Object content) {
         this.content = content;
         this.isMine = false;
         this.isVisible = false;
     }
 
-    @Override
-    public void setVisible() {
-        this.isVisible = true;
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
     }
 
-    @Override
     public void setContent(Object content) {
         this.content = (char) content;
     }
 
-    @Override
     public Object getContent() {
         return this.content;
     }
 
-    @Override
     public void setMine() {
         this.isMine = true;
     }
 
-    @Override
     public boolean isMine() {
         return this.isMine;
     }
 
-    @Override
     public boolean isVisible() {
         return this.isVisible;
     }
