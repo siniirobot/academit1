@@ -1,9 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.GameField;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Cell;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersText.CellText;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
 public class GameField {
     private Cell[][] gameField;

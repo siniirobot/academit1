@@ -1,6 +1,6 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersText;
+package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
 
 public class CellText implements Cell {
     private char content;

@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
 public class Easy implements Difficult {
     private String name;

@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.Tests;
+package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

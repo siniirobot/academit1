@@ -1,6 +1,6 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersImage;
+package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.CharactersImage;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
 
 import java.awt.*;
 

@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 

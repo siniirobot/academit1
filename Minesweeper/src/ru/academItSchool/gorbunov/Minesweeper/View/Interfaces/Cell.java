@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources;
+package ru.academItSchool.gorbunov.Minesweeper.View.Interfaces;
 
 public interface Cell {
     Object getContent();

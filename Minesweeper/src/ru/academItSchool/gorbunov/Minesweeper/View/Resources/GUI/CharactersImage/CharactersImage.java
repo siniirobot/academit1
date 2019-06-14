@@ -1,8 +1,8 @@
-package ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersImage;
+package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.CharactersImage;
 
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Cell;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.CharactersText.CellText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CellText;
 
 public class CharactersImage implements Characters {
     private CellText openEmptyCell = new CellText('\u0020');
