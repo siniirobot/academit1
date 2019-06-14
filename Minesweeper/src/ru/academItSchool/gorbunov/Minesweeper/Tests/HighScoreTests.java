@@ -2,8 +2,8 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.HighScore.HighScores;
-import ru.academItSchool.gorbunov.Minesweeper.Resources.Model.HighScore.Player;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 
 public class HighScoreTests {
     @DataProvider(name = "AddToTable")
