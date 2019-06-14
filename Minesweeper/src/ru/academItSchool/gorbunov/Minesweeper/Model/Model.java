@@ -1,6 +1,5 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.CellInterface;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
@@ -88,6 +87,11 @@ public class Model {
     }
 
     private void rightClickOnCell(int line, int column) {
+        if (gameField.getGameField()[line][column].isVisible() &&
+                !(gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11]) ||
+                        gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12])) ) {
+            return;
+        }
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11])) {
             gameField.getGameField()[line][column].setContent(characters.getCharacters()[12]);
             getUpMineCount(gameField.getGameField()[line][column]);

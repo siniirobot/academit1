@@ -23,7 +23,7 @@ public class CharactersText implements Characters {
                 questionMark,*/
                 ('\u0020'),
                 ('\u0031'),
-                ('\u0033'),
+                ('\u0032'),
                 ('\u0033'),
                ('\u0034'),
                 ('\u0035'),

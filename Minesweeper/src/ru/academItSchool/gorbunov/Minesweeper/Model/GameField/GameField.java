@@ -50,6 +50,9 @@ public class GameField {
     public void fillNumbersInField() {
         for (int i = 0; i < this.gameField.length; i++) {
             for (int j = 0; j < this.gameField[i].length; j++) {
+                if (this.gameField[i][j] != null) {
+                    continue;
+                }
                 getCountMineInArea(i, j);
             }
         }
@@ -57,7 +60,7 @@ public class GameField {
 
     public void getCountMineInArea(int line, int column) {
         if (this.gameField[line][column] != null && this.gameField[line][column].isMine()) {
-            this.gameField[line][column] = new Cell(this.characters.getCharacters()[10]);
+            this.gameField[line][column].setContent(this.characters.getCharacters()[10]);
             return;
         }
 
@@ -89,7 +92,7 @@ public class GameField {
 
     @Override
     public String toString() {
-        boolean prodaction = false;
+        boolean prodaction = true;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
         StringBuilder space = new StringBuilder("   ");
