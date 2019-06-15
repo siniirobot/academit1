@@ -5,6 +5,7 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus.Game
 
 public class Text {
     public static void main(String[] args) throws Boom {
+        System.out.println('\u034f');
         Game game = new Game();
         game.startGame();
     }

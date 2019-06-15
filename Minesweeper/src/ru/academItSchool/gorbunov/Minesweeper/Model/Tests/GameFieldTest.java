@@ -1,3 +1,4 @@
+/*
 package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
 
 import org.testng.annotations.DataProvider;
@@ -22,3 +23,4 @@ public class GameFieldTest {
         System.out.println(norm);
     }
 }
+*/

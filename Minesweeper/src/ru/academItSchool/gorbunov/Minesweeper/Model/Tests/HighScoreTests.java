@@ -1,3 +1,4 @@
+/*
 package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
 
 import org.testng.annotations.DataProvider;
@@ -24,3 +25,4 @@ public class HighScoreTests {
         highScore.printHighScores("hard");
     }
 }
+*/

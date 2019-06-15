@@ -30,8 +30,8 @@ public class CharactersText implements Characters {
                 ('\u0036'),
                 ('\u0037'),
                 ('\u0038'),
-                ('\u034f'),
-                ('\u0489'),
+                ('\u262D'),
+                ('\u0298'),
                 ('\u06e9'),
                 ('\u003f'),
         };

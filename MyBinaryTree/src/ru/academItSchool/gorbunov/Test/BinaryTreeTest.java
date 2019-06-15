@@ -1,3 +1,4 @@
+/*
 package ru.academItSchool.gorbunov.Test;
 
 import org.testng.annotations.DataProvider;
@@ -197,3 +198,4 @@ public class BinaryTreeTest {
         });
     }
 }
+*/
