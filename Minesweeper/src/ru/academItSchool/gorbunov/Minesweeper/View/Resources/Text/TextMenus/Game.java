@@ -8,6 +8,7 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Game {
@@ -60,6 +61,8 @@ public class Game {
                             }
                             System.out.println("Сложность: легко.         Количество мин: " + model.getPrintCountMine());
                             System.out.println(easy.getGameField());
+                           /* String basePath = new File("").getAbsolutePath();
+                            System.out.println(basePath);*/
                             HighScores newPlayer = new HighScores();
                             newPlayer.add(new Player("siniirobot",55,easy.getName()));
                             newPlayer.printHighScores(easy);

@@ -4,8 +4,6 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 
 import java.io.*;
 
-import static ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult.nameDifficult.*;
-
 public class HighScores implements Serializable {
     /**
      * Преобразует имя сложности в имя файла.
@@ -13,17 +11,18 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
-        String file = "";
-
-        switch (difficult) {
+        String file = "academit1/Minesweeper/";
+       /* E:\study\IntelliJ IDEA 2017.2.5\2018Idea\academit1\Easy.txt
+        E:\study\IntelliJ IDEA 2017.2.5\2018Idea\academit1\Minesweeper\src\ru\academItSchool\gorbunov\Minesweeper\Model\HighScore\HighScores.java
+        */switch (difficult) {
             case EASY:
-                file = "Easy.txt";
+                file += "Easy.txt";
                 break;
             case NORM:
-                file = "Norm.txt";
+                file += "Norm.txt";
                 break;
             case HARD:
-                file = "Hard.txt";
+                file += "Hard.txt";
                 break;
         }
 
@@ -32,22 +31,20 @@ public class HighScores implements Serializable {
 
     /**
      * Открывает файл с пмомщью полученого ранее имя файла для сериализацмм.
-     * @param difficult имя сложности игрока
+     * @param path имя сложности игрока
      * @return поток с открытым файлом
-     * @throws IOException
      */
-    private ObjectInputStream openFile(String difficult) throws IOException {
-        return new ObjectInputStream(new FileInputStream(difficult));
+    private ObjectInputStream openFile(String path) throws IOException {
+        return new ObjectInputStream(new FileInputStream(path));
     }
 
     /**
      * Закрывет файл с сериализуемым объектом
-     * @param difficult имя сложности игрока
+     * @param path имя сложности игрока
      * @return поток с закрытием файла
-     * @throws IOException
      */
-    private ObjectOutputStream closeFile(String difficult) throws IOException {
-        return new ObjectOutputStream(new FileOutputStream(difficult));
+    private ObjectOutputStream closeFile(String path) throws IOException {
+        return new ObjectOutputStream(new FileOutputStream(path));
     }
 
     /**
@@ -60,6 +57,8 @@ public class HighScores implements Serializable {
     public void add(Player player) {
         Player[] highScores = new Player[10];
         String fileName = getFileName(player.getDifficult());
+        String basePath = new File("src").getAbsolutePath();
+        System.out.println(basePath);
 
         try {
             ObjectInputStream readFile = openFile(fileName);
@@ -91,8 +90,6 @@ public class HighScores implements Serializable {
         try {
             ObjectOutputStream writeFile = closeFile(fileName);
             writeFile.writeObject(highScores);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,15 +108,17 @@ public class HighScores implements Serializable {
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.append("Сложность - ").append(difficult.getName().toString()).append(System.lineSeparator());
-            stringBuilder.append("    Имя:    ").append("    Время:    ").append(System.lineSeparator());
-            stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+            stringBuilder.append("   №: ").append("   Имя:   ").append("Время:    ").append(System.lineSeparator());
+            StringBuilder line = new StringBuilder("||=====================||" + System.lineSeparator());
+            stringBuilder.append(line);
             for (int i = 0; i < highScores.length; i++) {
                 if (highScores[i] != null) {
-                    stringBuilder.append("// ").append(i + 1).append(" - ").append(highScores[i].getName()).append("    ")
-                            .append(highScores[i].getTime()).append(" //").append(System.lineSeparator());
+                    stringBuilder
+                            .append(String.format("||%2d %10s %7d||",i+1, highScores[i].getName(),highScores[i].getTime()))
+                            .append(System.lineSeparator());
                 }
             }
-            stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
+            stringBuilder.append(line);
             System.out.println(stringBuilder.toString());
         } catch (IOException e) {
             System.out.println("Таблица еще пуста.");

@@ -2,7 +2,6 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
 public class Easy implements Difficult {
     private nameDifficult name;
@@ -10,7 +9,7 @@ public class Easy implements Difficult {
 
     public Easy(Characters characters) {
         this.name = nameDifficult.EASY;
-        this.gameField = new GameField(9, 9, 10, characters);
+        this.gameField = new GameField(9, 9, 1, characters);
         this.gameField.fillMinesInField();
         this.gameField.fillNumbersInField();
     }
