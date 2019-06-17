@@ -1,25 +1,26 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
 public class Easy implements Difficult {
-    private String name;
+    private nameDifficult name;
     private GameField gameField;
 
-    public Easy() {
-        this.name = "easy";
-        this.gameField = new GameField(9, 9, 10, new CharactersText());
+    public Easy(Characters characters) {
+        this.name = nameDifficult.EASY;
+        this.gameField = new GameField(9, 9, 10, characters);
         this.gameField.fillMinesInField();
         this.gameField.fillNumbersInField();
     }
 
     @Override
-    public String getName() {
+    public nameDifficult getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(nameDifficult name) {
         this.name = name;
     }
 

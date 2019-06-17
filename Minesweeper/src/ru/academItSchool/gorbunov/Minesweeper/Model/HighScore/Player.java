@@ -1,24 +1,26 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Player implements Serializable {
+public class Player implements Serializable{
     private String name;
     private int time;
-    private String difficult;
+    private Difficult.nameDifficult difficult;
 
-    public Player(String name, int time, String difficult) {
+    public Player(String name, int time, Difficult.nameDifficult difficult) {
         this.name = name;
         this.time = time;
         this.difficult = difficult;
     }
 
-    public String getDifficult() {
+    public Difficult.nameDifficult getDifficult() {
         return difficult;
     }
 
-    public void setDifficult(String difficult) {
+    public void setDifficult(Difficult.nameDifficult difficult) {
         this.difficult = difficult;
     }
 

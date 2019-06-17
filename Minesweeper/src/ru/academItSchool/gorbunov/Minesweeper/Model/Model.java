@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.EndGame;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
@@ -23,7 +24,7 @@ public class Model {
         return this.printCountMine;
     }
 
-    public void clickMove(String command, int line, int column) throws Boom {
+    public void clickMove(String command, int line, int column) throws Boom, EndGame {
         switch (command) {
             case "1":
                 leftClickOnCell(line, column);
@@ -86,7 +87,7 @@ public class Model {
         }
     }
 
-    private void rightClickOnCell(int line, int column) {
+    private void rightClickOnCell(int line, int column) throws EndGame {
         if (gameField.getGameField()[line][column].isVisible() &&
                 !(gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11]) ||
                         gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12]))) {
@@ -108,6 +109,9 @@ public class Model {
         gameField.getGameField()[line][column].setContent(characters.getCharacters()[11]);
         gameField.getGameField()[line][column].setVisible(true);
         getDownMineCount(gameField.getGameField()[line][column]);
+        if (gameField.getMineCount() == 0) {
+            throw new EndGame("Поздравляю игра окончена!");
+        }
     }
 
     private void getUpMineCount(Cell cell) {

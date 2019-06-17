@@ -1,19 +1,24 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+
 import java.io.*;
 
-public class HighScores {
-    private String getFileName(String difficult) {
+import static ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult.nameDifficult.*;
+
+public class HighScores implements Serializable {
+
+    private String getFileName(Difficult.nameDifficult difficult) {
         String file = "";
 
         switch (difficult) {
-            case "easy":
+            case EASY:
                 file = "Easy.txt";
                 break;
-            case "norm":
+            case NORM:
                 file = "Norm.txt";
                 break;
-            case "hard":
+            case HARD:
                 file = "Hard.txt";
                 break;
         }
@@ -22,7 +27,6 @@ public class HighScores {
     }
 
     private ObjectInputStream openFile(String difficult) throws IOException {
-
         return new ObjectInputStream(new FileInputStream(difficult));
     }
 
@@ -71,15 +75,15 @@ public class HighScores {
         }
     }
 
-    public void printHighScores(String difficult) {
-        String fileName = getFileName(difficult);
+    public void printHighScores(Difficult difficult) {
+        String fileName = getFileName(difficult.getName());
 
         try {
             ObjectInputStream readFile = openFile(fileName);
             Player[] highScores = (Player[]) readFile.readObject();
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Сложность - ").append(difficult).append(System.lineSeparator());
+            stringBuilder.append("Сложность - ").append(difficult.getName().toString()).append(System.lineSeparator());
             stringBuilder.append("    Имя:    ").append("    Время:    ").append(System.lineSeparator());
             stringBuilder.append("///////////////////////////////////////////").append(System.lineSeparator());
             for (int i = 0; i < highScores.length; i++) {
