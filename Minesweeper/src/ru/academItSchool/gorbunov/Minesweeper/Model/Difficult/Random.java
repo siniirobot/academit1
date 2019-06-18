@@ -16,8 +16,8 @@ public class Random implements Difficult {
             throw new IllegalArgumentException("Ширина игрового поля должна быть не меньше 9 колонок и не больше 30.");
         }
 
-        if (mineCount < 10 || mineCount > ((height * width) * 85) / 100) {
-            throw new IllegalArgumentException("Колличество мин должно быть в пределах от 1 до 688");
+        if (mineCount < 10 || mineCount > ((height * width) * 75) / 100) {
+            throw new IllegalArgumentException("Колличество мин должно быть в пределах от 1 до 540");
         }
 
         this.name = Difficult.nameDifficult.RAND;

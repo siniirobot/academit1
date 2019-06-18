@@ -8,6 +8,13 @@ public class GameField {
     private int mineCount;
     private Characters characters;
 
+    /**
+     * Создание игрового поля по параметрам:
+     * @param height - количество строк,
+     * @param width - колличесвто колонок,
+     * @param mineCount -колличество мин,
+     * @param characters - Используемый набор символов для отображения.
+     */
     public GameField(int height, int width, int mineCount, Characters characters) {
         this.gameField = new Cell[height][width];
         this.mineCount = mineCount;
@@ -18,10 +25,6 @@ public class GameField {
         return gameField;
     }
 
-    public void setGameField(Cell[][] gameField) {
-        this.gameField = gameField;
-    }
-
     public int getMineCount() {
         return mineCount;
     }
@@ -30,6 +33,9 @@ public class GameField {
         this.mineCount = mineCount;
     }
 
+    /**
+     * Заполнение игрового поля минами.
+     */
     public void fillMinesInField() {
         int i = this.mineCount;
         while (i != 0) {
@@ -47,6 +53,9 @@ public class GameField {
         }
     }
 
+    /**
+     * Заполнение поля цифрами в зависимости от колличества мин.
+     */
     public void fillNumbersInField() {
         for (int i = 0; i < this.gameField.length; i++) {
             for (int j = 0; j < this.gameField[i].length; j++) {
@@ -58,6 +67,11 @@ public class GameField {
         }
     }
 
+    /**
+     * Вычислить колличество вокруг данного квадрата.
+     * @param line координата
+     * @param column координата
+     */
     public void getCountMineInArea(int line, int column) {
         if (this.gameField[line][column] != null && this.gameField[line][column].isMine()) {
             this.gameField[line][column].setContent(this.characters.getCharacters()[10]);
@@ -99,13 +113,13 @@ public class GameField {
 
         stringBuilder.append(space).append("  |");
 
-        for (int i = 1; i <= this.gameField.length; i++) {
+        for (int i = 1; i <= this.gameField[0].length; i++) {
             stringBuilder.append(String.format("%2d|", i));
         }
 
         stringBuilder.append(System.lineSeparator());
 
-        for (int i = 0; i < this.gameField.length * 3 + 6; i++) {
+        for (int i = 0; i < this.gameField[0].length * 3 + 6; i++) {
             line.append("-");
         }
 
@@ -126,10 +140,8 @@ public class GameField {
                     }
                 }
             }
-
             stringBuilder.append(System.lineSeparator());
         }
-
         stringBuilder.append(line);
 
         return stringBuilder.toString();

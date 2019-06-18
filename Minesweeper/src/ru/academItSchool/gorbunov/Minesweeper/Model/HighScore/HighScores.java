@@ -11,8 +11,8 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
-        //String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
-        String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
        switch (difficult) {
             case EASY:
                 file += "Easy.txt";
