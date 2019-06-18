@@ -11,10 +11,8 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
-        String file = "academit1/Minesweeper/";
-       /* E:\study\IntelliJ IDEA 2017.2.5\2018Idea\academit1\Easy.txt
-        E:\study\IntelliJ IDEA 2017.2.5\2018Idea\academit1\Minesweeper\src\ru\academItSchool\gorbunov\Minesweeper\Model\HighScore\HighScores.java
-        */switch (difficult) {
+        String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+       switch (difficult) {
             case EASY:
                 file += "Easy.txt";
                 break;
