@@ -3,13 +3,13 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
-public class Easy implements Difficult {
+public class Norm implements Difficult {
     private nameDifficult name;
     private GameField gameField;
 
-    public Easy(Characters characters) {
-        this.name = nameDifficult.EASY;
-        this.gameField = new GameField(9, 9, 1, characters);
+    public Norm(Characters characters) {
+        this.name = nameDifficult.NORM;
+        this.gameField = new GameField(16, 16, 40, characters);
         this.gameField.fillMinesInField();
         this.gameField.fillNumbersInField();
     }

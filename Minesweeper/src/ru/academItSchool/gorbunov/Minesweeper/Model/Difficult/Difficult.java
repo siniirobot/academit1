@@ -8,7 +8,8 @@ public interface Difficult extends Serializable {
     enum nameDifficult {
         EASY,
         NORM,
-        HARD;
+        HARD,
+        RAND;
 
         @Override
         public String toString() {
@@ -16,8 +17,10 @@ public interface Difficult extends Serializable {
                 return "Легко";
             } else if (super.equals(NORM)) {
                 return "Нормально";
-            } else {
+            } else if (super.equals(HARD)){
                 return "Тяжело";
+            }else {
+                return "Произвольная";
             }
         }
     }
