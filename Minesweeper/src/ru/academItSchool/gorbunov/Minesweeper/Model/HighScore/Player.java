@@ -11,6 +11,7 @@ public class Player implements Serializable{
     private Difficult.nameDifficult difficult;
 
     public Player(String name, int time, Difficult.nameDifficult difficult) {
+
         this.name = name;
         this.time = time;
         this.difficult = difficult;
