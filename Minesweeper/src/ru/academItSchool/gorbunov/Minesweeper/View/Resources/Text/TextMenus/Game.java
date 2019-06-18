@@ -61,11 +61,9 @@ public class Game {
                             }
                             System.out.println("Сложность: легко.         Количество мин: " + model.getPrintCountMine());
                             System.out.println(easy.getGameField());
-                           /* String basePath = new File("").getAbsolutePath();
-                            System.out.println(basePath);*/
                             HighScores newPlayer = new HighScores();
-                            newPlayer.add(new Player("siniirobot",55,easy.getName()));
-                            newPlayer.printHighScores(easy);
+                            newPlayer.add(new Player("siniirobot",55,easy));
+                            newPlayer.printHighScores(easy.getName());
                         }
                 }
         }

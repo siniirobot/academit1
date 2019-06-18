@@ -11,7 +11,8 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
-        String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        //String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
        switch (difficult) {
             case EASY:
                 file += "Easy.txt";
@@ -22,6 +23,8 @@ public class HighScores implements Serializable {
             case HARD:
                 file += "Hard.txt";
                 break;
+           case RAND:
+               throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");
         }
 
         return file;
@@ -55,8 +58,6 @@ public class HighScores implements Serializable {
     public void add(Player player) {
         Player[] highScores = new Player[10];
         String fileName = getFileName(player.getDifficult());
-        String basePath = new File("src").getAbsolutePath();
-        System.out.println(basePath);
 
         try {
             ObjectInputStream readFile = openFile(fileName);
@@ -97,15 +98,15 @@ public class HighScores implements Serializable {
      * Печатает таблицу рекордов определенной сложности.
      * @param difficult сложность.
      */
-    public void printHighScores(Difficult difficult) {
-        String fileName = getFileName(difficult.getName());
+    public void printHighScores(Difficult.nameDifficult difficult) {
+        String fileName = getFileName(difficult);
 
         try {
             ObjectInputStream readFile = openFile(fileName);
             Player[] highScores = (Player[]) readFile.readObject();
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("Сложность - ").append(difficult.getName().toString()).append(System.lineSeparator());
+            stringBuilder.append("Сложность - ").append(difficult.toString()).append(System.lineSeparator());
             stringBuilder.append("   №: ").append("   Имя:   ").append("Время:    ").append(System.lineSeparator());
             StringBuilder line = new StringBuilder("||=====================||" + System.lineSeparator());
             stringBuilder.append(line);

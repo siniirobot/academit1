@@ -17,13 +17,13 @@ public class Player implements Serializable {
      * @param time      Время игры игрока
      * @param difficult Сложность для игры
      */
-    public Player(String name, int time, Difficult.nameDifficult difficult) {
+    public Player(String name, int time, Difficult difficult) {
         if (name.length() > 10) {
             throw new IllegalArgumentException("Введите имя Игрока длиной не больше 10 символов.");
         }
         this.name = name;
         this.time = time;
-        this.difficult = difficult;
+        this.difficult = difficult.getName();
     }
 
     public Difficult.nameDifficult getDifficult() {
