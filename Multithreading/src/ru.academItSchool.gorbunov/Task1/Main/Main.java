@@ -4,9 +4,12 @@ import ru.academItSchool.gorbunov.Task1.Thread.ThreadOneToTen;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Thread threadOneToTen = new Thread(new ThreadOneToTen());
+        ThreadOneToTen one = new ThreadOneToTen();
+        Thread threadOneToTen = new Thread(one);
         threadOneToTen.start();
-        threadOneToTen.join();
+
         System.out.println("Исполнение продолжено");
+
+        System.out.println(one.getI());
     }
 }

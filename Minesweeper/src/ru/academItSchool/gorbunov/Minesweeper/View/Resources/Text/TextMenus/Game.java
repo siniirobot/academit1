@@ -8,15 +8,14 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
-import java.io.File;
 import java.util.Scanner;
 
 public class Game {
     public void startGame() throws Boom {
 
         Scanner scanner = new Scanner(System.in);
-        PrintMenus printMenus = new PrintMenus();
-        System.out.println(printMenus.getTextMainMenu());
+        TextMenus textMenus = new TextMenus();
+        System.out.println(textMenus.getMainMenu());
 
         System.out.println("Введите номер меню.");
         String num = scanner.next();
@@ -26,7 +25,7 @@ public class Game {
         }
         switch (num) {
             case "1":
-                System.out.println(printMenus.getTextSettingMenu());
+                System.out.println(textMenus.getSettingMenu());
                 System.out.println("Введите номер меню.");
                 num = scanner.next();
                 while (!(num.equals("1") || num.equals("2") || num.equals("3") || num.equals("4"))) {
@@ -53,7 +52,7 @@ public class Game {
                         } catch (Boom b) {
                             System.out.println("Игра окончена" + b);
                         } catch (EndGame endGame) {
-                            System.out.println(printMenus.getEndGameMenu());
+                            System.out.println(textMenus.getEndGameMenu());
                             String highScore = scanner.next();
                             while (!highScore.equals("1")) {
                                 System.out.println("Нажмите 1!");
