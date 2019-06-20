@@ -1,26 +1,35 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-
 public class Norm implements Difficult {
     private nameDifficult name;
-    private GameField gameField;
+    private int columns;
+    private int rows;
+    private int mines;
 
-    public Norm(Characters characters) {
+    public Norm() {
         this.name = nameDifficult.NORM;
-        this.gameField = new GameField(16, 16, 40, characters);
-        this.gameField.fillMinesInField();
-        this.gameField.fillNumbersInField();
+        this.columns = 16;
+        this.rows = 16;
+        this.mines = 40;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columns;
+    }
+
+    @Override
+    public int getRowCount() {
+        return rows;
+    }
+
+    @Override
+    public int getMines() {
+        return mines;
     }
 
     @Override
     public nameDifficult getName() {
         return this.name;
-    }
-
-    @Override
-    public GameField getGameField() {
-        return gameField;
     }
 }

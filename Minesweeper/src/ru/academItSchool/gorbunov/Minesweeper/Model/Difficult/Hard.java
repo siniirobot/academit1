@@ -1,27 +1,36 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-
 public class Hard implements Difficult {
     private nameDifficult name;
-    private GameField gameField;
+    private int columns;
+    private int rows;
+    private int mines;
 
-    public Hard(Characters characters) {
+    public Hard() {
         this.name = nameDifficult.HARD;
-        this.gameField = new GameField(16, 30, 99, characters);
-        this.gameField.fillMinesInField();
-        this.gameField.fillNumbersInField();
+        this.columns = 9;
+        this.rows = 9;
+        this.mines = 10;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columns;
+    }
+
+    @Override
+    public int getRowCount() {
+        return rows;
+    }
+
+    @Override
+    public int getMines() {
+        return mines;
     }
 
     @Override
     public nameDifficult getName() {
         return this.name;
-    }
-
-    @Override
-    public GameField getGameField() {
-        return gameField;
     }
 }
 

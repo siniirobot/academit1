@@ -20,6 +20,10 @@ public class Model {
         this.printCountMine = gameField.getMineCount();
     }
 
+    public Characters getCharacters() {
+        return characters;
+    }
+
     public int getPrintCountMine() {
         return this.printCountMine;
     }
@@ -41,7 +45,14 @@ public class Model {
 
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10])) {
             gameField.getGameField()[line][column].setVisible(true);
-            gameField.getGameField()[line][column].setContent(characters.getCharacters()[10]);
+            for (Cell[] row : gameField.getGameField()) {
+                for (Cell el : row) {
+                    if (el.isMine()) {
+                        el.setVisible(true);
+                    }
+                }
+            }
+
             throw new Boom("Вы взорвали себя.");
         } else if (!gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[0])) {
             gameField.getGameField()[line][column].setVisible(true);

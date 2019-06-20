@@ -1,6 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Easy;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus.TextMenus;
 

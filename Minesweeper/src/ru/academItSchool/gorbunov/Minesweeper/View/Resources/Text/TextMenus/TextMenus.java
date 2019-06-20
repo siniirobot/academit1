@@ -2,6 +2,7 @@ package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Menus;
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
 
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TextMenus implements Menus {
+    private Scanner scanner = new Scanner(System.in);
+
     public String getMainMenu() {
         return ("||//////////////////////||") + (System.lineSeparator()) +
                 ("||        САПЕР!        ||") + (System.lineSeparator()) +
@@ -48,21 +51,22 @@ public class TextMenus implements Menus {
     }
 
     public Object getInput(Object[] buttons) {
-        Scanner scanner = new Scanner(System.in);
         String numberMenu = scanner.next();
         while (!Arrays.asList(buttons).contains(numberMenu)) {
-            System.out.println("Введите пункт меню - " + Arrays.toString(buttons));
+            System.out.println("Введите цифру - " + Arrays.toString(buttons));
             numberMenu = scanner.next();
         }
         return numberMenu;
     }
 
-    public void getPrintGame(Difficult difficult) {
-        Model model = new Model(new CharactersText(),difficult.getGameField());
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Сложность - ").append(difficult.getName());
-        while (difficult.getGameField().getMineCount() != 0) {
+    public void getPrintGame(Model model, Difficult difficult) {
+        Timer timer = new Timer();
+        Thread threadForTimer = new Thread(timer);
+        threadForTimer.start();
 
-        }
+        System.out.println("Сложность - " + difficult.getName());
+        System.out.println("Колличество мин - " + model.getPrintCountMine());
+        System.out.println("Время - " + timer.getTime());
+        System.out.println(difficult.getGameField());
     }
 }

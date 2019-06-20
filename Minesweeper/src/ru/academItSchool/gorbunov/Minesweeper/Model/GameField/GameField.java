@@ -106,7 +106,7 @@ public class GameField {
 
     @Override
     public String toString() {
-        boolean prodaction = true;
+        boolean prodaction = false;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
         StringBuilder space = new StringBuilder("   ");

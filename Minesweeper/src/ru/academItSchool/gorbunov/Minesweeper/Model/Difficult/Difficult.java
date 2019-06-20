@@ -24,8 +24,11 @@ public interface Difficult extends Serializable {
             }
         }
     }
+    int getColumnCount();
+
+    int getRowCount();
+
+    int getMines();
 
     nameDifficult getName();
-
-    GameField getGameField();
 }
