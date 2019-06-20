@@ -14,14 +14,10 @@ public class Model {
     private GameField gameField;
     private int printCountMine;
 
-    public Model(Characters characters, GameField gameField) {
-        this.characters = characters;
+    public Model( GameField gameField) {
+        this.characters = gameField.getCharacters();
         this.gameField = gameField;
         this.printCountMine = gameField.getMineCount();
-    }
-
-    public Characters getCharacters() {
-        return characters;
     }
 
     public int getPrintCountMine() {

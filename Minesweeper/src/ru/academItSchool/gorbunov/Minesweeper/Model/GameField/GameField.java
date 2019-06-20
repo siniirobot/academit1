@@ -21,6 +21,10 @@ public class GameField {
         this.characters = characters;
     }
 
+    public Characters getCharacters() {
+        return characters;
+    }
+
     public Cell[][] getGameField() {
         return gameField;
     }

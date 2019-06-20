@@ -67,6 +67,6 @@ public class TextMenus implements Menus {
         System.out.println("Сложность - " + difficult.getName());
         System.out.println("Колличество мин - " + model.getPrintCountMine());
         System.out.println("Время - " + timer.getTime());
-        System.out.println(difficult.getGameField());
+        System.out.println();
     }
 }
