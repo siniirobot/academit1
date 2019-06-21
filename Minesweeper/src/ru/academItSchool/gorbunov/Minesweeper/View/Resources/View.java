@@ -31,19 +31,16 @@ public class View {
                     case 1:
                         Easy easy = new Easy();
                         getGameProcess(easy, characters);
-                        highScores.printHighScores(easy.getName());
                         startGameAgain(characters);
                         break;
                     case 2:
                         Norm norm = new Norm();
                         getGameProcess(norm, characters);
-                        highScores.printHighScores(norm.getName());
                         startGameAgain(characters);
                         break;
                     case 3:
                         Hard hard = new Hard();
                         getGameProcess(hard, characters);
-                        highScores.printHighScores(hard.getName());
                         startGameAgain(characters);
                         break;
                     case 4:
@@ -61,7 +58,7 @@ public class View {
                         getGameProcess(random, characters);
                         startGameAgain(characters);
                         break;
-                    case 45:
+                    case 5:
                         startGame(characters);
                         break;
                 }
@@ -109,11 +106,14 @@ public class View {
             }
         } catch (Boom b) {
             System.out.println(b.getMessage());
+            inputOutputMenus.getPrintGame(model, difficult, timer);
+            return;
         }
         System.out.println("Введите имя игрока.");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.next();
         Player player = new Player(name, timer.getTime(), difficult);
         highScores.add(player);
+        highScores.printHighScores(difficult.getName());
     }
 }
