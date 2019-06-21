@@ -25,12 +25,12 @@ public class HighScoreTests {
     @DataProvider(name = "AddToTable")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{"", 999, new Easy(new CharactersText())},
-                new Object[]{"12454435154534", 74, new Easy(new CharactersText())},
-                new Object[]{"Alex", 999, new Easy(new CharactersText())},
-                new Object[]{"Eva", 999, new Norm(new CharactersText())},
-                new Object[]{"Irma", 999, new Hard(new CharactersText())},
-                new Object[]{"Cliam", 999, new Random(9,9,20, new CharactersText())}
+                new Object[]{"", 999, new Easy()},
+                new Object[]{"12454435154534", 74, new Easy()},
+                new Object[]{"Alex", 999, new Easy()},
+                new Object[]{"Eva", 999, new Norm()},
+                new Object[]{"Irma", 999, new Hard()},
+                new Object[]{"Cliam", 999, new Random(9,9,20)}
         };
     }
 
@@ -50,10 +50,10 @@ public class HighScoreTests {
     @Test(dataProvider = "CreateDifficult")
     public void testCreate(int height, int width, int mineCount, Characters characters) {
         try {
-            Easy easy = new Easy(characters);
-            Norm norm = new Norm(characters);
-            Hard hard = new Hard(characters);
-            Random random = new Random(height,width,mineCount,characters);
+            Easy easy = new Easy();
+            Norm norm = new Norm();
+            Hard hard = new Hard();
+            Random random = new Random(height,width,mineCount);
         }catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

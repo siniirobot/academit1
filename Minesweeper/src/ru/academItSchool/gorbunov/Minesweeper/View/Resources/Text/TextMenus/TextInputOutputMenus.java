@@ -1,23 +1,22 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Menus;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class TextMenus implements Menus {
+public class TextInputOutputMenus implements InputOutputMenus {
     private Scanner scanner = new Scanner(System.in);
 
     public String getMainMenu() {
-        return ("||//////////////////////||") + (System.lineSeparator()) +
-                ("||        САПЕР!        ||") + (System.lineSeparator()) +
-                ("||1) -   Начать игру.   ||") + (System.lineSeparator()) +
-                ("||2) - Таблица рекордов.||") + (System.lineSeparator()) +
-                ("||//////////////////////||") + (System.lineSeparator());
+        return ("||//////////////////////||") + (System.lineSeparator())
+                + ("||        САПЕР!        ||") + (System.lineSeparator())
+                + ("||1) -   Начать игру.   ||") + (System.lineSeparator())
+                + ("||2) - Таблица рекордов.||") + (System.lineSeparator())
+                + ("||//////////////////////||") + (System.lineSeparator());
     }
 
     public String getSettingMenu() {
@@ -50,15 +49,6 @@ public class TextMenus implements Menus {
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
-    public Object getInput(Object[] buttons) {
-        String numberMenu = scanner.next();
-        while (!Arrays.asList(buttons).contains(numberMenu)) {
-            System.out.println("Введите цифру - " + Arrays.toString(buttons));
-            numberMenu = scanner.next();
-        }
-        return numberMenu;
-    }
-
     public void getPrintGame(Model model, Difficult difficult) {
         Timer timer = new Timer();
         Thread threadForTimer = new Thread(timer);
@@ -67,6 +57,58 @@ public class TextMenus implements Menus {
         System.out.println("Сложность - " + difficult.getName());
         System.out.println("Колличество мин - " + model.getPrintCountMine());
         System.out.println("Время - " + timer.getTime());
-        System.out.println();
+        System.out.println(model.getGameField());
+    }
+
+
+    @Override
+    public int[] getCoordinate(GameField gameField) {
+        int[] coordinate = new int[3];
+
+        System.out.println("Введите номер строки - ");
+        coordinate[0] = getInput(1, gameField.getGameField().length);
+
+        System.out.println("Введите номер столбца - ");
+        coordinate[1] = getInput(1, gameField.getGameField()[0].length);
+
+        System.out.println("Введите 1- чтобы открыть ячейку, " +
+                "2 - чтобы пометить ячейку флагом как мину, " +
+                "2 - (повторно) чтобы пометить ячейку вопросом.");
+        coordinate[2] = getInput(1, 2);
+
+        return coordinate;
+    }
+
+    public int getInput(int from, int to) {
+        String[] arrayChoosingElements = getArrayChoosingElements(from, to);
+        StringBuilder choosingElements = new StringBuilder();
+        String input = scanner.next();
+        for (String el : arrayChoosingElements) {
+            if (input.equals(el)) {
+                return Integer.parseInt(el);
+            }
+            choosingElements.append(el).append(" ");
+        }
+        System.out.println("Введите число :" + choosingElements);
+        return getInput(arrayChoosingElements, choosingElements);
+    }
+
+    public int getInput(String[] arrayChoosingElements, StringBuilder choosingElements) {
+        String input = scanner.next();
+        for (String el : arrayChoosingElements) {
+            if (input.equals(el)) {
+                return Integer.parseInt(el);
+            }
+        }
+        System.out.println("Введите число :" + choosingElements);
+        return getInput(arrayChoosingElements, choosingElements);
+    }
+
+    private String[] getArrayChoosingElements(int from, int to) {
+        String[] menus = new String[to];
+        for (int i = from - 1; i < to; i++) {
+            menus[i] = ((Integer) (i + 1)).toString();
+        }
+        return menus;
     }
 }

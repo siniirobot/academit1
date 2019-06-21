@@ -24,12 +24,16 @@ public class Model {
         return this.printCountMine;
     }
 
-    public void clickMove(String command, int line, int column) throws Boom, EndGame {
+    public GameField getGameField() {
+        return gameField;
+    }
+
+    public void clickMove(int command, int line, int column) throws Boom, EndGame {
         switch (command) {
-            case "1":
+            case 1:
                 leftClickOnCell(line, column);
                 break;
-            case "2":
+            case 2:
                 rightClickOnCell(line, column);
         }
     }
