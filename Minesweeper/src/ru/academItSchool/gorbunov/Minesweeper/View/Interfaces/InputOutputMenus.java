@@ -3,6 +3,7 @@ package ru.academItSchool.gorbunov.Minesweeper.View.Interfaces;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
 
 public interface InputOutputMenus {
     String getMainMenu();
@@ -17,7 +18,7 @@ public interface InputOutputMenus {
 
     int getInput(String[] arrayChoosingElements, StringBuilder choosingElements);
 
-    void getPrintGame(Model model, Difficult difficult);
+    void getPrintGame(Model model, Difficult difficult, Timer timer);
 
     int[] getCoordinate(GameField gameField);
 }

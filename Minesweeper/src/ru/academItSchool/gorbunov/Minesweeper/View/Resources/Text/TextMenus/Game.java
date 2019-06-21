@@ -52,7 +52,7 @@ public class Game {
                             }
                         } catch (Boom b) {
                             System.out.println("Игра окончена" + b);
-                        } catch (EndGame endGame) {
+                        } /*catch (EndGame endGame) {
                             System.out.println(textMenus.getEndGameMenu());
                             String highScore = scanner.next();
                             while (!highScore.equals("1")) {
@@ -64,7 +64,7 @@ public class Game {
                             HighScores newPlayer = new HighScores();
                             newPlayer.add(new Player("siniirobot",55,easy));
                             newPlayer.printHighScores(easy.getName());
-                        }
+                        }*/
                 }
         }
     }

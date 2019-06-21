@@ -28,7 +28,7 @@ public class Model {
         return gameField;
     }
 
-    public void clickMove(int command, int line, int column) throws Boom, EndGame {
+    public void clickMove(int line, int column, int command) throws Boom {
         switch (command) {
             case 1:
                 leftClickOnCell(line, column);
@@ -98,7 +98,7 @@ public class Model {
         }
     }
 
-    private void rightClickOnCell(int line, int column) throws EndGame {
+    private void rightClickOnCell(int line, int column) {
         if (gameField.getGameField()[line][column].isVisible() &&
                 !(gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11]) ||
                         gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12]))) {
@@ -120,9 +120,6 @@ public class Model {
         gameField.getGameField()[line][column].setContent(characters.getCharacters()[11]);
         gameField.getGameField()[line][column].setVisible(true);
         getDownMineCount(gameField.getGameField()[line][column]);
-        if (gameField.getMineCount() == 0) {
-            throw new EndGame("Поздравляю игра окончена!");
-        }
     }
 
     private void getUpMineCount(Cell cell) {

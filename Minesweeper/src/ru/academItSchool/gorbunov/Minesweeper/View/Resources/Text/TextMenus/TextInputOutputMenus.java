@@ -49,11 +49,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
-    public void getPrintGame(Model model, Difficult difficult) {
-        Timer timer = new Timer();
-        Thread threadForTimer = new Thread(timer);
-        threadForTimer.start();
-
+    public void getPrintGame(Model model, Difficult difficult, Timer timer) {
         System.out.println("Сложность - " + difficult.getName());
         System.out.println("Колличество мин - " + model.getPrintCountMine());
         System.out.println("Время - " + timer.getTime());
@@ -66,10 +62,10 @@ public class TextInputOutputMenus implements InputOutputMenus {
         int[] coordinate = new int[3];
 
         System.out.println("Введите номер строки - ");
-        coordinate[0] = getInput(1, gameField.getGameField().length);
+        coordinate[0] = getInput(1, gameField.getGameField().length) - 1;
 
         System.out.println("Введите номер столбца - ");
-        coordinate[1] = getInput(1, gameField.getGameField()[0].length);
+        coordinate[1] = getInput(1, gameField.getGameField()[0].length) - 1;
 
         System.out.println("Введите 1- чтобы открыть ячейку, " +
                 "2 - чтобы пометить ячейку флагом как мину, " +
