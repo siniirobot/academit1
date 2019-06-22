@@ -63,47 +63,42 @@ public class TextInputOutputMenus implements InputOutputMenus {
     @Override
     public int[] getCoordinate(GameField gameField) {
         int[] coordinate = new int[3];
+        int to = gameField.getGameField().length;
+        String message = "Введите номер строки от 1 до ";
 
-        System.out.println("Введите номер строки - ");
-        coordinate[0] = getInput(1, gameField.getGameField().length) - 1;
+        coordinate[0] = getInput(getArrayChoosingElements(1, to),message + to) - 1;
 
-        System.out.println("Введите номер столбца - ");
-        coordinate[1] = getInput(1, gameField.getGameField()[0].length) - 1;
+        to = gameField.getGameField()[0].length;
+        message = "Введите номер столбца от 1 до  ";
 
-        System.out.println("Введите 1- чтобы открыть ячейку, " +
-                "2 - чтобы пометить ячейку флагом как мину, " +
+        coordinate[1] = getInput(getArrayChoosingElements(1, to), message + to) - 1;
+
+        message = ("Введите 1- чтобы открыть ячейку, " + (System.lineSeparator()) +
+                "2 - чтобы пометить ячейку флагом как мину, " + (System.lineSeparator()) +
                 "2 - (повторно) чтобы пометить ячейку вопросом.");
-        coordinate[2] = getInput(1, 2);
+
+        coordinate[2] = getInput(getArrayChoosingElements(1, 2), message);
 
         return coordinate;
     }
 
-    public int getInput(int from, int to) {
-        String[] arrayChoosingElements = getArrayChoosingElements(from, to);
-        StringBuilder choosingElements = new StringBuilder();
-        String input = scanner.next();
-        for (String el : arrayChoosingElements) {
-            if (input.equals(el)) {
-                return Integer.parseInt(el);
-            }
-            choosingElements.append(el).append(" ");
-        }
-        System.out.println("Введите число :" + choosingElements);
-        return getInput(arrayChoosingElements, choosingElements);
-    }
-
-    public int getInput(String[] arrayChoosingElements, StringBuilder choosingElements) {
+    public int getInput(String[] arrayChoosingElements, String message) {
+        System.out.println(message);
         String input = scanner.next();
         for (String el : arrayChoosingElements) {
             if (input.equals(el)) {
                 return Integer.parseInt(el);
             }
         }
-        System.out.println("Введите число :" + choosingElements);
-        return getInput(arrayChoosingElements, choosingElements);
+        return getInput(arrayChoosingElements, message);
     }
 
-    private String[] getArrayChoosingElements(int from, int to) {
+    @Override
+    public String getMenuMessage(int from, int to) {
+        return "Выюирите пункт меню с " + from + " по " + to;
+    }
+
+    public String[] getArrayChoosingElements(int from, int to) {
         String[] menus = new String[to];
         for (int i = from - 1; i < to; i++) {
             menus[i] = ((Integer) (i + 1)).toString();

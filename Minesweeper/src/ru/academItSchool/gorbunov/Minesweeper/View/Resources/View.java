@@ -23,11 +23,16 @@ public class View {
 
     public void startGame(Characters characters) {
         System.out.println(inputOutputMenus.getMainMenu());
+        int menuItemTo = 3;
 
-        switch (inputOutputMenus.getInput(1, 3)) {
+        switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, menuItemTo),
+                inputOutputMenus.getMenuMessage(1, menuItemTo))) {
             case 1:
                 System.out.println(inputOutputMenus.getSettingMenu());
-                switch (inputOutputMenus.getInput(1, 5)) {
+                menuItemTo = 5;
+
+                switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, menuItemTo),
+                        inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         Easy easy = new Easy();
                         getGameProcess(easy, characters);
@@ -44,15 +49,15 @@ public class View {
                         startGameAgain(characters);
                         break;
                     case 4:
-                        System.out.println("Введите количество строк от 9 до 24");
-                        int lines = inputOutputMenus.getInput(9, 24);
+                        int lines = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, 24),
+                                "Введите количество строк от 9 до 24");
 
-                        System.out.println("Введите количество столбцов от 9 до 30");
-                        int columns = inputOutputMenus.getInput(9, 30);
+                        int columns = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, 30),
+                                "Введите количество столбцов от 9 до 30");
 
                         int maxMines = ((lines * columns) * 75) / 100;
-                        System.out.println("Введите количество строк от 9 до " + maxMines);
-                        int minesCount = inputOutputMenus.getInput(9, maxMines);
+                        int minesCount = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, maxMines),
+                                "Введите количество мин от 10 до " + maxMines);
 
                         Random random = new Random(lines, columns, minesCount);
                         getGameProcess(random, characters);
@@ -65,7 +70,9 @@ public class View {
                 break;
             case 2:
                 System.out.println(inputOutputMenus.getHeightScoreMenu());
-                switch (inputOutputMenus.getInput(1, 4)) {
+                menuItemTo = 4;
+                switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1,
+                        menuItemTo), inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         highScores.printHighScores(new Easy().getName());
                         startGameAgain(characters);
@@ -89,7 +96,8 @@ public class View {
 
     private void startGameAgain(Characters characters) {
         System.out.println(inputOutputMenus.getEndGameMenu());
-        switch (inputOutputMenus.getInput(1, 2)) {
+        switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, 2),
+                inputOutputMenus.getMenuMessage(1, 2))) {
             case 1:
                 startGame(characters);
             case 2:
@@ -102,7 +110,8 @@ public class View {
     }
 
     private void getGameProcess(Difficult difficult, Characters characters) {
-        this.model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(), characters));
+        this.model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(),
+                characters));
         this.model.getGameField().fillMinesInField();
         this.model.getGameField().fillNumbersInField();
         Timer timer = new Timer();

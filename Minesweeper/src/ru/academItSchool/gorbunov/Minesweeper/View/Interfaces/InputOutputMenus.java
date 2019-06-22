@@ -14,9 +14,11 @@ public interface InputOutputMenus {
 
     String getEndGameMenu();
 
-    int getInput(int from , int to);
+    String getMenuMessage(int from, int to);
 
-    int getInput(String[] arrayChoosingElements, StringBuilder choosingElements);
+    int getInput(String[] arrayChoosingElements, String message);
+
+    String[] getArrayChoosingElements(int from, int to);
 
     void getPrintGame(Model model, Difficult difficult, Timer timer);
 
