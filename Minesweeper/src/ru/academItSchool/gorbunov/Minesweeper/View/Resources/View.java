@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 public class View {
     private InputOutputMenus inputOutputMenus;
-    private Model model;
     private HighScores highScores = new HighScores();
 
     public View(InputOutputMenus inputOutputMenus) {
@@ -110,10 +109,10 @@ public class View {
     }
 
     private void getGameProcess(Difficult difficult, Characters characters) {
-        this.model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(),
+        Model model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(),
                 characters));
-        this.model.getGameField().fillMinesInField();
-        this.model.getGameField().fillNumbersInField();
+        model.getGameField().fillMinesInField();
+        model.getGameField().fillNumbersInField();
         Timer timer = new Timer();
         Thread thread = new Thread(timer);
         thread.start();
@@ -128,11 +127,7 @@ public class View {
             inputOutputMenus.getPrintGame(model, difficult, timer);
             return;
         }
-        System.out.println("Введите имя игрока.");
-        Scanner scanner = new Scanner(System.in);
-        String name = scanner.next();
-        Player player = new Player(name, timer.getTime(), difficult);
-        highScores.add(player);
+        inputOutputMenus.getHighScoreWrite();
         highScores.printHighScores(difficult.getName());
     }
 }

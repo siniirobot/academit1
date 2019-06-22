@@ -2,6 +2,8 @@ package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
@@ -66,7 +68,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
         int to = gameField.getGameField().length;
         String message = "Введите номер строки от 1 до ";
 
-        coordinate[0] = getInput(getArrayChoosingElements(1, to),message + to) - 1;
+        coordinate[0] = getInput(getArrayChoosingElements(1, to), message + to) - 1;
 
         to = gameField.getGameField()[0].length;
         message = "Введите номер столбца от 1 до  ";
@@ -82,6 +84,26 @@ public class TextInputOutputMenus implements InputOutputMenus {
         return coordinate;
     }
 
+    @Override
+    public void getHighScoreWrite(Timer timer, Difficult difficult) {
+        Scanner scanner = new Scanner(System.in);
+        boolean correct = false;
+        String name = "";
+
+        while (!correct) {
+            System.out.println("Введите имя игрока от 1 до 10 символов.");
+            name = scanner.next();
+            if (name.length() > 10 || name.length() < 1) {
+                correct = true;
+            }
+        }
+
+        Player player = new Player(name, timer.getTime(), difficult);
+        HighScores highScores = new HighScores();
+        highScores.add(player);
+    }
+
+    @Override
     public int getInput(String[] arrayChoosingElements, String message) {
         System.out.println(message);
         String input = scanner.next();

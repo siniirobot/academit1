@@ -23,4 +23,6 @@ public interface InputOutputMenus {
     void getPrintGame(Model model, Difficult difficult, Timer timer);
 
     int[] getCoordinate(GameField gameField);
+
+    void getHighScoreWrite(Timer timer, Difficult difficult);
 }
