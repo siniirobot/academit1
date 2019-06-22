@@ -68,18 +68,18 @@ public class TextInputOutputMenus implements InputOutputMenus {
         int to = gameField.getGameField().length;
         String message = "Введите номер строки от 1 до ";
 
-        coordinate[0] = getInput(getArrayChoosingElements(1, to), message + to) - 1;
+        coordinate[0] = getInput(1, to, message + to) - 1;
 
         to = gameField.getGameField()[0].length;
         message = "Введите номер столбца от 1 до  ";
 
-        coordinate[1] = getInput(getArrayChoosingElements(1, to), message + to) - 1;
+        coordinate[1] = getInput(1, to, message + to) - 1;
 
         message = ("Введите 1- чтобы открыть ячейку, " + (System.lineSeparator()) +
                 "2 - чтобы пометить ячейку флагом как мину, " + (System.lineSeparator()) +
                 "2 - (повторно) чтобы пометить ячейку вопросом.");
 
-        coordinate[2] = getInput(getArrayChoosingElements(1, 2), message);
+        coordinate[2] = getInput(1, 2, message);
 
         return coordinate;
     }
@@ -93,7 +93,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
         while (!correct) {
             System.out.println("Введите имя игрока от 1 до 10 символов.");
             name = scanner.next();
-            if (name.length() > 10 || name.length() < 1) {
+            if (name.length() >= 10 || name.length() <= 1) {
                 correct = true;
             }
         }
@@ -104,27 +104,34 @@ public class TextInputOutputMenus implements InputOutputMenus {
     }
 
     @Override
-    public int getInput(String[] arrayChoosingElements, String message) {
-        System.out.println(message);
-        String input = scanner.next();
-        for (String el : arrayChoosingElements) {
-            if (input.equals(el)) {
-                return Integer.parseInt(el);
+    public int getInput(int from, int to, String message) {
+        boolean correct = false;
+        String input;
+        int itemMenu = -1;
+
+        while (!correct) {
+            System.out.println(message);
+            input = scanner.next();
+            while (!input.matches("-?\\d+")) {
+                System.out.println(message);
+                input = scanner.next();
+            }
+
+            itemMenu = Integer.parseInt(input);
+
+            for (int i = from; i <= to; i++) {
+                if (itemMenu == i) {
+                    correct = true;
+                    break;
+                }
             }
         }
-        return getInput(arrayChoosingElements, message);
+
+        return itemMenu;
     }
 
     @Override
     public String getMenuMessage(int from, int to) {
         return "Выюирите пункт меню с " + from + " по " + to;
-    }
-
-    public String[] getArrayChoosingElements(int from, int to) {
-        String[] menus = new String[to];
-        for (int i = from - 1; i < to; i++) {
-            menus[i] = ((Integer) (i + 1)).toString();
-        }
-        return menus;
     }
 }

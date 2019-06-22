@@ -14,11 +14,11 @@ public interface Difficult extends Serializable {
         @Override
         public String toString() {
             if (super.equals(EASY)) {
-                return "Легко";
+                return "Легкая";
             } else if (super.equals(NORM)) {
-                return "Нормально";
+                return "Нормальноя";
             } else if (super.equals(HARD)){
-                return "Тяжело";
+                return "Высокая";
             }else {
                 return "Произвольная";
             }

@@ -24,13 +24,13 @@ public class View {
         System.out.println(inputOutputMenus.getMainMenu());
         int menuItemTo = 3;
 
-        switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, menuItemTo),
+        switch (inputOutputMenus.getInput(1, menuItemTo,
                 inputOutputMenus.getMenuMessage(1, menuItemTo))) {
             case 1:
                 System.out.println(inputOutputMenus.getSettingMenu());
                 menuItemTo = 5;
 
-                switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, menuItemTo),
+                switch (inputOutputMenus.getInput(1, menuItemTo,
                         inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         Easy easy = new Easy();
@@ -48,14 +48,14 @@ public class View {
                         startGameAgain(characters);
                         break;
                     case 4:
-                        int lines = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, 24),
+                        int lines = inputOutputMenus.getInput(9, 24,
                                 "Введите количество строк от 9 до 24");
 
-                        int columns = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, 30),
+                        int columns = inputOutputMenus.getInput(9, 30,
                                 "Введите количество столбцов от 9 до 30");
 
                         int maxMines = ((lines * columns) * 75) / 100;
-                        int minesCount = inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(9, maxMines),
+                        int minesCount = inputOutputMenus.getInput(9, maxMines,
                                 "Введите количество мин от 10 до " + maxMines);
 
                         Random random = new Random(lines, columns, minesCount);
@@ -70,8 +70,7 @@ public class View {
             case 2:
                 System.out.println(inputOutputMenus.getHeightScoreMenu());
                 menuItemTo = 4;
-                switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1,
-                        menuItemTo), inputOutputMenus.getMenuMessage(1, menuItemTo))) {
+                switch (inputOutputMenus.getInput(1,menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         highScores.printHighScores(new Easy().getName());
                         startGameAgain(characters);
@@ -95,8 +94,7 @@ public class View {
 
     private void startGameAgain(Characters characters) {
         System.out.println(inputOutputMenus.getEndGameMenu());
-        switch (inputOutputMenus.getInput(inputOutputMenus.getArrayChoosingElements(1, 2),
-                inputOutputMenus.getMenuMessage(1, 2))) {
+        switch (inputOutputMenus.getInput(1, 2, inputOutputMenus.getMenuMessage(1, 2))) {
             case 1:
                 startGame(characters);
             case 2:
@@ -127,7 +125,7 @@ public class View {
             inputOutputMenus.getPrintGame(model, difficult, timer);
             return;
         }
-        inputOutputMenus.getHighScoreWrite();
+        inputOutputMenus.getHighScoreWrite(timer,difficult);
         highScores.printHighScores(difficult.getName());
     }
 }
