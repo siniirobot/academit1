@@ -1,7 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText;
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
 
 public class CharactersText implements Characters {
     private Object[] characters;

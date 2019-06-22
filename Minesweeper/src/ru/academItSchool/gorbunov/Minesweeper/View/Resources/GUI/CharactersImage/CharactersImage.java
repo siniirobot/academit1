@@ -1,8 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.CharactersImage;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.CellInterface;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
 public class CharactersImage implements Characters {
     private Cell openEmptyCell = new Cell('\u0020');

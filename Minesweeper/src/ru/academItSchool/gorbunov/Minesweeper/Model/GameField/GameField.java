@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.GameField;
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
 public class GameField {
@@ -10,9 +10,10 @@ public class GameField {
 
     /**
      * Создание игрового поля по параметрам:
-     * @param height - количество строк,
-     * @param width - колличесвто колонок,
-     * @param mineCount -колличество мин,
+     *
+     * @param height     - количество строк,
+     * @param width      - колличесвто колонок,
+     * @param mineCount  -колличество мин,
      * @param characters - Используемый набор символов для отображения.
      */
     public GameField(int height, int width, int mineCount, Characters characters) {
@@ -73,7 +74,8 @@ public class GameField {
 
     /**
      * Вычислить колличество вокруг данного квадрата.
-     * @param line координата
+     *
+     * @param line   координата
      * @param column координата
      */
     public void getCountMineInArea(int line, int column) {
@@ -110,7 +112,6 @@ public class GameField {
 
     @Override
     public String toString() {
-        boolean prodaction = false;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
         StringBuilder space = new StringBuilder("   ");
@@ -134,14 +135,10 @@ public class GameField {
             stringBuilder.append(space).append(String.format("%2d|", i + 1));
 
             for (int j = 0; j < this.gameField[i].length; j++) {
-                if (prodaction) {
+                if (this.gameField[i][j].isVisible()) {
                     stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
                 } else {
-                    if (this.gameField[i][j].isVisible()) {
-                        stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
-                    } else {
-                        stringBuilder.append(String.format("%2s|", characters.getCharacters()[9]));
-                    }
+                    stringBuilder.append(String.format("%2s|", characters.getCharacters()[9]));
                 }
             }
             stringBuilder.append(System.lineSeparator());

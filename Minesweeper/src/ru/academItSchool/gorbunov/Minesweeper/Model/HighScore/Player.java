@@ -18,7 +18,7 @@ public class Player implements Serializable {
      * @param difficult Сложность для игры
      */
     public Player(String name, int time, Difficult difficult) {
-        if (name.length() > 10 || name.length() < 1) {
+        if (name.length() > 10) {
             throw new IllegalArgumentException("Введите имя Игрока длиной не больше 10 символов.");
         }
         this.name = name;

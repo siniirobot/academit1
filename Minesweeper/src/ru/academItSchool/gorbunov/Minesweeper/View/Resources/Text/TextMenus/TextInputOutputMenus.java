@@ -45,8 +45,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
 
     public String getEndGameMenu() {
         return ("||////////////////////////////||") + (System.lineSeparator()) +
-                ("||           Победа           ||") + (System.lineSeparator()) +
-                ("||   Вы взорвали все бомбы!   ||") + (System.lineSeparator()) +
                 ("||          Нажмите 1         ||") + (System.lineSeparator()) +
                 ("||      для продолжения.      ||") + (System.lineSeparator()) +
                 ("||        И 2 для выхода      ||") + (System.lineSeparator()) +
@@ -93,7 +91,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
         while (!correct) {
             System.out.println("Введите имя игрока от 1 до 10 символов.");
             name = scanner.next();
-            if (name.length() >= 10 || name.length() <= 1) {
+            if (name.length() <= 10) {
                 correct = true;
             }
         }

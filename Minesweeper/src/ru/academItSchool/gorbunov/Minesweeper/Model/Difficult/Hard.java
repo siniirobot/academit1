@@ -10,7 +10,7 @@ public class Hard implements Difficult {
         this.name = nameDifficult.HARD;
         this.columns = 24;
         this.rows = 24;
-        this.mines = 99;
+        this.mines = 1;
     }
 
     @Override

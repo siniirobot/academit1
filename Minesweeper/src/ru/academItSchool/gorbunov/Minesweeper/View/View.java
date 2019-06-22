@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources;
+package ru.academItSchool.gorbunov.Minesweeper.View;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
@@ -55,7 +55,7 @@ public class View {
                                 "Введите количество столбцов от 9 до 30");
 
                         int maxMines = ((lines * columns) * 75) / 100;
-                        int minesCount = inputOutputMenus.getInput(9, maxMines,
+                        int minesCount = inputOutputMenus.getInput(1, maxMines,
                                 "Введите количество мин от 10 до " + maxMines);
 
                         Random random = new Random(lines, columns, minesCount);
@@ -70,7 +70,7 @@ public class View {
             case 2:
                 System.out.println(inputOutputMenus.getHeightScoreMenu());
                 menuItemTo = 4;
-                switch (inputOutputMenus.getInput(1,menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
+                switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         highScores.printHighScores(new Easy().getName());
                         startGameAgain(characters);
@@ -109,11 +109,14 @@ public class View {
     private void getGameProcess(Difficult difficult, Characters characters) {
         Model model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(),
                 characters));
+
         model.getGameField().fillMinesInField();
         model.getGameField().fillNumbersInField();
+
         Timer timer = new Timer();
         Thread thread = new Thread(timer);
         thread.start();
+
         try {
             while (model.getGameField().getMineCount() != 0) {
                 inputOutputMenus.getPrintGame(model, difficult, timer);
@@ -123,9 +126,11 @@ public class View {
         } catch (Boom b) {
             System.out.println(b.getMessage());
             inputOutputMenus.getPrintGame(model, difficult, timer);
+            thread.interrupt();
             return;
         }
-        inputOutputMenus.getHighScoreWrite(timer,difficult);
+        thread.interrupt();
+        inputOutputMenus.getHighScoreWrite(timer, difficult);
         highScores.printHighScores(difficult.getName());
     }
 }

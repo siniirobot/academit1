@@ -7,13 +7,14 @@ import java.io.*;
 public class HighScores implements Serializable {
     /**
      * Преобразует имя сложности в имя файла.
+     *
      * @param difficult сложность игрока
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
         String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
-       switch (difficult) {
+        switch (difficult) {
             case EASY:
                 file += "Easy.txt";
                 break;
@@ -23,8 +24,8 @@ public class HighScores implements Serializable {
             case HARD:
                 file += "Hard.txt";
                 break;
-           case RAND:
-               throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");
+            case RAND:
+                throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");
         }
 
         return file;
@@ -32,6 +33,7 @@ public class HighScores implements Serializable {
 
     /**
      * Открывает файл с пмомщью полученого ранее имя файла для сериализацмм.
+     *
      * @param path имя сложности игрока
      * @return поток с открытым файлом
      */
@@ -41,6 +43,7 @@ public class HighScores implements Serializable {
 
     /**
      * Закрывет файл с сериализуемым объектом
+     *
      * @param path имя сложности игрока
      * @return поток с закрытием файла
      */
@@ -53,6 +56,7 @@ public class HighScores implements Serializable {
      * первым в таблице.) Если добавляемый игрок по времени окозался хуже чем остальные игроки то выдается исключение
      * IllegalArgumentException, в противном случае идет перебор игроков до тех пор пока результат игрока не займет
      * свое место. После чего объект сериализуется и записывается заново.
+     *
      * @param player Игрок
      */
     public void add(Player player) {
@@ -96,6 +100,7 @@ public class HighScores implements Serializable {
 
     /**
      * Печатает таблицу рекордов определенной сложности.
+     *
      * @param difficult сложность.
      */
     public void printHighScores(Difficult.nameDifficult difficult) {
@@ -113,7 +118,7 @@ public class HighScores implements Serializable {
             for (int i = 0; i < highScores.length; i++) {
                 if (highScores[i] != null) {
                     stringBuilder
-                            .append(String.format("||%2d %10s %7d||",i+1, highScores[i].getName(),highScores[i].getTime()))
+                            .append(String.format("||%2d %10s %7d||", i + 1, highScores[i].getName(), highScores[i].getTime()))
                             .append(System.lineSeparator());
                 }
             }

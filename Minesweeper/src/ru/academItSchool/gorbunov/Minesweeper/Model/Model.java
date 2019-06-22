@@ -1,10 +1,9 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.EndGame;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Cell;
+import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,20 +13,37 @@ public class Model {
     private GameField gameField;
     private int printCountMine;
 
-    public Model( GameField gameField) {
+    /**
+     * Конструктор для создания модели.
+     * @param gameField игровое поле.
+     */
+    public Model(GameField gameField) {
         this.characters = gameField.getCharacters();
         this.gameField = gameField;
         this.printCountMine = gameField.getMineCount();
     }
 
+    /**
+     * @return текущее колличество мин
+     */
     public int getPrintCountMine() {
         return this.printCountMine;
     }
 
+    /**
+     * @return игровое поле.
+     */
     public GameField getGameField() {
         return gameField;
     }
 
+    /**
+     * Контролирует ввод команд мыши, а так же координаты нажатия.
+     * @param line - линия на которую нажали.
+     * @param column - колонка на которую нажали.
+     * @param command - комманда, левое или правое нажатие мыши.
+     * @throws Boom - взрыв бомбы.
+     */
     public void clickMove(int line, int column, int command) throws Boom {
         switch (command) {
             case 1:
@@ -38,6 +54,12 @@ public class Model {
         }
     }
 
+    /**
+     * Нажатие мыши левой кнопкой открывает клетку и делает её видимой для распечатки.
+     * @param line - линия на которую нажали.
+     * @param column - колонка на которую нажали.
+     * @throws Boom - происходит взрыв и конец игры.
+     */
     private void leftClickOnCell(int line, int column) throws Boom {
         if (gameField.getGameField()[line][column].isVisible()) {
             return;
@@ -98,6 +120,13 @@ public class Model {
         }
     }
 
+    /**
+     * Ставит флажок и помечает миной это место.
+     * При повторном нажатии ставит флажок.
+     * Если количество флажков и мин совпадет будет выйгрешь.
+     * @param line - линия на которую нажали.
+     * @param column - колонка на которую нажали.
+     */
     private void rightClickOnCell(int line, int column) {
         if (gameField.getGameField()[line][column].isVisible() &&
                 !(gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11]) ||
@@ -122,6 +151,10 @@ public class Model {
         getDownMineCount(gameField.getGameField()[line][column]);
     }
 
+    /**
+     * Поднимает количество мин если были отмечен не правильный флажок.
+     * @param cell проверяймая ячейка
+     */
     private void getUpMineCount(Cell cell) {
         if (cell.isMine()) {
             gameField.setMineCount(gameField.getMineCount() + 1);
@@ -131,6 +164,10 @@ public class Model {
         }
     }
 
+    /**
+     * Уменьшает количество мин когда ячейка отмечена флажком.
+     * @param cell проверяймая ячейка
+     */
     private void getDownMineCount(Cell cell) {
         if (cell.isMine()) {
             gameField.setMineCount(gameField.getMineCount() - 1);

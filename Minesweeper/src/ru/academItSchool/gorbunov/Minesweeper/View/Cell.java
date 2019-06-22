@@ -1,6 +1,6 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources;
+package ru.academItSchool.gorbunov.Minesweeper.View;
 
-public class Cell  {
+public class Cell {
     private Object content;
     private boolean isMine;
     private boolean isVisible;
@@ -16,7 +16,7 @@ public class Cell  {
     }
 
     public void setContent(Object content) {
-        this.content = (char) content;
+        this.content = content;
     }
 
     public Object getContent() {

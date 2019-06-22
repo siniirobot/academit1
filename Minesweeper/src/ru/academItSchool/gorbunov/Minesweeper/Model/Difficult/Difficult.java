@@ -17,13 +17,14 @@ public interface Difficult extends Serializable {
                 return "Легкая";
             } else if (super.equals(NORM)) {
                 return "Нормальноя";
-            } else if (super.equals(HARD)){
+            } else if (super.equals(HARD)) {
                 return "Высокая";
-            }else {
+            } else {
                 return "Произвольная";
             }
         }
     }
+
     int getColumnCount();
 
     int getRowCount();
