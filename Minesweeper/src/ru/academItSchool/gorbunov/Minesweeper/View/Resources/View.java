@@ -24,7 +24,7 @@ public class View {
     public void startGame(Characters characters) {
         System.out.println(inputOutputMenus.getMainMenu());
 
-        switch (inputOutputMenus.getInput(1, 2)) {
+        switch (inputOutputMenus.getInput(1, 3)) {
             case 1:
                 System.out.println(inputOutputMenus.getSettingMenu());
                 switch (inputOutputMenus.getInput(1, 5)) {
@@ -82,13 +82,23 @@ public class View {
                         startGame(characters);
                         break;
                 }
+            case 3:
+                exitGame();
         }
     }
 
     private void startGameAgain(Characters characters) {
-        System.out.println("Нажмите 1 для возврата в главное меню.");
-        inputOutputMenus.getInput(1, 1);
-        startGame(characters);
+        System.out.println(inputOutputMenus.getEndGameMenu());
+        switch (inputOutputMenus.getInput(1, 2)) {
+            case 1:
+                startGame(characters);
+            case 2:
+                exitGame();
+        }
+    }
+
+    private void exitGame() {
+        System.exit(-1);
     }
 
     private void getGameProcess(Difficult difficult, Characters characters) {

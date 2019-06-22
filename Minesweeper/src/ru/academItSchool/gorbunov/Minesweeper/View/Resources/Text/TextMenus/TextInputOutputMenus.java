@@ -16,6 +16,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
                 + ("||        САПЕР!        ||") + (System.lineSeparator())
                 + ("||1) -   Начать игру.   ||") + (System.lineSeparator())
                 + ("||2) - Таблица рекордов.||") + (System.lineSeparator())
+                + ("||3) - Выход из игры.   ||") + (System.lineSeparator())
                 + ("||//////////////////////||") + (System.lineSeparator());
     }
 
@@ -46,6 +47,8 @@ public class TextInputOutputMenus implements InputOutputMenus {
                 ("||   Вы взорвали все бомбы!   ||") + (System.lineSeparator()) +
                 ("||          Нажмите 1         ||") + (System.lineSeparator()) +
                 ("||      для продолжения.      ||") + (System.lineSeparator()) +
+                ("||        И 2 для выхода      ||") + (System.lineSeparator()) +
+                ("||          из игры.          ||") + (System.lineSeparator()) +
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
