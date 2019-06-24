@@ -71,6 +71,7 @@ public class Model {
                 for (Cell el : row) {
                     if (el.isMine()) {
                         el.setVisible(true);
+                        el.setContent(characters.getCharacters()[10]);
                     }
                 }
             }

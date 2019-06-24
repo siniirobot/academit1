@@ -19,7 +19,7 @@ public class Hard implements Difficult {
     }
 
     @Override
-    public int getRowCount() {
+    public int getLineCount() {
         return rows;
     }
 

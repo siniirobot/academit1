@@ -2,7 +2,7 @@ package ru.academItSchool.gorbunov.Minesweeper;
 
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus.TextInputOutputMenus;
+import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextInputOutput.TextInputOutputMenus;
 import ru.academItSchool.gorbunov.Minesweeper.View.View;
 
 public class Text {

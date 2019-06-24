@@ -4,13 +4,10 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
-import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
-
-import java.util.Scanner;
 
 public class View {
     private InputOutputMenus inputOutputMenus;
@@ -24,14 +21,12 @@ public class View {
         System.out.println(inputOutputMenus.getMainMenu());
         int menuItemTo = 3;
 
-        switch (inputOutputMenus.getInput(1, menuItemTo,
-                inputOutputMenus.getMenuMessage(1, menuItemTo))) {
+        switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
             case 1:
                 System.out.println(inputOutputMenus.getSettingMenu());
                 menuItemTo = 5;
 
-                switch (inputOutputMenus.getInput(1, menuItemTo,
-                        inputOutputMenus.getMenuMessage(1, menuItemTo))) {
+                switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         Easy easy = new Easy();
                         getGameProcess(easy, characters);
@@ -107,7 +102,7 @@ public class View {
     }
 
     private void getGameProcess(Difficult difficult, Characters characters) {
-        Model model = new Model(new GameField(difficult.getRowCount(), difficult.getRowCount(), difficult.getMines(),
+        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
 
         model.getGameField().fillMinesInField();

@@ -27,7 +27,7 @@ public interface Difficult extends Serializable {
 
     int getColumnCount();
 
-    int getRowCount();
+    int getLineCount();
 
     int getMines();
 

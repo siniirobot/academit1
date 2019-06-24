@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextMenus;
+package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextInputOutput;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
