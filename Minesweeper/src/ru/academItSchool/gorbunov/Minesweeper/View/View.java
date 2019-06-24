@@ -130,7 +130,8 @@ public class View {
             return;
         }
         thread.interrupt();
-        inputOutputMenus.getHighScoreWrite(timer, difficult);
-        highScores.printHighScores(difficult.getName());
+        if (inputOutputMenus.getHighScoreWrite(timer, difficult)){
+            highScores.printHighScores(difficult.getName());
+        }
     }
 }

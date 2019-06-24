@@ -83,7 +83,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
     }
 
     @Override
-    public void getHighScoreWrite(Timer timer, Difficult difficult) {
+    public boolean getHighScoreWrite(Timer timer, Difficult difficult) {
         Scanner scanner = new Scanner(System.in);
         boolean correct = false;
         String name = "";
@@ -98,7 +98,14 @@ public class TextInputOutputMenus implements InputOutputMenus {
 
         Player player = new Player(name, timer.getTime(), difficult);
         HighScores highScores = new HighScores();
-        highScores.add(player);
+        try {
+            highScores.add(player);
+        }catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            getInput(1,2,getEndGameMenu());
+            return false;
+        }
+        return true;
     }
 
     @Override

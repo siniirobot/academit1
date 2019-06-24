@@ -113,12 +113,12 @@ public class HighScores implements Serializable {
 
             stringBuilder.append("Сложность - ").append(difficult.toString()).append(System.lineSeparator());
             stringBuilder.append("   №: ").append("   Имя:   ").append("Время:    ").append(System.lineSeparator());
-            StringBuilder line = new StringBuilder("||=====================||" + System.lineSeparator());
+            StringBuilder line = new StringBuilder("||======================||" + System.lineSeparator());
             stringBuilder.append(line);
             for (int i = 0; i < highScores.length; i++) {
                 if (highScores[i] != null) {
                     stringBuilder
-                            .append(String.format("||%2d %10s %7d||", i + 1, highScores[i].getName(), highScores[i].getTime()))
+                            .append(String.format("||%2d %10s %8d||", i + 1, highScores[i].getName(), highScores[i].getTime()))
                             .append(System.lineSeparator());
                 }
             }

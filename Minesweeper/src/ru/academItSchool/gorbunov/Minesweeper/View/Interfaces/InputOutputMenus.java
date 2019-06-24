@@ -22,5 +22,5 @@ public interface InputOutputMenus {
 
     int[] getCoordinate(GameField gameField);
 
-    void getHighScoreWrite(Timer timer, Difficult difficult);
+    boolean getHighScoreWrite(Timer timer, Difficult difficult);
 }
