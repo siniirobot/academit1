@@ -125,6 +125,12 @@ public class View {
             return;
         }
         thread.interrupt();
+        if (thread.isInterrupted()){
+            System.out.println(timer.getTime());
+            while (timer.getTime() != 100) {
+                System.out.println(timer.getTime());
+            }
+        }
         if (inputOutputMenus.getHighScoreWrite(timer, difficult)){
             highScores.printHighScores(difficult.getName());
         }

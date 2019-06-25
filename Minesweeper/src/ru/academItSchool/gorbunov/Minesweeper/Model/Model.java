@@ -5,6 +5,7 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,6 +16,7 @@ public class Model {
 
     /**
      * Конструктор для создания модели.
+     *
      * @param gameField игровое поле.
      */
     public Model(GameField gameField) {
@@ -39,8 +41,9 @@ public class Model {
 
     /**
      * Контролирует ввод команд мыши, а так же координаты нажатия.
-     * @param line - линия на которую нажали.
-     * @param column - колонка на которую нажали.
+     *
+     * @param line    - линия на которую нажали.
+     * @param column  - колонка на которую нажали.
      * @param command - комманда, левое или правое нажатие мыши.
      * @throws Boom - взрыв бомбы.
      */
@@ -56,7 +59,8 @@ public class Model {
 
     /**
      * Нажатие мыши левой кнопкой открывает клетку и делает её видимой для распечатки.
-     * @param line - линия на которую нажали.
+     *
+     * @param line   - линия на которую нажали.
      * @param column - колонка на которую нажали.
      * @throws Boom - происходит взрыв и конец игры.
      */
@@ -109,12 +113,24 @@ public class Model {
                         if (!gameField.getGameField()[i + tempLine][j + tempColumn].getContent().equals(
                                 characters.getCharacters()[0]) || (i == 0 && j == 0)) {
                             gameField.getGameField()[i + tempLine][j + tempColumn].setVisible(true);
+                            continue;
                         }
+                        Integer[] tempArr = new Integer[]{i + tempLine, j + tempColumn};
+                        boolean contains = false;
 
                         if (!gameField.getGameField()[i + tempLine][j + tempColumn].isVisible()) {
-                            queue.add(new Integer[]{i + tempLine, j + tempColumn});
-                        }
+                            for (Integer[] tempArray : queue) {
+                                if (Arrays.equals(tempArr, tempArray)) {
+                                    contains = true;
 
+                                    break;
+                                }
+                            }
+
+                            if (!contains) {
+                                queue.add(tempArr);
+                            }
+                        }
                     }
                 }
             }
@@ -125,7 +141,8 @@ public class Model {
      * Ставит флажок и помечает миной это место.
      * При повторном нажатии ставит флажок.
      * Если количество флажков и мин совпадет будет выйгрешь.
-     * @param line - линия на которую нажали.
+     *
+     * @param line   - линия на которую нажали.
      * @param column - колонка на которую нажали.
      */
     private void rightClickOnCell(int line, int column) {
@@ -154,6 +171,7 @@ public class Model {
 
     /**
      * Поднимает количество мин если были отмечен не правильный флажок.
+     *
      * @param cell проверяймая ячейка
      */
     private void getUpMineCount(Cell cell) {
@@ -167,6 +185,7 @@ public class Model {
 
     /**
      * Уменьшает количество мин когда ячейка отмечена флажком.
+     *
      * @param cell проверяймая ячейка
      */
     private void getDownMineCount(Cell cell) {
