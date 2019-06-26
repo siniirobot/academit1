@@ -121,17 +121,11 @@ public class View {
         } catch (Boom b) {
             System.out.println(b.getMessage());
             inputOutputMenus.getPrintGame(model, difficult, timer);
-            thread.interrupt();
+            timer.stop();
             return;
         }
-        thread.interrupt();
-        if (thread.isInterrupted()){
-            System.out.println(timer.getTime());
-            while (timer.getTime() != 100) {
-                System.out.println(timer.getTime());
-            }
-        }
-        if (inputOutputMenus.getHighScoreWrite(timer, difficult)){
+        timer.stop();
+        if (inputOutputMenus.getHighScoreWrite(timer, difficult)) {
             highScores.printHighScores(difficult.getName());
         }
     }
