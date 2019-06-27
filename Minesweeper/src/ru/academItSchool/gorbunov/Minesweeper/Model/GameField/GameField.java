@@ -20,6 +20,8 @@ public class GameField {
         this.gameField = new Cell[height][width];
         this.mineCount = mineCount;
         this.characters = characters;
+        fillMinesInField();
+        fillNumbersInField();
     }
 
     public Characters getCharacters() {
@@ -41,7 +43,7 @@ public class GameField {
     /**
      * Заполнение игрового поля минами.
      */
-    public void fillMinesInField() {
+    private void fillMinesInField() {
         int i = this.mineCount;
         while (i != 0) {
             for (int j = 0; i != 0; j = (int) (Math.random() * this.gameField.length - 1)) {
@@ -61,7 +63,7 @@ public class GameField {
     /**
      * Заполнение поля цифрами в зависимости от колличества мин.
      */
-    public void fillNumbersInField() {
+    private void fillNumbersInField() {
         for (int i = 0; i < this.gameField.length; i++) {
             for (int j = 0; j < this.gameField[i].length; j++) {
                 if (this.gameField[i][j] != null) {
@@ -112,6 +114,7 @@ public class GameField {
 
     @Override
     public String toString() {
+
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder line = new StringBuilder();
         StringBuilder space = new StringBuilder("   ");
@@ -140,6 +143,39 @@ public class GameField {
                 } else {
                     stringBuilder.append(String.format("%2s|", characters.getCharacters()[9]));
                 }
+            }
+            stringBuilder.append(System.lineSeparator());
+        }
+        stringBuilder.append(line);
+
+        return stringBuilder.toString();
+    }
+
+    public String openCell() {
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder line = new StringBuilder();
+        StringBuilder space = new StringBuilder("   ");
+
+        stringBuilder.append(space).append("  |");
+
+        for (int i = 1; i <= this.gameField[0].length; i++) {
+            stringBuilder.append(String.format("%2d|", i));
+        }
+
+        stringBuilder.append(System.lineSeparator());
+
+        for (int i = 0; i < this.gameField[0].length * 3 + 6; i++) {
+            line.append("-");
+        }
+
+        line.append(System.lineSeparator());
+        stringBuilder.append(line);
+
+        for (int i = 0; i < this.gameField.length; i++) {
+            stringBuilder.append(space).append(String.format("%2d|", i + 1));
+
+            for (int j = 0; j < this.gameField[i].length; j++) {
+                    stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
             }
             stringBuilder.append(System.lineSeparator());
         }

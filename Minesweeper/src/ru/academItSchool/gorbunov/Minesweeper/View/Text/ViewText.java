@@ -107,9 +107,6 @@ public class ViewText {
         Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
 
-        model.getGameField().fillMinesInField();
-        model.getGameField().fillNumbersInField();
-
         MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
         timer.schedule(myTimer,0);

@@ -7,22 +7,21 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
 public class GameFieldTest {
-    @DataProvider(name = "FillMineInGameField")
+    @DataProvider(name = "CreateGameField")
     public Object[][] size() {
         return new Object[][]{
                 new Object[]{9, 9, 10},
-                new Object[]{16, 30, 99},
-                new Object[]{24, 30, 468},
+                new Object[]{16, 16, 40},
+                new Object[]{24, 24, 99},
+                new Object[]{24, 30, 150},
         };
     }
 
-    @Test(dataProvider = "FillMineInGameField")
+    @Test(dataProvider = "CreateGameField")
     public void testSize(int height, int width, int mineCount) {
         GameField norm = new GameField(height,width,mineCount, new CharactersText());
-        norm.fillMinesInField();
-        norm.fillNumbersInField();
 
-        System.out.println(norm);
+        System.out.println(norm.openCell());
     }
 }
 
