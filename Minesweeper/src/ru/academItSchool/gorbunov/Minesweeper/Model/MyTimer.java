@@ -1,20 +1,17 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model;
 
-public class Timer implements Runnable {
+import java.util.TimerTask;
+
+public class MyTimer extends TimerTask {
     private int time = 0;
-    private boolean stop = false;
 
     public int getTime() {
         return time;
     }
 
-    public void stop() {
-        stop = true;
-    }
-
     @Override
     public void run() {
-        for (; time <= 9999 && !stop; time++) {
+        for (; time <= 9999; time++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {

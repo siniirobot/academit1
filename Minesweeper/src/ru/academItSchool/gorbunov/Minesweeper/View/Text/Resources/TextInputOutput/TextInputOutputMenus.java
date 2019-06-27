@@ -1,11 +1,11 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextInputOutput;
+package ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.TextInputOutput;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
+import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import java.util.Scanner;
@@ -52,10 +52,10 @@ public class TextInputOutputMenus implements InputOutputMenus {
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
-    public void getPrintGame(Model model, Difficult difficult, Timer timer) {
+    public void getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
         System.out.println("Сложность - " + difficult.getName());
         System.out.println("Колличество мин - " + model.getPrintCountMine());
-        System.out.println("Время - " + timer.getTime());
+        System.out.println("Время - " + myTimer.getTime());
         System.out.println(model.getGameField());
     }
 
@@ -83,7 +83,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
     }
 
     @Override
-    public boolean getHighScoreWrite(Timer timer, Difficult difficult) {
+    public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
         Scanner scanner = new Scanner(System.in);
         boolean correct = false;
         String name = "";
@@ -96,7 +96,7 @@ public class TextInputOutputMenus implements InputOutputMenus {
             }
         }
 
-        Player player = new Player(name, timer.getTime(), difficult);
+        Player player = new Player(name, myTimer.getTime(), difficult);
         HighScores highScores = new HighScores();
         try {
             highScores.add(player);

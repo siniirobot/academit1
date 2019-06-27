@@ -1,13 +1,13 @@
 package ru.academItSchool.gorbunov.Minesweeper;
 
 
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.TextInputOutput.TextInputOutputMenus;
-import ru.academItSchool.gorbunov.Minesweeper.View.View;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.TextInputOutput.TextInputOutputMenus;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.ViewText;
 
 public class Text {
     public static void main(String[] args) {
-        View view = new View(new TextInputOutputMenus());
-        view.startGame(new CharactersText());
+        ViewText viewText = new ViewText(new TextInputOutputMenus());
+        viewText.startGame(new CharactersText());
     }
 }

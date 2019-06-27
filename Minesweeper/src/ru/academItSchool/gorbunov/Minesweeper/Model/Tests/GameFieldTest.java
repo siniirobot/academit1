@@ -4,7 +4,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
 public class GameFieldTest {
     @DataProvider(name = "FillMineInGameField")

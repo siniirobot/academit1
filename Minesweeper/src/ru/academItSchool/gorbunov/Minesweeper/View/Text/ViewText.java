@@ -1,19 +1,21 @@
-package ru.academItSchool.gorbunov.Minesweeper.View;
+package ru.academItSchool.gorbunov.Minesweeper.View.Text;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
+import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
-public class View {
+import java.util.Timer;
+
+public class ViewText {
     private InputOutputMenus inputOutputMenus;
     private HighScores highScores = new HighScores();
 
-    public View(InputOutputMenus inputOutputMenus) {
+    public ViewText(InputOutputMenus inputOutputMenus) {
         this.inputOutputMenus = inputOutputMenus;
     }
 
@@ -108,24 +110,24 @@ public class View {
         model.getGameField().fillMinesInField();
         model.getGameField().fillNumbersInField();
 
+        MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
-        Thread thread = new Thread(timer);
-        thread.start();
+        timer.schedule(myTimer,0);
 
         try {
             while (model.getGameField().getMineCount() != 0) {
-                inputOutputMenus.getPrintGame(model, difficult, timer);
+                inputOutputMenus.getPrintGame(model, difficult, myTimer);
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
                 model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
             }
         } catch (Boom b) {
             System.out.println(b.getMessage());
-            inputOutputMenus.getPrintGame(model, difficult, timer);
-            timer.stop();
+            inputOutputMenus.getPrintGame(model, difficult, myTimer);
+            myTimer.cancel();
             return;
         }
-        timer.stop();
-        if (inputOutputMenus.getHighScoreWrite(timer, difficult)) {
+        myTimer.cancel();
+        if (inputOutputMenus.getHighScoreWrite(myTimer, difficult)) {
             highScores.printHighScores(difficult.getName());
         }
     }

@@ -1,4 +1,4 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources.Text.CharactersText;
+package ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText;
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 

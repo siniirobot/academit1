@@ -1,9 +1,9 @@
-package ru.academItSchool.gorbunov.Minesweeper.View.Resources.GUI.ImageInputOutput;
+package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Timer;
+import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class ImageInputOutput implements InputOutputMenus {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 Image icon = Toolkit.getDefaultToolkit()
                         .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                                "/View/Resources/GUI/ImageInputOutput/icon.png");
+                                "/ViewText/Resources/GUI/ImageInputOutput/icon.png");
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setIconImage(icon);
@@ -62,7 +62,7 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public void getPrintGame(Model model, Difficult difficult, Timer timer) {
+    public void getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
 
     }
 
@@ -72,7 +72,7 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public boolean getHighScoreWrite(Timer timer, Difficult difficult) {
+    public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
         return false;
     }
 }
