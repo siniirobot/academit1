@@ -60,7 +60,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
     }
 
 
-    @Override
     public int[] getCoordinate(GameField gameField) {
         int[] coordinate = new int[3];
         int to = gameField.getGameField().length;

@@ -6,24 +6,23 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
+import ru.academItSchool.gorbunov.Minesweeper.Text;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
+import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.TextInputOutput.TextInputOutputMenus;
 
 import java.util.Timer;
 
 public class ViewText {
-    private InputOutputMenus inputOutputMenus;
+    private TextInputOutputMenus inputOutputMenus = new TextInputOutputMenus();
+    private CharactersText characters = new CharactersText();
     private HighScores highScores = new HighScores();
-
-    public ViewText(InputOutputMenus inputOutputMenus) {
-        this.inputOutputMenus = inputOutputMenus;
-    }
 
     /**
      * Перебор меню по средствам выбора пункта меню.
-     * @param characters
      */
-    public void startGame(Characters characters) {
+    public void startGame() {
         System.out.println(inputOutputMenus.getMainMenu());
         int menuItemTo = 3;
 
@@ -35,18 +34,18 @@ public class ViewText {
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         Easy easy = new Easy();
-                        getGameProcess(easy, characters);
-                        startGameAgain(characters);
+                        getGameProcess(easy);
+                        startGameAgain();
                         break;
                     case 2:
                         Norm norm = new Norm();
-                        getGameProcess(norm, characters);
-                        startGameAgain(characters);
+                        getGameProcess(norm);
+                        startGameAgain();
                         break;
                     case 3:
                         Hard hard = new Hard();
-                        getGameProcess(hard, characters);
-                        startGameAgain(characters);
+                        getGameProcess(hard);
+                        startGameAgain();
                         break;
                     case 4:
                         int lines = inputOutputMenus.getInput(9, 24,
@@ -60,11 +59,11 @@ public class ViewText {
                                 "Введите количество мин от 10 до " + maxMines);
 
                         Random random = new Random(lines, columns, minesCount);
-                        getGameProcess(random, characters);
-                        startGameAgain(characters);
+                        getGameProcess(random);
+                        startGameAgain();
                         break;
                     case 5:
-                        startGame(characters);
+                        startGame();
                         break;
                 }
                 break;
@@ -74,18 +73,18 @@ public class ViewText {
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
                         highScores.printHighScores(new Easy().getName());
-                        startGameAgain(characters);
+                        startGameAgain();
                         break;
                     case 2:
                         highScores.printHighScores(new Norm().getName());
-                        startGameAgain(characters);
+                        startGameAgain();
                         break;
                     case 3:
                         highScores.printHighScores(new Hard().getName());
-                        startGameAgain(characters);
+                        startGameAgain();
                         break;
                     case 4:
-                        startGame(characters);
+                        startGame();
                         break;
                 }
             case 3:
@@ -95,13 +94,12 @@ public class ViewText {
 
     /**
      * Начать вывод меню с начала.
-     * @param characters
      */
-    private void startGameAgain(Characters characters) {
+    private void startGameAgain() {
         System.out.println(inputOutputMenus.getEndGameMenu());
         switch (inputOutputMenus.getInput(1, 2, inputOutputMenus.getMenuMessage(1, 2))) {
             case 1:
-                startGame(characters);
+                startGame();
             case 2:
                 exitGame();
         }
@@ -116,10 +114,9 @@ public class ViewText {
 
     /**
      * Вывод игрового поля а так же ввод координат мины
-     * @param difficult
-     * @param characters
+     * @param difficult сложность игры
      */
-    private void getGameProcess(Difficult difficult, Characters characters) {
+    private void getGameProcess(Difficult difficult) {
         Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
 

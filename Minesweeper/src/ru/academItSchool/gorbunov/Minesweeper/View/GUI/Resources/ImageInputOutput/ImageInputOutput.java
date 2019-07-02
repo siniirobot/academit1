@@ -67,11 +67,6 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public int[] getCoordinate(GameField gameField) {
-        return new int[0];
-    }
-
-    @Override
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
         return false;
     }

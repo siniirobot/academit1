@@ -49,8 +49,6 @@ public interface InputOutputMenus {
      */
     void getPrintGame(Model model, Difficult difficult, MyTimer myTimer);
 
-    int[] getCoordinate(GameField gameField);
-
     /**
      * Запись в таблицу рекордов и вывод таблицы рекордов.
      * @param myTimer время игры
