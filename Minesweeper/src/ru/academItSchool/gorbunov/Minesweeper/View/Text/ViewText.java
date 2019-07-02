@@ -19,6 +19,10 @@ public class ViewText {
         this.inputOutputMenus = inputOutputMenus;
     }
 
+    /**
+     * Перебор меню по средствам выбора пункта меню.
+     * @param characters
+     */
     public void startGame(Characters characters) {
         System.out.println(inputOutputMenus.getMainMenu());
         int menuItemTo = 3;
@@ -89,6 +93,10 @@ public class ViewText {
         }
     }
 
+    /**
+     * Начать вывод меню с начала.
+     * @param characters
+     */
     private void startGameAgain(Characters characters) {
         System.out.println(inputOutputMenus.getEndGameMenu());
         switch (inputOutputMenus.getInput(1, 2, inputOutputMenus.getMenuMessage(1, 2))) {
@@ -99,10 +107,18 @@ public class ViewText {
         }
     }
 
+    /**
+     * Завершение программы
+     */
     private void exitGame() {
         System.exit(-1);
     }
 
+    /**
+     * Вывод игрового поля а так же ввод координат мины
+     * @param difficult
+     * @param characters
+     */
     private void getGameProcess(Difficult difficult, Characters characters) {
         Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
