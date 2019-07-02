@@ -10,6 +10,7 @@ public class GameFieldTest {
     @DataProvider(name = "CreateGameField")
     public Object[][] size() {
         return new Object[][]{
+                new Object[]{2, 2, 2},
                 new Object[]{9, 9, 10},
                 new Object[]{16, 16, 40},
                 new Object[]{24, 24, 99},

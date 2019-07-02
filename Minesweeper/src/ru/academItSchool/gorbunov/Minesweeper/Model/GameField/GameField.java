@@ -3,6 +3,8 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
+import java.util.Random;
+
 public class GameField {
     private Cell[][] gameField;
     private int mineCount;
@@ -44,10 +46,11 @@ public class GameField {
      * Заполнение игрового поля минами.
      */
     private void fillMinesInField() {
+        Random rnd = new Random(System.currentTimeMillis());
         int i = this.mineCount;
         while (i != 0) {
-            for (int j = 0; i != 0; j = (int) (Math.random() * this.gameField.length - 1)) {
-                int randomPlace = (int) (Math.random() * this.gameField[j].length - 1);
+            for (int j = 0; i != 0; j = rnd.nextInt(this.gameField.length)) {
+                int randomPlace = rnd.nextInt(this.gameField[j].length);
 
                 if (this.gameField[j][randomPlace] != null) {
                     continue;
@@ -56,6 +59,7 @@ public class GameField {
                 this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10]);
                 this.gameField[j][randomPlace].setMine();
                 i--;
+
             }
         }
     }
@@ -175,7 +179,7 @@ public class GameField {
             stringBuilder.append(space).append(String.format("%2d|", i + 1));
 
             for (int j = 0; j < this.gameField[i].length; j++) {
-                    stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
+                stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
             }
             stringBuilder.append(System.lineSeparator());
         }
