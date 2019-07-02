@@ -51,5 +51,11 @@ public interface InputOutputMenus {
 
     int[] getCoordinate(GameField gameField);
 
+    /**
+     * Запись в таблицу рекордов и вывод таблицы рекордов.
+     * @param myTimer время игры
+     * @param difficult сложность игры
+     * @return true Если запись была сделана false если хуже последнего места в таблице
+     */
     boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult);
 }
