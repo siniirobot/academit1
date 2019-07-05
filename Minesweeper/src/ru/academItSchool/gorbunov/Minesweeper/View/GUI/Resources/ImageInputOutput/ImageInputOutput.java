@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput;
 
+
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
@@ -12,16 +13,17 @@ import java.awt.*;
 public class ImageInputOutput implements InputOutputMenus {
 
     public void getGUI() {
+        Image icon = Toolkit.getDefaultToolkit()
+                .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
+                        "/ViewText/Resources/GUI/ImageInputOutput/icon.png");
+
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
                 JFrame frame = new JFrame("Minesweeper");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                Image icon = Toolkit.getDefaultToolkit()
-                        .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                                "/ViewText/Resources/GUI/ImageInputOutput/icon.png");
-                frame.pack();
+                frame.setSize(50,50);
                 frame.setLocationRelativeTo(null);
                 frame.setIconImage(icon);
                 frame.setResizable(false);
@@ -63,7 +65,6 @@ public class ImageInputOutput implements InputOutputMenus {
 
     @Override
     public void getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
-
     }
 
     @Override

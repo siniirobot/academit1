@@ -1,14 +1,10 @@
-package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
+package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
-import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
-import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
 import java.util.Timer;
-
-import static org.testng.Assert.*;
 
 public class MyTimerTest {
     @DataProvider(name = "getTime")

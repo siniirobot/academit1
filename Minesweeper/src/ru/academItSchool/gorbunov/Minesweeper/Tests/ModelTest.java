@@ -1,12 +1,10 @@
-package ru.academItSchool.gorbunov.Minesweeper.Model.Tests;
+package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
-import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
 import static org.testng.Assert.*;
