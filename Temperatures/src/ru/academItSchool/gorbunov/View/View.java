@@ -28,7 +28,7 @@ public class View {
         });
     }
 
-    public void getGUIContent(Container container) {
+    private void getGUIContent(Container container) {
         JPanel firstLine = new JPanel();
         JLabel fromLabel = new JLabel("Перевести из");
         JTextField textField = new JTextField("0", 11);

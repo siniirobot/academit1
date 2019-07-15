@@ -15,7 +15,7 @@ public class ImageInputOutput implements InputOutputMenus {
     public void getGUI() {
         Image icon = Toolkit.getDefaultToolkit()
                 .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/ViewText/Resources/GUI/ImageInputOutput/icon.png");
+                        "/View/GUI/Resources/ImageInputOutput/icon.png");
 
         SwingUtilities.invokeLater(() -> {
             try {
@@ -23,7 +23,6 @@ public class ImageInputOutput implements InputOutputMenus {
                         UIManager.getCrossPlatformLookAndFeelClassName());
                 JFrame frame = new JFrame("Minesweeper");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(50,50);
                 frame.setLocationRelativeTo(null);
                 frame.setIconImage(icon);
                 frame.setResizable(false);
@@ -34,12 +33,15 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public String getMainMenu() {
+    public Container getMainMenu() {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(3, 1));
+
         return null;
     }
 
     @Override
-    public String getSettingMenu() {
+    public Container getSettingMenu() {
         return null;
     }
 

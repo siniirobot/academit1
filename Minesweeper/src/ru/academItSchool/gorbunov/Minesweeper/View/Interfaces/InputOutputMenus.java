@@ -9,29 +9,29 @@ public interface InputOutputMenus {
     /**
      * @return вывод главного меню.
      */
-    String getMainMenu();
+    Object getMainMenu();
 
     /**
      * @return вывод меню выбора сложности.
      */
-    String getSettingMenu();
+    Object getSettingMenu();
 
     /**
      * @return вывод меню выбора сложности для вывода таблицы рекордов.
      */
-    String getHeightScoreMenu();
+    Object getHeightScoreMenu();
 
     /**
      * @return Меню завершения игры.
      */
-    String getEndGameMenu();
+    Object getEndGameMenu();
 
     /**
      * @param from с какой цифры вводить
      * @param to по какую цифру вводить
      * @return Создается сообщение для ввода информации.
      */
-    String getMenuMessage(int from, int to);
+    Object getMenuMessage(int from, int to);
 
     /**
      * @param from с какой цифры вводить
