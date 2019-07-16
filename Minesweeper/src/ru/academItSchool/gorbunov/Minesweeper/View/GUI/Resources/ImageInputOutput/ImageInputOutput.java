@@ -15,7 +15,7 @@ public class ImageInputOutput implements InputOutputMenus {
     public void getGUI() {
         Image icon = Toolkit.getDefaultToolkit()
                 .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/View/GUI/Resources/ImageInputOutput/icon.png");
+                        "/View/GUI/Resources/CharactersImage/icon.png");
 
         SwingUtilities.invokeLater(() -> {
             try {
