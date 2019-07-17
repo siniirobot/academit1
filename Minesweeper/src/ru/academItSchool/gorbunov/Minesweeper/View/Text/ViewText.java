@@ -126,7 +126,7 @@ public class ViewText {
 
         try {
             while (model.getGameField().getMineCount() != 0) {
-                inputOutputMenus.getPrintGame(model, difficult, myTimer);
+                System.out.println(inputOutputMenus.getPrintGame(model, difficult, myTimer));
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
                 model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
             }

@@ -5,6 +5,8 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 
+import java.io.IOException;
+
 public interface InputOutputMenus {
     /**
      * @return вывод главного меню.
@@ -47,7 +49,7 @@ public interface InputOutputMenus {
      * @param difficult сложность
      * @param myTimer текщее время
      */
-    void getPrintGame(Model model, Difficult difficult, MyTimer myTimer);
+    Object getPrintGame(Model model, Difficult difficult, MyTimer myTimer) throws IOException;
 
     /**
      * Запись в таблицу рекордов и вывод таблицы рекордов.

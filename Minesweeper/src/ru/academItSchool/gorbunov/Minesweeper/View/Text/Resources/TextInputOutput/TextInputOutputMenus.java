@@ -52,11 +52,11 @@ public class TextInputOutputMenus implements InputOutputMenus {
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
-    public void getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
-        System.out.println("Сложность - " + difficult.getName());
-        System.out.println("Колличество мин - " + model.getPrintCountMine());
-        System.out.println("Время - " + myTimer.getTime());
-        System.out.println(model.getGameField());
+    public String getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
+        return "Сложность - " + difficult.getName() + System.lineSeparator() +
+                "Колличество мин - " + model.getPrintCountMine() + System.lineSeparator() +
+                "Время - " + myTimer.getTime() + System.lineSeparator() +
+                model.getGameField() + System.lineSeparator();
     }
 
 
@@ -99,9 +99,9 @@ public class TextInputOutputMenus implements InputOutputMenus {
         HighScores highScores = new HighScores();
         try {
             highScores.add(player);
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            getInput(1,2,getEndGameMenu());
+            getInput(1, 2, getEndGameMenu());
             return false;
         }
         return true;
