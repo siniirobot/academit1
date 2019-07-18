@@ -1,8 +1,10 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Easy;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
@@ -13,8 +15,10 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,10 +49,9 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     public void getGUIContent(Container container) throws IOException {
-        JPanel jPanel = (JPanel) getPrintGame(new Model(
+        container.add(getPrintGame(new Model(
                 new GameField(9, 9, 10, new CharactersImage())
-        ), new Easy(), new MyTimer());
-        container.add(jPanel);
+        ), new Easy(), new MyTimer()));
     }
 
     @Override
@@ -80,30 +83,54 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public int getInput(int from, int to, String message) {
-        return 0;
-    }
-
-    @Override
     public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) throws IOException {
         JPanel jPanel = new JPanel();
+        jPanel.add(printGameField(model));
+        return jPanel;
+    }
 
+    public JPanel printGameField(Model model) {
+        JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
-        for (Cell[] arr : model.getGameField().getGameField()) {
-            for (Cell cell : arr) {
-                BufferedImage bufferedImage = ImageIO.read(new File( (String) cell.getContent()));
-                JButton button = new JButton(new ImageIcon(bufferedImage));
-                button.setBorderPainted(false);
-                button.setFocusPainted(false);
-                button.setContentAreaFilled(false);
-                button.setRolloverIcon((Icon) cell.getContent());
-                button.addMouseListener(new MouseAdapter() {
+        JButton[][] jButtons = new JButton[model.getGameField().getGameField().length][model.getGameField().getGameField()[0].length];
+
+        for (int i = 0; i < jButtons.length; i++) {
+            for (int j = 0; j < jButtons[0].length; j++) {
+                jButtons[i][j] = new JButton();
+                jButtons[i][j].setIcon((ImageIcon) new CharactersImage().getCharacters()[9]);
+                jButtons[i][j].setBorderPainted(false);
+                jButtons[i][j].setFocusPainted(false);
+                jButtons[i][j].setContentAreaFilled(false);
+                jButtons[i][j].setPreferredSize(new Dimension(20, 20));
+                int finalI = i;
+                int finalJ = j;
+                jButtons[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
+                        try {
+                            if (e.getButton() == 3) {
+                                model.clickMove(finalI, finalJ, 2);
+                            } else {
+                                model.clickMove(finalI, finalJ, 1);
+                            }
+
+                        } catch (Boom boom) {
+                            JOptionPane.showMessageDialog(null, boom.getMessage());
+                            getMainMenu();
+                        } finally {
+                            for (int i = 0; i < jButtons.length; i++) {
+                                for (int j = 0; j < jButtons[0].length; j++) {
+                                    if (model.getGameField().getGameField()[i][j].isVisible()) {
+                                        jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getContent());
+                                    } else {
+                                        jButtons[i][j].setIcon((ImageIcon) new CharactersImage().getCharacters()[9]);
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
-                jPanel.add(button);
+                jPanel.add(jButtons[i][j]);
             }
         }
         return jPanel;

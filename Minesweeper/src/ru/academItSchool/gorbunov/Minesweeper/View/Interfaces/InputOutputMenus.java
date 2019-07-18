@@ -36,14 +36,6 @@ public interface InputOutputMenus {
     Object getMenuMessage(int from, int to);
 
     /**
-     * @param from с какой цифры вводить
-     * @param to по какую цифру вводить
-     * @param message сообщение для ввода информации.
-     * @return цифра введеная пользователем
-     */
-    int getInput(int from, int to, String message);
-
-    /**
      * Вывод игрового поля
      * @param model игровое поле
      * @param difficult сложность

@@ -71,6 +71,7 @@ public class Model {
 
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10])) {
             gameField.getGameField()[line][column].setVisible(true);
+
             for (Cell[] row : gameField.getGameField()) {
                 for (Cell el : row) {
                     if (el.isMine()) {
