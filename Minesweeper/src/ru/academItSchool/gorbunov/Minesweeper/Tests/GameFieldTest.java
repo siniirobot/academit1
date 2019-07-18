@@ -27,9 +27,6 @@ public class GameFieldTest {
 
         System.out.println(norm.openCell());
 
-        GameField easy = new GameField(height,width,mineCount, new CharactersImage());
-
-        System.out.println(easy);
     }
 }
 

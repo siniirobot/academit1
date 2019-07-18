@@ -180,6 +180,8 @@ public class GameField {
 
             for (int j = 0; j < this.gameField[i].length; j++) {
                 stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
+                Cell cell = new Cell(2);
+                int d = (int)cell.getContent();
             }
             stringBuilder.append(System.lineSeparator());
         }
