@@ -107,7 +107,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
         return true;
     }
 
-    @Override
     public int getInput(int from, int to, String message) {
         boolean correct = false;
         String input;

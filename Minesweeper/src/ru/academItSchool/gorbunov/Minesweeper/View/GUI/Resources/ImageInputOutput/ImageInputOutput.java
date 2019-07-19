@@ -22,6 +22,9 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+
+import static java.awt.GridBagConstraints.*;
 
 public class ImageInputOutput implements InputOutputMenus {
 
@@ -49,9 +52,14 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     public void getGUIContent(Container container) throws IOException {
+        MyTimer myTimer = new MyTimer();
+        java.util.Timer timer = new Timer();
+        timer.schedule(myTimer,0);
+
         container.add(getPrintGame(new Model(
                 new GameField(9, 9, 10, new CharactersImage())
-        ), new Easy(), new MyTimer()));
+        ), new Easy(), myTimer));
+
     }
 
     @Override
@@ -85,7 +93,29 @@ public class ImageInputOutput implements InputOutputMenus {
     @Override
     public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) throws IOException {
         JPanel jPanel = new JPanel();
-        jPanel.add(printGameField(model));
+        jPanel.setLayout(new GridBagLayout());
+        JLabel time = new JLabel();
+        time.setText(((Integer)myTimer.getTime()).toString());
+        JLabel mineCount = new JLabel();
+        mineCount.setText(((Integer)model.getPrintCountMine()).toString());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = NONE;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.gridheight = 1;
+        gridBagConstraints.weightx = 1;
+        jPanel.add(time,gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        jPanel.add(new JLabel(difficult.getName().toString()),gridBagConstraints);
+        gridBagConstraints.gridx = 2;
+        jPanel.add(mineCount,gridBagConstraints);
+        gridBagConstraints.fill = NONE;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        jPanel.add(printGameField(model),gridBagConstraints);
         return jPanel;
     }
 
@@ -130,11 +160,12 @@ public class ImageInputOutput implements InputOutputMenus {
                         }
                     }
                 });
-                jPanel.add(jButtons[i][j]);
-            }
+
+            jPanel.add(jButtons[i][j]);
         }
-        return jPanel;
     }
+        return jPanel;
+}
 
     @Override
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
