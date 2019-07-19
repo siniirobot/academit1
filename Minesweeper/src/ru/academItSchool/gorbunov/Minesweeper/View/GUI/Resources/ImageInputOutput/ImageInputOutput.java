@@ -8,21 +8,20 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
-import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
+import java.time.Duration;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.awt.GridBagConstraints.*;
 
@@ -54,7 +53,7 @@ public class ImageInputOutput implements InputOutputMenus {
     public void getGUIContent(Container container) throws IOException {
         MyTimer myTimer = new MyTimer();
         java.util.Timer timer = new Timer();
-        timer.schedule(myTimer,0);
+        timer.schedule(myTimer, 0);
 
         container.add(getPrintGame(new Model(
                 new GameField(9, 9, 10, new CharactersImage())
@@ -91,35 +90,61 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) throws IOException {
+    public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridBagLayout());
-        JLabel time = new JLabel();
-        time.setText(((Integer)myTimer.getTime()).toString());
-        JLabel mineCount = new JLabel();
-        mineCount.setText(((Integer)model.getPrintCountMine()).toString());
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
+        JLabel time = new JLabel();
+        Timer timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            int i = 0;
+
+            @Override
+            public void run() {
+                for (; i <= 9999; i++) {
+                    time.setText(((Integer) myTimer.getTime()).toString());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        timer.schedule(timerTask, 0);
+        JLabel mineCount = new JLabel();
+        mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = NONE;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 1;
-        gridBagConstraints.gridheight = 1;
-        gridBagConstraints.weightx = 1;
-        jPanel.add(time,gridBagConstraints);
-        gridBagConstraints.gridx = 1;
-        jPanel.add(new JLabel(difficult.getName().toString()),gridBagConstraints);
-        gridBagConstraints.gridx = 2;
-        jPanel.add(mineCount,gridBagConstraints);
-        gridBagConstraints.fill = NONE;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
-        jPanel.add(printGameField(model),gridBagConstraints);
+
+        jPanel.add(time,
+                addComponent(gridBagConstraints,0,0,1,1,1));
+
+        jPanel.add(new JLabel(difficult.getName().toString()),
+                addComponent(gridBagConstraints,0,1,1,1,1));
+
+        jPanel.add(mineCount,
+                addComponent(gridBagConstraints,0,2,1,1,1));
+
+        jPanel.add(printGameField(model, mineCount),
+                addComponent(gridBagConstraints,1,0,0,3,1));
+
         return jPanel;
     }
 
-    public JPanel printGameField(Model model) {
+    public GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber, int columnNumber, int position) {
+        gridBagConstraints.gridx = col;
+        gridBagConstraints.gridy = row;
+        gridBagConstraints.gridwidth = columnNumber;
+        gridBagConstraints.gridheight = rowNumber;
+        gridBagConstraints.weightx = position;
+        return gridBagConstraints;
+    }
+
+    public JPanel printGameField(Model model, JLabel mineCount) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
         JButton[][] jButtons = new JButton[model.getGameField().getGameField().length][model.getGameField().getGameField()[0].length];
@@ -143,7 +168,7 @@ public class ImageInputOutput implements InputOutputMenus {
                             } else {
                                 model.clickMove(finalI, finalJ, 1);
                             }
-
+                            mineCount.setText(((Integer) model.getPrintCountMine()).toString());
                         } catch (Boom boom) {
                             JOptionPane.showMessageDialog(null, boom.getMessage());
                             getMainMenu();
@@ -161,11 +186,11 @@ public class ImageInputOutput implements InputOutputMenus {
                     }
                 });
 
-            jPanel.add(jButtons[i][j]);
+                jPanel.add(jButtons[i][j]);
+            }
         }
-    }
         return jPanel;
-}
+    }
 
     @Override
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
