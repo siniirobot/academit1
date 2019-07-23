@@ -27,17 +27,21 @@ import static java.awt.GridBagConstraints.*;
 
 public class ImageInputOutput implements InputOutputMenus {
 
+    private JFrame frame = new JFrame("Minesweeper");
+
     public void getGUI() {
         Image icon = Toolkit.getDefaultToolkit()
                 .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
                         "/View/GUI/Resources/CharactersImage/icon.png");
 
         SwingUtilities.invokeLater(() -> {
+            MyTimer myTimer = new MyTimer();
+            java.util.Timer timer = new Timer();
+            timer.schedule(myTimer, 0);
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
-                JFrame frame = new JFrame("Minesweeper");
-                getGUIContent(frame.getContentPane());
+                frame.add(getMainMenu());
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
@@ -48,6 +52,11 @@ public class ImageInputOutput implements InputOutputMenus {
                 System.out.println(e.getMessage());
             }
         });
+    }
+
+    private void getNewPanel(Container container) {
+        frame.removeAll();
+        frame.add(container);
     }
 
     public void getGUIContent(Container container) throws IOException {
@@ -66,26 +75,68 @@ public class ImageInputOutput implements InputOutputMenus {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 1));
 
-        return null;
+        JButton startGame = new JButton();
+
+        startGame.setText("Начать игру");
+        startGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getSettingMenu());
+            }
+        });
+
+        mainPanel.add(startGame);
+
+        JButton highScoreTable = new JButton("Таблица рекордов");
+        highScoreTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getHeightScoreMenu());
+            }
+        });
+
+        mainPanel.add(highScoreTable);
+
+        JButton exit = new JButton("Выход из игры");
+        exit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getEndGameMenu());
+            }
+        });
+
+        mainPanel.add(exit);
+        return mainPanel;
     }
 
     @Override
     public Container getSettingMenu() {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(6, 1));
+        JLabel title = new JLabel("Выбирете сложность");
+        JButton easy = new JButton("Легкая.");
+        easy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.removeAll();
+
+            }
+        });
         return null;
     }
 
     @Override
-    public String getHeightScoreMenu() {
+    public Container getHeightScoreMenu() {
         return null;
     }
 
     @Override
-    public String getEndGameMenu() {
+    public Container getEndGameMenu() {
         return null;
     }
 
     @Override
-    public String getMenuMessage(int from, int to) {
+    public Container getMenuMessage(int from, int to) {
         return null;
     }
 
@@ -121,17 +172,18 @@ public class ImageInputOutput implements InputOutputMenus {
         gridBagConstraints.fill = NONE;
 
         jPanel.add(time,
-                addComponent(gridBagConstraints,0,0,1,1,1));
+                addComponent(gridBagConstraints, 0, 0, 1, 1, 1));
 
         jPanel.add(new JLabel(difficult.getName().toString()),
-                addComponent(gridBagConstraints,0,1,1,1,1));
+                addComponent(gridBagConstraints, 0, 1, 1, 1, 1));
 
         jPanel.add(mineCount,
-                addComponent(gridBagConstraints,0,2,1,1,1));
+                addComponent(gridBagConstraints, 0, 2, 1, 1, 1));
 
         jPanel.add(printGameField(model, mineCount),
-                addComponent(gridBagConstraints,1,0,0,3,1));
+                addComponent(gridBagConstraints, 1, 0, 0, 3, 1));
 
+        frame.add(jPanel);
         return jPanel;
     }
 
