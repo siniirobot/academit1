@@ -32,7 +32,7 @@ public class HighScoreTests {
                 new Object[]{"Alex", 999, new Easy()},
                 new Object[]{"Eva", 999, new Norm()},
                 new Object[]{"Irma", 999, new Hard()},
-                new Object[]{"Cliam", 999, new Random(9,9,20)}
+                new Object[]{"Cliam", 999, new Arbitrary(9,9,20)}
         };
     }
 
@@ -55,7 +55,7 @@ public class HighScoreTests {
             Easy easy = new Easy();
             Norm norm = new Norm();
             Hard hard = new Hard();
-            Random random = new Random(height,width,mineCount);
+            Arbitrary arbitrary = new Arbitrary(height,width,mineCount);
         }catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

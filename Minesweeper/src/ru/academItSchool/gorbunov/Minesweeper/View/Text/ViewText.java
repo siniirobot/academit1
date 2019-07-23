@@ -6,9 +6,6 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
-import ru.academItSchool.gorbunov.Minesweeper.Text;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.TextInputOutput.TextInputOutputMenus;
 
@@ -58,8 +55,8 @@ public class ViewText {
                         int minesCount = inputOutputMenus.getInput(1, maxMines,
                                 "Введите количество мин от 10 до " + maxMines);
 
-                        Random random = new Random(lines, columns, minesCount);
-                        getGameProcess(random);
+                        Arbitrary arbitrary = new Arbitrary(lines, columns, minesCount);
+                        getGameProcess(arbitrary);
                         startGameAgain();
                         break;
                     case 5:

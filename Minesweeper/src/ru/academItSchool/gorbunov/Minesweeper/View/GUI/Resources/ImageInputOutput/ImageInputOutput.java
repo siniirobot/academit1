@@ -41,7 +41,7 @@ public class ImageInputOutput implements InputOutputMenus {
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
-                frame.add(getMainMenu());
+                frame.getContentPane().add(getMainMenu());
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
@@ -55,8 +55,10 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     private void getNewPanel(Container container) {
-        frame.removeAll();
-        frame.add(container);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(container);
+        frame.getContentPane().validate();
+        frame.pack();
     }
 
     public void getGUIContent(Container container) throws IOException {
@@ -122,7 +124,45 @@ public class ImageInputOutput implements InputOutputMenus {
 
             }
         });
-        return null;
+        JButton norm = new JButton("Срелняя.");
+        norm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.removeAll();
+
+            }
+        });
+        JButton hard = new JButton("Тяжелая.");
+        hard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.removeAll();
+
+            }
+        });
+        JButton arbitrary = new JButton("Произвольная.");
+        arbitrary.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.removeAll();
+
+            }
+        });
+        JButton back = new JButton("Назад.");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getMainMenu());
+            }
+        });
+
+        mainPanel.add(title);
+        mainPanel.add(easy);
+        mainPanel.add(norm);
+        mainPanel.add(hard);
+        mainPanel.add(arbitrary);
+        mainPanel.add(back);
+        return mainPanel;
     }
 
     @Override
@@ -223,7 +263,7 @@ public class ImageInputOutput implements InputOutputMenus {
                             mineCount.setText(((Integer) model.getPrintCountMine()).toString());
                         } catch (Boom boom) {
                             JOptionPane.showMessageDialog(null, boom.getMessage());
-                            getMainMenu();
+                            getNewPanel(getMainMenu());
                         } finally {
                             for (int i = 0; i < jButtons.length; i++) {
                                 for (int j = 0; j < jButtons[0].length; j++) {

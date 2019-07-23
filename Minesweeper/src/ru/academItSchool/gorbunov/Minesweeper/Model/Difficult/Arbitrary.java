@@ -1,12 +1,12 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
-public class Random implements Difficult {
+public class Arbitrary implements Difficult {
     private Difficult.nameDifficult name;
     private int columns;
     private int rows;
     private int mines;
 
-    public Random(int rows, int columns, int mines) {
+    public Arbitrary(int rows, int columns, int mines) {
         if (rows < 9 || rows > 24) {
             throw new IllegalArgumentException("Высота игрового поля должна быть не меньше 9 строк и не больше 24.");
         }
