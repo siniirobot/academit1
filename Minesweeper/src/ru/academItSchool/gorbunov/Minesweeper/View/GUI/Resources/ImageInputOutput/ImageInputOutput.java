@@ -1,14 +1,16 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Easy;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Hard;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Norm;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
+import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
@@ -28,6 +30,7 @@ import static java.awt.GridBagConstraints.*;
 public class ImageInputOutput implements InputOutputMenus {
 
     private JFrame frame = new JFrame("Minesweeper");
+    private Characters characters = new CharactersImage();
 
     public void getGUI() {
         Image icon = Toolkit.getDefaultToolkit()
@@ -35,9 +38,6 @@ public class ImageInputOutput implements InputOutputMenus {
                         "/View/GUI/Resources/CharactersImage/icon.png");
 
         SwingUtilities.invokeLater(() -> {
-            MyTimer myTimer = new MyTimer();
-            java.util.Timer timer = new Timer();
-            timer.schedule(myTimer, 0);
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getCrossPlatformLookAndFeelClassName());
@@ -120,15 +120,14 @@ public class ImageInputOutput implements InputOutputMenus {
         easy.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.removeAll();
-
+                getGameProcess(new Easy());
             }
         });
         JButton norm = new JButton("Срелняя.");
         norm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.removeAll();
+                getGameProcess(new Norm());
 
             }
         });
@@ -136,7 +135,7 @@ public class ImageInputOutput implements InputOutputMenus {
         hard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.removeAll();
+                getGameProcess(new Hard());
 
             }
         });
@@ -179,6 +178,41 @@ public class ImageInputOutput implements InputOutputMenus {
     public Container getMenuMessage(int from, int to) {
         return null;
     }
+
+    private void getGameProcess(Difficult difficult) {
+        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
+                characters));
+
+        MyTimer myTimer = new MyTimer();
+
+        getNewPanel(getPrintGame(model, difficult, myTimer));
+    }
+
+    /* private void getGameProcess(Difficult difficult) {
+        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
+                characters));
+
+        MyTimer myTimer = new MyTimer();
+        Timer timer = new Timer();
+        timer.schedule(myTimer,0);
+
+        try {
+            while (model.getGameField().getMineCount() != 0) {
+                System.out.println(inputOutputMenus.getPrintGame(model, difficult, myTimer));
+                int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
+                model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
+            }
+        } catch (Boom b) {
+            System.out.println(b.getMessage());
+            inputOutputMenus.getPrintGame(model, difficult, myTimer);
+            myTimer.cancel();
+            return;
+        }
+        myTimer.cancel();
+        if (inputOutputMenus.getHighScoreWrite(myTimer, difficult)) {
+            highScores.printHighScores(difficult.getName());
+        }
+    }*/
 
     @Override
     public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {

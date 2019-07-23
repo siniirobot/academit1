@@ -1,6 +1,5 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage;
 
-import javafx.scene.image.Image;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
