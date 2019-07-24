@@ -23,6 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static java.awt.GridBagConstraints.*;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class ImageInputOutput implements InputOutputMenus {
     private JFrame frame;
@@ -41,47 +42,34 @@ public class ImageInputOutput implements InputOutputMenus {
         frame.setLocationRelativeTo(null);
     }
 
-    private MouseListener getRewindButton(Container container) {
-        return new MouseAdapter() {
+    private JButton getRewindButton(String name, Container path) {
+        JButton jButton = new JButton(name);
+        jButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(container);
+                getNewPanel(path);
             }
-        };
+        });
+
+        return jButton;
     }
 
     @Override
     public Container getMainMenu() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(250,200));
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(200,150));
-
-        mainPanel.setLayout(new GridLayout(3, 1));
-
-        JButton startGame = new JButton();
-
-        startGame.setText("Начать игру");
-        startGame.addMouseListener(getRewindButton(getSettingMenu()));
-
-        mainPanel.add(startGame);
-
-        JButton highScoreTable = new JButton("Таблица рекордов");
-        highScoreTable.addMouseListener(getRewindButton(getHeightScoreMenu()));
-
-        mainPanel.add(highScoreTable);
-
-        JButton exit = new JButton("Выход из игры");
-        exit.addMouseListener(getRewindButton(getEndGameMenu()));
-
-
+        buttonPanel.setPreferredSize(new Dimension(200, 150));
         buttonPanel.setLayout(new GridLayout(3, 1));
-        buttonPanel.add(startGame);
-        buttonPanel.add(highScoreTable);
-        buttonPanel.add(exit);
+        buttonPanel.add(getRewindButton("Начать игру", getSettingMenu()));
+        buttonPanel.add(getRewindButton("Таблица рекордов", getHeightScoreMenu()));
+        buttonPanel.add(getRewindButton("Выход из игры", getEndGameMenu()));
 
-        mainPanel.add(new JLabel("САПЁР"),BorderLayout.NORTH);
-        mainPanel.add(buttonPanel,BorderLayout.SOUTH);
+        JLabel name = new JLabel("САПЁР");
+        name.setFont(new Font("AriaBOLD", Font.PLAIN, 36));
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(250, 230));
+        mainPanel.add(name, BorderLayout.NORTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         return mainPanel;
     }
 
@@ -92,55 +80,23 @@ public class ImageInputOutput implements InputOutputMenus {
         mainPanel.setLayout(new GridLayout(6, 1));
         JLabel title = new JLabel("Выбирете сложность");
 
-        JButton easy = new JButton("Легкая.");
-
-        easy.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getGameProcess(new Easy());
-            }
-        });
-
-        JButton norm = new JButton("Средняя.");
-        norm.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getGameProcess(new Norm());
-
-            }
-        });
-
-        JButton hard = new JButton("Тяжелая.");
-        hard.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getGameProcess(new Hard());
-
-            }
-        });
-
         JButton arbitrary = new JButton("Произвольная.");
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.removeAll();
-
-            }
-        });
-        JButton back = new JButton("Назад.");
-        back.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getNewPanel(getMainMenu());
+                JDialog chooseMenu = new JDialog();
+                chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                chooseMenu.setSize(180, 90);
+                chooseMenu.setVisible(true);
             }
         });
 
         mainPanel.add(title);
-        mainPanel.add(easy);
-        mainPanel.add(norm);
-        mainPanel.add(hard);
+        mainPanel.add(getRewindButton("Легкая",getGameProcess(new Easy())));
+        mainPanel.add(getRewindButton("Нормальная",getGameProcess(new Norm())));
+        mainPanel.add(getRewindButton("Сложная", getGameProcess(new Hard())));
         mainPanel.add(arbitrary);
-        mainPanel.add(back);
+        mainPanel.add(getRewindButton("Назад",getMainMenu()));
         return mainPanel;
     }
 
@@ -159,13 +115,13 @@ public class ImageInputOutput implements InputOutputMenus {
         return null;
     }
 
-    private void getGameProcess(Difficult difficult) {
+    private Container getGameProcess(Difficult difficult) {
         Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
 
         MyTimer myTimer = new MyTimer();
 
-        getNewPanel(getPrintGame(model, difficult, myTimer));
+        return getPrintGame(model, difficult, myTimer);
     }
 
     /* private void getGameProcess(Difficult difficult) {
