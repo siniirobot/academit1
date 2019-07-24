@@ -15,43 +15,22 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.sql.Time;
-import java.time.Duration;
+import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static java.awt.GridBagConstraints.*;
 
 public class ImageInputOutput implements InputOutputMenus {
+    private JFrame frame;
+    private Characters characters;
 
-    private JFrame frame = new JFrame("Minesweeper");
-    private Characters characters = new CharactersImage();
-
-    public void getGUI() {
-        Image icon = Toolkit.getDefaultToolkit()
-                .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/View/GUI/Resources/CharactersImage/icon.png");
-
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(
-                        UIManager.getCrossPlatformLookAndFeelClassName());
-                frame.getContentPane().add(getMainMenu());
-                frame.pack();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLocationRelativeTo(null);
-                frame.setIconImage(icon);
-                frame.setResizable(false);
-                frame.setVisible(true);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
+    public ImageInputOutput(JFrame frame) {
+        this.frame = frame;
+        this.characters = new CharactersImage();
     }
 
     private void getNewPanel(Container container) {
@@ -59,71 +38,70 @@ public class ImageInputOutput implements InputOutputMenus {
         frame.getContentPane().add(container);
         frame.getContentPane().validate();
         frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
-    public void getGUIContent(Container container) throws IOException {
-        MyTimer myTimer = new MyTimer();
-        java.util.Timer timer = new Timer();
-        timer.schedule(myTimer, 0);
-
-        container.add(getPrintGame(new Model(
-                new GameField(9, 9, 10, new CharactersImage())
-        ), new Easy(), myTimer));
-
+    private MouseListener getRewindButton(Container container) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(container);
+            }
+        };
     }
 
     @Override
     public Container getMainMenu() {
         JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(250,200));
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setPreferredSize(new Dimension(200,150));
+
         mainPanel.setLayout(new GridLayout(3, 1));
 
         JButton startGame = new JButton();
 
         startGame.setText("Начать игру");
-        startGame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getNewPanel(getSettingMenu());
-            }
-        });
+        startGame.addMouseListener(getRewindButton(getSettingMenu()));
 
         mainPanel.add(startGame);
 
         JButton highScoreTable = new JButton("Таблица рекордов");
-        highScoreTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getNewPanel(getHeightScoreMenu());
-            }
-        });
+        highScoreTable.addMouseListener(getRewindButton(getHeightScoreMenu()));
 
         mainPanel.add(highScoreTable);
 
         JButton exit = new JButton("Выход из игры");
-        exit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getNewPanel(getEndGameMenu());
-            }
-        });
+        exit.addMouseListener(getRewindButton(getEndGameMenu()));
 
-        mainPanel.add(exit);
+
+        buttonPanel.setLayout(new GridLayout(3, 1));
+        buttonPanel.add(startGame);
+        buttonPanel.add(highScoreTable);
+        buttonPanel.add(exit);
+
+        mainPanel.add(new JLabel("САПЁР"),BorderLayout.NORTH);
+        mainPanel.add(buttonPanel,BorderLayout.SOUTH);
         return mainPanel;
     }
 
     @Override
     public Container getSettingMenu() {
         JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(400, 400));
         mainPanel.setLayout(new GridLayout(6, 1));
         JLabel title = new JLabel("Выбирете сложность");
+
         JButton easy = new JButton("Легкая.");
+
         easy.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 getGameProcess(new Easy());
             }
         });
-        JButton norm = new JButton("Срелняя.");
+
+        JButton norm = new JButton("Средняя.");
         norm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -131,6 +109,7 @@ public class ImageInputOutput implements InputOutputMenus {
 
             }
         });
+
         JButton hard = new JButton("Тяжелая.");
         hard.addMouseListener(new MouseAdapter() {
             @Override
@@ -139,6 +118,7 @@ public class ImageInputOutput implements InputOutputMenus {
 
             }
         });
+
         JButton arbitrary = new JButton("Произвольная.");
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
@@ -322,4 +302,15 @@ public class ImageInputOutput implements InputOutputMenus {
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
         return false;
     }
+
+    /* public void getGUIContent(Container container) throws IOException {
+        MyTimer myTimer = new MyTimer();
+        java.util.Timer timer = new Timer();
+        timer.schedule(myTimer, 0);
+
+        container.add(getPrintGame(new Model(
+                new GameField(9, 9, 10, new CharactersImage())
+        ), new Easy(), myTimer));
+
+    }*/
 }
