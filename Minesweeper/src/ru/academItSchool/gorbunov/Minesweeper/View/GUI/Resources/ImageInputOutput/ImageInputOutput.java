@@ -1,10 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput;
 
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Easy;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Hard;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Norm;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
@@ -15,10 +12,8 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,61 +37,151 @@ public class ImageInputOutput implements InputOutputMenus {
         frame.setLocationRelativeTo(null);
     }
 
-    private JButton getRewindButton(String name, Container path) {
-        JButton jButton = new JButton(name);
-        jButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                getNewPanel(path);
-            }
-        });
-
-        return jButton;
-    }
-
     @Override
     public Container getMainMenu() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(200, 150));
         buttonPanel.setLayout(new GridLayout(3, 1));
-        buttonPanel.add(getRewindButton("Начать игру", getSettingMenu()));
-        buttonPanel.add(getRewindButton("Таблица рекордов", getHeightScoreMenu()));
-        buttonPanel.add(getRewindButton("Выход из игры", getEndGameMenu()));
 
-        JLabel name = new JLabel("САПЁР");
-        name.setFont(new Font("AriaBOLD", Font.PLAIN, 36));
+        JButton startGame = new JButton("Начать игру");
+        startGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getSettingMenu());
+            }
+        });
+
+        JButton heightScoreMenu = new JButton("Таблица рекордов");
+        heightScoreMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getHeightScoreMenu());
+            }
+        });
+
+        JButton exit = new JButton("Выход из игры");
+        exit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getEndGameMenu());
+            }
+        });
+
+        buttonPanel.add(startGame);
+        buttonPanel.add(heightScoreMenu);
+        buttonPanel.add(exit);
+
+        JLabel title = new JLabel("САПЁР");
+        title.setFont(new Font("AriaBOLD", Font.PLAIN, 36));
 
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(250, 230));
-        mainPanel.add(name, BorderLayout.NORTH);
+        mainPanel.add(title, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         return mainPanel;
     }
 
     @Override
     public Container getSettingMenu() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(400, 400));
-        mainPanel.setLayout(new GridLayout(6, 1));
-        JLabel title = new JLabel("Выбирете сложность");
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(5, 1));
+        buttonPanel.setPreferredSize(new Dimension(200, 200));
 
-        JButton arbitrary = new JButton("Произвольная.");
+        JButton easy = new JButton("Легкая");
+        easy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getGameProcess(new Easy()));
+            }
+        });
+
+        JButton norm = new JButton("Нормальная");
+        norm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getGameProcess(new Norm()));
+            }
+        });
+
+        JButton hard = new JButton("Тяжелая");
+        hard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getGameProcess(new Hard()));
+            }
+        });
+
+        JButton arbitrary = new JButton("Произвольная");
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JDialog chooseMenu = new JDialog();
                 chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                chooseMenu.setSize(180, 90);
+                chooseMenu.setSize(180, 250);
                 chooseMenu.setVisible(true);
+                chooseMenu.setLocationRelativeTo(null);
+
+                JPanel textFieldPanel = new JPanel();
+                textFieldPanel.setLayout(new GridLayout(6,1));
+                JLabel height = new JLabel("Введите высоту 9 - 24");
+                JTextField heightTextField = new JTextField("9", 11);
+
+                JLabel weight = new JLabel("Введите ширину 9 - 30");
+                JTextField weightTextField = new JTextField("9", 11);
+
+                int maxMines =
+                        ((Integer.parseInt(heightTextField.getText()) * Integer.parseInt(weightTextField.getText())) * 75) / 100;
+                JLabel mineCount = new JLabel("Введите ширину 10 - " + maxMines);
+                JTextField mineCountTextField = new JTextField("10", 11);
+
+                textFieldPanel.add(height);
+                textFieldPanel.add(heightTextField);
+                textFieldPanel.add(weight);
+                textFieldPanel.add(weightTextField);
+                textFieldPanel.add(mineCount);
+                textFieldPanel.add(mineCountTextField);
+
+                JButton input = new JButton("Ок");
+                input.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        chooseMenu.dispose();
+                        getNewPanel(getGameProcess(new Arbitrary(
+                                Integer.parseInt(heightTextField.getText()),
+                                Integer.parseInt(weightTextField.getText()),
+                                Integer.parseInt(mineCountTextField.getText()))));
+                    }
+                });
+
+                chooseMenu.add(textFieldPanel,BorderLayout.NORTH);
+                chooseMenu.add(input,BorderLayout.SOUTH);
+                chooseMenu.pack();
+
             }
         });
 
-        mainPanel.add(title);
-        mainPanel.add(getRewindButton("Легкая",getGameProcess(new Easy())));
-        mainPanel.add(getRewindButton("Нормальная",getGameProcess(new Norm())));
-        mainPanel.add(getRewindButton("Сложная", getGameProcess(new Hard())));
-        mainPanel.add(arbitrary);
-        mainPanel.add(getRewindButton("Назад",getMainMenu()));
+        JButton back = new JButton("Назад");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getMainMenu());
+            }
+        });
+
+        buttonPanel.add(easy);
+        buttonPanel.add(norm);
+        buttonPanel.add(hard);
+        buttonPanel.add(arbitrary);
+        buttonPanel.add(back);
+
+        JLabel title = new JLabel("Выбирете сложность");
+        title.setFont(new Font("AriaBOLD", Font.PLAIN, 18));
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(250, 250));
+
+        mainPanel.add(title, BorderLayout.NORTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         return mainPanel;
     }
 
@@ -121,42 +206,17 @@ public class ImageInputOutput implements InputOutputMenus {
 
         MyTimer myTimer = new MyTimer();
 
+
         return getPrintGame(model, difficult, myTimer);
     }
-
-    /* private void getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
-                characters));
-
-        MyTimer myTimer = new MyTimer();
-        Timer timer = new Timer();
-        timer.schedule(myTimer,0);
-
-        try {
-            while (model.getGameField().getMineCount() != 0) {
-                System.out.println(inputOutputMenus.getPrintGame(model, difficult, myTimer));
-                int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
-                model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
-            }
-        } catch (Boom b) {
-            System.out.println(b.getMessage());
-            inputOutputMenus.getPrintGame(model, difficult, myTimer);
-            myTimer.cancel();
-            return;
-        }
-        myTimer.cancel();
-        if (inputOutputMenus.getHighScoreWrite(myTimer, difficult)) {
-            highScores.printHighScores(difficult.getName());
-        }
-    }*/
 
     @Override
     public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridBagLayout());
 
-        JLabel time = new JLabel();
-        Timer timer = new Timer();
+        JLabel time = new JLabel("0");
+        Timer printTimer = new Timer();
 
         TimerTask timerTask = new TimerTask() {
             int i = 0;
@@ -164,7 +224,7 @@ public class ImageInputOutput implements InputOutputMenus {
             @Override
             public void run() {
                 for (; i <= 9999; i++) {
-                    time.setText(((Integer) myTimer.getTime()).toString());
+                    time.setText(((Integer) i).toString());
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -174,7 +234,6 @@ public class ImageInputOutput implements InputOutputMenus {
             }
         };
 
-        timer.schedule(timerTask, 0);
         JLabel mineCount = new JLabel();
         mineCount.setText(((Integer) model.getPrintCountMine()).toString());
 
@@ -190,14 +249,15 @@ public class ImageInputOutput implements InputOutputMenus {
         jPanel.add(mineCount,
                 addComponent(gridBagConstraints, 0, 2, 1, 1, 1));
 
-        jPanel.add(printGameField(model, mineCount),
+        jPanel.add(printGameField(model, mineCount, printTimer, timerTask),
                 addComponent(gridBagConstraints, 1, 0, 0, 3, 1));
 
         frame.add(jPanel);
         return jPanel;
     }
 
-    public GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber, int columnNumber, int position) {
+    private GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber,
+                                            int columnNumber, int position) {
         gridBagConstraints.gridx = col;
         gridBagConstraints.gridy = row;
         gridBagConstraints.gridwidth = columnNumber;
@@ -206,11 +266,11 @@ public class ImageInputOutput implements InputOutputMenus {
         return gridBagConstraints;
     }
 
-    public JPanel printGameField(Model model, JLabel mineCount) {
+    private JPanel printGameField(Model model, JLabel mineCount, Timer timer, TimerTask timerTask) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
         JButton[][] jButtons = new JButton[model.getGameField().getGameField().length][model.getGameField().getGameField()[0].length];
-
+        final boolean[] firstClick = {false};
         for (int i = 0; i < jButtons.length; i++) {
             for (int j = 0; j < jButtons[0].length; j++) {
                 jButtons[i][j] = new JButton();
@@ -225,14 +285,29 @@ public class ImageInputOutput implements InputOutputMenus {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         try {
-                            if (e.getButton() == 3) {
-                                model.clickMove(finalI, finalJ, 2);
-                            } else {
-                                model.clickMove(finalI, finalJ, 1);
+                            if (!firstClick[0]) {
+                                firstClick[0] = true;
+                                timer.schedule(timerTask, 0);
                             }
-                            mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+                            if (model.getGameField().getMineCount() != 0) {
+                                if (e.getButton() == 3) {
+                                    model.clickMove(finalI, finalJ, 2);
+                                } else {
+                                    model.clickMove(finalI, finalJ, 1);
+                                }
+                                mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+                            }
+
                         } catch (Boom boom) {
+                            for (int i = 0; i < jButtons.length; i++) {
+                                for (int j = 0; j < jButtons[0].length; j++) {
+                                    if (model.getGameField().getGameField()[i][j].isVisible()) {
+                                        jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getContent());
+                                    }
+                                }
+                            }
                             JOptionPane.showMessageDialog(null, boom.getMessage());
+
                             getNewPanel(getMainMenu());
                         } finally {
                             for (int i = 0; i < jButtons.length; i++) {
