@@ -11,11 +11,14 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.awt.GridBagConstraints.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -117,22 +120,59 @@ public class ImageInputOutput implements InputOutputMenus {
             public void mouseClicked(MouseEvent e) {
                 JDialog chooseMenu = new JDialog();
                 chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                chooseMenu.setSize(180, 250);
-                chooseMenu.setVisible(true);
-                chooseMenu.setLocationRelativeTo(null);
+                chooseMenu.setPreferredSize(new Dimension(200, 250));
 
                 JPanel textFieldPanel = new JPanel();
-                textFieldPanel.setLayout(new GridLayout(6,1));
-                JLabel height = new JLabel("Введите высоту 9 - 24");
+                textFieldPanel.setPreferredSize(new Dimension(120, 200));
+
+                JLabel height = new JLabel(
+                        "<html>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите высоту</p>" +
+                                "<p>игрового поля (9 - 24)</p>" +
+                                "<html>");
                 JTextField heightTextField = new JTextField("9", 11);
 
-                JLabel weight = new JLabel("Введите ширину 9 - 30");
+
+                JLabel weight = new JLabel(
+                        "<html>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите ширину</p>" +
+                                "<p>игрового поля (9 - 30)</p>" +
+                                "<html>");
                 JTextField weightTextField = new JTextField("9", 11);
 
                 int maxMines =
                         ((Integer.parseInt(heightTextField.getText()) * Integer.parseInt(weightTextField.getText())) * 75) / 100;
-                JLabel mineCount = new JLabel("Введите ширину 10 - " + maxMines);
+
+                JLabel mineCount = new JLabel(
+                        "<html>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите количество мин</p>" +
+                                "<p>на игровом поле (9 - " + maxMines + ")</p>" +
+                                "<html>");
+
+
                 JTextField mineCountTextField = new JTextField("10", 11);
+
+                heightTextField.getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        int maxMines =
+                                ((Integer.parseInt(heightTextField.getText()) * Integer.parseInt(weightTextField.getText())) * 75) / 100;
+                        mineCount.setText("<html>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите количество мин</p>" +
+                                "<p>на игровом поле (9 - " + maxMines + ")</p>" +
+                                "<html>");
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+
+                    }
+                });
 
                 textFieldPanel.add(height);
                 textFieldPanel.add(heightTextField);
@@ -145,18 +185,33 @@ public class ImageInputOutput implements InputOutputMenus {
                 input.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        chooseMenu.dispose();
-                        getNewPanel(getGameProcess(new Arbitrary(
-                                Integer.parseInt(heightTextField.getText()),
-                                Integer.parseInt(weightTextField.getText()),
-                                Integer.parseInt(mineCountTextField.getText()))));
+                        try {
+                            String height = heightTextField.getText();
+                            throwExceptionForLetters(height);
+
+                            String weight = weightTextField.getText();
+                            throwExceptionForLetters(weight);
+
+                            String mineCount = mineCountTextField.getText();
+                            throwExceptionForLetters(mineCount);
+
+                            getNewPanel(getGameProcess(new Arbitrary(
+                                    Integer.parseInt(height),
+                                    Integer.parseInt(weight),
+                                    Integer.parseInt(mineCount))));
+                            chooseMenu.dispose();
+                        } catch (IllegalArgumentException e1) {
+                            JOptionPane.showMessageDialog(null, e1.getMessage());
+
+                        }
                     }
                 });
 
-                chooseMenu.add(textFieldPanel,BorderLayout.NORTH);
-                chooseMenu.add(input,BorderLayout.SOUTH);
+                chooseMenu.add(textFieldPanel, BorderLayout.NORTH);
+                chooseMenu.add(input, BorderLayout.SOUTH);
                 chooseMenu.pack();
-
+                chooseMenu.setLocationRelativeTo(null);
+                chooseMenu.setVisible(true);
             }
         });
 
@@ -241,28 +296,28 @@ public class ImageInputOutput implements InputOutputMenus {
         gridBagConstraints.fill = NONE;
 
         jPanel.add(time,
-                addComponent(gridBagConstraints, 0, 0, 1, 1, 1));
+                addComponent(gridBagConstraints, 0, 0, 1, 1));
 
         jPanel.add(new JLabel(difficult.getName().toString()),
-                addComponent(gridBagConstraints, 0, 1, 1, 1, 1));
+                addComponent(gridBagConstraints, 0, 1, 1, 1));
 
         jPanel.add(mineCount,
-                addComponent(gridBagConstraints, 0, 2, 1, 1, 1));
+                addComponent(gridBagConstraints, 0, 2, 1, 1));
 
         jPanel.add(printGameField(model, mineCount, printTimer, timerTask),
-                addComponent(gridBagConstraints, 1, 0, 0, 3, 1));
+                addComponent(gridBagConstraints, 1, 0, 0, 3));
 
         frame.add(jPanel);
         return jPanel;
     }
 
     private GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber,
-                                            int columnNumber, int position) {
+                                            int columnNumber) {
         gridBagConstraints.gridx = col;
         gridBagConstraints.gridy = row;
         gridBagConstraints.gridwidth = columnNumber;
         gridBagConstraints.gridheight = rowNumber;
-        gridBagConstraints.weightx = position;
+        gridBagConstraints.weightx = 1;
         return gridBagConstraints;
     }
 
@@ -271,6 +326,7 @@ public class ImageInputOutput implements InputOutputMenus {
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
         JButton[][] jButtons = new JButton[model.getGameField().getGameField().length][model.getGameField().getGameField()[0].length];
         final boolean[] firstClick = {false};
+
         for (int i = 0; i < jButtons.length; i++) {
             for (int j = 0; j < jButtons[0].length; j++) {
                 jButtons[i][j] = new JButton();
@@ -334,14 +390,10 @@ public class ImageInputOutput implements InputOutputMenus {
         return false;
     }
 
-    /* public void getGUIContent(Container container) throws IOException {
-        MyTimer myTimer = new MyTimer();
-        java.util.Timer timer = new Timer();
-        timer.schedule(myTimer, 0);
-
-        container.add(getPrintGame(new Model(
-                new GameField(9, 9, 10, new CharactersImage())
-        ), new Easy(), myTimer));
-
-    }*/
+    private void throwExceptionForLetters(String text) {
+        Matcher matcher = Pattern.compile("[+-]?([0-9])?[0-9]+").matcher(text);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Введите целочисленное число.");
+        }
+    }
 }
