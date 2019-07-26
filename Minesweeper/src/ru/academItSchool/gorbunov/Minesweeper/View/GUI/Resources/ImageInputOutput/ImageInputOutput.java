@@ -66,7 +66,7 @@ public class ImageInputOutput implements InputOutputMenus {
         exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getEndGameMenu());
+                System.exit(0);
             }
         });
 
@@ -120,7 +120,7 @@ public class ImageInputOutput implements InputOutputMenus {
             public void mouseClicked(MouseEvent e) {
                 JDialog chooseMenu = new JDialog();
                 chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                chooseMenu.setPreferredSize(new Dimension(200, 250));
+                chooseMenu.setPreferredSize(new Dimension(200, 270));
 
                 JPanel textFieldPanel = new JPanel();
                 textFieldPanel.setPreferredSize(new Dimension(120, 200));
@@ -151,49 +151,12 @@ public class ImageInputOutput implements InputOutputMenus {
 
 
                 JTextField mineCountTextField = new JTextField("10", 11);
-                DocumentListener ceckInput = new DocumentListener() {
-                    @Override
-                    public void insertUpdate(DocumentEvent e) {
-                        int height = Integer.parseInt(heightTextField.getText());
-                        if (height < 9) {
-                            height = 9;
-                        }else if (height > 24) {
-                            height = 24;
-                        }
-                        int weight = Integer.parseInt(weightTextField.getText());
-
-                        if (weight < 9) {
-                            height = 9;
-                        }else if (weight > 24) {
-                            weight = 30;
-                        }
-
-                        int maxMines = ((height * weight) * 75) / 100;
-
-                        if (maxMines < 10) {
-                            maxMines = 10;
-                        } else if (maxMines > 540) {
-                            maxMines = 540;
-                        }
-
-                        mineCount.setText("<html>" +
-                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите количество мин</p>" +
-                                "<p>на игровом поле (9 - " + maxMines + ")</p>" +
-                                "<html>");
-                    }
-
-                    @Override
-                    public void removeUpdate(DocumentEvent e) {
-
-                    }
-
-                    @Override
-                    public void changedUpdate(DocumentEvent e) {
-
-                    }
-                };
-                heightTextField.getDocument().addDocumentListener(ceckInput);
-                weightTextField.getDocument().addDocumentListener(ceckInput);
+                heightTextField.getDocument().addDocumentListener(checkForRightInputForArbitraryDifficult(
+                        24, heightTextField, weightTextField, mineCount
+                ));
+                weightTextField.getDocument().addDocumentListener(checkForRightInputForArbitraryDifficult(
+                        30, weightTextField, heightTextField, mineCount
+                ));
 
                 textFieldPanel.add(height);
                 textFieldPanel.add(heightTextField);
@@ -208,22 +171,18 @@ public class ImageInputOutput implements InputOutputMenus {
                     public void mouseClicked(MouseEvent e) {
                         try {
                             String height = heightTextField.getText();
-                            throwExceptionForLetters(height);
 
                             String weight = weightTextField.getText();
-                            throwExceptionForLetters(weight);
 
                             String mineCount = mineCountTextField.getText();
-                            throwExceptionForLetters(mineCount);
 
                             getNewPanel(getGameProcess(new Arbitrary(
                                     Integer.parseInt(height),
                                     Integer.parseInt(weight),
                                     Integer.parseInt(mineCount))));
                             chooseMenu.dispose();
-                        } catch (IllegalArgumentException e1) {
-                            JOptionPane.showMessageDialog(null, e1.getMessage());
-
+                        } catch (NumberFormatException e1) {
+                            JOptionPane.showMessageDialog(null, "Введите целочисленое значение");
                         }
                     }
                 });
@@ -259,6 +218,42 @@ public class ImageInputOutput implements InputOutputMenus {
         mainPanel.add(title, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         return mainPanel;
+    }
+
+    private DocumentListener checkForRightInputForArbitraryDifficult(int to, JTextField checkJTexField, JTextField jTextField, JLabel jLabel) {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                int maxMines = 0;
+                try {
+                    int input = checkInputForArbitraryInput(9, to, Integer.parseInt(checkJTexField.getText()));
+
+                    maxMines = ((input * Integer.parseInt(jTextField.getText())) * 75) / 100;
+                    maxMines = checkInputForArbitraryInput(10, 540, maxMines);
+                } catch (NumberFormatException num) {
+                    maxMines = 10;
+                } finally {
+                    jLabel.setText("<html>" +
+                            "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите количество мин</p>" +
+                            "<p>на игровом поле (9 - " + maxMines + ")</p>" +
+                            "<html>");
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        };
+    }
+
+    private int checkInputForArbitraryInput(int from, int to, int number) {
+        return number < from ? from : number > to ? to : number;
     }
 
     @Override
@@ -409,12 +404,5 @@ public class ImageInputOutput implements InputOutputMenus {
     @Override
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
         return false;
-    }
-
-    private void throwExceptionForLetters(String text) {
-        Matcher matcher = Pattern.compile("[+-]?([0-9])?[0-9]+").matcher(text);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("Введите целочисленное число.");
-        }
     }
 }

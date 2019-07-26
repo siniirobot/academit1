@@ -106,7 +106,7 @@ public class ViewText {
      * Завершение программы
      */
     private void exitGame() {
-        System.exit(-1);
+        System.exit(0);
     }
 
     /**
