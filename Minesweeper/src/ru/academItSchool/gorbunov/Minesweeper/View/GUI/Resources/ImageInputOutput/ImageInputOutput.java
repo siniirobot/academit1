@@ -151,12 +151,31 @@ public class ImageInputOutput implements InputOutputMenus {
 
 
                 JTextField mineCountTextField = new JTextField("10", 11);
-
-                heightTextField.getDocument().addDocumentListener(new DocumentListener() {
+                DocumentListener ceckInput = new DocumentListener() {
                     @Override
                     public void insertUpdate(DocumentEvent e) {
-                        int maxMines =
-                                ((Integer.parseInt(heightTextField.getText()) * Integer.parseInt(weightTextField.getText())) * 75) / 100;
+                        int height = Integer.parseInt(heightTextField.getText());
+                        if (height < 9) {
+                            height = 9;
+                        }else if (height > 24) {
+                            height = 24;
+                        }
+                        int weight = Integer.parseInt(weightTextField.getText());
+
+                        if (weight < 9) {
+                            height = 9;
+                        }else if (weight > 24) {
+                            weight = 30;
+                        }
+
+                        int maxMines = ((height * weight) * 75) / 100;
+
+                        if (maxMines < 10) {
+                            maxMines = 10;
+                        } else if (maxMines > 540) {
+                            maxMines = 540;
+                        }
+
                         mineCount.setText("<html>" +
                                 "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите количество мин</p>" +
                                 "<p>на игровом поле (9 - " + maxMines + ")</p>" +
@@ -172,7 +191,9 @@ public class ImageInputOutput implements InputOutputMenus {
                     public void changedUpdate(DocumentEvent e) {
 
                     }
-                });
+                };
+                heightTextField.getDocument().addDocumentListener(ceckInput);
+                weightTextField.getDocument().addDocumentListener(ceckInput);
 
                 textFieldPanel.add(height);
                 textFieldPanel.add(heightTextField);
