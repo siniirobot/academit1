@@ -17,8 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.awt.GridBagConstraints.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -32,6 +30,10 @@ public class ImageInputOutput implements InputOutputMenus {
         this.characters = new CharactersImage();
     }
 
+    /**
+     * Создание нового окна в фрейме
+     * @param container новое окно
+     */
     private void getNewPanel(Container container) {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(container);
@@ -40,6 +42,13 @@ public class ImageInputOutput implements InputOutputMenus {
         frame.setLocationRelativeTo(null);
     }
 
+    /**
+     * Создание меню с кнопками
+     * -Начать игру
+     * -Таблица рекордов
+     * -Выход из игры
+     * @return
+     */
     @Override
     public Container getMainMenu() {
         JPanel buttonPanel = new JPanel();
@@ -84,6 +93,15 @@ public class ImageInputOutput implements InputOutputMenus {
         return mainPanel;
     }
 
+    /**
+     * Создание меню настроек с кнопками
+     * -Легкая игра
+     * -Нормальная вода
+     * -Сложная игра
+     * -Произвольная игра
+     * -Назад
+     * @return
+     */
     @Override
     public Container getSettingMenu() {
         JPanel buttonPanel = new JPanel();
@@ -220,7 +238,15 @@ public class ImageInputOutput implements InputOutputMenus {
         return mainPanel;
     }
 
-    private DocumentListener checkForRightInputForArbitraryDifficult(int to, JTextField checkJTexField, JTextField jTextField, JLabel jLabel) {
+    /**
+     * @param to до скольки вводить ширину или высоту
+     * @param checkJTexField контролируемое поле ввода
+     * @param jTextField второе поле для вычисления количества мин
+     * @param jLabel поле для отображения колличества мин
+     * @return Создание DocumentListener для ввода данных для произвольной сложности.
+     */
+    private DocumentListener checkForRightInputForArbitraryDifficult(int to, JTextField checkJTexField,
+                                                                     JTextField jTextField, JLabel jLabel) {
         return new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -252,6 +278,15 @@ public class ImageInputOutput implements InputOutputMenus {
         };
     }
 
+    /**
+     * Проверяет что введеное число попадает в диапозон проверки
+     * если меньше нижнего диапазона то возвращает нижний диапазон если выше верхнего
+     * диапазона то число вверхнего диапазона в противном случае само число
+     * @param from от кого числа проверять
+     * @param to до кого числа проверять
+     * @param number проверяемое число
+     * @return результат проверки
+     */
     private int checkInputForArbitraryInput(int from, int to, int number) {
         return number < from ? from : number > to ? to : number;
     }
@@ -271,6 +306,11 @@ public class ImageInputOutput implements InputOutputMenus {
         return null;
     }
 
+    /**
+     * Создание модели и таймера для создания игрового поля на основе введеной сложности
+     * @param difficult сложность
+     * @return вывод игрового поля
+     */
     private Container getGameProcess(Difficult difficult) {
         Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
                 characters));
@@ -281,6 +321,13 @@ public class ImageInputOutput implements InputOutputMenus {
         return getPrintGame(model, difficult, myTimer);
     }
 
+    /**
+     * Выводит игровое поле со всеми настройками
+     * @param model игровое поле
+     * @param difficult сложность
+     * @param myTimer таймер
+     * @return игровое поле
+     */
     @Override
     public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
         JPanel jPanel = new JPanel();
@@ -327,6 +374,15 @@ public class ImageInputOutput implements InputOutputMenus {
         return jPanel;
     }
 
+    /**
+     * Спецификации для размещения контейнеров
+     * @param gridBagConstraints настройки
+     * @param row линия расположения в сетке
+     * @param col колонка расположения в сетке
+     * @param rowNumber количество занимаемых линий в сетке
+     * @param columnNumber количество занимаемых колонок в сетке
+     * @return готовые настройки
+     */
     private GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber,
                                             int columnNumber) {
         gridBagConstraints.gridx = col;
@@ -337,6 +393,14 @@ public class ImageInputOutput implements InputOutputMenus {
         return gridBagConstraints;
     }
 
+    /**
+     * Вывод игрового поля с минами
+     * @param model Состояние игрового поля
+     * @param mineCount текущее количество мин
+     * @param timer таймер
+     * @param timerTask задание для таймера
+     * @return вывод игрового поля
+     */
     private JPanel printGameField(Model model, JLabel mineCount, Timer timer, TimerTask timerTask) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
@@ -403,6 +467,7 @@ public class ImageInputOutput implements InputOutputMenus {
 
     @Override
     public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
+
         return false;
     }
 }

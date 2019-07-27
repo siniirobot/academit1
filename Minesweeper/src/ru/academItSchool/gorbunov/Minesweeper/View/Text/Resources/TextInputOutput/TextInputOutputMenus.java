@@ -135,6 +135,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
 
     @Override
     public String getMenuMessage(int from, int to) {
-        return "Выюирите пункт меню с " + from + " по " + to;
+        return "Выберите пункт меню с " + from + " по " + to;
     }
 }
