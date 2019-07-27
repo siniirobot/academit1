@@ -12,8 +12,8 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     private String getFileName(Difficult.nameDifficult difficult) {
-        String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
-        //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        //String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         switch (difficult) {
             case EASY:
                 file += "Easy.txt";
@@ -67,10 +67,6 @@ public class HighScores implements Serializable {
             ObjectInputStream readFile = openFile(fileName);
             highScores = (Player[]) readFile.readObject();
 
-            if (highScores[9] != null && highScores[9].getTime() < player.getTime()) {
-                throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
-            }
-
             for (int i = highScores.length - 1; i > 0; i--) {
                 if (highScores[i - 1] == null) {
                     continue;
@@ -94,6 +90,25 @@ public class HighScores implements Serializable {
             ObjectOutputStream writeFile = closeFile(fileName);
             writeFile.writeObject(highScores);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Проверяет возможность ввода игрока в таблицу, если не подходт выбрасывает исключение.
+     * @param time время игры для сравнения с худшим результатом
+     * @param difficult сложность игры в которой надо провести проверку
+     */
+    public void confirmTime(int time, Difficult difficult) {
+        try {
+            String fileName = getFileName(difficult.getName());
+            ObjectInputStream readFile = openFile(fileName);
+            Player[] highScores = (Player[]) readFile.readObject();
+
+            if (highScores[9] != null && highScores[9].getTime() < time) {
+                throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

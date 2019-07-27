@@ -20,19 +20,19 @@ public class HighScoreTests {
                 new Object[]{9, 20, 15, new CharactersImage()},
                 new Object[]{-5, 20, 15, new CharactersText()},
                 new Object[]{9, 35, 15, new CharactersImage()},
-                new Object[]{9, 10, 999, new CharactersImage()},
+                new Object[]{9, 10, 9999, new CharactersImage()},
         };
     }
 
     @DataProvider(name = "AddToTable")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{"", 999, new Easy()},
+                new Object[]{"", 2550, new Easy()},
                 new Object[]{"12454435154534", 74, new Easy()},
-                new Object[]{"Alex", 999, new Easy()},
-                new Object[]{"Eva", 999, new Norm()},
-                new Object[]{"Irma", 999, new Hard()},
-                new Object[]{"Cliam", 999, new Arbitrary(9,9,20)}
+                new Object[]{"Alex", 47, new Easy()},
+                new Object[]{"Eva", 26, new Norm()},
+                new Object[]{"Irma", 78, new Hard()},
+                new Object[]{"Cliam", 9999, new Arbitrary(9,9,20)}
         };
     }
 
@@ -40,6 +40,7 @@ public class HighScoreTests {
     public void testAdd(String name, int time, Difficult difficult) {
         HighScores highScore = new HighScores();
         try{
+            highScore.confirmTime(time,difficult);
             Player player = new Player(name, time, difficult);
             highScore.add(player);
             highScore.printHighScores(player.getDifficult());
@@ -60,5 +61,7 @@ public class HighScoreTests {
             System.out.println(e.getMessage());
         }
     }
+
+
 }
 
