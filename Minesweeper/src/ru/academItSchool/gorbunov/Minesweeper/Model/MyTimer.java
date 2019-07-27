@@ -4,27 +4,33 @@ import javax.swing.*;
 import java.util.TimerTask;
 
 public class MyTimer extends TimerTask {
-    private int time = 0;
+    private int time;
     private JLabel jLabel;
-    public MyTimer(){ }
+    private boolean stop = false;
 
-    public MyTimer(JLabel jLabel){
+    public MyTimer() {
+        this.time = 0;
+    }
+
+    public MyTimer(JLabel jLabel) {
         this.jLabel = jLabel;
+        this.time = 0;
     }
 
     public int getTime() {
         return time;
     }
 
-    private JLabel setTimeInLabel(){
-        jLabel.setText(toString());
-        return jLabel;
+    public boolean stop(){
+        return stop = true;
     }
     @Override
     public void run() {
-        for (; time <= 9999; time++) {
+        for (; time <= 9999 && !stop; time++) {
             try {
-                setTimeInLabel();
+                if (jLabel != null) {
+                    jLabel.setText(toString());
+                }
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {
             }
@@ -33,6 +39,6 @@ public class MyTimer extends TimerTask {
 
     @Override
     public String toString() {
-        return ((Integer)time).toString();
+        return ((Integer) time).toString();
     }
 }

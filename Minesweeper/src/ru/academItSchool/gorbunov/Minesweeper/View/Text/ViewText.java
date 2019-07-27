@@ -129,10 +129,10 @@ public class ViewText {
         } catch (Boom b) {
             System.out.println(b.getMessage());
             inputOutputMenus.getPrintGame(model, difficult, myTimer);
-            myTimer.cancel();
+            myTimer.stop();
             return;
         }
-        myTimer.cancel();
+        myTimer.stop();
         if (inputOutputMenus.getHighScoreWrite(myTimer.getTime(), difficult)) {
             highScores.printHighScores(difficult.getName());
         }

@@ -20,8 +20,6 @@ public class MyTimerTest {
         Timer timer = new Timer();
         timer.schedule(myTimer,0);
         System.out.println(myTimer.getTime());
-        timer.cancel();
-        myTimer.cancel();
         Thread.sleep(5000);
         System.out.println(myTimer.getTime());
         Thread.sleep(10000);

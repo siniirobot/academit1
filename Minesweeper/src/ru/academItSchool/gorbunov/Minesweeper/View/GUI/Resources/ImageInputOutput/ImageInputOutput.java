@@ -318,7 +318,7 @@ public class ImageInputOutput implements InputOutputMenus {
      * @return вывод игрового поля
      */
     private Container getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult,characters));
+        Model model = new Model(new GameField(difficult, characters));
 
         MyTimer myTimer = new MyTimer();
 
@@ -391,7 +391,7 @@ public class ImageInputOutput implements InputOutputMenus {
      * @param model     Состояние игрового поля
      * @param mineCount текущее количество мин
      * @param timer     таймер
-     * @param myTimer задание для таймера
+     * @param myTimer   задание для таймера
      * @return вывод игрового поля
      */
     private JPanel printGameField(Model model, JLabel mineCount, Timer timer, MyTimer myTimer) {
@@ -418,17 +418,17 @@ public class ImageInputOutput implements InputOutputMenus {
                                 firstClick[0] = true;
                                 timer.schedule(myTimer, 0);
                             }
-                            if (model.getGameField().getMineCount() != 0) {
+
                                 if (e.getButton() == 3) {
                                     model.clickMove(finalI, finalJ, 2);
+                                    mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+                                    if (model.getGameField().getMineCount() == 0) {
+                                        myTimer.stop();
+                                        getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
+                                    }
                                 } else {
                                     model.clickMove(finalI, finalJ, 1);
                                 }
-                                mineCount.setText(((Integer) model.getPrintCountMine()).toString());
-                            } else {
-
-                                getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
-                            }
 
                         } catch (Boom boom) {
                             for (int i = 0; i < jButtons.length; i++) {
@@ -469,19 +469,8 @@ public class ImageInputOutput implements InputOutputMenus {
         try {
             highScores.confirmTime(time, difficult);
         } catch (IllegalArgumentException e) {
-            highScorePlane.add(new JLabel(e.getMessage()), BorderLayout.CENTER);
-            JButton confirm = new JButton("ОК");
-            confirm.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    highScorePlane.dispose();
-                    getNewPanel(getMainMenu());
-                }
-            });
-            highScorePlane.add(confirm, BorderLayout.SOUTH);
-
-            highScorePlane.pack();
-            highScorePlane.setVisible(true);
+            JOptionPane.showMessageDialog(null,e.getMessage());
+            getNewPanel(getMainMenu());
         }
         return false;
     }

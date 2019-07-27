@@ -27,9 +27,9 @@ public class HighScoreTests {
     @DataProvider(name = "AddToTable")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{"", 2550, new Easy()},
-                new Object[]{"12454435154534", 74, new Easy()},
-                new Object[]{"Alex", 47, new Easy()},
+                new Object[]{"", 0, new Easy()},
+                new Object[]{"12", 1, new Easy()},
+                new Object[]{"Alex", 2, new Easy()},
                 new Object[]{"Eva", 26, new Norm()},
                 new Object[]{"Irma", 78, new Hard()},
                 new Object[]{"Cliam", 9999, new Arbitrary(9,9,20)}
