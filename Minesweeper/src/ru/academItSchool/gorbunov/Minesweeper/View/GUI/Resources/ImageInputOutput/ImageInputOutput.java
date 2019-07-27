@@ -4,6 +4,7 @@ package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutp
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
@@ -32,6 +33,7 @@ public class ImageInputOutput implements InputOutputMenus {
 
     /**
      * Создание нового окна в фрейме
+     *
      * @param container новое окно
      */
     private void getNewPanel(Container container) {
@@ -47,6 +49,7 @@ public class ImageInputOutput implements InputOutputMenus {
      * -Начать игру
      * -Таблица рекордов
      * -Выход из игры
+     *
      * @return
      */
     @Override
@@ -100,6 +103,7 @@ public class ImageInputOutput implements InputOutputMenus {
      * -Сложная игра
      * -Произвольная игра
      * -Назад
+     *
      * @return
      */
     @Override
@@ -239,10 +243,10 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     /**
-     * @param to до скольки вводить ширину или высоту
+     * @param to             до скольки вводить ширину или высоту
      * @param checkJTexField контролируемое поле ввода
-     * @param jTextField второе поле для вычисления количества мин
-     * @param jLabel поле для отображения колличества мин
+     * @param jTextField     второе поле для вычисления количества мин
+     * @param jLabel         поле для отображения колличества мин
      * @return Создание DocumentListener для ввода данных для произвольной сложности.
      */
     private DocumentListener checkForRightInputForArbitraryDifficult(int to, JTextField checkJTexField,
@@ -282,8 +286,9 @@ public class ImageInputOutput implements InputOutputMenus {
      * Проверяет что введеное число попадает в диапозон проверки
      * если меньше нижнего диапазона то возвращает нижний диапазон если выше верхнего
      * диапазона то число вверхнего диапазона в противном случае само число
-     * @param from от кого числа проверять
-     * @param to до кого числа проверять
+     *
+     * @param from   от кого числа проверять
+     * @param to     до кого числа проверять
      * @param number проверяемое число
      * @return результат проверки
      */
@@ -308,24 +313,24 @@ public class ImageInputOutput implements InputOutputMenus {
 
     /**
      * Создание модели и таймера для создания игрового поля на основе введеной сложности
+     *
      * @param difficult сложность
      * @return вывод игрового поля
      */
     private Container getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
-                characters));
+        Model model = new Model(new GameField(difficult,characters));
 
         MyTimer myTimer = new MyTimer();
-
 
         return getPrintGame(model, difficult, myTimer);
     }
 
     /**
      * Выводит игровое поле со всеми настройками
-     * @param model игровое поле
+     *
+     * @param model     игровое поле
      * @param difficult сложность
-     * @param myTimer таймер
+     * @param myTimer   таймер
      * @return игровое поле
      */
     @Override
@@ -336,21 +341,7 @@ public class ImageInputOutput implements InputOutputMenus {
         JLabel time = new JLabel("0");
         Timer printTimer = new Timer();
 
-        TimerTask timerTask = new TimerTask() {
-            int i = 0;
-
-            @Override
-            public void run() {
-                for (; i <= 9999; i++) {
-                    time.setText(((Integer) i).toString());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
+        MyTimer myTimer1 = new MyTimer(time);
 
         JLabel mineCount = new JLabel();
         mineCount.setText(((Integer) model.getPrintCountMine()).toString());
@@ -367,7 +358,7 @@ public class ImageInputOutput implements InputOutputMenus {
         jPanel.add(mineCount,
                 addComponent(gridBagConstraints, 0, 2, 1, 1));
 
-        jPanel.add(printGameField(model, mineCount, printTimer, timerTask),
+        jPanel.add(printGameField(model, mineCount, printTimer, myTimer1),
                 addComponent(gridBagConstraints, 1, 0, 0, 3));
 
         frame.add(jPanel);
@@ -376,11 +367,12 @@ public class ImageInputOutput implements InputOutputMenus {
 
     /**
      * Спецификации для размещения контейнеров
+     *
      * @param gridBagConstraints настройки
-     * @param row линия расположения в сетке
-     * @param col колонка расположения в сетке
-     * @param rowNumber количество занимаемых линий в сетке
-     * @param columnNumber количество занимаемых колонок в сетке
+     * @param row                линия расположения в сетке
+     * @param col                колонка расположения в сетке
+     * @param rowNumber          количество занимаемых линий в сетке
+     * @param columnNumber       количество занимаемых колонок в сетке
      * @return готовые настройки
      */
     private GridBagConstraints addComponent(GridBagConstraints gridBagConstraints, int row, int col, int rowNumber,
@@ -395,13 +387,14 @@ public class ImageInputOutput implements InputOutputMenus {
 
     /**
      * Вывод игрового поля с минами
-     * @param model Состояние игрового поля
+     *
+     * @param model     Состояние игрового поля
      * @param mineCount текущее количество мин
-     * @param timer таймер
-     * @param timerTask задание для таймера
+     * @param timer     таймер
+     * @param myTimer задание для таймера
      * @return вывод игрового поля
      */
-    private JPanel printGameField(Model model, JLabel mineCount, Timer timer, TimerTask timerTask) {
+    private JPanel printGameField(Model model, JLabel mineCount, Timer timer, MyTimer myTimer) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(model.getGameField().getGameField().length, model.getGameField().getGameField()[0].length));
         JButton[][] jButtons = new JButton[model.getGameField().getGameField().length][model.getGameField().getGameField()[0].length];
@@ -423,7 +416,7 @@ public class ImageInputOutput implements InputOutputMenus {
                         try {
                             if (!firstClick[0]) {
                                 firstClick[0] = true;
-                                timer.schedule(timerTask, 0);
+                                timer.schedule(myTimer, 0);
                             }
                             if (model.getGameField().getMineCount() != 0) {
                                 if (e.getButton() == 3) {
@@ -432,6 +425,9 @@ public class ImageInputOutput implements InputOutputMenus {
                                     model.clickMove(finalI, finalJ, 1);
                                 }
                                 mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+                            } else {
+
+                                getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
                             }
 
                         } catch (Boom boom) {
@@ -466,8 +462,27 @@ public class ImageInputOutput implements InputOutputMenus {
     }
 
     @Override
-    public boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult) {
+    public boolean getHighScoreWrite(int time, Difficult difficult) {
+        JDialog highScorePlane = new JDialog();
+        HighScores highScores = new HighScores();
 
+        try {
+            highScores.confirmTime(time, difficult);
+        } catch (IllegalArgumentException e) {
+            highScorePlane.add(new JLabel(e.getMessage()), BorderLayout.CENTER);
+            JButton confirm = new JButton("ОК");
+            confirm.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    highScorePlane.dispose();
+                    getNewPanel(getMainMenu());
+                }
+            });
+            highScorePlane.add(confirm, BorderLayout.SOUTH);
+
+            highScorePlane.pack();
+            highScorePlane.setVisible(true);
+        }
         return false;
     }
 }

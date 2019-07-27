@@ -2,6 +2,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Arbitrary;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
@@ -10,12 +11,12 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText
 import static org.testng.Assert.*;
 
 public class ModelTest {
-    private Model model = new Model(new GameField(3,3,3,new CharactersText()));
+    private Model model = new Model(new GameField(new Arbitrary(3,3,3),new CharactersText()));
 
     @DataProvider(name = "GetPrintCount")
     public Object[][] create() {
         return new Object[][]{
-                new Object[]{new GameField(2,1,2,new CharactersText()),2,1},
+                new Object[]{new GameField(new Arbitrary(2,1,2),new CharactersText()),2,1},
         };
     }
 

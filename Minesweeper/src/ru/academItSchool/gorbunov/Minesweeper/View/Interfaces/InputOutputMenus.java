@@ -49,5 +49,5 @@ public interface InputOutputMenus {
      * @param difficult сложность игры
      * @return true Если запись была сделана false если хуже последнего места в таблице
      */
-    boolean getHighScoreWrite(MyTimer myTimer, Difficult difficult);
+    boolean getHighScoreWrite(int time, Difficult difficult);
 }

@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.GameField;
 
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
 import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
@@ -9,21 +10,25 @@ public class GameField {
     private Cell[][] gameField;
     private int mineCount;
     private Characters characters;
+    private Difficult difficult;
 
     /**
      * Создание игрового поля по параметрам:
      *
-     * @param height     - количество строк,
-     * @param width      - колличесвто колонок,
-     * @param mineCount  -колличество мин,
+     * @param difficult сложность игры
      * @param characters - Используемый набор символов для отображения.
      */
-    public GameField(int height, int width, int mineCount, Characters characters) {
-        this.gameField = new Cell[height][width];
-        this.mineCount = mineCount;
+    public GameField(Difficult difficult, Characters characters) {
+        this.difficult = difficult;
+        this.gameField = new Cell[difficult.getLineCount()][difficult.getColumnCount()];
+        this.mineCount = difficult.getMines();
         this.characters = characters;
         fillMinesInField();
         fillNumbersInField();
+    }
+
+    public Difficult getDifficult() {
+        return difficult;
     }
 
     public Characters getCharacters() {

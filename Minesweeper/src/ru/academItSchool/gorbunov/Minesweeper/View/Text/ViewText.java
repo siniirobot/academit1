@@ -114,8 +114,7 @@ public class ViewText {
      * @param difficult сложность игры
      */
     private void getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult.getLineCount(), difficult.getColumnCount(), difficult.getMines(),
-                characters));
+        Model model = new Model(new GameField(difficult,characters));
 
         MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
@@ -134,7 +133,7 @@ public class ViewText {
             return;
         }
         myTimer.cancel();
-        if (inputOutputMenus.getHighScoreWrite(myTimer, difficult)) {
+        if (inputOutputMenus.getHighScoreWrite(myTimer.getTime(), difficult)) {
             highScores.printHighScores(difficult.getName());
         }
     }
