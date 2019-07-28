@@ -1,5 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI;
 
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Easy;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.ImageInputOutput.ImageInputOutput;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class ViewGUI {
                         UIManager.getCrossPlatformLookAndFeelClassName());
                 JFrame frame = new JFrame("Minesweeper");
                 ImageInputOutput imageInputOutput = new ImageInputOutput(frame);
-                frame.getContentPane().add(imageInputOutput.getMainMenu());
+                frame.getContentPane().add(imageInputOutput.getPrintHighScoreTableInPlane(new Easy()));
 
                 //frame.getContentPane().add(imageInputOutput.getMainMenu());
                 frame.pack();

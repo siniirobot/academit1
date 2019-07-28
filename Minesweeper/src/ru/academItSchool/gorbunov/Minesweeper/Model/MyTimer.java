@@ -14,7 +14,7 @@ public class MyTimer extends TimerTask {
 
     public MyTimer(JLabel jLabel) {
         this.jLabel = jLabel;
-        this.time = 0;
+        this.time = 1;
     }
 
     public int getTime() {

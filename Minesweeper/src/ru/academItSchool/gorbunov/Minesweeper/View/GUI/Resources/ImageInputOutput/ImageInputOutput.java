@@ -5,24 +5,26 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
+import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import static java.awt.GridBagConstraints.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public class ImageInputOutput implements InputOutputMenus {
+public class ImageInputOutput {
     private JFrame frame;
     private Characters characters;
 
@@ -50,9 +52,8 @@ public class ImageInputOutput implements InputOutputMenus {
      * -Таблица рекордов
      * -Выход из игры
      *
-     * @return
+     * @return основное меню
      */
-    @Override
     public Container getMainMenu() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(200, 150));
@@ -104,10 +105,9 @@ public class ImageInputOutput implements InputOutputMenus {
      * -Произвольная игра
      * -Назад
      *
-     * @return
+     * @return меню настроек
      */
-    @Override
-    public Container getSettingMenu() {
+    private Container getSettingMenu() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(5, 1));
         buttonPanel.setPreferredSize(new Dimension(200, 200));
@@ -296,52 +296,30 @@ public class ImageInputOutput implements InputOutputMenus {
         return number < from ? from : number > to ? to : number;
     }
 
-    @Override
-    public Container getHeightScoreMenu() {
+    private Container getHeightScoreMenu() {
         return null;
     }
 
-    @Override
-    public Container getEndGameMenu() {
+    private Container getEndGameMenu() {
         return null;
-    }
-
-    @Override
-    public Container getMenuMessage(int from, int to) {
-        return null;
-    }
-
-    /**
-     * Создание модели и таймера для создания игрового поля на основе введеной сложности
-     *
-     * @param difficult сложность
-     * @return вывод игрового поля
-     */
-    private Container getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult, characters));
-
-        MyTimer myTimer = new MyTimer();
-
-        return getPrintGame(model, difficult, myTimer);
     }
 
     /**
      * Выводит игровое поле со всеми настройками
      *
-     * @param model     игровое поле
      * @param difficult сложность
-     * @param myTimer   таймер
      * @return игровое поле
      */
-    @Override
-    public Container getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
+    private Container getGameProcess(Difficult difficult) {
+        Model model = new Model(new GameField(difficult, characters));
+
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridBagLayout());
 
         JLabel time = new JLabel("0");
         Timer printTimer = new Timer();
 
-        MyTimer myTimer1 = new MyTimer(time);
+        MyTimer myTimer = new MyTimer(time);
 
         JLabel mineCount = new JLabel();
         mineCount.setText(((Integer) model.getPrintCountMine()).toString());
@@ -358,7 +336,7 @@ public class ImageInputOutput implements InputOutputMenus {
         jPanel.add(mineCount,
                 addComponent(gridBagConstraints, 0, 2, 1, 1));
 
-        jPanel.add(printGameField(model, mineCount, printTimer, myTimer1),
+        jPanel.add(printGameField(model, mineCount, printTimer, myTimer),
                 addComponent(gridBagConstraints, 1, 0, 0, 3));
 
         frame.add(jPanel);
@@ -419,16 +397,16 @@ public class ImageInputOutput implements InputOutputMenus {
                                 timer.schedule(myTimer, 0);
                             }
 
-                                if (e.getButton() == 3) {
-                                    model.clickMove(finalI, finalJ, 2);
-                                    mineCount.setText(((Integer) model.getPrintCountMine()).toString());
-                                    if (model.getGameField().getMineCount() == 0) {
-                                        myTimer.stop();
-                                        getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
-                                    }
-                                } else {
-                                    model.clickMove(finalI, finalJ, 1);
+                            if (e.getButton() == 3) {
+                                model.clickMove(finalI, finalJ, 2);
+                                mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+                                if (model.getGameField().getMineCount() == 0) {
+                                    myTimer.stop();
+                                    getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
                                 }
+                            } else {
+                                model.clickMove(finalI, finalJ, 1);
+                            }
 
                         } catch (Boom boom) {
                             for (int i = 0; i < jButtons.length; i++) {
@@ -461,17 +439,87 @@ public class ImageInputOutput implements InputOutputMenus {
         return jPanel;
     }
 
-    @Override
-    public boolean getHighScoreWrite(int time, Difficult difficult) {
+    private boolean getHighScoreWrite(int time, Difficult difficult) {
         JDialog highScorePlane = new JDialog();
         HighScores highScores = new HighScores();
 
         try {
             highScores.confirmTime(time, difficult);
+            JDialog inputName = new JDialog();
+
+
+            JTextField input = new JTextField("Введите имя игрока.", 11);
+
+            inputName.add(input, BorderLayout.NORTH);
+
+            JButton confirm = new JButton("ОК");
+
+            confirm.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        highScores.add(new Player(input.getText(), time, difficult));
+                        inputName.dispose();
+                    } catch (IllegalArgumentException e1) {
+                        JOptionPane.showMessageDialog(null, e1.getMessage());
+                    }
+                }
+            });
+
+            inputName.add(confirm, BorderLayout.SOUTH);
+
+            inputName.setPreferredSize(new Dimension(150, 100));
+            inputName.pack();
+            inputName.setVisible(true);
+            inputName.setLocationRelativeTo(null);
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
             getNewPanel(getMainMenu());
         }
         return false;
+    }
+
+    public Container getPrintHighScoreTableInPlane(Difficult difficult) {
+        JPanel highScoreTable = new JPanel();
+        HighScores highScores = new HighScores();
+        String fileName = highScores.getFileName(difficult.getName());
+
+        try {
+            ObjectInputStream readFile = highScores.openFile(fileName);
+            Player[] highScoresTable = (Player[]) readFile.readObject();
+            Object[] header = new Object[]{"№:", "Имя:", "Время:"};
+            Object[][] data = new Object[highScoresTable.length][3];
+
+            for (int i = 0; i < data.length; i++) {
+                data[i][0] = i + 1;
+                data[i][1] = highScoresTable[i].getName();
+                data[i][2] = highScoresTable[i].getTime();
+            }
+            JTable table = new JTable(data,header);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+
+
+            table.getColumnModel().getColumn(0).setPreferredWidth(30);
+            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+
+            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+
+            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+            JScrollPane tableContainer = new JScrollPane(table);
+            tableContainer.setPreferredSize(new Dimension(281,200));
+
+            highScoreTable.setPreferredSize(new Dimension(320, 400));
+            highScoreTable.add(tableContainer, BorderLayout.CENTER);
+        } catch (IOException e) {
+            System.out.println("Таблица еще пуста.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return highScoreTable;
     }
 }

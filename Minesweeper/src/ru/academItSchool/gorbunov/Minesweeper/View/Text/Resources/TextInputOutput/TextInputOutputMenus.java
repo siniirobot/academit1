@@ -10,7 +10,7 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import java.util.Scanner;
 
-public class TextInputOutputMenus implements InputOutputMenus {
+public class TextInputOutputMenus {
     private Scanner scanner = new Scanner(System.in);
 
     public String getMainMenu() {
@@ -81,7 +81,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
         return coordinate;
     }
 
-    @Override
     public boolean getHighScoreWrite(int time, Difficult difficult) {
         Scanner scanner = new Scanner(System.in);
         boolean correct = false;
@@ -134,7 +133,6 @@ public class TextInputOutputMenus implements InputOutputMenus {
         return itemMenu;
     }
 
-    @Override
     public String getMenuMessage(int from, int to) {
         return "Выберите пункт меню с " + from + " по " + to;
     }

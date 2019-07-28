@@ -11,7 +11,7 @@ public class HighScores implements Serializable {
      * @param difficult сложность игрока
      * @return имя файла
      */
-    private String getFileName(Difficult.nameDifficult difficult) {
+    public String getFileName(Difficult.nameDifficult difficult) {
         String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         switch (difficult) {
@@ -37,7 +37,7 @@ public class HighScores implements Serializable {
      * @param path имя сложности игрока
      * @return поток с открытым файлом
      */
-    private ObjectInputStream openFile(String path) throws IOException {
+    public ObjectInputStream openFile(String path) throws IOException {
         return new ObjectInputStream(new FileInputStream(path));
     }
 
