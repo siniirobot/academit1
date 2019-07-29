@@ -313,8 +313,8 @@ public class ImageInputOutput {
     private Container getGameProcess(Difficult difficult) {
         Model model = new Model(new GameField(difficult, characters));
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridBagLayout());
+        JPanel mainPlane = new JPanel();
+        mainPlane.setLayout(new GridBagLayout());
 
         JLabel time = new JLabel("0");
         Timer printTimer = new Timer();
@@ -327,20 +327,20 @@ public class ImageInputOutput {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = NONE;
 
-        jPanel.add(time,
+        mainPlane.add(time,
                 addComponent(gridBagConstraints, 0, 0, 1, 1));
 
-        jPanel.add(new JLabel(difficult.getName().toString()),
+        mainPlane.add(new JLabel(difficult.getName().toString()),
                 addComponent(gridBagConstraints, 0, 1, 1, 1));
 
-        jPanel.add(mineCount,
+        mainPlane.add(mineCount,
                 addComponent(gridBagConstraints, 0, 2, 1, 1));
 
-        jPanel.add(printGameField(model, mineCount, printTimer, myTimer),
+        mainPlane.add(printGameField(model, mineCount, printTimer, myTimer),
                 addComponent(gridBagConstraints, 1, 0, 0, 3));
 
-        frame.add(jPanel);
-        return jPanel;
+        frame.add(mainPlane);
+        return mainPlane;
     }
 
     /**
@@ -439,18 +439,21 @@ public class ImageInputOutput {
         return jPanel;
     }
 
-    private boolean getHighScoreWrite(int time, Difficult difficult) {
+    private void getHighScoreWrite(int time, Difficult difficult) {
         JDialog highScorePlane = new JDialog();
         HighScores highScores = new HighScores();
+        highScorePlane.setModal(true);
 
         try {
             highScores.confirmTime(time, difficult);
             JDialog inputName = new JDialog();
 
+            JLabel inputRule = new JLabel("<html>" +
+                    "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите имя игрока</p>" +
+                    "<p style=\"text-align:center;\">длиной не больше 10 символов</p>" +
+                    "<html>");
 
-            JTextField input = new JTextField("Введите имя игрока.", 11);
-
-            inputName.add(input, BorderLayout.NORTH);
+            JTextField input = new JTextField("", 10);
 
             JButton confirm = new JButton("ОК");
 
@@ -460,26 +463,54 @@ public class ImageInputOutput {
                     try {
                         highScores.add(new Player(input.getText(), time, difficult));
                         inputName.dispose();
+
+                        JButton getMainMenu = new JButton("Ок");
+                        getMainMenu.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                highScorePlane.dispose();
+                                getNewPanel(getMainMenu());
+                            }
+                        });
+
+                        highScorePlane.setLayout(new GridBagLayout());
+
+                        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+                        gridBagConstraints.fill = NONE;
+
+                        highScorePlane.add(getPrintHighScoreTableInPlane(difficult),
+                                addComponent(gridBagConstraints,0,1,3,3));
+                        highScorePlane.add(new JLabel(""),
+                                addComponent(gridBagConstraints,4,1,1,1));
+                        highScorePlane.add(getMainMenu,
+                                addComponent(gridBagConstraints,5,1,1,1));
+
+                        highScorePlane.pack();
+                        highScorePlane.setVisible(true);
+                        highScorePlane.setLocationRelativeTo(null);
                     } catch (IllegalArgumentException e1) {
                         JOptionPane.showMessageDialog(null, e1.getMessage());
                     }
                 }
             });
 
-            inputName.add(confirm, BorderLayout.SOUTH);
+            inputName.setLayout(new FlowLayout(FlowLayout.CENTER));
+            inputName.add(inputRule);
+            inputName.add(input);
+            inputName.add(confirm);
 
-            inputName.setPreferredSize(new Dimension(150, 100));
+            inputName.setPreferredSize(new Dimension(220, 125));
             inputName.pack();
             inputName.setVisible(true);
             inputName.setLocationRelativeTo(null);
+            inputName.setModal(true);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             getNewPanel(getMainMenu());
         }
-        return false;
     }
 
-    public Container getPrintHighScoreTableInPlane(Difficult difficult) {
+    private Container getPrintHighScoreTableInPlane(Difficult difficult) {
         JPanel highScoreTable = new JPanel();
         HighScores highScores = new HighScores();
         String fileName = highScores.getFileName(difficult.getName());
@@ -487,32 +518,42 @@ public class ImageInputOutput {
         try {
             ObjectInputStream readFile = highScores.openFile(fileName);
             Player[] highScoresTable = (Player[]) readFile.readObject();
+
+            int highScoresRowCount = 0;
+            for (; highScoresRowCount < highScoresTable.length; highScoresRowCount++) {
+                if (highScoresTable[highScoresRowCount] == null) {
+                    break;
+                }
+            }
             Object[] header = new Object[]{"№:", "Имя:", "Время:"};
-            Object[][] data = new Object[highScoresTable.length][3];
+            Object[][] data = new Object[highScoresRowCount][3];
 
             for (int i = 0; i < data.length; i++) {
                 data[i][0] = i + 1;
                 data[i][1] = highScoresTable[i].getName();
                 data[i][2] = highScoresTable[i].getTime();
             }
-            JTable table = new JTable(data,header);
+
+            JTable table = new JTable(data, header);
+            table.setEnabled(false);
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
             table.getColumnModel().getColumn(0).setPreferredWidth(30);
-            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+            table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 
-            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(1).setPreferredWidth(170);
             table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(2).setPreferredWidth(80);
             table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-            JScrollPane tableContainer = new JScrollPane(table);
-            tableContainer.setPreferredSize(new Dimension(281,200));
 
-            highScoreTable.setPreferredSize(new Dimension(320, 400));
+            JScrollPane tableContainer = new JScrollPane(table);
+            int highTable = highScoresRowCount * 17 + 22;
+            tableContainer.setPreferredSize(new Dimension(283, highTable));
+
+            highScoreTable.setPreferredSize(new Dimension(283, highTable));
             highScoreTable.add(tableContainer, BorderLayout.CENTER);
         } catch (IOException e) {
             System.out.println("Таблица еще пуста.");

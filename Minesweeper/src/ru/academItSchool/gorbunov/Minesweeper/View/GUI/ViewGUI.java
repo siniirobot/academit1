@@ -18,7 +18,7 @@ public class ViewGUI {
                         UIManager.getCrossPlatformLookAndFeelClassName());
                 JFrame frame = new JFrame("Minesweeper");
                 ImageInputOutput imageInputOutput = new ImageInputOutput(frame);
-                frame.getContentPane().add(imageInputOutput.getPrintHighScoreTableInPlane(new Easy()));
+                frame.getContentPane().add(imageInputOutput.getMainMenu());
 
                 //frame.getContentPane().add(imageInputOutput.getMainMenu());
                 frame.pack();

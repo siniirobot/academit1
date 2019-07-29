@@ -108,8 +108,7 @@ public class HighScores implements Serializable {
             if (highScores[9] != null && highScores[9].getTime() < time) {
                 throw new IllegalArgumentException("Вы не смогли войти в таблицу рекордов.");
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException ignored) {
         }
     }
 
