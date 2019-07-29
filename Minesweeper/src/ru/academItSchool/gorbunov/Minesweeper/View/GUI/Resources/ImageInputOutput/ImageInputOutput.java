@@ -23,6 +23,7 @@ import java.util.Timer;
 
 import static java.awt.GridBagConstraints.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ImageInputOutput {
     private JFrame frame;
@@ -140,7 +141,7 @@ public class ImageInputOutput {
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JDialog chooseMenu = new JDialog();
+                JDialog chooseMenu = new JDialog(frame,frame.getTitle(),true);
                 chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 chooseMenu.setPreferredSize(new Dimension(200, 270));
 
@@ -211,8 +212,10 @@ public class ImageInputOutput {
 
                 chooseMenu.add(textFieldPanel, BorderLayout.NORTH);
                 chooseMenu.add(input, BorderLayout.SOUTH);
+
+                chooseMenu.setResizable(false);
                 chooseMenu.pack();
-                chooseMenu.setLocationRelativeTo(null);
+                chooseMenu.setLocationRelativeTo(frame);
                 chooseMenu.setVisible(true);
             }
         });
@@ -297,10 +300,6 @@ public class ImageInputOutput {
     }
 
     private Container getHeightScoreMenu() {
-        return null;
-    }
-
-    private Container getEndGameMenu() {
         return null;
     }
 
@@ -440,13 +439,12 @@ public class ImageInputOutput {
     }
 
     private void getHighScoreWrite(int time, Difficult difficult) {
-        JDialog highScorePlane = new JDialog();
+        JDialog highScorePlane = new JDialog(frame, frame.getTitle(), true);
         HighScores highScores = new HighScores();
-        highScorePlane.setModal(true);
 
         try {
             highScores.confirmTime(time, difficult);
-            JDialog inputName = new JDialog();
+            JDialog inputName = new JDialog(frame, frame.getTitle(), true);
 
             JLabel inputRule = new JLabel("<html>" +
                     "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите имя игрока</p>" +
@@ -479,15 +477,17 @@ public class ImageInputOutput {
                         gridBagConstraints.fill = NONE;
 
                         highScorePlane.add(getPrintHighScoreTableInPlane(difficult),
-                                addComponent(gridBagConstraints,0,1,3,3));
+                                addComponent(gridBagConstraints, 0, 1, 3, 3));
                         highScorePlane.add(new JLabel(""),
-                                addComponent(gridBagConstraints,4,1,1,1));
+                                addComponent(gridBagConstraints, 4, 1, 1, 1));
                         highScorePlane.add(getMainMenu,
-                                addComponent(gridBagConstraints,5,1,1,1));
+                                addComponent(gridBagConstraints, 5, 1, 1, 1));
 
+                        highScorePlane.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                         highScorePlane.pack();
+                        highScorePlane.setLocationRelativeTo(frame);
+                        highScorePlane.setResizable(false);
                         highScorePlane.setVisible(true);
-                        highScorePlane.setLocationRelativeTo(null);
                     } catch (IllegalArgumentException e1) {
                         JOptionPane.showMessageDialog(null, e1.getMessage());
                     }
@@ -499,11 +499,13 @@ public class ImageInputOutput {
             inputName.add(input);
             inputName.add(confirm);
 
+            inputName.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             inputName.setPreferredSize(new Dimension(220, 125));
             inputName.pack();
+            inputName.setLocationRelativeTo(frame);
+            inputName.setResizable(false);
             inputName.setVisible(true);
-            inputName.setLocationRelativeTo(null);
-            inputName.setModal(true);
+
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             getNewPanel(getMainMenu());
