@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Player implements Serializable {
     private String name;
     private int time;
-    private Difficult.nameDifficult difficult;
+    private Difficult.DifficultName difficult;
 
     /**
      * Конструктор по созданию игрока который определяет его имя, время игры, сложность.
@@ -26,7 +26,7 @@ public class Player implements Serializable {
         this.difficult = difficult.getName();
     }
 
-    public Difficult.nameDifficult getDifficult() {
+    public Difficult.DifficultName getDifficult() {
         return difficult;
     }
 

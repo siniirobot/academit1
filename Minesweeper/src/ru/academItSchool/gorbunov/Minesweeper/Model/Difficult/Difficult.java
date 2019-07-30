@@ -1,11 +1,9 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-
 import java.io.Serializable;
 
 public interface Difficult extends Serializable {
-    enum nameDifficult {
+    enum DifficultName {
         EASY,
         NORM,
         HARD,
@@ -31,5 +29,5 @@ public interface Difficult extends Serializable {
 
     int getMines();
 
-    nameDifficult getName();
+    DifficultName getName();
 }

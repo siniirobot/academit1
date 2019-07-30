@@ -11,7 +11,7 @@ public class HighScores implements Serializable {
      * @param difficult сложность игрока
      * @return имя файла
      */
-    public String getFileName(Difficult.nameDifficult difficult) {
+    public String getFileName(Difficult.DifficultName difficult) {
         String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         switch (difficult) {
@@ -117,7 +117,7 @@ public class HighScores implements Serializable {
      *
      * @param difficult сложность.
      */
-    public void printHighScores(Difficult.nameDifficult difficult) {
+    public void printHighScores(Difficult.DifficultName difficult) {
         String fileName = getFileName(difficult);
 
         try {

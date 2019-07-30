@@ -1,13 +1,13 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
 public class Easy implements Difficult {
-    private nameDifficult name;
+    private DifficultName name;
     private int columns;
     private int rows;
     private int mines;
 
     public Easy() {
-        this.name = nameDifficult.EASY;
+        this.name = DifficultName.EASY;
         this.columns = 9;
         this.rows = 9;
         this.mines = 10;
@@ -30,7 +30,7 @@ public class Easy implements Difficult {
     }
 
     @Override
-    public nameDifficult getName() {
+    public DifficultName getName() {
         return this.name;
     }
 }

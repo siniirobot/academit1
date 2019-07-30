@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
 public class Arbitrary implements Difficult {
-    private Difficult.nameDifficult name;
+    private DifficultName name;
     private int columns;
     private int rows;
     private int mines;
@@ -20,7 +20,7 @@ public class Arbitrary implements Difficult {
             throw new IllegalArgumentException("Колличество мин должно быть в пределах от 10 до " + maxMines);
         }
 
-        this.name = Difficult.nameDifficult.RAND;
+        this.name = DifficultName.RAND;
         this.columns = columns;
         this.rows = rows;
         this.mines = mines;
@@ -42,7 +42,7 @@ public class Arbitrary implements Difficult {
     }
 
     @Override
-    public Difficult.nameDifficult getName() {
+    public DifficultName getName() {
         return this.name;
     }
 }

@@ -15,7 +15,7 @@ public class TextInputOutputMenus {
     public String getMainMenu() {
         return ("||//////////////////////||") + (System.lineSeparator())
                 + ("||        САПЕР!        ||") + (System.lineSeparator())
-                + ("||1) -   Начать игру.   ||") + (System.lineSeparator())
+                + ("||1) - Начать игру.     ||") + (System.lineSeparator())
                 + ("||2) - Таблица рекордов.||") + (System.lineSeparator())
                 + ("||3) - Выход из игры.   ||") + (System.lineSeparator())
                 + ("||//////////////////////||") + (System.lineSeparator());
@@ -67,7 +67,7 @@ public class TextInputOutputMenus {
         coordinate[0] = getInput(1, to, message + to) - 1;
 
         to = gameField.getGameField()[0].length;
-        message = "Введите номер столбца от 1 до  ";
+        message = "Введите номер столбца от 1 до ";
 
         coordinate[1] = getInput(1, to, message + to) - 1;
 

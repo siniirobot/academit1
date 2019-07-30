@@ -1,17 +1,13 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage;
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
-import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
 
 public class CharactersImage implements Characters {
     private Object[] characters;
 
-    public CharactersImage()  {
+    public CharactersImage() {
         this.characters = new Object[]{
                 new ImageIcon("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
                         "/View/GUI/Resources/CharactersImage/openCell.png"),
@@ -44,6 +40,7 @@ public class CharactersImage implements Characters {
 
 
     public Object[] getCharacters() {
+
         return this.characters;
     }
 }
