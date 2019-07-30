@@ -2,7 +2,7 @@ package ru.academItSchool.gorbunov.Minesweeper.View.GUI;
 
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
@@ -468,7 +468,7 @@ public class ViewGUI {
                                 model.clickMove(finalI, finalJ, 1);
                             }
 
-                        } catch (Boom boom) {
+                        } catch (BoomException boomException) {
                             for (int i = 0; i < jButtons.length; i++) {
                                 for (int j = 0; j < jButtons[0].length; j++) {
                                     if (model.getGameField().getGameField()[i][j].isVisible()) {
@@ -476,7 +476,7 @@ public class ViewGUI {
                                     }
                                 }
                             }
-                            JOptionPane.showMessageDialog(null, boom.getMessage());
+                            JOptionPane.showMessageDialog(null, boomException.getMessage());
 
                             getNewPanel(getMainMenu());
                         } finally {

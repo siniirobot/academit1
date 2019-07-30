@@ -2,7 +2,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Model;
 
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 
 import java.util.Arrays;
@@ -45,9 +45,9 @@ public class Model {
      * @param line    - линия на которую нажали.
      * @param column  - колонка на которую нажали.
      * @param command - комманда, левое или правое нажатие мыши.
-     * @throws Boom - взрыв бомбы.
+     * @throws BoomException - взрыв бомбы.
      */
-    public void clickMove(int line, int column, int command) throws Boom {
+    public void clickMove(int line, int column, int command) throws BoomException {
         switch (command) {
             case 1:
                 leftClickOnCell(line, column);
@@ -62,9 +62,9 @@ public class Model {
      *
      * @param line   - линия на которую нажали.
      * @param column - колонка на которую нажали.
-     * @throws Boom - происходит взрыв и конец игры.
+     * @throws BoomException - происходит взрыв и конец игры.
      */
-    private void leftClickOnCell(int line, int column) throws Boom {
+    private void leftClickOnCell(int line, int column) throws BoomException {
         if (gameField.getGameField()[line][column].isVisible()) {
             return;
         }
@@ -81,7 +81,7 @@ public class Model {
                 }
             }
 
-            throw new Boom("Вы взорвали себя.");
+            throw new BoomException("Вы взорвали себя.");
         } else if (!gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[0])) {
             gameField.getGameField()[line][column].setVisible(true);
         } else {

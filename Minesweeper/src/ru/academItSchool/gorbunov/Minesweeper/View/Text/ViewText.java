@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Text;
 
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
@@ -127,7 +127,7 @@ public class ViewText {
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
                 model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
             }
-        } catch (Boom b) {
+        } catch (BoomException b) {
             System.out.println(b.getMessage());
             inputOutputMenus.getPrintGame(model, difficult, myTimer);
             myTimer.stop();

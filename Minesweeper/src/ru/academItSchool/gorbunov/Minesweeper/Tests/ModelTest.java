@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.ArbitraryDifficult;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.Boom;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
@@ -40,7 +40,7 @@ public class ModelTest {
 
         try {
             model.clickMove(1,0,2);
-        }catch (Boom b){
+        }catch (BoomException b){
             System.out.println(model.getGameField().toString());
         }
 
@@ -51,7 +51,7 @@ public class ModelTest {
     public void testClickMove(int line, int column, int command) {
         try {
             model.clickMove(line, column, command);
-        }catch (Boom b){
+        }catch (BoomException b){
             System.out.println(b.getMessage());
             System.out.println(model.getGameField().toString());
         }
