@@ -4,22 +4,20 @@ import java.io.Serializable;
 
 public interface Difficult extends Serializable {
     enum DifficultName {
-        EASY,
-        NORM,
-        HARD,
-        RAND;
+        EASY("Легкая"),
+        NORM("Нормальная"),
+        HARD("Высокая"),
+        RAND("Произвольная");
+
+        private String name;
+
+        DifficultName(String name) {
+            this.name = name;
+        }
 
         @Override
         public String toString() {
-            if (super.equals(EASY)) {
-                return "Легкая";
-            } else if (super.equals(NORM)) {
-                return "Нормальноя";
-            } else if (super.equals(HARD)) {
-                return "Высокая";
-            } else {
-                return "Произвольная";
-            }
+            return name;
         }
     }
 
