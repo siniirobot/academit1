@@ -141,7 +141,7 @@ public class ImageInputOutput {
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JDialog chooseMenu = new JDialog(frame,frame.getTitle(),true);
+                JDialog chooseMenu = new JDialog(frame, frame.getTitle(), true);
                 chooseMenu.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 chooseMenu.setPreferredSize(new Dimension(200, 270));
 
@@ -299,10 +299,6 @@ public class ImageInputOutput {
         return number < from ? from : number > to ? to : number;
     }
 
-    private Container getHeightScoreMenu() {
-        return null;
-    }
-
     /**
      * Выводит игровое поле со всеми настройками
      *
@@ -438,6 +434,27 @@ public class ImageInputOutput {
         return jPanel;
     }
 
+    private Container getHeightScoreMenu() {
+        JPanel mainPanel = new JPanel();
+        JTabbedPane switchDifficult = new JTabbedPane();
+
+        switchDifficult.add("Легко", getPrintHighScoreTableInPlane(new Easy()));
+        switchDifficult.add("Нормально", getPrintHighScoreTableInPlane(new Norm()));
+        switchDifficult.add("Сложно", getPrintHighScoreTableInPlane(new Hard()));
+
+        JButton back = new JButton("Назад");
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                getNewPanel(getMainMenu());
+            }
+        });
+        mainPanel.add(switchDifficult, BorderLayout.NORTH);
+        mainPanel.add(back, BorderLayout.SOUTH);
+        mainPanel.setPreferredSize(new Dimension(300, 260));
+        return mainPanel;
+    }
+
     private void getHighScoreWrite(int time, Difficult difficult) {
         JDialog highScorePlane = new JDialog(frame, frame.getTitle(), true);
         HighScores highScores = new HighScores();
@@ -555,13 +572,16 @@ public class ImageInputOutput {
             int highTable = highScoresRowCount * 17 + 22;
             tableContainer.setPreferredSize(new Dimension(283, highTable));
 
-            highScoreTable.setPreferredSize(new Dimension(283, highTable));
+
             highScoreTable.add(tableContainer, BorderLayout.CENTER);
         } catch (IOException e) {
-            System.out.println("Таблица еще пуста.");
+            JLabel emptyTable = new JLabel("Таблица еще пуста.");
+            highScoreTable.setPreferredSize(new Dimension(283, 193));
+            highScoreTable.add(emptyTable, BorderLayout.CENTER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
 
         return highScoreTable;
     }
