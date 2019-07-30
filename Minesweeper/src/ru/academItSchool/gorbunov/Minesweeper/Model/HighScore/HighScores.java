@@ -96,7 +96,8 @@ public class HighScores implements Serializable {
 
     /**
      * Проверяет возможность ввода игрока в таблицу, если не подходт выбрасывает исключение.
-     * @param time время игры для сравнения с худшим результатом
+     *
+     * @param time      время игры для сравнения с худшим результатом
      * @param difficult сложность игры в которой надо провести проверку
      */
     public void confirmTime(int time, Difficult difficult) {
