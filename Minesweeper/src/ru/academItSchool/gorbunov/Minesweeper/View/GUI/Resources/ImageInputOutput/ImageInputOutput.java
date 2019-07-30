@@ -58,7 +58,7 @@ public class ImageInputOutput {
     public Container getMainMenu() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(200, 150));
-        buttonPanel.setLayout(new GridLayout(3, 1));
+        buttonPanel.setLayout(new GridLayout(4, 1));
 
         JButton startGame = new JButton("Начать игру");
         startGame.addMouseListener(new MouseAdapter() {
@@ -76,6 +76,40 @@ public class ImageInputOutput {
             }
         });
 
+        JButton about = new JButton("Информация");
+        about.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JDialog aboutPanel = new JDialog(frame, frame.getTitle(), true);
+                JLabel aboutText = new JLabel("<html>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">скопирована учеником курсов Academ It School</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">версия 0.1</p>" +
+                        "<html>");
+
+                JButton confirm = new JButton("Ок");
+                confirm.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        getNewPanel(getMainMenu());
+                        aboutPanel.dispose();
+                    }
+                });
+
+                aboutPanel.setLayout(new GridBagLayout());
+                GridBagConstraints gridBagConstraints = new GridBagConstraints();
+                gridBagConstraints.fill = NONE;
+
+                aboutPanel.add(aboutText, addComponent(gridBagConstraints, 1, 1, 3, 3));
+                aboutPanel.add(confirm, addComponent(gridBagConstraints, 5, 1, 1, 1));
+                aboutPanel.setPreferredSize(new Dimension(300, 120));
+                aboutPanel.pack();
+                aboutPanel.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                aboutPanel.setLocationRelativeTo(frame);
+                aboutPanel.setVisible(true);
+            }
+        });
+
         JButton exit = new JButton("Выход из игры");
         exit.addMouseListener(new MouseAdapter() {
             @Override
@@ -86,6 +120,7 @@ public class ImageInputOutput {
 
         buttonPanel.add(startGame);
         buttonPanel.add(heightScoreMenu);
+        buttonPanel.add(about);
         buttonPanel.add(exit);
 
         JLabel title = new JLabel("САПЁР");
