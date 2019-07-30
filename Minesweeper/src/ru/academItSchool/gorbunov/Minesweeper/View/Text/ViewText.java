@@ -111,14 +111,15 @@ public class ViewText {
 
     /**
      * Вывод игрового поля а так же ввод координат мины
+     *
      * @param difficult сложность игры
      */
     private void getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult,characters));
+        Model model = new Model(new GameField(difficult, characters));
 
         MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
-        timer.schedule(myTimer,0);
+        timer.schedule(myTimer, 0);
 
         try {
             while (model.getGameField().getMineCount() != 0) {
