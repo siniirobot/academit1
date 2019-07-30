@@ -30,18 +30,18 @@ public class ViewText {
 
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
-                        Easy easy = new Easy();
-                        getGameProcess(easy);
+                        EasyDifficult easyDifficult = new EasyDifficult();
+                        getGameProcess(easyDifficult);
                         startGameAgain();
                         break;
                     case 2:
-                        Norm norm = new Norm();
-                        getGameProcess(norm);
+                        NormDifficult normDifficult = new NormDifficult();
+                        getGameProcess(normDifficult);
                         startGameAgain();
                         break;
                     case 3:
-                        Hard hard = new Hard();
-                        getGameProcess(hard);
+                        HardDifficult hardDifficult = new HardDifficult();
+                        getGameProcess(hardDifficult);
                         startGameAgain();
                         break;
                     case 4:
@@ -55,8 +55,8 @@ public class ViewText {
                         int minesCount = inputOutputMenus.getInput(1, maxMines,
                                 "Введите количество мин от 10 до " + maxMines);
 
-                        Arbitrary arbitrary = new Arbitrary(lines, columns, minesCount);
-                        getGameProcess(arbitrary);
+                        ArbitraryDifficult arbitraryDifficult = new ArbitraryDifficult(lines, columns, minesCount);
+                        getGameProcess(arbitraryDifficult);
                         startGameAgain();
                         break;
                     case 5:
@@ -69,15 +69,15 @@ public class ViewText {
                 menuItemTo = 4;
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
-                        highScores.printHighScores(new Easy().getName());
+                        highScores.printHighScores(new EasyDifficult().getName());
                         startGameAgain();
                         break;
                     case 2:
-                        highScores.printHighScores(new Norm().getName());
+                        highScores.printHighScores(new NormDifficult().getName());
                         startGameAgain();
                         break;
                     case 3:
-                        highScores.printHighScores(new Hard().getName());
+                        highScores.printHighScores(new HardDifficult().getName());
                         startGameAgain();
                         break;
                     case 4:

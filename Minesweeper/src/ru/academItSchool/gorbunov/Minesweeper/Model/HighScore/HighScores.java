@@ -16,13 +16,13 @@ public class HighScores implements Serializable {
         //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         switch (difficult) {
             case EASY:
-                file += "Easy.txt";
+                file += "EasyDifficult.txt";
                 break;
             case NORM:
-                file += "Norm.txt";
+                file += "NormDifficult.txt";
                 break;
             case HARD:
-                file += "Hard.txt";
+                file += "HardDifficult.txt";
                 break;
             case RAND:
                 throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");

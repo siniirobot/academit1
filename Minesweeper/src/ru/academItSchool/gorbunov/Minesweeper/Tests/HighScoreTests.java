@@ -27,12 +27,12 @@ public class HighScoreTests {
     @DataProvider(name = "AddToTable")
     public Object[][] add() {
         return new Object[][]{
-                new Object[]{"", 0, new Easy()},
-                new Object[]{"12", 1, new Easy()},
-                new Object[]{"Alex", 2, new Easy()},
-                new Object[]{"Eva", 26, new Norm()},
-                new Object[]{"Irma", 78, new Hard()},
-                new Object[]{"Cliam", 9999, new Arbitrary(9,9,20)}
+                new Object[]{"", 0, new EasyDifficult()},
+                new Object[]{"12", 1, new EasyDifficult()},
+                new Object[]{"Alex", 2, new EasyDifficult()},
+                new Object[]{"Eva", 26, new NormDifficult()},
+                new Object[]{"Irma", 78, new HardDifficult()},
+                new Object[]{"Cliam", 9999, new ArbitraryDifficult(9,9,20)}
         };
     }
 
@@ -53,10 +53,10 @@ public class HighScoreTests {
     @Test(dataProvider = "CreateDifficult")
     public void testCreate(int height, int width, int mineCount, Characters characters) {
         try {
-            Easy easy = new Easy();
-            Norm norm = new Norm();
-            Hard hard = new Hard();
-            Arbitrary arbitrary = new Arbitrary(height,width,mineCount);
+            EasyDifficult easyDifficult = new EasyDifficult();
+            NormDifficult normDifficult = new NormDifficult();
+            HardDifficult hardDifficult = new HardDifficult();
+            ArbitraryDifficult arbitraryDifficult = new ArbitraryDifficult(height,width,mineCount);
         }catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

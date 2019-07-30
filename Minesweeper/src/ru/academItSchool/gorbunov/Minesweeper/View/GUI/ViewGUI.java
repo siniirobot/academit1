@@ -18,10 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.net.URL;
-import java.util.Set;
 import java.util.Timer;
 
 import static java.awt.GridBagConstraints.*;
@@ -181,7 +178,7 @@ public class ViewGUI {
         easy.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new Easy()));
+                getNewPanel(getGameProcess(new EasyDifficult()));
             }
         });
 
@@ -189,7 +186,7 @@ public class ViewGUI {
         norm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new Norm()));
+                getNewPanel(getGameProcess(new NormDifficult()));
             }
         });
 
@@ -197,7 +194,7 @@ public class ViewGUI {
         hard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new Hard()));
+                getNewPanel(getGameProcess(new HardDifficult()));
             }
         });
 
@@ -250,7 +247,7 @@ public class ViewGUI {
 
                             String mineCount = mineCountTextField.getText();
 
-                            getNewPanel(getGameProcess(new Arbitrary(
+                            getNewPanel(getGameProcess(new ArbitraryDifficult(
                                     Integer.parseInt(height),
                                     Integer.parseInt(weight),
                                     Integer.parseInt(mineCount))));
@@ -509,9 +506,9 @@ public class ViewGUI {
         JPanel mainPanel = new JPanel();
         JTabbedPane switchDifficult = new JTabbedPane();
 
-        switchDifficult.add("Легко", getPrintHighScoreTableInPlane(new Easy()));
-        switchDifficult.add("Нормально", getPrintHighScoreTableInPlane(new Norm()));
-        switchDifficult.add("Сложно", getPrintHighScoreTableInPlane(new Hard()));
+        switchDifficult.add("Легко", getPrintHighScoreTableInPlane(new EasyDifficult()));
+        switchDifficult.add("Нормально", getPrintHighScoreTableInPlane(new NormDifficult()));
+        switchDifficult.add("Сложно", getPrintHighScoreTableInPlane(new HardDifficult()));
 
         JButton back = new JButton("Назад");
         back.addMouseListener(new MouseAdapter() {

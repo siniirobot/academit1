@@ -1,12 +1,12 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
 
-public class Easy implements Difficult {
+public class EasyDifficult implements Difficult {
     private DifficultName name;
     private int columns;
     private int rows;
     private int mines;
 
-    public Easy() {
+    public EasyDifficult() {
         this.name = DifficultName.EASY;
         this.columns = 9;
         this.rows = 9;

@@ -3,9 +3,8 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Arbitrary;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.ArbitraryDifficult;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
-import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class GameFieldTest {
 
     @Test(dataProvider = "CreateGameField")
     public void testSize(int height, int width, int mineCount) throws IOException {
-        GameField norm = new GameField(new Arbitrary(height,width,mineCount), new CharactersText());
+        GameField norm = new GameField(new ArbitraryDifficult(height,width,mineCount), new CharactersText());
 
         System.out.println(norm.openCell());
 
