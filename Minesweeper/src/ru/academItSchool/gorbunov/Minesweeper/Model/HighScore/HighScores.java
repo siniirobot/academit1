@@ -37,8 +37,13 @@ public class HighScores implements Serializable {
      * @param path имя сложности игрока
      * @return поток с открытым файлом
      */
-    public ObjectInputStream openFile(String path) throws IOException {
-        return new ObjectInputStream(new FileInputStream(path));
+    public ObjectInputStream openFile(String path) {
+        try {
+            return new ObjectInputStream(new FileInputStream(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
