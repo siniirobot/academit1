@@ -6,7 +6,6 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Model;
 import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
-import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.InputOutputMenus;
 
 import java.util.Scanner;
 

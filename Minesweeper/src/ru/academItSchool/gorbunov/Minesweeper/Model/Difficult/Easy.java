@@ -10,7 +10,7 @@ public class Easy implements Difficult {
         this.name = nameDifficult.EASY;
         this.columns = 9;
         this.rows = 9;
-        this.mines = 1;
+        this.mines = 10;
     }
 
 
