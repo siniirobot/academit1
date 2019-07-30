@@ -15,7 +15,7 @@ public class GameField {
     /**
      * Создание игрового поля по параметрам:
      *
-     * @param difficult сложность игры
+     * @param difficult  сложность игры
      * @param characters - Используемый набор символов для отображения.
      */
     public GameField(Difficult difficult, Characters characters) {
@@ -186,7 +186,7 @@ public class GameField {
             for (int j = 0; j < this.gameField[i].length; j++) {
                 stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
                 Cell cell = new Cell(2);
-                int d = (int)cell.getContent();
+                int d = (int) cell.getContent();
             }
             stringBuilder.append(System.lineSeparator());
         }

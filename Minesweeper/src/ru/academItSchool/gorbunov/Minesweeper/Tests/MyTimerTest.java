@@ -18,7 +18,7 @@ public class MyTimerTest {
     public void testGetTime() throws InterruptedException {
         MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
-        timer.schedule(myTimer,0);
+        timer.schedule(myTimer, 0);
         System.out.println(myTimer.getTime());
         Thread.sleep(5000);
         System.out.println(myTimer.getTime());

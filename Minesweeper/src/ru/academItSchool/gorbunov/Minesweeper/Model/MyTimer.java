@@ -21,9 +21,10 @@ public class MyTimer extends TimerTask {
         return time;
     }
 
-    public boolean stop(){
+    public boolean stop() {
         return stop = true;
     }
+
     @Override
     public void run() {
         for (; time <= 9999 && !stop; time++) {

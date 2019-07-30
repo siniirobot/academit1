@@ -32,19 +32,19 @@ public class HighScoreTests {
                 new Object[]{"Alex", 2, new EasyDifficult()},
                 new Object[]{"Eva", 26, new NormDifficult()},
                 new Object[]{"Irma", 78, new HardDifficult()},
-                new Object[]{"Cliam", 9999, new ArbitraryDifficult(9,9,20)}
+                new Object[]{"Cliam", 9999, new ArbitraryDifficult(9, 9, 20)}
         };
     }
 
     @Test(dataProvider = "AddToTable")
     public void testAdd(String name, int time, Difficult difficult) {
         HighScores highScore = new HighScores();
-        try{
-            highScore.confirmTime(time,difficult);
+        try {
+            highScore.confirmTime(time, difficult);
             Player player = new Player(name, time, difficult);
             highScore.add(player);
             highScore.printHighScores(player.getDifficult());
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
@@ -56,8 +56,8 @@ public class HighScoreTests {
             EasyDifficult easyDifficult = new EasyDifficult();
             NormDifficult normDifficult = new NormDifficult();
             HardDifficult hardDifficult = new HardDifficult();
-            ArbitraryDifficult arbitraryDifficult = new ArbitraryDifficult(height,width,mineCount);
-        }catch (IllegalArgumentException e) {
+            ArbitraryDifficult arbitraryDifficult = new ArbitraryDifficult(height, width, mineCount);
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

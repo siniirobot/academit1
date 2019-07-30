@@ -23,7 +23,7 @@ public class GameFieldTest {
 
     @Test(dataProvider = "CreateGameField")
     public void testSize(int height, int width, int mineCount) throws IOException {
-        GameField norm = new GameField(new ArbitraryDifficult(height,width,mineCount), new CharactersText());
+        GameField norm = new GameField(new ArbitraryDifficult(height, width, mineCount), new CharactersText());
 
         System.out.println(norm.openCell());
 
