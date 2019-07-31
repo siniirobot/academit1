@@ -11,12 +11,15 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Timer;
@@ -37,10 +40,6 @@ public class ViewGUI {
      * Создание фрейма
      */
     public void getGUI() {
-        Image icon = Toolkit.getDefaultToolkit()
-                .getImage("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/View/GUI/Resources/CharactersImage/icon.png");
-
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(
@@ -49,11 +48,12 @@ public class ViewGUI {
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
-                frame.setIconImage(icon);
+                frame.setIconImage(ImageIO.read(new File("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
+                        "/View/GUI/Resources/CharactersImage/icon.png")));
                 frame.setResizable(false);
                 frame.setVisible(true);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         });
     }
@@ -614,7 +614,7 @@ public class ViewGUI {
         String fileName = highScores.getFileName(difficult.getName());
 
         try {
-            ObjectInputStream readFile = highScores.openFile(fileName);
+            ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));
             Player[] highScoresTable = (Player[]) readFile.readObject();
 
             int highScoresRowCount = 0;

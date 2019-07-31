@@ -32,31 +32,6 @@ public class HighScores implements Serializable {
     }
 
     /**
-     * Открывает файл с пмомщью полученого ранее имя файла для сериализацмм.
-     *
-     * @param path имя сложности игрока
-     * @return поток с открытым файлом
-     */
-    public ObjectInputStream openFile(String path) {
-        try {
-            return new ObjectInputStream(new FileInputStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * Закрывет файл с сериализуемым объектом
-     *
-     * @param path имя сложности игрока
-     * @return поток с закрытием файла
-     */
-    private ObjectOutputStream closeFile(String path) throws IOException {
-        return new ObjectOutputStream(new FileOutputStream(path));
-    }
-
-    /**
      * Открывает файл ,десириализует объект из потока(В случае отсутсвия файла создает его и записывает игрока
      * первым в таблице.) Если добавляемый игрок по времени окозался хуже чем остальные игроки то выдается исключение
      * IllegalArgumentException, в противном случае идет перебор игроков до тех пор пока результат игрока не займет
@@ -69,7 +44,7 @@ public class HighScores implements Serializable {
         String fileName = getFileName(player.getDifficult());
 
         try {
-            ObjectInputStream readFile = openFile(fileName);
+            ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));
             highScores = (Player[]) readFile.readObject();
 
             for (int i = highScores.length - 1; i > 0; i--) {
@@ -92,7 +67,7 @@ public class HighScores implements Serializable {
         }
 
         try {
-            ObjectOutputStream writeFile = closeFile(fileName);
+            ObjectOutputStream writeFile = new ObjectOutputStream(new FileOutputStream(fileName));
             writeFile.writeObject(highScores);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,7 +83,7 @@ public class HighScores implements Serializable {
     public void confirmTime(int time, Difficult difficult) {
         try {
             String fileName = getFileName(difficult.getName());
-            ObjectInputStream readFile = openFile(fileName);
+            ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));
             Player[] highScores = (Player[]) readFile.readObject();
 
             if (highScores[9] != null && highScores[9].getTime() < time) {
@@ -127,7 +102,7 @@ public class HighScores implements Serializable {
         String fileName = getFileName(difficult);
 
         try {
-            ObjectInputStream readFile = openFile(fileName);
+            ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));
             Player[] highScores = (Player[]) readFile.readObject();
             StringBuilder stringBuilder = new StringBuilder();
 
