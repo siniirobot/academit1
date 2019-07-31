@@ -10,11 +10,9 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
-import java.io.IOException;
-
 public class HighScoreTests {
     @DataProvider(name = "CreateDifficult")
-    public Object[][] create() throws IOException {
+    public Object[][] create() {
         return new Object[][]{
                 new Object[]{9, 20, 15, new CharactersText()},
                 new Object[]{9, 20, 15, new CharactersImage()},

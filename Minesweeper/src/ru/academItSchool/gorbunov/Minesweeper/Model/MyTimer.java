@@ -21,8 +21,8 @@ public class MyTimer extends TimerTask {
         return time;
     }
 
-    public boolean stop() {
-        return stop = true;
+    public void stop() {
+        stop = true;
     }
 
     @Override

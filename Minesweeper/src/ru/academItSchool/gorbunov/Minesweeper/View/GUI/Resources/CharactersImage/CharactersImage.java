@@ -43,12 +43,9 @@ public class CharactersImage implements Characters {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-
     public Object[] getCharacters() {
-
         return this.characters;
     }
 }

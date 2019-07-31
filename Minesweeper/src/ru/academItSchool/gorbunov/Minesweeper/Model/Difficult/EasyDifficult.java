@@ -13,7 +13,6 @@ public class EasyDifficult implements Difficult {
         this.mines = 10;
     }
 
-
     @Override
     public int getColumnCount() {
         return columns;

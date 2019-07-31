@@ -123,7 +123,6 @@ public class Model {
                             for (Integer[] tempArray : queue) {
                                 if (Arrays.equals(tempArr, tempArray)) {
                                     contains = true;
-
                                     break;
                                 }
                             }
