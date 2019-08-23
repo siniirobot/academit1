@@ -53,6 +53,9 @@ public class Model {
                 leftClickOnCell(line, column);
                 break;
             case 2:
+                wheelClickOnCell(line,column);
+                break;
+            case 3:
                 rightClickOnCell(line, column);
         }
     }
@@ -135,6 +138,65 @@ public class Model {
                 }
             }
         }
+    }
+
+    private void wheelClickOnCell(int line, int column) {
+        Cell checkCell = gameField.getGameField()[line][column];
+        if (!checkCell.isVisible() || checkCell.getContent().equals(characters.getCharacters()[0])) {
+            return;
+        }
+
+        for (int k = -1; k <= 1; k++) {
+            if (line + k < 0) {
+                k++;
+            }
+            if (line + k == gameField.getGameField().length) {
+                continue;
+            }
+            for (int m = -1; m <= 1; m++) {
+                if (column + m < 0) {
+                    m++;
+                }
+
+                if (column + m == this.gameField.getGameField()[line].length) {
+                    continue;
+                }
+
+                if (this.gameField.getGameField()[line + k][column + m].isVisible()){
+                    continue;
+                }
+
+                if (this.gameField.getGameField()[line + k][column + m].isMine() &&
+                        !this.gameField.getGameField()[line + k][column + m].isVisible()) {
+                    return;
+                }
+            }
+        }
+
+        for (int k = -1; k <= 1; k++) {
+            if (line + k < 0) {
+                k++;
+            }
+            if (line + k == gameField.getGameField().length) {
+                continue;
+            }
+            for (int m = -1; m <= 1; m++) {
+                if (column + m < 0) {
+                    m++;
+                }
+
+                if (column + m == this.gameField.getGameField()[line].length) {
+                    continue;
+                }
+
+                if (this.gameField.getGameField()[line + k][column + m].isVisible()){
+                    continue;
+                }
+
+                this.gameField.getGameField()[line + k][column + m].setVisible(true);
+            }
+        }
+
     }
 
     /**

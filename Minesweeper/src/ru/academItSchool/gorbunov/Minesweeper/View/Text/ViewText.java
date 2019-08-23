@@ -125,6 +125,9 @@ public class ViewText {
             while (model.getGameField().getMineCount() != 0) {
                 System.out.println(inputOutputMenus.getPrintGame(model, difficult, myTimer));
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
+                while (coordinate[2] == 4){
+                    coordinate = inputOutputMenus.getCoordinate(model.getGameField());
+                }
                 model.clickMove(coordinate[0], coordinate[1], coordinate[2]);
             }
         } catch (BoomException b) {

@@ -72,10 +72,12 @@ public class TextInputOutputMenus {
         coordinate[1] = getInput(1, to, message + to) - 1;
 
         message = ("Введите 1- чтобы открыть ячейку, " + (System.lineSeparator()) +
-                "2 - чтобы пометить ячейку флагом как мину, " + (System.lineSeparator()) +
-                "2 - (повторно) чтобы пометить ячейку вопросом.");
+                "2 - чтобы проверить наличие мин" + (System.lineSeparator()) +
+                "3 - чтобы пометить ячейку флагом как мину, " + (System.lineSeparator()) +
+                "3 - (повторно) чтобы пометить ячейку вопросом."+ (System.lineSeparator()) +
+                "4 - начать ввод заново");
 
-        coordinate[2] = getInput(1, 2, message);
+        coordinate[2] = getInput(1, 4, message);
 
         return coordinate;
     }
