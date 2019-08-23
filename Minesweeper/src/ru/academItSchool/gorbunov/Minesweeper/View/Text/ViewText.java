@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Text;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
@@ -30,17 +30,17 @@ public class ViewText {
 
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
-                        EasyDifficult easyDifficult = new EasyDifficult();
+                        EasyDifficulty easyDifficult = new EasyDifficulty();
                         getGameProcess(easyDifficult);
                         startGameAgain();
                         break;
                     case 2:
-                        NormDifficult normDifficult = new NormDifficult();
+                        NormDifficulty normDifficult = new NormDifficulty();
                         getGameProcess(normDifficult);
                         startGameAgain();
                         break;
                     case 3:
-                        HardDifficult hardDifficult = new HardDifficult();
+                        HardDifficulty hardDifficult = new HardDifficulty();
                         getGameProcess(hardDifficult);
                         startGameAgain();
                         break;
@@ -55,8 +55,8 @@ public class ViewText {
                         int minesCount = inputOutputMenus.getInput(1, maxMines,
                                 "Введите количество мин от 10 до " + maxMines);
 
-                        ArbitraryDifficult arbitraryDifficult = new ArbitraryDifficult(lines, columns, minesCount);
-                        getGameProcess(arbitraryDifficult);
+                        ArbitraryDifficulty arbitraryDifficulty = new ArbitraryDifficulty(lines, columns, minesCount);
+                        getGameProcess(arbitraryDifficulty);
                         startGameAgain();
                         break;
                     case 5:
@@ -69,15 +69,15 @@ public class ViewText {
                 menuItemTo = 4;
                 switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
                     case 1:
-                        highScores.printHighScores(new EasyDifficult().getName());
+                        highScores.printHighScores(new EasyDifficulty().getName());
                         startGameAgain();
                         break;
                     case 2:
-                        highScores.printHighScores(new NormDifficult().getName());
+                        highScores.printHighScores(new NormDifficulty().getName());
                         startGameAgain();
                         break;
                     case 3:
-                        highScores.printHighScores(new HardDifficult().getName());
+                        highScores.printHighScores(new HardDifficulty().getName());
                         startGameAgain();
                         break;
                     case 4:
@@ -112,10 +112,10 @@ public class ViewText {
     /**
      * Вывод игрового поля а так же ввод координат мины
      *
-     * @param difficult сложность игры
+     * @param difficulty сложность игры
      */
-    private void getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult, characters));
+    private void getGameProcess(Difficulty difficulty) {
+        Model model = new Model(new GameField(difficulty, characters));
 
         MyTimer myTimer = new MyTimer();
         Timer timer = new Timer();
@@ -123,7 +123,7 @@ public class ViewText {
 
         try {
             while (model.getGameField().getMineCount() != 0) {
-                System.out.println(inputOutputMenus.getPrintGame(model, difficult, myTimer));
+                System.out.println(inputOutputMenus.getPrintGame(model, difficulty, myTimer));
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
                 while (coordinate[2] == 4){
                     coordinate = inputOutputMenus.getCoordinate(model.getGameField());
@@ -132,13 +132,13 @@ public class ViewText {
             }
         } catch (BoomException b) {
             System.out.println(b.getMessage());
-            inputOutputMenus.getPrintGame(model, difficult, myTimer);
+            inputOutputMenus.getPrintGame(model, difficulty, myTimer);
             myTimer.stop();
             return;
         }
         myTimer.stop();
-        if (inputOutputMenus.getHighScoreWrite(myTimer.getTime(), difficult)) {
-            highScores.printHighScores(difficult.getName());
+        if (inputOutputMenus.getHighScoreWrite(myTimer.getTime(), difficulty)) {
+            highScores.printHighScores(difficulty.getName());
         }
     }
 }

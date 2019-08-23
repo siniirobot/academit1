@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.Difficulty;
 
 import java.io.*;
 
@@ -11,18 +11,18 @@ public class HighScores implements Serializable {
      * @param difficult сложность игрока
      * @return имя файла
      */
-    public String getFileName(Difficult.DifficultName difficult) {
+    public String getFileName(Difficulty.DifficultyName difficult) {
         String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
         switch (difficult) {
             case EASY:
-                file += "EasyDifficult.txt";
+                file += "EasyDifficulty.txt";
                 break;
             case NORM:
-                file += "NormDifficult.txt";
+                file += "NormDifficulty.txt";
                 break;
             case HARD:
-                file += "HardDifficult.txt";
+                file += "HardDifficulty.txt";
                 break;
             case RAND:
                 throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");
@@ -78,11 +78,11 @@ public class HighScores implements Serializable {
      * Проверяет возможность ввода игрока в таблицу, если не подходт выбрасывает исключение.
      *
      * @param time      время игры для сравнения с худшим результатом
-     * @param difficult сложность игры в которой надо провести проверку
+     * @param difficulty сложность игры в которой надо провести проверку
      */
-    public void confirmTime(int time, Difficult difficult) {
+    public void confirmTime(int time, Difficulty difficulty) {
         try {
-            String fileName = getFileName(difficult.getName());
+            String fileName = getFileName(difficulty.getName());
             ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));
             Player[] highScores = (Player[]) readFile.readObject();
 
@@ -98,7 +98,7 @@ public class HighScores implements Serializable {
      *
      * @param difficult сложность.
      */
-    public void printHighScores(Difficult.DifficultName difficult) {
+    public void printHighScores(Difficulty.DifficultyName difficult) {
         String fileName = getFileName(difficult);
 
         try {

@@ -3,7 +3,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.ArbitraryDifficult;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.ArbitraryDifficulty;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.CharactersText.CharactersText;
 
@@ -21,7 +21,7 @@ public class GameFieldTest {
 
     @Test(dataProvider = "CreateGameField")
     public void testSize(int height, int width, int mineCount) {
-        GameField norm = new GameField(new ArbitraryDifficult(height, width, mineCount), new CharactersText());
+        GameField norm = new GameField(new ArbitraryDifficulty(height, width, mineCount), new CharactersText());
         System.out.println(norm);
     }
 }

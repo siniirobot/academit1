@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.Difficulty;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,25 +8,25 @@ import java.util.Objects;
 public class Player implements Serializable {
     private String name;
     private int time;
-    private Difficult.DifficultName difficult;
+    private Difficulty.DifficultyName difficult;
 
     /**
      * Конструктор по созданию игрока который определяет его имя, время игры, сложность.
      *
      * @param name      Имя игрока
      * @param time      Время игры игрока
-     * @param difficult Сложность для игры
+     * @param difficulty Сложность для игры
      */
-    public Player(String name, int time, Difficult difficult) {
+    public Player(String name, int time, Difficulty difficulty) {
         if (name.length() > 10) {
             throw new IllegalArgumentException("Введите имя Игрока длиной не больше 10 символов.");
         }
         this.name = name;
         this.time = time;
-        this.difficult = difficult.getName();
+        this.difficult = difficulty.getName();
     }
 
-    public Difficult.DifficultName getDifficult() {
+    public Difficulty.DifficultyName getDifficult() {
         return difficult;
     }
 

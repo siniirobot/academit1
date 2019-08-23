@@ -1,7 +1,7 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.GUI;
 
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.*;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.*;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Exceptions.BoomException;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
@@ -178,7 +178,7 @@ public class ViewGUI {
         easy.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new EasyDifficult()));
+                getNewPanel(getGameProcess(new EasyDifficulty()));
             }
         });
 
@@ -186,7 +186,7 @@ public class ViewGUI {
         norm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new NormDifficult()));
+                getNewPanel(getGameProcess(new NormDifficulty()));
             }
         });
 
@@ -194,7 +194,7 @@ public class ViewGUI {
         hard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getNewPanel(getGameProcess(new HardDifficult()));
+                getNewPanel(getGameProcess(new HardDifficulty()));
             }
         });
 
@@ -247,7 +247,7 @@ public class ViewGUI {
 
                             String mineCount = mineCountTextField.getText();
 
-                            getNewPanel(getGameProcess(new ArbitraryDifficult(
+                            getNewPanel(getGameProcess(new ArbitraryDifficulty(
                                     Integer.parseInt(height),
                                     Integer.parseInt(weight),
                                     Integer.parseInt(mineCount))));
@@ -367,11 +367,11 @@ public class ViewGUI {
     /**
      * Выводит игровое поле со всеми настройками
      *
-     * @param difficult сложность
+     * @param difficulty сложность
      * @return игровое поле
      */
-    private Container getGameProcess(Difficult difficult) {
-        Model model = new Model(new GameField(difficult, characters));
+    private Container getGameProcess(Difficulty difficulty) {
+        Model model = new Model(new GameField(difficulty, characters));
 
         JPanel mainPlane = new JPanel();
         mainPlane.setLayout(new GridBagLayout());
@@ -390,7 +390,7 @@ public class ViewGUI {
         mainPlane.add(time,
                 addComponent(gridBagConstraints, 0, 0, 1, 1));
 
-        mainPlane.add(new JLabel(difficult.getName().toString()),
+        mainPlane.add(new JLabel(difficulty.getName().toString()),
                 addComponent(gridBagConstraints, 0, 1, 1, 1));
 
         mainPlane.add(mineCount,
@@ -462,7 +462,7 @@ public class ViewGUI {
                                 mineCount.setText(((Integer) model.getPrintCountMine()).toString());
                                 if (model.getGameField().getMineCount() == 0) {
                                     myTimer.stop();
-                                    getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficult());
+                                    getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficulty());
                                 }
                             } else {
                                 model.clickMove(finalI, finalJ, 1);
@@ -506,9 +506,9 @@ public class ViewGUI {
         JPanel mainPanel = new JPanel();
         JTabbedPane switchDifficult = new JTabbedPane();
 
-        switchDifficult.add("Легко", getPrintHighScoreTableInPlane(new EasyDifficult()));
-        switchDifficult.add("Нормально", getPrintHighScoreTableInPlane(new NormDifficult()));
-        switchDifficult.add("Сложно", getPrintHighScoreTableInPlane(new HardDifficult()));
+        switchDifficult.add("Легко", getPrintHighScoreTableInPlane(new EasyDifficulty()));
+        switchDifficult.add("Нормально", getPrintHighScoreTableInPlane(new NormDifficulty()));
+        switchDifficult.add("Сложно", getPrintHighScoreTableInPlane(new HardDifficulty()));
 
         JButton back = new JButton("Назад");
         back.addMouseListener(new MouseAdapter() {
@@ -528,14 +528,14 @@ public class ViewGUI {
      * после чего выводит её.
      *
      * @param time      время игрока
-     * @param difficult сложность игры
+     * @param difficulty сложность игры
      */
-    private void getHighScoreWrite(int time, Difficult difficult) {
+    private void getHighScoreWrite(int time, Difficulty difficulty) {
         JDialog highScorePlane = new JDialog(frame, frame.getTitle(), true);
         HighScores highScores = new HighScores();
 
         try {
-            highScores.confirmTime(time, difficult);
+            highScores.confirmTime(time, difficulty);
             JDialog inputName = new JDialog(frame, frame.getTitle(), true);
 
             JLabel inputRule = new JLabel("<html>" +
@@ -551,7 +551,7 @@ public class ViewGUI {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        highScores.add(new Player(input.getText(), time, difficult));
+                        highScores.add(new Player(input.getText(), time, difficulty));
                         inputName.dispose();
 
                         JButton getMainMenu = new JButton("Ок");
@@ -568,7 +568,7 @@ public class ViewGUI {
                         GridBagConstraints gridBagConstraints = new GridBagConstraints();
                         gridBagConstraints.fill = NONE;
 
-                        highScorePlane.add(getPrintHighScoreTableInPlane(difficult),
+                        highScorePlane.add(getPrintHighScoreTableInPlane(difficulty),
                                 addComponent(gridBagConstraints, 0, 1, 3, 3));
                         highScorePlane.add(new JLabel(""),
                                 addComponent(gridBagConstraints, 4, 1, 1, 1));
@@ -605,13 +605,13 @@ public class ViewGUI {
     }
 
     /**
-     * @param difficult сложность таблицы рекордов
+     * @param difficulty сложность таблицы рекордов
      * @return возвращает панель с таблицей рекордов
      */
-    private Container getPrintHighScoreTableInPlane(Difficult difficult) {
+    private Container getPrintHighScoreTableInPlane(Difficulty difficulty) {
         JPanel highScoreTable = new JPanel();
         HighScores highScores = new HighScores();
-        String fileName = highScores.getFileName(difficult.getName());
+        String fileName = highScores.getFileName(difficulty.getName());
 
         try {
             ObjectInputStream readFile = new ObjectInputStream(new FileInputStream(fileName));

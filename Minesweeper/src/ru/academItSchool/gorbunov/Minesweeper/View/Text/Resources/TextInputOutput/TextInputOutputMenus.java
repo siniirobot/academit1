@@ -1,6 +1,6 @@
 package ru.academItSchool.gorbunov.Minesweeper.View.Text.Resources.TextInputOutput;
 
-import ru.academItSchool.gorbunov.Minesweeper.Model.Difficult.Difficult;
+import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.Difficulty;
 import ru.academItSchool.gorbunov.Minesweeper.Model.GameField.GameField;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.HighScores;
 import ru.academItSchool.gorbunov.Minesweeper.Model.HighScore.Player;
@@ -51,8 +51,8 @@ public class TextInputOutputMenus {
                 ("||////////////////////////////||") + (System.lineSeparator());
     }
 
-    public String getPrintGame(Model model, Difficult difficult, MyTimer myTimer) {
-        return "Сложность - " + difficult.getName() + System.lineSeparator() +
+    public String getPrintGame(Model model, Difficulty difficulty, MyTimer myTimer) {
+        return "Сложность - " + difficulty.getName() + System.lineSeparator() +
                 "Колличество мин - " + model.getPrintCountMine() + System.lineSeparator() +
                 "Время - " + myTimer.getTime() + System.lineSeparator() +
                 model.getGameField() + System.lineSeparator();
@@ -82,7 +82,7 @@ public class TextInputOutputMenus {
         return coordinate;
     }
 
-    public boolean getHighScoreWrite(int time, Difficult difficult) {
+    public boolean getHighScoreWrite(int time, Difficulty difficulty) {
         Scanner scanner = new Scanner(System.in);
         boolean correct = false;
         String name = "";
@@ -95,10 +95,10 @@ public class TextInputOutputMenus {
             }
         }
 
-        Player player = new Player(name, time, difficult);
+        Player player = new Player(name, time, difficulty);
         HighScores highScores = new HighScores();
         try {
-            highScores.confirmTime(time, difficult);
+            highScores.confirmTime(time, difficulty);
             highScores.add(player);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
