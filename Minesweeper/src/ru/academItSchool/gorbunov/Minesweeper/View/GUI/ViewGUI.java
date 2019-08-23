@@ -441,7 +441,7 @@ public class ViewGUI {
         for (int i = 0; i < jButtons.length; i++) {
             for (int j = 0; j < jButtons[0].length; j++) {
                 jButtons[i][j] = new JButton();
-                jButtons[i][j].setIcon((ImageIcon) new CharactersImage().getCharacters()[9]);
+                jButtons[i][j].setIcon((ImageIcon) characters.getCharacters()[9]);
                 jButtons[i][j].setBorderPainted(false);
                 jButtons[i][j].setFocusPainted(false);
                 jButtons[i][j].setContentAreaFilled(false);
@@ -485,7 +485,7 @@ public class ViewGUI {
                                     if (model.getGameField().getGameField()[i][j].isVisible()) {
                                         jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getContent());
                                     } else {
-                                        jButtons[i][j].setIcon((ImageIcon) new CharactersImage().getCharacters()[9]);
+                                        jButtons[i][j].setIcon((ImageIcon) characters.getCharacters()[9]);
                                     }
                                 }
                             }
