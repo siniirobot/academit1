@@ -22,13 +22,13 @@ public class Model {
     public Model(GameField gameField) {
         this.characters = gameField.getCharacters();
         this.gameField = gameField;
-        this.printCountMine = gameField.getMineCount();
+        this.printCountMine = gameField.getMinesCount();
     }
 
     /**
      * @return текущее колличество мин
      */
-    public int getPrintCountMine() {
+    public int getPrintCountMines() {
         return this.printCountMine;
     }
 
@@ -75,8 +75,8 @@ public class Model {
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10])) {
             gameField.getGameField()[line][column].setVisible(true);
 
-            for (Cell[] row : gameField.getGameField()) {
-                for (Cell el : row) {
+            for (Cell[] rows : gameField.getGameField()) {
+                for (Cell el : rows) {
                     if (el.isMine()) {
                         el.setVisible(true);
                         el.setContent(characters.getCharacters()[10]);
@@ -178,7 +178,7 @@ public class Model {
 
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11])) {
             gameField.getGameField()[line][column].setContent(characters.getCharacters()[12]);
-            getUpMineCount(gameField.getGameField()[line][column]);
+            getUpMinesCount(gameField.getGameField()[line][column]);
             return;
         }
 
@@ -203,7 +203,7 @@ public class Model {
 
         gameField.getGameField()[line][column].setContent(characters.getCharacters()[11]);
         gameField.getGameField()[line][column].setVisible(true);
-        getDownMineCount(gameField.getGameField()[line][column]);
+        getDownMinesCount(gameField.getGameField()[line][column]);
     }
 
     /**
@@ -211,9 +211,9 @@ public class Model {
      *
      * @param cell проверяймая ячейка
      */
-    private void getUpMineCount(Cell cell) {
+    private void getUpMinesCount(Cell cell) {
         if (cell.isMine()) {
-            gameField.setMineCount(gameField.getMineCount() + 1);
+            gameField.setMinesCount(gameField.getMinesCount() + 1);
             this.printCountMine++;
         } else {
             this.printCountMine++;
@@ -225,9 +225,9 @@ public class Model {
      *
      * @param cell проверяймая ячейка
      */
-    private void getDownMineCount(Cell cell) {
+    private void getDownMinesCount(Cell cell) {
         if (cell.isMine()) {
-            gameField.setMineCount(gameField.getMineCount() - 1);
+            gameField.setMinesCount(gameField.getMinesCount() - 1);
             this.printCountMine--;
         } else {
             this.printCountMine--;

@@ -36,7 +36,7 @@ public class ModelTest {
     @Test(dataProvider = "GetPrintCount")
     public void testGetPrintCountMine(GameField gameField, int result, int result1) {
         Model model = new Model(gameField);
-        assertEquals(model.getPrintCountMine(), result);
+        assertEquals(model.getPrintCountMines(), result);
 
         try {
             model.clickMove(1, 0, 2);
@@ -44,7 +44,7 @@ public class ModelTest {
             System.out.println(model.getGameField().toString());
         }
 
-        assertEquals(model.getPrintCountMine(), result1);
+        assertEquals(model.getPrintCountMines(), result1);
     }
 
     @Test(dataProvider = "Click")

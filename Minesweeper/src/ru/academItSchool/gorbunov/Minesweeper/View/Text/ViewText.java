@@ -122,7 +122,7 @@ public class ViewText {
         timer.schedule(myTimer, 0);
 
         try {
-            while (model.getGameField().getMineCount() != 0) {
+            while (model.getGameField().getMinesCount() != 0) {
                 System.out.println(inputOutputMenus.getPrintGame(model, difficulty, myTimer));
                 int[] coordinate = inputOutputMenus.getCoordinate(model.getGameField());
                 while (coordinate[2] == 4){

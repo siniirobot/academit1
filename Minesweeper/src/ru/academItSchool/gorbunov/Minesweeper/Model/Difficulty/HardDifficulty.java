@@ -19,7 +19,7 @@ public class HardDifficulty implements Difficulty {
     }
 
     @Override
-    public int getLineCount() {
+    public int getLinesCount() {
         return rows;
     }
 

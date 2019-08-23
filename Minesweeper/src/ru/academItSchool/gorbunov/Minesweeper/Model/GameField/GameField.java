@@ -21,7 +21,7 @@ public class GameField {
      */
     public GameField(Difficulty difficulty, Characters characters) {
         this.difficulty = difficulty;
-        this.gameField = new Cell[difficulty.getLineCount()][difficulty.getColumnsCount()];
+        this.gameField = new Cell[difficulty.getLinesCount()][difficulty.getColumnsCount()];
         this.mineCount = difficulty.getMines();
         this.characters = characters;
         fillMinesInField();
@@ -40,11 +40,11 @@ public class GameField {
         return gameField;
     }
 
-    public int getMineCount() {
+    public int getMinesCount() {
         return mineCount;
     }
 
-    public void setMineCount(int mineCount) {
+    public void setMinesCount(int mineCount) {
         this.mineCount = mineCount;
     }
 

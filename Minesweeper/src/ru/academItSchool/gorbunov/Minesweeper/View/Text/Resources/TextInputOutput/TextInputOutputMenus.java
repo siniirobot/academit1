@@ -53,7 +53,7 @@ public class TextInputOutputMenus {
 
     public String getPrintGame(Model model, Difficulty difficulty, MyTimer myTimer) {
         return "Сложность - " + difficulty.getName() + System.lineSeparator() +
-                "Колличество мин - " + model.getPrintCountMine() + System.lineSeparator() +
+                "Колличество мин - " + model.getPrintCountMines() + System.lineSeparator() +
                 "Время - " + myTimer.getTime() + System.lineSeparator() +
                 model.getGameField() + System.lineSeparator();
     }

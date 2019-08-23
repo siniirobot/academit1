@@ -382,7 +382,7 @@ public class ViewGUI {
         MyTimer myTimer = new MyTimer(time);
 
         JLabel mineCount = new JLabel();
-        mineCount.setText(((Integer) model.getPrintCountMine()).toString());
+        mineCount.setText(((Integer) model.getPrintCountMines()).toString());
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = NONE;
@@ -459,8 +459,8 @@ public class ViewGUI {
 
                             if (e.getButton() == 3) {
                                 model.clickMove(finalI, finalJ, 2);
-                                mineCount.setText(((Integer) model.getPrintCountMine()).toString());
-                                if (model.getGameField().getMineCount() == 0) {
+                                mineCount.setText(((Integer) model.getPrintCountMines()).toString());
+                                if (model.getGameField().getMinesCount() == 0) {
                                     myTimer.stop();
                                     getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficulty());
                                 }

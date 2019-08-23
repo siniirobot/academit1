@@ -32,7 +32,7 @@ public class ArbitraryDifficulty implements Difficulty {
     }
 
     @Override
-    public int getLineCount() {
+    public int getLinesCount() {
         return rows;
     }
 
