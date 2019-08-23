@@ -458,7 +458,7 @@ public class ViewGUI {
                             }
 
                             if (e.getButton() == 3) {
-                                model.clickMove(finalI, finalJ, 2);
+                                model.clickMove(finalI, finalJ, 3);
                                 mineCount.setText(((Integer) model.getPrintCountMines()).toString());
                                 if (model.getGameField().getMinesCount() == 0) {
                                     myTimer.stop();
