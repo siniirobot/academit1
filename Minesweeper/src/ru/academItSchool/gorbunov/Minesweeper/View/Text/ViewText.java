@@ -21,7 +21,7 @@ public class ViewText {
      */
     public void startGame() {
         System.out.println(inputOutputMenus.getMainMenu());
-        int menuItemTo = 3;
+        int menuItemTo = 4;
 
         switch (inputOutputMenus.getInput(1, menuItemTo, inputOutputMenus.getMenuMessage(1, menuItemTo))) {
             case 1:
@@ -85,6 +85,10 @@ public class ViewText {
                         break;
                 }
             case 3:
+                System.out.println(inputOutputMenus.getInformation());
+                startGameAgain();
+                break;
+            case 4:
                 exitGame();
         }
     }

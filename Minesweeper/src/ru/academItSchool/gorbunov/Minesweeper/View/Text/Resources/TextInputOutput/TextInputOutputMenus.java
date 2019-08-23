@@ -17,7 +17,8 @@ public class TextInputOutputMenus {
                 + ("||        САПЕР!        ||") + (System.lineSeparator())
                 + ("||1) - Начать игру.     ||") + (System.lineSeparator())
                 + ("||2) - Таблица рекордов.||") + (System.lineSeparator())
-                + ("||3) - Выход из игры.   ||") + (System.lineSeparator())
+                + ("||3) - Информация.      ||") + (System.lineSeparator())
+                + ("||4) - Выход из игры.   ||") + (System.lineSeparator())
                 + ("||//////////////////////||") + (System.lineSeparator());
     }
 
@@ -30,6 +31,17 @@ public class TextInputOutputMenus {
                 ("||4) - Произвольная сложность.||") + (System.lineSeparator()) +
                 ("||5) - Назад.                 ||") + (System.lineSeparator()) +
                 ("||////////////////////////////||") + (System.lineSeparator());
+    }
+
+    public String getInformation() {
+        return ("||//////////////////////////////||") + (System.lineSeparator()) +
+                ("||          ИНФОРМАЦИЯ          ||") + (System.lineSeparator()) +
+                ("||          Игра сапер          ||") + (System.lineSeparator()) +
+                ("||     реализована учеником     ||") + (System.lineSeparator()) +
+                ("||    школы  программировния    ||") + (System.lineSeparator()) +
+                ("||       Academ It School       ||") + (System.lineSeparator()) +
+                ("||Горбуновым Петром Алексеевичем||") + (System.lineSeparator()) +
+                ("||//////////////////////////////||") + (System.lineSeparator());
     }
 
     public String getHeightScoreMenu() {
