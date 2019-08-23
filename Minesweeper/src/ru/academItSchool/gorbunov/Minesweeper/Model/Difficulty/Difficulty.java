@@ -1,9 +1,9 @@
-package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
+package ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty;
 
 import java.io.Serializable;
 
-public interface Difficult extends Serializable {
-    enum DifficultName {
+public interface Difficulty extends Serializable {
+    enum DifficultyName {
         EASY("Легкая"),
         NORM("Нормальная"),
         HARD("Высокая"),
@@ -11,7 +11,7 @@ public interface Difficult extends Serializable {
 
         private String name;
 
-        DifficultName(String name) {
+        DifficultyName(String name) {
             this.name = name;
         }
 
@@ -21,11 +21,11 @@ public interface Difficult extends Serializable {
         }
     }
 
-    int getColumnCount();
+    int getColumnsCount();
 
     int getLineCount();
 
     int getMines();
 
-    DifficultName getName();
+    DifficultyName getName();
 }

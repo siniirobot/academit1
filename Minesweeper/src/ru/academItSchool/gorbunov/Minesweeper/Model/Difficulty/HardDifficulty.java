@@ -1,20 +1,20 @@
-package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
+package ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty;
 
-public class HardDifficult implements Difficult {
-    private DifficultName name;
+public class HardDifficulty implements Difficulty {
+    private DifficultyName name;
     private int columns;
     private int rows;
     private int mines;
 
-    public HardDifficult() {
-        this.name = DifficultName.HARD;
+    public HardDifficulty() {
+        this.name = DifficultyName.HARD;
         this.columns = 24;
         this.rows = 24;
         this.mines = 99;
     }
 
     @Override
-    public int getColumnCount() {
+    public int getColumnsCount() {
         return columns;
     }
 
@@ -29,7 +29,7 @@ public class HardDifficult implements Difficult {
     }
 
     @Override
-    public DifficultName getName() {
+    public DifficultyName getName() {
         return this.name;
     }
 }

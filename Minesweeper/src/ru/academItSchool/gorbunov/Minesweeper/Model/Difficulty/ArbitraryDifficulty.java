@@ -1,12 +1,12 @@
-package ru.academItSchool.gorbunov.Minesweeper.Model.Difficult;
+package ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty;
 
-public class ArbitraryDifficult implements Difficult {
-    private DifficultName name;
+public class ArbitraryDifficulty implements Difficulty {
+    private DifficultyName name;
     private int columns;
     private int rows;
     private int mines;
 
-    public ArbitraryDifficult(int rows, int columns, int mines) {
+    public ArbitraryDifficulty(int rows, int columns, int mines) {
         if (rows < 9 || rows > 24) {
             throw new IllegalArgumentException("Высота игрового поля должна быть не меньше 9 строк и не больше 24.");
         }
@@ -20,14 +20,14 @@ public class ArbitraryDifficult implements Difficult {
             throw new IllegalArgumentException("Колличество мин должно быть в пределах от 10 до " + maxMines);
         }
 
-        this.name = DifficultName.RAND;
+        this.name = DifficultyName.RAND;
         this.columns = columns;
         this.rows = rows;
         this.mines = mines;
     }
 
     @Override
-    public int getColumnCount() {
+    public int getColumnsCount() {
         return columns;
     }
 
@@ -42,7 +42,7 @@ public class ArbitraryDifficult implements Difficult {
     }
 
     @Override
-    public DifficultName getName() {
+    public DifficultyName getName() {
         return this.name;
     }
 }
