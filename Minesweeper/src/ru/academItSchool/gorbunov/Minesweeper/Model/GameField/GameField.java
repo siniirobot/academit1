@@ -5,6 +5,7 @@ import ru.academItSchool.gorbunov.Minesweeper.View.Cell;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class GameField {
     private Cell[][] gameField;
@@ -15,7 +16,7 @@ public class GameField {
     /**
      * Создание игрового поля по параметрам:
      *
-     * @param difficulty  сложность игры
+     * @param difficulty сложность игры
      * @param characters - Используемый набор символов для отображения.
      */
     public GameField(Difficulty difficulty, Characters characters) {
@@ -77,30 +78,31 @@ public class GameField {
                 if (this.gameField[i][j] != null) {
                     continue;
                 }
-                getCountMineInArea(i, j);
+                final int[] number = new int[]{0};
+
+                getWalkAroundCell(i, j, cell -> {
+                    if (cell.isMine()) {
+                        number[0]++;
+                    }
+                });
+                this.gameField[i][j] = new Cell(this.characters.getCharacters()[number[0]]);
             }
         }
     }
 
     /**
-     * Вычислить колличество вокруг данного квадрата.
+     * Выполняет обход вокруг клетки и выполняет действие с каждой клеткой через Consumer
      *
-     * @param line   координата
-     * @param column координата
+     * @param line     int линия
+     * @param column   int колонка
+     * @param consumer Consumer действие
      */
-    public void getCountMineInArea(int line, int column) {
-        if (this.gameField[line][column] != null && this.gameField[line][column].isMine()) {
-            this.gameField[line][column].setContent(this.characters.getCharacters()[10]);
-            return;
-        }
-
-        int number = 0;
-
+    public void getWalkAroundCell(int line, int column, Consumer<Cell> consumer) {
         for (int k = -1; k <= 1; k++) {
             if (line + k < 0) {
                 k++;
             }
-            if (line + k == this.gameField.length) {
+            if (line + k == gameField.length) {
                 continue;
             }
             for (int m = -1; m <= 1; m++) {
@@ -112,12 +114,13 @@ public class GameField {
                     continue;
                 }
 
-                if (this.gameField[line + k][column + m] != null && this.gameField[line + k][column + m].isMine()) {
-                    number++;
+                if (this.gameField[line + k][column + m] == null || this.gameField[line + k][column + m].isVisible()) {
+                    continue;
                 }
+
+                consumer.accept(this.gameField[line + k][column + m]);
             }
         }
-        this.gameField[line][column] = new Cell(this.characters.getCharacters()[number]);
     }
 
     @Override

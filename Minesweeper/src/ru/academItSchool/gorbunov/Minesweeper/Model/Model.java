@@ -53,7 +53,7 @@ public class Model {
                 leftClickOnCell(line, column);
                 break;
             case 2:
-                wheelClickOnCell(line,column);
+                wheelClickOnCell(line, column);
                 break;
             case 3:
                 rightClickOnCell(line, column);
@@ -146,57 +146,19 @@ public class Model {
             return;
         }
 
-        for (int k = -1; k <= 1; k++) {
-            if (line + k < 0) {
-                k++;
-            }
-            if (line + k == gameField.getGameField().length) {
-                continue;
-            }
-            for (int m = -1; m <= 1; m++) {
-                if (column + m < 0) {
-                    m++;
-                }
+        final boolean[] needExit = {false};
 
-                if (column + m == this.gameField.getGameField()[line].length) {
-                    continue;
-                }
-
-                if (this.gameField.getGameField()[line + k][column + m].isVisible()){
-                    continue;
-                }
-
-                if (this.gameField.getGameField()[line + k][column + m].isMine() &&
-                        !this.gameField.getGameField()[line + k][column + m].isVisible()) {
-                    return;
-                }
+        gameField.getWalkAroundCell(line, column, cell -> {
+            if (cell.isMine() && !cell.isVisible()) {
+                needExit[0] = true;
             }
+        });
+
+        if (needExit[0]) {
+            return;
         }
 
-        for (int k = -1; k <= 1; k++) {
-            if (line + k < 0) {
-                k++;
-            }
-            if (line + k == gameField.getGameField().length) {
-                continue;
-            }
-            for (int m = -1; m <= 1; m++) {
-                if (column + m < 0) {
-                    m++;
-                }
-
-                if (column + m == this.gameField.getGameField()[line].length) {
-                    continue;
-                }
-
-                if (this.gameField.getGameField()[line + k][column + m].isVisible()){
-                    continue;
-                }
-
-                this.gameField.getGameField()[line + k][column + m].setVisible(true);
-            }
-        }
-
+        gameField.getWalkAroundCell(line, column, cell -> cell.setVisible(true));
     }
 
     /**
@@ -221,7 +183,20 @@ public class Model {
         }
 
         if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12])) {
-            gameField.getCountMineInArea(line, column);
+            if (this.gameField.getGameField()[line][column].isMine()) {
+                this.gameField.getGameField()[line][column].setContent(this.characters.getCharacters()[10]);
+                gameField.getGameField()[line][column].setVisible(false);
+                return;
+            }
+
+            final int[] number = new int[]{0};
+            gameField.getWalkAroundCell(line, column, cell -> {
+                if (cell.isMine()) {
+                    number[0]++;
+                }
+            });
+
+            this.gameField.getGameField()[line][column] = new Cell(this.characters.getCharacters()[number[0]]);
             gameField.getGameField()[line][column].setVisible(false);
             return;
         }
