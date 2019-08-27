@@ -10,7 +10,7 @@ public class EasyDifficulty implements Difficulty {
         this.name = DifficultyName.EASY;
         this.columns = 9;
         this.rows = 9;
-        this.mines = 1;
+        this.mines = 10;
     }
 
     @Override

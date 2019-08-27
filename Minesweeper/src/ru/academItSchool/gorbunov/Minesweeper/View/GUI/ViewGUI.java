@@ -11,14 +11,12 @@ import ru.academItSchool.gorbunov.Minesweeper.Model.MyTimer;
 import ru.academItSchool.gorbunov.Minesweeper.View.GUI.Resources.CharactersImage.CharactersImage;
 import ru.academItSchool.gorbunov.Minesweeper.View.Interfaces.Characters;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,9 +46,10 @@ public class ViewGUI {
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
-                frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Resources/CharactersImage/icon.png")));
-                /*frame.setIconImage(ImageIO.read(new File("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/View/GUI/Resources/CharactersImage/icon.png")));*/
+                frame.setIconImage(Toolkit
+                        .getDefaultToolkit()
+                        .getImage(getClass()
+                                .getResource("Resources/CharactersImage/icon.png")));
                 frame.setResizable(false);
                 frame.setVisible(true);
             } catch (Exception e) {
@@ -85,7 +84,7 @@ public class ViewGUI {
         JButton startGame = new JButton("Начать игру");
         startGame.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getSettingMenu());
             }
         });
@@ -93,7 +92,7 @@ public class ViewGUI {
         JButton heightScoreMenu = new JButton("Таблица рекордов");
         heightScoreMenu.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getHeightScoreMenu());
             }
         });
@@ -101,7 +100,7 @@ public class ViewGUI {
         JButton about = new JButton("Информация");
         about.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 JLabel aboutText = new JLabel("<html>" +
                         "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
                         "<p style=\"text-align:center;margin-bottom: 1px;\">скопирована учеником курсов Academ It School</p>" +
@@ -113,7 +112,7 @@ public class ViewGUI {
                 JButton confirm = new JButton("Ок");
                 confirm.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mousePressed(MouseEvent e) {
                         getNewPanel(getMainMenu());
                         aboutPanel.dispose();
                     }
@@ -140,7 +139,7 @@ public class ViewGUI {
         JButton exit = new JButton("Выход из игры");
         exit.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 System.exit(0);
             }
         });
@@ -178,7 +177,7 @@ public class ViewGUI {
         JButton easy = new JButton("Легкая");
         easy.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getGameProcess(new EasyDifficulty()));
             }
         });
@@ -186,7 +185,7 @@ public class ViewGUI {
         JButton norm = new JButton("Нормальная");
         norm.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getGameProcess(new NormDifficulty()));
             }
         });
@@ -194,7 +193,7 @@ public class ViewGUI {
         JButton hard = new JButton("Тяжелая");
         hard.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getGameProcess(new HardDifficulty()));
             }
         });
@@ -202,7 +201,7 @@ public class ViewGUI {
         JButton arbitrary = new JButton("Произвольная");
         arbitrary.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 JLabel height = new JLabel(
                         "<html>" +
                                 "<p style=\"text-align:center;margin-bottom: 1px;\"> Введите высоту</p>" +
@@ -240,7 +239,7 @@ public class ViewGUI {
                 JButton input = new JButton("Ок");
                 input.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mousePressed(MouseEvent e) {
                         try {
                             String height = heightTextField.getText();
 
@@ -288,7 +287,7 @@ public class ViewGUI {
         JButton back = new JButton("Назад");
         back.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getMainMenu());
             }
         });
@@ -451,7 +450,7 @@ public class ViewGUI {
                 int finalJ = j;
                 jButtons[i][j].addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mousePressed(MouseEvent e) {
                         try {
                             if (!firstClick[0]) {
                                 firstClick[0] = true;
@@ -514,7 +513,7 @@ public class ViewGUI {
         JButton back = new JButton("Назад");
         back.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 getNewPanel(getMainMenu());
             }
         });
@@ -528,7 +527,7 @@ public class ViewGUI {
      * Если лучше последнего результата,выводит окно с записью имени игрока и делает запись в таблицу рекордов
      * после чего выводит её.
      *
-     * @param time      время игрока
+     * @param time       время игрока
      * @param difficulty сложность игры
      */
     private void getHighScoreWrite(int time, Difficulty difficulty) {
@@ -550,7 +549,7 @@ public class ViewGUI {
 
             confirm.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mousePressed(MouseEvent e) {
                     try {
                         highScores.add(new Player(input.getText(), time, difficulty));
                         inputName.dispose();
@@ -558,7 +557,7 @@ public class ViewGUI {
                         JButton getMainMenu = new JButton("Ок");
                         getMainMenu.addMouseListener(new MouseAdapter() {
                             @Override
-                            public void mouseClicked(MouseEvent e) {
+                            public void mousePressed(MouseEvent e) {
                                 highScorePlane.dispose();
                                 getNewPanel(getMainMenu());
                             }

@@ -3,7 +3,9 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.Difficulty;
 
 import java.io.*;
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HighScores implements Serializable {
     /**
@@ -17,9 +19,10 @@ public class HighScores implements Serializable {
         if (path.isEmpty()) {
             path = System.getProperty("user.home");
         }
-        File newDir = new File(path, ".Minesweeper").getAbsoluteFile();
-        newDir.mkdir();
-        path = newDir.getPath();
+        File makeDir = new File(path, ".Minesweeper").getAbsoluteFile();
+
+        makeDir.mkdir();
+        path = makeDir.getAbsolutePath();
 
         switch (difficult) {
             case EASY:
