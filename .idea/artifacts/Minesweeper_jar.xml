@@ -1,18 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="Minesweeper:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Minesweeper_jar</output-path>
-    <properties id="ant-postprocessing">
-      <options enabled="true" />
-    </properties>
-    <properties id="ant-preprocessing">
-      <options enabled="true" />
-    </properties>
     <root id="archive" name="Minesweeper.jar">
       <element id="module-output" name="Minesweeper" />
-      <element id="module-output" name="Temperatures" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../plugins/testng/lib/testng.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../plugins/testng/lib/jcommander.jar" path-in-jar="/" />
-      <element id="file-copy" path="$PROJECT_DIR$/../plugins/testng/lib/jcommander.jar" />
     </root>
   </artifact>
 </component>

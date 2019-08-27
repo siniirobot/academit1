@@ -3,6 +3,7 @@ package ru.academItSchool.gorbunov.Minesweeper.Model.HighScore;
 import ru.academItSchool.gorbunov.Minesweeper.Model.Difficulty.Difficulty;
 
 import java.io.*;
+import java.net.URL;
 
 public class HighScores implements Serializable {
     /**
@@ -12,23 +13,29 @@ public class HighScores implements Serializable {
      * @return имя файла
      */
     public String getFileName(Difficulty.DifficultyName difficult) {
-        String file = "Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
-        //String file = "src/ru/academItSchool/gorbunov/Minesweeper/Model/HighScore/";
+        String path = System.getenv("APPDATA");
+        if (path.isEmpty()) {
+            path = System.getProperty("user.home");
+        }
+        File newDir = new File(path, ".Minesweeper").getAbsoluteFile();
+        newDir.mkdir();
+        path = newDir.getPath();
+
         switch (difficult) {
             case EASY:
-                file += "EasyDifficulty.txt";
+                path += "\\Easy.txt";
                 break;
             case NORM:
-                file += "NormDifficulty.txt";
+                path += "\\Norm.txt";
                 break;
             case HARD:
-                file += "HardDifficulty.txt";
+                path += "\\Hard.txt";
                 break;
             case RAND:
                 throw new IllegalArgumentException("Нет таблицы рекордов для произвольной сложности.");
         }
 
-        return file;
+        return path;
     }
 
     /**
@@ -39,6 +46,7 @@ public class HighScores implements Serializable {
      *
      * @param player Игрок
      */
+
     public void add(Player player) {
         Player[] highScores = new Player[10];
         String fileName = getFileName(player.getDifficult());
@@ -77,7 +85,7 @@ public class HighScores implements Serializable {
     /**
      * Проверяет возможность ввода игрока в таблицу, если не подходт выбрасывает исключение.
      *
-     * @param time      время игры для сравнения с худшим результатом
+     * @param time       время игры для сравнения с худшим результатом
      * @param difficulty сложность игры в которой надо провести проверку
      */
     public void confirmTime(int time, Difficulty difficulty) {

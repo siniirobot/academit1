@@ -48,8 +48,9 @@ public class ViewGUI {
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLocationRelativeTo(null);
-                frame.setIconImage(ImageIO.read(new File("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
-                        "/View/GUI/Resources/CharactersImage/icon.png")));
+                frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Resources/CharactersImage/icon.png")));
+                /*frame.setIconImage(ImageIO.read(new File("Minesweeper/src/ru/academItSchool/gorbunov/Minesweeper" +
+                        "/View/GUI/Resources/CharactersImage/icon.png")));*/
                 frame.setResizable(false);
                 frame.setVisible(true);
             } catch (Exception e) {
