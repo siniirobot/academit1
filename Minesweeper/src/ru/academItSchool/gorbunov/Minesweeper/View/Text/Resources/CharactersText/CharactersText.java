@@ -21,7 +21,6 @@ public class CharactersText implements Characters {
                 ('\u06e9'),
                 ('\u003f'),
         };
-
     }
 
     public Object[] getCharacters() {

@@ -103,13 +103,13 @@ public class ViewGUI {
             public void mousePressed(MouseEvent e) {
                 JLabel aboutText = new JLabel(
                         "<html>" +
-                        "<h1 style=\"text-align:center;margin-bottom: 1px;\"> Информация</h1>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">реализована учеником</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">школы программирования</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">Academ It School</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">Горбуновым Петром Алексеевичем</p><br>" +
-                        "<html>");
+                                "<h1 style=\"text-align:center;margin-bottom: 1px;\"> Информация</h1>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\">реализована учеником</p>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\">школы программирования</p>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\">Academ It School</p>" +
+                                "<p style=\"text-align:center;margin-bottom: 1px;\">Горбуновым Петром Алексеевичем</p><br>" +
+                                "<html>");
                 JDialog aboutPanel = new JDialog(frame, frame.getTitle(), true);
 
                 JButton confirm = new JButton("Ок");

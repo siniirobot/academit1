@@ -110,7 +110,6 @@ public class Model {
                             j++;
                         }
 
-
                         if (j + tempColumn == gameField.getGameField()[i + tempLine].length) {
                             continue;
                         }
@@ -163,14 +162,17 @@ public class Model {
         gameField.getWalkAroundCell(line, column, cell -> {
             if (cell.getRealContent() != characters.getCharacters()[10]) {
                 cell.setVisibleContent(cell.getRealContent());
+
                 if (cell.getRealContent().equals(characters.getCharacters()[0])) {
                     final Queue<Cell> queue = new LinkedList<>();
                     queue.add(cell);
+
                     while (!queue.isEmpty()) {
                         Cell cellFromQueue = queue.remove();
                         gameField.getWalkAroundCell(cellFromQueue.getLine(), cellFromQueue.getColumn(), tempCell -> {
                             if (tempCell.getRealContent() != characters.getCharacters()[10]) {
                                 tempCell.setVisibleContent(tempCell.getRealContent());
+
                                 if (tempCell.getRealContent().equals(characters.getCharacters()[0])) {
                                     queue.add(tempCell);
                                 }

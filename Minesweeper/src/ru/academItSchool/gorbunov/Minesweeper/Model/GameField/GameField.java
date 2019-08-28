@@ -62,7 +62,7 @@ public class GameField {
                     continue;
                 }
 
-                this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10], characters,j,randomPlace);
+                this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10], characters, j, randomPlace);
                 this.gameField[j][randomPlace].setMine();
                 i--;
             }
@@ -85,7 +85,7 @@ public class GameField {
                         number[0]++;
                     }
                 });
-                this.gameField[i][j] = new Cell(this.characters.getCharacters()[number[0]], characters,i,j);
+                this.gameField[i][j] = new Cell(this.characters.getCharacters()[number[0]], characters, i, j);
             }
         }
     }

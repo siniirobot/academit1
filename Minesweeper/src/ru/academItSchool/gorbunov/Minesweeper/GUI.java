@@ -4,7 +4,7 @@ import ru.academItSchool.gorbunov.Minesweeper.View.GUI.ViewGUI;
 
 public class GUI {
     public static void main(String[] args) {
-       ViewGUI viewGUI = new ViewGUI();
+        ViewGUI viewGUI = new ViewGUI();
         viewGUI.getGUI();
     }
 }
