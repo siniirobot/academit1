@@ -387,10 +387,20 @@ public class ViewGUI {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = NONE;
 
+        JButton getMainMenu = new JButton("<html>" +
+                "<p style=\"text-align:center;margin-bottom: 1px;\"> Главное</p>" +
+                "<p style=\"text-align:center;margin-bottom: 1px;\">меню</p><html>");
+        getMainMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                getNewPanel(getMainMenu());
+            }
+        });
+
         mainPlane.add(time,
                 addComponent(gridBagConstraints, 0, 0, 1, 1));
 
-        mainPlane.add(new JLabel(difficulty.getName().toString()),
+        mainPlane.add(getMainMenu,
                 addComponent(gridBagConstraints, 0, 1, 1, 1));
 
         mainPlane.add(mineCount,
@@ -464,29 +474,22 @@ public class ViewGUI {
                                     myTimer.stop();
                                     getHighScoreWrite(myTimer.getTime(), model.getGameField().getDifficulty());
                                 }
-                            } else {
+                            } else if (e.getButton() == MouseEvent.BUTTON1) {
                                 model.clickMove(finalI, finalJ, 1);
+                            } else {
+                                model.clickMove(finalI, finalJ, 2);
                             }
 
                         } catch (BoomException boomException) {
-                            for (int i = 0; i < jButtons.length; i++) {
-                                for (int j = 0; j < jButtons[0].length; j++) {
-                                    if (model.getGameField().getGameField()[i][j].isVisible()) {
-                                        jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getContent());
-                                    }
-                                }
-                            }
+
                             JOptionPane.showMessageDialog(null, boomException.getMessage());
 
                             getNewPanel(getMainMenu());
                         } finally {
                             for (int i = 0; i < jButtons.length; i++) {
                                 for (int j = 0; j < jButtons[0].length; j++) {
-                                    if (model.getGameField().getGameField()[i][j].isVisible()) {
-                                        jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getContent());
-                                    } else {
-                                        jButtons[i][j].setIcon((ImageIcon) characters.getCharacters()[9]);
-                                    }
+                                    jButtons[i][j].setIcon((ImageIcon) model.getGameField().getGameField()[i][j].getVisibleContent());
+
                                 }
                             }
                         }

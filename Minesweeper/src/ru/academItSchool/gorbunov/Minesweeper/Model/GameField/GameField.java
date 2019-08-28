@@ -55,14 +55,14 @@ public class GameField {
         Random rnd = new Random(System.currentTimeMillis());
         int i = this.mineCount;
         while (i != 0) {
-            for (int j = 0; i != 0; j = rnd.nextInt(this.gameField.length)) {
+            for (int j = rnd.nextInt(this.gameField.length); i != 0; j = rnd.nextInt(this.gameField.length)) {
                 int randomPlace = rnd.nextInt(this.gameField[j].length);
 
                 if (this.gameField[j][randomPlace] != null) {
                     continue;
                 }
 
-                this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10]);
+                this.gameField[j][randomPlace] = new Cell(this.characters.getCharacters()[10], characters,j,randomPlace);
                 this.gameField[j][randomPlace].setMine();
                 i--;
             }
@@ -85,7 +85,7 @@ public class GameField {
                         number[0]++;
                     }
                 });
-                this.gameField[i][j] = new Cell(this.characters.getCharacters()[number[0]]);
+                this.gameField[i][j] = new Cell(this.characters.getCharacters()[number[0]], characters,i,j);
             }
         }
     }
@@ -113,12 +113,13 @@ public class GameField {
                 if (column + m == this.gameField[line].length) {
                     continue;
                 }
+                Cell tempCell = this.gameField[line + k][column + m];
 
-                if (this.gameField[line + k][column + m] == null || this.gameField[line + k][column + m].isVisible()) {
+                if (tempCell == null || tempCell.getVisibleContent() == tempCell.getRealContent()) {
                     continue;
                 }
 
-                consumer.accept(this.gameField[line + k][column + m]);
+                consumer.accept(tempCell);
             }
         }
     }
@@ -148,11 +149,7 @@ public class GameField {
             stringBuilder.append(space).append(String.format("%2d|", i + 1));
 
             for (int j = 0; j < this.gameField[i].length; j++) {
-                if (this.gameField[i][j].isVisible()) {
-                    stringBuilder.append(String.format("%2s|", this.gameField[i][j].getContent()));
-                } else {
-                    stringBuilder.append(String.format("%2s|", characters.getCharacters()[9]));
-                }
+                stringBuilder.append(String.format("%2s|", this.gameField[i][j].getVisibleContent()));
             }
             stringBuilder.append(System.lineSeparator());
         }

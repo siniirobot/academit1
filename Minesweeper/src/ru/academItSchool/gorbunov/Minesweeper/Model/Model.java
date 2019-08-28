@@ -68,25 +68,25 @@ public class Model {
      * @throws BoomException - происходит взрыв и конец игры.
      */
     private void leftClickOnCell(int line, int column) throws BoomException {
-        if (gameField.getGameField()[line][column].isVisible()) {
+        Cell cell = gameField.getGameField()[line][column];
+        if (cell.getRealContent() == cell.getVisibleContent()) {
             return;
         }
 
-        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[10])) {
-            gameField.getGameField()[line][column].setVisible(true);
+        if (cell.getRealContent().equals(characters.getCharacters()[10])) {
+            cell.setVisibleContent(cell.getRealContent());
 
             for (Cell[] rows : gameField.getGameField()) {
                 for (Cell el : rows) {
                     if (el.isMine()) {
-                        el.setVisible(true);
-                        el.setContent(characters.getCharacters()[10]);
+                        el.setRealContent(characters.getCharacters()[10]);
                     }
                 }
             }
 
             throw new BoomException("Вы взорвали себя.");
-        } else if (!gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[0])) {
-            gameField.getGameField()[line][column].setVisible(true);
+        } else if (!cell.getRealContent().equals(characters.getCharacters()[0])) {
+            cell.setVisibleContent(cell.getRealContent());
         } else {
             Queue<Integer[]> queue = new LinkedList<>();
             queue.add(new Integer[]{line, column});
@@ -110,19 +110,20 @@ public class Model {
                             j++;
                         }
 
+
                         if (j + tempColumn == gameField.getGameField()[i + tempLine].length) {
                             continue;
                         }
+                        Cell tempCell = gameField.getGameField()[i + tempLine][j + tempColumn];
 
-                        if (!gameField.getGameField()[i + tempLine][j + tempColumn].getContent().equals(
-                                characters.getCharacters()[0]) || (i == 0 && j == 0)) {
-                            gameField.getGameField()[i + tempLine][j + tempColumn].setVisible(true);
+                        if (!tempCell.getRealContent().equals(characters.getCharacters()[0]) || (i == 0 && j == 0)) {
+                            tempCell.setVisibleContent(tempCell.getRealContent());
                             continue;
                         }
                         Integer[] tempArr = new Integer[]{i + tempLine, j + tempColumn};
                         boolean contains = false;
 
-                        if (!gameField.getGameField()[i + tempLine][j + tempColumn].isVisible()) {
+                        if (tempCell.getVisibleContent() != tempCell.getRealContent()) {
                             for (Integer[] tempArray : queue) {
                                 if (Arrays.equals(tempArr, tempArray)) {
                                     contains = true;
@@ -142,14 +143,15 @@ public class Model {
 
     private void wheelClickOnCell(int line, int column) {
         Cell checkCell = gameField.getGameField()[line][column];
-        if (!checkCell.isVisible() || checkCell.getContent().equals(characters.getCharacters()[0])) {
+        if (checkCell.getVisibleContent() != checkCell.getRealContent() ||
+                checkCell.getRealContent().equals(characters.getCharacters()[0])) {
             return;
         }
 
         final boolean[] needExit = {false};
 
         gameField.getWalkAroundCell(line, column, cell -> {
-            if (cell.isMine() && !cell.isVisible()) {
+            if (cell.isMine() && cell.getVisibleContent().equals(characters.getCharacters()[9])) {
                 needExit[0] = true;
             }
         });
@@ -158,7 +160,26 @@ public class Model {
             return;
         }
 
-        gameField.getWalkAroundCell(line, column, cell -> cell.setVisible(true));
+        gameField.getWalkAroundCell(line, column, cell -> {
+            if (cell.getRealContent() != characters.getCharacters()[10]) {
+                cell.setVisibleContent(cell.getRealContent());
+                if (cell.getRealContent().equals(characters.getCharacters()[0])) {
+                    final Queue<Cell> queue = new LinkedList<>();
+                    queue.add(cell);
+                    while (!queue.isEmpty()) {
+                        Cell cellFromQueue = queue.remove();
+                        gameField.getWalkAroundCell(cellFromQueue.getLine(), cellFromQueue.getColumn(), tempCell -> {
+                            if (tempCell.getRealContent() != characters.getCharacters()[10]) {
+                                tempCell.setVisibleContent(tempCell.getRealContent());
+                                if (tempCell.getRealContent().equals(characters.getCharacters()[0])) {
+                                    queue.add(tempCell);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -170,40 +191,26 @@ public class Model {
      * @param column - колонка на которую нажали.
      */
     private void rightClickOnCell(int line, int column) {
-        if (gameField.getGameField()[line][column].isVisible() &&
-                !(gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11]) ||
-                        gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12]))) {
+        Cell cell = gameField.getGameField()[line][column];
+        if (cell.getVisibleContent() == cell.getRealContent() &&
+                !(cell.getRealContent().equals(characters.getCharacters()[11]) ||
+                        cell.getRealContent().equals(characters.getCharacters()[12]))) {
             return;
         }
 
-        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[11])) {
-            gameField.getGameField()[line][column].setContent(characters.getCharacters()[12]);
-            getUpMinesCount(gameField.getGameField()[line][column]);
+        if (cell.getVisibleContent().equals(characters.getCharacters()[11])) {
+            cell.setVisibleContent(characters.getCharacters()[12]);
+            getUpMinesCount(cell);
             return;
         }
 
-        if (gameField.getGameField()[line][column].getContent().equals(characters.getCharacters()[12])) {
-            if (this.gameField.getGameField()[line][column].isMine()) {
-                this.gameField.getGameField()[line][column].setContent(this.characters.getCharacters()[10]);
-                gameField.getGameField()[line][column].setVisible(false);
-                return;
-            }
-
-            final int[] number = new int[]{0};
-            gameField.getWalkAroundCell(line, column, cell -> {
-                if (cell.isMine()) {
-                    number[0]++;
-                }
-            });
-
-            this.gameField.getGameField()[line][column] = new Cell(this.characters.getCharacters()[number[0]]);
-            gameField.getGameField()[line][column].setVisible(false);
+        if (cell.getVisibleContent().equals(characters.getCharacters()[12])) {
+            cell.setVisibleContent(characters.getCharacters()[9]);
             return;
         }
 
-        gameField.getGameField()[line][column].setContent(characters.getCharacters()[11]);
-        gameField.getGameField()[line][column].setVisible(true);
-        getDownMinesCount(gameField.getGameField()[line][column]);
+        cell.setVisibleContent(characters.getCharacters()[11]);
+        getDownMinesCount(cell);
     }
 
     /**
