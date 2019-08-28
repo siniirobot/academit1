@@ -102,11 +102,13 @@ public class ViewGUI {
             @Override
             public void mousePressed(MouseEvent e) {
                 JLabel aboutText = new JLabel("<html>" +
+                        "<h1 style=\"text-align:center;margin-bottom: 1px;\"> Информация</h1>" +
                         "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">скопирована учеником курсов Academ It School</p>" +
-                        "<p style=\"text-align:center;margin-bottom: 1px;\">версия 0.1</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">реализована учеником</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">школы программирования</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">Academ It School</p>" +
+                        "<p style=\"text-align:center;margin-bottom: 1px;\">Горбуновым Петром Алексеевичем</p><br>" +
                         "<html>");
-
                 JDialog aboutPanel = new JDialog(frame, frame.getTitle(), true);
 
                 JButton confirm = new JButton("Ок");
@@ -123,10 +125,11 @@ public class ViewGUI {
                 gridBagConstraints.fill = NONE;
 
                 aboutPanel.add(aboutText, addComponent(gridBagConstraints, 1, 1, 3, 3));
-                aboutPanel.add(confirm, addComponent(gridBagConstraints, 5, 1, 1, 1));
+                aboutPanel.add(confirm, addComponent(gridBagConstraints, 4, 1, 1, 1));
 
-                aboutPanel.setPreferredSize(new Dimension(300, 120));
+                aboutPanel.setPreferredSize(new Dimension(250, 230));
                 aboutPanel.pack();
+                aboutPanel.setResizable(false);
                 aboutPanel.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 aboutPanel.setLocationRelativeTo(frame);
                 aboutPanel.setVisible(true);
