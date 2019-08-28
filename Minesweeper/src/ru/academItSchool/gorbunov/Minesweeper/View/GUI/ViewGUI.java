@@ -101,7 +101,8 @@ public class ViewGUI {
         about.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                JLabel aboutText = new JLabel("<html>" +
+                JLabel aboutText = new JLabel(
+                        "<html>" +
                         "<h1 style=\"text-align:center;margin-bottom: 1px;\"> Информация</h1>" +
                         "<p style=\"text-align:center;margin-bottom: 1px;\"> Игра сапер</p>" +
                         "<p style=\"text-align:center;margin-bottom: 1px;\">реализована учеником</p>" +
